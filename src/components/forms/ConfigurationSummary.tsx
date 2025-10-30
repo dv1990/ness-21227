@@ -9,6 +9,7 @@ interface ConfigurationSummaryProps {
   hasSolar: string;
   selectedAppliances: string[];
   appliances: Appliance[];
+  backupDuration?: number;
 }
 
 export const ConfigurationSummary: React.FC<ConfigurationSummaryProps> = ({
@@ -16,7 +17,8 @@ export const ConfigurationSummary: React.FC<ConfigurationSummaryProps> = ({
   homeSize,
   hasSolar,
   selectedAppliances,
-  appliances
+  appliances,
+  backupDuration = 8
 }) => {
   const totalWatts = selectedAppliances.reduce((sum, appId) => {
     const appliance = appliances.find(a => a.id === appId);
@@ -73,6 +75,16 @@ export const ConfigurationSummary: React.FC<ConfigurationSummaryProps> = ({
               Total Load
             </span>
             <span className="font-medium">{totalWatts}W</span>
+          </div>
+
+          <div className="flex items-center justify-between text-sm">
+            <span className="flex items-center gap-2 text-muted-foreground">
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Backup Duration
+            </span>
+            <span className="font-medium">{backupDuration} hours</span>
           </div>
         </div>
 

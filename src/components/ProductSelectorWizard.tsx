@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { ArrowRight, ArrowLeft, Check, Home, Sun } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, Home, Sun, Edit, Zap, Battery, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 
 
 // Import types and config
-import type { Product } from '@/types/product';
+import type { Product, Appliance } from '@/types/product';
 import { PRODUCTS, COMMON_APPLIANCES, HOME_SIZES, SOLAR_STATUS } from '@/config/products';
 import { quoteRequestSchema } from '@/lib/validation';
 
@@ -20,6 +20,7 @@ import { ConfigurationSummary } from './forms/ConfigurationSummary';
 import { QuoteContactForm } from './forms/QuoteContactForm';
 
 const STEP_LABELS = ['Choose Product', 'Size Your Battery', 'Contact Details'];
+const STORAGE_KEY = 'ness-wizard-progress';
 
 export const ProductSelectorWizard: React.FC = () => {
   const { toast } = useToast();
@@ -31,6 +32,8 @@ export const ProductSelectorWizard: React.FC = () => {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
+  const [customAppliances, setCustomAppliances] = useState<Appliance[]>([]);
+  const [backupDuration, setBackupDuration] = useState<number>(8);
   
   const [formData, setFormData] = useState({
     name: '',
@@ -41,18 +44,93 @@ export const ProductSelectorWizard: React.FC = () => {
     message: ''
   });
 
-  // Calculate recommended product based on appliances
-  const calculateRecommendation = (): Product => {
+  // Load saved progress on mount
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.timestamp && Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+          setStep(parsed.step || 1);
+          setSelectedProduct(parsed.selectedProduct || null);
+          setSelectedAppliances(parsed.selectedAppliances || []);
+          setHomeSize(parsed.homeSize || '');
+          setHasSolar(parsed.hasSolar || '');
+          setBackupDuration(parsed.backupDuration || 8);
+          setCustomAppliances(parsed.customAppliances || []);
+        }
+      } catch (e) {
+        console.error('Failed to load saved progress:', e);
+      }
+    }
+  }, []);
+
+  // Save progress whenever state changes
+  useEffect(() => {
+    const saveData = {
+      step,
+      selectedProduct,
+      selectedAppliances,
+      homeSize,
+      hasSolar,
+      backupDuration,
+      customAppliances,
+      timestamp: Date.now()
+    };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
+  }, [step, selectedProduct, selectedAppliances, homeSize, hasSolar, backupDuration, customAppliances]);
+
+  // Smart defaults based on home size
+  useEffect(() => {
+    if (homeSize && selectedAppliances.length === 0) {
+      const defaults: Record<string, string[]> = {
+        '1-2 BHK': ['fridge', 'wifi', 'fan', 'lights'],
+        '2-3 BHK': ['fridge', 'wifi', 'fan', 'lights', 'tv'],
+        '3-4 BHK': ['ac', 'fridge', 'wifi', 'fan', 'lights', 'tv'],
+        '4+ BHK / Villa': ['ac', 'fridge', 'wifi', 'fan', 'lights', 'tv']
+      };
+      const suggested = defaults[homeSize] || [];
+      setSelectedAppliances(suggested);
+    }
+  }, [homeSize]);
+
+  // Enhanced calculation with peak load and backup duration
+  const calculateRecommendation = (): { product: Product; peakLoad: number; dailyEnergy: number; alternatives?: Product[] } => {
+    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
+    
+    // Calculate peak load (simultaneous usage)
+    const peakLoad = selectedAppliances.reduce((sum, appId) => {
+      const appliance = allAppliances.find(a => a.id === appId);
+      return sum + (appliance?.watts || 0);
+    }, 0);
+
+    // Calculate daily energy need
     const totalWattHours = selectedAppliances.reduce((sum, appId) => {
-      const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+      const appliance = allAppliances.find(a => a.id === appId);
       return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
     }, 0);
 
-    const kWhNeeded = totalWattHours / 1000;
+    const dailyEnergy = totalWattHours / 1000; // kWh
+    const backupEnergy = (peakLoad * backupDuration) / 1000; // kWh needed for desired backup
 
-    if (kWhNeeded < 6) return PRODUCTS[0];
-    if (kWhNeeded < 12) return PRODUCTS[1];
-    return PRODUCTS[2];
+    // Consider both daily energy and backup duration
+    const requiredCapacity = Math.max(dailyEnergy, backupEnergy);
+
+    let primaryProduct: Product;
+    let alternatives: Product[] = [];
+
+    if (requiredCapacity < 6) {
+      primaryProduct = PRODUCTS[0];
+      alternatives = [PRODUCTS[1]];
+    } else if (requiredCapacity < 12) {
+      primaryProduct = PRODUCTS[1];
+      alternatives = [PRODUCTS[0], PRODUCTS[2]];
+    } else {
+      primaryProduct = PRODUCTS[2];
+      alternatives = [PRODUCTS[1]];
+    }
+
+    return { product: primaryProduct, peakLoad, dailyEnergy, alternatives };
   };
 
   const toggleAppliance = (appId: string) => {
@@ -71,10 +149,27 @@ export const ProductSelectorWizard: React.FC = () => {
   const handleNext = () => {
     if (step === 2) {
       // Auto-recommend based on selections
-      const recommended = calculateRecommendation();
-      setSelectedProduct(recommended);
+      const recommendation = calculateRecommendation();
+      setSelectedProduct(recommendation.product);
     }
     setStep(prev => Math.min(prev + 1, 3));
+  };
+
+  const handleEditStep = (targetStep: number) => {
+    setStep(targetStep);
+    setValidationErrors({});
+  };
+
+  const addCustomAppliance = (name: string, watts: number, hours: number) => {
+    const newAppliance: Appliance = {
+      id: `custom-${Date.now()}`,
+      name,
+      watts,
+      hours,
+      icon: Zap
+    };
+    setCustomAppliances(prev => [...prev, newAppliance]);
+    setSelectedAppliances(prev => [...prev, newAppliance.id]);
   };
 
   const handleBack = () => {
@@ -91,6 +186,20 @@ export const ProductSelectorWizard: React.FC = () => {
         delete newErrors[field];
         return newErrors;
       });
+    }
+  };
+
+  // Inline validation on blur
+  const handleFieldBlur = (field: string, value: string) => {
+    const fieldSchema = quoteRequestSchema.shape[field as keyof typeof quoteRequestSchema.shape];
+    if (fieldSchema) {
+      const result = fieldSchema.safeParse(value);
+      if (!result.success) {
+        setValidationErrors(prev => ({
+          ...prev,
+          [field]: result.error.errors[0].message
+        }));
+      }
     }
   };
 
@@ -173,27 +282,47 @@ ${formData.message || 'No additional message'}
         description: "Please email your quote request to contact@nunam.com. We'll respond within 24 hours.",
       });
 
-      // Reset form after successful submission
+      // Clear saved progress and reset form
+      localStorage.removeItem(STORAGE_KEY);
       setTimeout(() => {
         setStep(1);
         setSelectedProduct(null);
         setSelectedAppliances([]);
         setHomeSize('');
         setHasSolar('');
+        setBackupDuration(8);
+        setCustomAppliances([]);
         setFormData({ name: '', phone: '', email: '', city: '', pincode: '', message: '' });
         setConsent(false);
       }, 2000);
 
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error submitting form:', error);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       toast({
-        title: "Error",
-        description: "Something went wrong. Please try again or contact us at contact@nunam.com",
+        title: "Submission Failed",
+        description: `${errorMessage}. Your progress is saved. Please try again or contact us at contact@nunam.com`,
         variant: "destructive"
       });
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const getTotalWatts = () => {
+    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
+    return selectedAppliances.reduce((sum, appId) => {
+      const appliance = allAppliances.find(a => a.id === appId);
+      return sum + (appliance?.watts || 0);
+    }, 0);
+  };
+
+  const getTotalDailyEnergy = () => {
+    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
+    return selectedAppliances.reduce((sum, appId) => {
+      const appliance = allAppliances.find(a => a.id === appId);
+      return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
+    }, 0) / 1000;
   };
 
   return (
@@ -235,7 +364,34 @@ ${formData.message || 'No additional message'}
             </p>
           </div>
 
-          <Card className="p-8 space-y-8">
+          {/* Real-time Stats Bar */}
+          {selectedAppliances.length > 0 && (
+            <div className="grid grid-cols-3 gap-4 p-4 bg-gradient-to-r from-primary/10 to-primary/5 rounded-lg border border-primary/20">
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 text-primary mb-1">
+                  <Zap className="w-4 h-4" />
+                  <span className="text-xs font-medium">Peak Load</span>
+                </div>
+                <p className="text-xl font-bold">{getTotalWatts()}W</p>
+              </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 text-primary mb-1">
+                  <Battery className="w-4 h-4" />
+                  <span className="text-xs font-medium">Daily Energy</span>
+                </div>
+                <p className="text-xl font-bold">{getTotalDailyEnergy().toFixed(1)} kWh</p>
+              </div>
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 text-primary mb-1">
+                  <TrendingUp className="w-4 h-4" />
+                  <span className="text-xs font-medium">CO₂ Saved/Year</span>
+                </div>
+                <p className="text-xl font-bold">{(getTotalDailyEnergy() * 365 * 0.82).toFixed(1)} kg</p>
+              </div>
+            </div>
+          )}
+
+          <Card className="p-6 md:p-8 space-y-8">
             {/* Home Size */}
             <div className="space-y-4">
               <Label className="text-lg flex items-center gap-2">
@@ -269,6 +425,7 @@ ${formData.message || 'No additional message'}
                     key={status}
                     variant={hasSolar === status ? 'default' : 'outline'}
                     onClick={() => setHasSolar(status)}
+                    className="h-auto py-3 md:py-4 text-sm md:text-base"
                     aria-pressed={hasSolar === status}
                   >
                     {status}
@@ -277,70 +434,95 @@ ${formData.message || 'No additional message'}
               </div>
             </div>
 
+            {/* Backup Duration Preference */}
+            <div className="space-y-4">
+              <Label className="text-lg flex items-center gap-2">
+                <Battery className="w-5 h-5 text-primary" aria-hidden="true" />
+                How long should your backup last?
+              </Label>
+              <div className="grid grid-cols-4 gap-3">
+                {[4, 8, 12, 24].map((hours) => (
+                  <Button
+                    key={hours}
+                    variant={backupDuration === hours ? 'default' : 'outline'}
+                    onClick={() => setBackupDuration(hours)}
+                    className="h-auto py-3 md:py-4"
+                    aria-pressed={backupDuration === hours}
+                  >
+                    {hours}h
+                  </Button>
+                ))}
+              </div>
+            </div>
+
             {/* Appliance Selector */}
             <ApplianceSelector
-              appliances={COMMON_APPLIANCES}
+              appliances={[...COMMON_APPLIANCES, ...customAppliances]}
               selectedAppliances={selectedAppliances}
               onToggle={toggleAppliance}
+              onAddCustom={addCustomAppliance}
             />
 
-            {/* Recommendation Preview */}
-            {selectedAppliances.length > 0 && (
-              <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-8 border border-primary/20 space-y-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-6 h-6 text-primary" aria-hidden="true" />
+            {/* Enhanced Recommendation with Alternatives */}
+            {selectedAppliances.length > 0 && (() => {
+              const recommendation = calculateRecommendation();
+              return (
+                <div className="space-y-4">
+                  <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-6 md:p-8 border border-primary/20 space-y-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                        <Check className="w-6 h-6 text-primary" aria-hidden="true" />
+                      </div>
+                      <div className="space-y-2 flex-1">
+                        <h3 className="text-xl font-medium text-foreground">
+                          Perfect! Here's your customized solution
+                        </h3>
+                        <p className="text-base text-muted-foreground">
+                          Based on your power needs and {backupDuration}h backup requirement, we recommend: <span className="text-foreground font-semibold">{recommendation.product.name}</span>
+                        </p>
+                      </div>
+                    </div>
+                    
+                    <div className="bg-background/50 rounded-lg p-4 space-y-3">
+                      <div className="flex items-center gap-2 text-primary">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                        <h4 className="font-medium text-foreground">Become a Sustainability Champion</h4>
+                      </div>
+                      <p className="text-sm text-muted-foreground leading-relaxed">
+                        By choosing solar + storage, you're joining the elite group of forward-thinking homeowners who are reducing carbon emissions and leading India's clean energy revolution. Your system will offset approximately <strong className="text-foreground">{(getTotalDailyEnergy() * 365 * 0.82 / 1000).toFixed(1)} tons of CO₂</strong> annually—equivalent to planting {Math.round(getTotalDailyEnergy() * 365 * 0.82 / 1000 * 45)} trees every year.
+                      </p>
+                    </div>
                   </div>
-                  <div className="space-y-2 flex-1">
-                    <h3 className="text-xl font-medium text-foreground">
-                      Perfect! Here's your customized solution
-                    </h3>
-                    <p className="text-base text-muted-foreground">
-                      Based on your power needs, we recommend: <span className="text-foreground font-semibold">{calculateRecommendation().name}</span>
-                    </p>
-                  </div>
-                </div>
-                
-                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-primary/10">
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Total Power Load</p>
-                    <p className="text-2xl font-semibold text-foreground">
-                      {selectedAppliances.reduce((sum, appId) => {
-                        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-                        return sum + (appliance?.watts || 0);
-                      }, 0)}W
-                    </p>
-                  </div>
-                  <div className="space-y-1">
-                    <p className="text-sm text-muted-foreground">Daily Energy Need</p>
-                    <p className="text-2xl font-semibold text-foreground">
-                      {(selectedAppliances.reduce((sum, appId) => {
-                        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-                        return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
-                      }, 0) / 1000).toFixed(1)} kWh
-                    </p>
-                  </div>
-                </div>
 
-                <div className="bg-background/50 rounded-lg p-4 space-y-3">
-                  <div className="flex items-center gap-2 text-primary">
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
-                    </svg>
-                    <h4 className="font-medium text-foreground">Become a Sustainability Champion</h4>
-                  </div>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    By choosing solar + storage, you're joining the elite group of forward-thinking homeowners who are reducing carbon emissions and leading India's clean energy revolution. Your system will offset approximately <strong className="text-foreground">{(selectedAppliances.reduce((sum, appId) => {
-                      const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-                      return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
-                    }, 0) * 0.365 * 0.82 / 1000000).toFixed(1)} tons of CO₂</strong> annually—equivalent to planting {Math.round(selectedAppliances.reduce((sum, appId) => {
-                      const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-                      return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
-                    }, 0) * 0.365 * 0.82 / 1000000 * 45)} trees every year.
-                  </p>
+                  {/* Alternative Products */}
+                  {recommendation.alternatives && recommendation.alternatives.length > 0 && (
+                    <div className="bg-muted/30 rounded-lg p-4 space-y-3">
+                      <h4 className="text-sm font-medium text-muted-foreground">Also consider:</h4>
+                      <div className="grid gap-3">
+                        {recommendation.alternatives.map(alt => (
+                          <div key={alt.id} className="flex items-center justify-between p-3 bg-background rounded-lg border">
+                            <div className="flex-1">
+                              <p className="font-medium text-sm">{alt.name}</p>
+                              <p className="text-xs text-muted-foreground">{alt.idealFor}</p>
+                            </div>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => setSelectedProduct(alt)}
+                              className="text-primary hover:text-primary"
+                            >
+                              Select
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
+              );
+            })()}
           </Card>
 
           <div className="flex justify-between gap-4">
@@ -368,13 +550,38 @@ ${formData.message || 'No additional message'}
             <p className="text-lg text-muted-foreground">Confirm your details to get a custom quote</p>
           </div>
 
+          {/* Editable Summary Cards */}
+          <div className="grid md:grid-cols-2 gap-4 mb-6">
+            <Card className="p-4 bg-muted/30">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-medium text-sm">Product</h3>
+                <Button variant="ghost" size="sm" onClick={() => handleEditStep(1)}>
+                  <Edit className="w-3 h-3 mr-1" />
+                  Edit
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">{selectedProduct.name}</p>
+            </Card>
+            <Card className="p-4 bg-muted/30">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-medium text-sm">Configuration</h3>
+                <Button variant="ghost" size="sm" onClick={() => handleEditStep(2)}>
+                  <Edit className="w-3 h-3 mr-1" />
+                  Edit
+                </Button>
+              </div>
+              <p className="text-sm text-muted-foreground">{homeSize} • {selectedAppliances.length} appliances • {backupDuration}h backup</p>
+            </Card>
+          </div>
+
           <div className="grid md:grid-cols-2 gap-6">
             <ConfigurationSummary
               selectedProduct={selectedProduct}
               homeSize={homeSize}
               hasSolar={hasSolar}
               selectedAppliances={selectedAppliances}
-              appliances={COMMON_APPLIANCES}
+              appliances={[...COMMON_APPLIANCES, ...customAppliances]}
+              backupDuration={backupDuration}
             />
 
             <Card className="p-6">
@@ -384,6 +591,7 @@ ${formData.message || 'No additional message'}
                 isSubmitting={isSubmitting}
                 errors={validationErrors}
                 onChange={handleFormChange}
+                onBlur={handleFieldBlur}
                 onConsentChange={setConsent}
                 onSubmit={handleSubmit}
               />

@@ -18,6 +18,7 @@ interface QuoteContactFormProps {
   isSubmitting: boolean;
   errors?: Record<string, string>;
   onChange: (field: string, value: string) => void;
+  onBlur?: (field: string, value: string) => void;
   onConsentChange: (checked: boolean) => void;
   onSubmit: (e: React.FormEvent) => void;
 }
@@ -28,6 +29,7 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
   isSubmitting,
   errors = {},
   onChange,
+  onBlur,
   onConsentChange,
   onSubmit
 }) => {
@@ -51,6 +53,7 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
               placeholder="Your full name"
               value={formData.name}
               onChange={(e) => onChange('name', e.target.value)}
+              onBlur={(e) => onBlur?.('name', e.target.value)}
               required
               aria-required="true"
               aria-invalid={!!errors.name}
@@ -74,6 +77,7 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
               placeholder="+91 98765 43210"
               value={formData.phone}
               onChange={(e) => onChange('phone', e.target.value)}
+              onBlur={(e) => onBlur?.('phone', e.target.value)}
               required
               aria-required="true"
               aria-invalid={!!errors.phone}
@@ -99,6 +103,7 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
             placeholder="your@email.com"
             value={formData.email}
             onChange={(e) => onChange('email', e.target.value)}
+            onBlur={(e) => onBlur?.('email', e.target.value)}
             required
             aria-required="true"
             aria-invalid={!!errors.email}
