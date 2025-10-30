@@ -1,0 +1,56 @@
+{
+  "name": "NESS Energy Systems",
+  "short_name": "NESS",
+  "description": "Advanced battery energy storage systems for residential and commercial applications",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#22c55e",
+  "orientation": "portrait-primary",
+  "categories": ["business", "technology", "utilities"],
+  "lang": "en-US",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/placeholder.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Residential Products",
+      "short_name": "Residential",
+      "description": "Browse residential energy solutions",
+      "url": "/residential-enhanced",
+      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Commercial Solutions",
+      "short_name": "Commercial", 
+      "description": "Explore commercial energy systems",
+      "url": "/commercial-enhanced",
+      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+    },
+    {
+      "name": "Find Installer",
+      "short_name": "Installers",
+      "description": "Find certified NESS installers",
+      "url": "/installers-enhanced", 
+      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+    }
+  ],
+  "edge_side_includes": true,
+  "prefer_related_applications": false
+}

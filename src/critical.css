@@ -1,0 +1,51 @@
+/* Critical Above-The-Fold CSS - Inlined for FCP/LCP optimization */
+
+/* Essential Tailwind directives */
+@tailwind base;
+
+/* Critical Design Tokens Only */
+:root {
+  --charcoal: 0 0% 10%;
+  --pearl: 0 0% 100%;
+  --graphite: 0 0% 18%;
+  --silver: 0 0% 58%;
+  --platinum: 0 0% 92%;
+  --whisper: 0 0% 98%;
+  --energy-core: 142 25% 38%;
+  --energy-bright: 142 25% 42%;
+  
+  --background: var(--pearl);
+  --foreground: var(--charcoal);
+  --primary: var(--graphite);
+  --primary-foreground: var(--pearl);
+  --border: var(--platinum);
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: var(--charcoal);
+  --foreground: var(--pearl);
+  --primary: var(--platinum);
+  --primary-foreground: var(--charcoal);
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+body {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-feature-settings: "rlig" 1, "calt" 1;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Critical performance styles */
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}

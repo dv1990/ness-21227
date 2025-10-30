@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    
+    <!-- Performance Critical Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <!-- Inline Critical CSS for FCP/LCP optimization -->
+    <style>
+      :root{--charcoal:0 0% 10%;--pearl:0 0% 100%;--graphite:0 0% 18%;--silver:0 0% 58%;--platinum:0 0% 92%;--whisper:0 0% 98%;--energy-core:142 25% 38%;--energy-bright:142 25% 42%;--background:var(--pearl);--foreground:var(--charcoal);--primary:var(--graphite);--primary-foreground:var(--pearl);--border:var(--platinum);--radius:.75rem}.dark{--background:var(--charcoal);--foreground:var(--pearl);--primary:var(--platinum);--primary-foreground:var(--charcoal)}*{border-color:hsl(var(--border))}body{background-color:hsl(var(--background));color:hsl(var(--foreground));font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"rlig" 1,"calt" 1;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;margin:0;padding:0}@media (prefers-reduced-motion:no-preference){*{scroll-behavior:smooth}}
+    </style>
+    
+    <!-- Critical Resource Hints - Load assets in parallel -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+    
+    <!-- Optimized Fonts - Apple-style weights (300, 400, 500, 600) -->
+    <link 
+      rel="preload" 
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+    />
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" 
+      rel="stylesheet"
+      media="print" 
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    </noscript>
+    
+    <!-- Preload critical hero image for faster LCP -->
+    <link rel="preload" as="image" href="/src/assets/ness-hero-product.webp" type="image/webp" fetchpriority="high" />
+    
+    <!-- Preload critical application scripts to break dependency chain -->
+    <link rel="modulepreload" href="/src/main.tsx" />
+    
+    <!-- Preconnect to optimize external resources -->
+    <link rel="dns-prefetch" href="https://dawn-whisper-quest.lovable.app" />
+    
+    <!-- PWA Configuration -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#22c55e" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="NESS" />
+    
+    <!-- SEO Optimization -->
+    <title>NESS Energy Systems - Advanced Battery Storage Solutions</title>
+    <!-- Build v2 -->
+    <meta name="description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
+    <meta name="keywords" content="battery storage, energy systems, solar battery, home energy, commercial energy">
+    <link rel="canonical" href="https://nessenergy.com" />
+    
+    <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/KSIxoxubZzXfmMeo56DzJXaGlU72/uploads/1761632125738-image-removebg-preview-42.png">
+    <meta property="og:title" content="NESS Energy Systems - Advanced Battery Storage Solutions">
+  <meta name="twitter:title" content="NESS Energy Systems - Advanced Battery Storage Solutions">
+  <meta property="og:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
+  <meta name="twitter:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
+  <meta name="twitter:card" content="summary">
+  <meta property="og:type" content="website">
+</head>
+  <body>
+    <div id="root"></div>
+    
+    <!-- Inline critical script for service worker cleanup and error logging -->
+    <script>
+      (function () {
+        // Log unhandled errors for production debugging
+        window.addEventListener('error', function(e) {
+          console.error('Global error:', e.error || e.message);
+        });
+        window.addEventListener('unhandledrejection', function(e) {
+          console.error('Unhandled promise rejection:', e.reason);
+        });
+        
+        // Clean up service workers
+        try {
+          if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister())).catch(() => {});
+          }
+          if (window.caches && caches.keys) {
+            caches.keys().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
+          }
+        } catch (e) {
+          console.error('Service worker cleanup error:', e);
+        }
+      })();
+    </script>
+    
+    <!-- Main application bundle -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

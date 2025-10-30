@@ -1,0 +1,248 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* NESS Energy Design System - Apple/Sonos Inspired */
+
+@layer base {
+  :root {
+    /* Premium Typography Scale */
+    --font-system: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-body: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-display: "Playfair Display", Georgia, serif;
+
+    /* Apple-Inspired Premium Palette */
+    --charcoal: 0 0% 10%;            /* #1a1a1a - Refined dark */
+    --pearl: 0 0% 100%;              /* #ffffff - Pure white */
+    --graphite: 0 0% 18%;            /* #2e2e2e - Soft black */
+    --silver: 0 0% 58%;              /* #949494 - Apple gray */
+    --platinum: 0 0% 92%;            /* #ebebeb - Whisper gray */
+    --whisper: 0 0% 98%;             /* #fafafa - Off white */
+    
+    /* Restrained Accent - Used Sparingly */
+    --energy-core: 142 25% 38%;      /* Whisper green - accent to an accent */
+    --energy-bright: 142 25% 42%;    /* Subtle highlight */
+    --energy-subtle: 142 15% 94%;    /* Barely-there tint */
+    --energy-glow: 142 25% 45%;      /* Reserved glow */
+    
+    /* Premium Gradients */
+    --gradient-energy: linear-gradient(135deg, hsl(var(--energy-core)), hsl(var(--energy-bright)));
+    --gradient-premium: linear-gradient(135deg, hsl(var(--charcoal)), hsl(var(--graphite)));
+    --gradient-whisper: linear-gradient(180deg, hsl(var(--pearl)), hsl(var(--whisper)));
+    
+    /* Sophisticated Shadows */
+    --shadow-premium: 0 25px 50px -12px hsl(var(--charcoal) / 0.25);
+    --shadow-energy: 0 20px 40px -15px hsl(var(--energy-core) / 0.4);
+    --shadow-whisper: 0 10px 20px -5px hsl(var(--charcoal) / 0.1);
+    
+    /* Apple-style Motion */
+    --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+
+    /* Semantic Design Tokens */
+    --background: var(--pearl);
+    --foreground: var(--charcoal);
+    --primary: var(--graphite);
+    --primary-foreground: var(--pearl);
+    --muted: var(--whisper);
+    --muted-foreground: var(--silver);
+    --popover: var(--pearl);
+    --popover-foreground: var(--charcoal);
+    --card: var(--pearl);
+    --card-foreground: var(--charcoal);
+    --border: var(--platinum);
+    --input: var(--platinum);
+    --secondary: var(--silver);
+    --secondary-foreground: var(--pearl);
+    --accent: var(--energy-core);
+    --accent-foreground: var(--pearl);
+    --destructive: 0 84% 60%;
+    --destructive-foreground: var(--pearl);
+    --ring: var(--energy-core);
+    --radius: 0.75rem;
+
+    /* Energy Specific Tokens */
+    --energy: var(--energy-core);
+    --energy-light: var(--energy-subtle);
+    --energy-dark: var(--energy-core);
+    --energy-bright: var(--energy-bright);
+  }
+
+  .dark {
+    --background: var(--charcoal);
+    --foreground: var(--pearl);
+    --primary: var(--platinum);
+    --primary-foreground: var(--charcoal);
+    --muted: var(--graphite);
+    --muted-foreground: var(--silver);
+    --popover: var(--charcoal);
+    --popover-foreground: var(--pearl);
+    --card: var(--charcoal);
+    --card-foreground: var(--pearl);
+    --border: hsl(0 0% 25%);
+    --input: hsl(0 0% 25%);
+    --secondary: var(--graphite);
+    --secondary-foreground: var(--pearl);
+    --accent: var(--energy-bright);
+    --accent-foreground: var(--charcoal);
+    --destructive: 0 62% 30%;
+    --destructive-foreground: var(--pearl);
+    --ring: var(--energy-bright);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Performance: CSS Containment for isolated sections */
+  section {
+    contain: layout style paint;
+  }
+
+  /* Performance: will-change hints (use sparingly) */
+  .will-change-transform {
+    will-change: transform;
+  }
+
+  .will-change-opacity {
+    will-change: opacity;
+  }
+
+  /* Remove will-change after animation completes */
+  .animate-complete {
+    will-change: auto;
+  }
+
+  /* Optimize animations for 60fps */
+  @media (prefers-reduced-motion: no-preference) {
+    * {
+      scroll-behavior: smooth;
+    }
+  }
+
+  /* GPU acceleration for transforms */
+  .gpu-accelerate {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-system);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+}
+
+/* Premium Component Styles */
+@layer components {
+  .glass-premium {
+    @apply bg-card/80 backdrop-blur-xl border border-border/20;
+    box-shadow: var(--shadow-whisper);
+  }
+  
+  .energy-glow {
+    box-shadow: var(--shadow-energy);
+  }
+  
+  .premium-shadow {
+    box-shadow: var(--shadow-premium);
+  }
+  
+  .text-gradient-energy {
+    @apply bg-gradient-to-r from-energy to-energy-bright bg-clip-text text-transparent;
+  }
+  
+  .btn-premium {
+    @apply px-8 py-4 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground rounded-xl;
+    @apply transition-all duration-300 hover:scale-105 active:scale-95;
+    box-shadow: var(--shadow-premium);
+  }
+  
+  .text-display {
+    font-family: var(--font-display);
+  }
+
+  /* Apple-style Animations */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes scale-in {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .animate-fade-up {
+    animation: fade-up 0.6s var(--ease-premium);
+  }
+  
+  .animate-scale-in {
+    animation: scale-in 0.4s var(--ease-premium);
+  }
+  
+  /* Premium Shadows */
+  .shadow-soft {
+    box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.08), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+  }
+  
+  .shadow-lifted {
+    box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.12), 0 4px 8px -2px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Premium Button Variants */
+  .btn-sonos {
+    @apply px-12 py-4 bg-foreground text-background rounded-full;
+    @apply font-medium tracking-wide transition-all duration-300;
+    @apply hover:bg-foreground/90 hover:scale-105 active:scale-95;
+    font-family: var(--font-system);
+  }
+  
+  .btn-ghost-premium {
+    @apply px-8 py-3 border border-foreground/20 text-foreground rounded-full;
+    @apply font-light tracking-wide transition-all duration-300;
+    @apply hover:border-foreground/40 hover:bg-foreground/5;
+    font-family: var(--font-system);
+  }
+  
+  /* Hero Overlay Utilities - For dark gradients on image backgrounds */
+  .hero-overlay-dark {
+    background: linear-gradient(to right, hsl(var(--charcoal) / 0.8), hsl(var(--charcoal) / 0.5), transparent);
+  }
+  
+  .hero-overlay-bottom {
+    background: linear-gradient(to top, hsl(var(--charcoal) / 0.6), transparent);
+  }
+  
+  .hero-text-light {
+    @apply text-pearl;
+  }
+  
+  .hero-text-light-muted {
+    @apply text-pearl/80;
+  }
+}
