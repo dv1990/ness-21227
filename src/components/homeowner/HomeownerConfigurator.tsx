@@ -421,7 +421,7 @@ export const HomeownerConfigurator = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="min-h-screen py-20 px-6"
+              className="py-12 px-6"
             >
               <div className="max-w-7xl mx-auto w-full">
                 <div className="space-y-8">
@@ -458,13 +458,16 @@ export const HomeownerConfigurator = () => {
                     </p>
                   </motion.div>
 
-                  {/* System Configurator */}
+                  {/* System Configurator - wrapped to prevent layout conflicts */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.2 }}
+                    className="bg-background rounded-3xl overflow-hidden"
                   >
-                    <SystemConfigurator />
+                    <div className="[&>div]:min-h-0 [&>div]:bg-transparent">
+                      <SystemConfigurator />
+                    </div>
                   </motion.div>
 
                   {/* Bottom Actions */}
