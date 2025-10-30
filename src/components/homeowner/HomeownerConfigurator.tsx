@@ -393,7 +393,7 @@ export const HomeownerConfigurator = () => {
                             onClick={() => setStep('summary')}
                             className="bg-primary text-primary-foreground hover:bg-primary/90 px-10 py-6 rounded-full text-lg font-medium shadow-[0_0_40px_rgba(0,200,83,0.3)] hover:shadow-[0_0_60px_rgba(0,200,83,0.5)] transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                           >
-                            See Details & Pricing
+                            Details
                             <ArrowRight className="ml-2 w-5 h-5" />
                           </Button>
                           <Button
