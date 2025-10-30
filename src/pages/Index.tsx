@@ -35,24 +35,42 @@ const Index = () => {
         <div 
           className="absolute inset-0 w-full h-full"
         >
-          {/* Vibrant ambient glow behind product - hidden on mobile for performance */}
+          {/* Enhanced vibrant glow behind product for better lighting */}
           <div
             className="absolute inset-0 hidden sm:flex items-center justify-center"
-            style={{ opacity: 0.25 }}
+            style={{ opacity: 0.5 }}
           >
             <div
               className="w-full h-full"
               style={{
-                background: 'radial-gradient(ellipse at 70% 50%, #00E676 0%, #00C853 20%, #00BFA5 40%, transparent 70%)',
-                filter: 'blur(90px)'
+                background: 'radial-gradient(ellipse at 65% 50%, #00E676 0%, #00C853 15%, #00BFA5 30%, rgba(0,200,83,0.3) 50%, transparent 65%)',
+                filter: 'blur(80px)'
               }}
             />
           </div>
 
-          {/* Product Image - Full Screen with enhanced clarity */}
+          {/* Additional spotlight on product area */}
+          <div
+            className="absolute inset-0 hidden sm:block"
+            style={{ opacity: 0.4 }}
+          >
+            <div
+              className="absolute"
+              style={{
+                top: '20%',
+                right: '10%',
+                width: '50%',
+                height: '60%',
+                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)',
+                filter: 'blur(60px)'
+              }}
+            />
+          </div>
+
+          {/* Product Image - Full Screen with enhanced clarity and brightness */}
           <div
             className="absolute inset-0 w-full h-full"
-            style={{ filter: 'contrast(1.05) saturate(1.1)' }}
+            style={{ filter: 'contrast(1.15) saturate(1.25) brightness(1.1)' }}
           >
             <PerformanceImage
               src={nessHeroProduct}
@@ -62,11 +80,11 @@ const Index = () => {
             />
           </div>
 
-          {/* Gradient overlay - responsive */}
+          {/* Gradient overlay - lighter on right to show product better */}
           <div 
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, #0B1220dd 0%, #0B1220aa 50%, #0B1220dd 100%), linear-gradient(110deg, #0B1220f5 0%, #0B1220dd 20%, #0B122088 40%, #1C1F2622 60%, transparent 80%)'
+              background: 'linear-gradient(to bottom, #0B1220dd 0%, #0B1220aa 50%, #0B1220dd 100%), linear-gradient(110deg, #0B1220f5 0%, #0B1220dd 20%, #0B122077 40%, #1C1F2611 60%, transparent 75%)'
             }}
           />
         </div>
