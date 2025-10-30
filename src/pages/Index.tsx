@@ -85,10 +85,10 @@ const Index = () => {
             />
           </div>
 
-          {/* Product Image - Maximum brightness at 1.6x */}
+          {/* Product Image - Maximum brightness */}
           <div
             className="absolute inset-0 w-full h-full"
-            style={{ filter: 'contrast(1.35) saturate(1.6) brightness(1.6)' }}
+            style={{ filter: 'contrast(1.3) saturate(1.5) brightness(1.4)' }}
           >
             <PerformanceImage
               src={nessHeroProduct}
@@ -98,11 +98,11 @@ const Index = () => {
             />
           </div>
 
-          {/* Extremely minimal gradient overlay - barely visible on right side */}
+          {/* Minimal gradient overlay - very light on right side */}
           <div 
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, #0B122088 0%, #0B122055 50%, #0B122088 100%), linear-gradient(110deg, #0B1220cc 0%, #0B122099 14%, #0B122044 32%, #1C1F2603 48%, transparent 62%)'
+              background: 'linear-gradient(to bottom, #0B1220aa 0%, #0B122077 50%, #0B1220aa 100%), linear-gradient(110deg, #0B1220dd 0%, #0B1220aa 16%, #0B122055 35%, #1C1F2605 50%, transparent 65%)'
             }}
           />
         </div>
