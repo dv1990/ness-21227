@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Shield, Zap, Battery, Clock, ArrowRight, Play, Users, CheckCircle, CheckCircle2 } from "lucide-react";
+import { Shield, Zap, Battery, Clock, ArrowRight, Play, Users, CheckCircle, CheckCircle2, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { PerformanceImage } from "@/components/ui/performance-image";
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, useRef } from "react";
 
 // Lazy load AnimatedCounter to reduce initial bundle
 const AnimatedCounter = lazy(() => 
@@ -17,6 +17,9 @@ const AnimatedCounter = lazy(() =>
 
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
+  const nextSectionRef = useRef<HTMLElement>(null);
 
   // Testimonial auto-rotation
   useEffect(() => {
@@ -25,6 +28,26 @@ const Index = () => {
     }, 6000);
     return () => clearInterval(timer);
   }, []);
+
+  // Smooth scroll tracking for parallax
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Entrance animation
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Smooth scroll to next section
+  const scrollToNext = () => {
+    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return <Layout>
       {/* 1. HERO SECTION */}
@@ -107,21 +130,31 @@ const Index = () => {
           />
         </div>
 
-        {/* Text Content Overlaid - Mobile Optimized */}
-        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0">
-          <div 
-            className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full"
-          >
-            {/* Headline with colored highlights - Mobile optimized */}
+        {/* Text Content Overlaid - Mobile Optimized with Entrance Animations */}
+        <div 
+          className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0"
+          style={{
+            transform: `translateY(${scrollY * 0.15}px)`,
+            transition: 'transform 0.1s ease-out'
+          }}
+        >
+          <div className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full">
+            {/* Headline with colored highlights - Mobile optimized with fade-in */}
             <h1 
-              className="font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] sm:leading-[1.05] tracking-[0.02em] text-white"
+              className={cn(
+                "font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] sm:leading-[1.05] tracking-[0.02em] text-white transition-all duration-1000 ease-out",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
             >
               When the grid goes <span className="inline-block" style={{ color: '#00C853' }}>dark,</span> your life stays <span style={{ color: '#00C853' }}>lit.</span>
             </h1>
             
-            {/* Subtext - Mobile optimized */}
+            {/* Subtext - Mobile optimized with delayed fade-in */}
             <p 
-              className="font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px]"
+              className={cn(
+                "font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px] transition-all duration-1000 ease-out delay-150",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
               style={{ color: '#E5E7EB' }}
             >
               Meet NESS — the intelligent home battery that keeps your home bright, connected, and alive.
@@ -131,19 +164,26 @@ const Index = () => {
               </span>
             </p>
 
-            {/* CTA - Mobile optimized */}
+            {/* CTA - Mobile optimized with delayed fade-in and pulse effect */}
             <div 
-              className="pt-2 sm:pt-4 space-y-3 sm:space-y-4"
+              className={cn(
+                "pt-2 sm:pt-4 space-y-3 sm:space-y-4 transition-all duration-1000 ease-out delay-300",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+              )}
             >
-              <Link to="/residential" className="inline-block w-full sm:w-auto">
+              <Link to="/residential" className="inline-block w-full sm:w-auto group">
                 <Button 
                   size="lg" 
-                  className="font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_44px_rgba(0,230,118,0.5)] transition-all duration-300 w-full sm:w-auto"
+                  className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_50px_rgba(0,230,118,0.6)] transition-all duration-300 w-full sm:w-auto overflow-hidden"
                   style={{
                     transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
                   }}
                 >
-                  Design My System →
+                  <span className="relative z-10 flex items-center justify-center">
+                    Design My System
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  </span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
               
@@ -158,17 +198,37 @@ const Index = () => {
 
             {/* Footer Tagline */}
             <p
-              className="font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em]"
+              className={cn(
+                "font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500",
+                isVisible ? "opacity-100" : "opacity-0"
+              )}
               style={{ color: '#9CA3AF' }}
             >
               Engineered in India for homes that never pause.
             </p>
           </div>
         </div>
+
+        {/* Enhanced Scroll Indicator with interaction */}
+        <button
+          onClick={scrollToNext}
+          className={cn(
+            "absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6",
+            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+          )}
+          aria-label="Scroll to next section"
+        >
+          <div className="relative">
+            <div className="w-8 h-12 border-2 border-white/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy/50 transition-colors duration-300">
+              <div className="w-1.5 h-3 bg-white/50 rounded-full animate-bounce group-hover:bg-energy/80 transition-colors duration-300" />
+            </div>
+            <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-white/30 group-hover:text-energy/50 animate-bounce transition-colors duration-300" />
+          </div>
+        </button>
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-white">
+      <section ref={nextSectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-white scroll-mt-16">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight">
             Lasts 10+ years.
