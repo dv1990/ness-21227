@@ -35,42 +35,60 @@ const Index = () => {
         <div 
           className="absolute inset-0 w-full h-full"
         >
-          {/* Enhanced vibrant glow behind product for better lighting */}
+          {/* Primary ambient glow - brighter and more vibrant */}
           <div
             className="absolute inset-0 hidden sm:flex items-center justify-center"
-            style={{ opacity: 0.5 }}
+            style={{ opacity: 0.7 }}
           >
             <div
               className="w-full h-full"
               style={{
-                background: 'radial-gradient(ellipse at 65% 50%, #00E676 0%, #00C853 15%, #00BFA5 30%, rgba(0,200,83,0.3) 50%, transparent 65%)',
-                filter: 'blur(80px)'
+                background: 'radial-gradient(ellipse at 65% 50%, #00FF88 0%, #00E676 12%, #00C853 25%, rgba(0,200,83,0.5) 45%, transparent 60%)',
+                filter: 'blur(70px)'
               }}
             />
           </div>
 
-          {/* Additional spotlight on product area */}
+          {/* Strong spotlight on product area */}
           <div
             className="absolute inset-0 hidden sm:block"
-            style={{ opacity: 0.4 }}
+            style={{ opacity: 0.6 }}
           >
             <div
               className="absolute"
               style={{
-                top: '20%',
-                right: '10%',
-                width: '50%',
-                height: '60%',
-                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 60%)',
-                filter: 'blur(60px)'
+                top: '15%',
+                right: '5%',
+                width: '55%',
+                height: '70%',
+                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 40%, transparent 65%)',
+                filter: 'blur(50px)'
               }}
             />
           </div>
 
-          {/* Product Image - Full Screen with enhanced clarity and brightness */}
+          {/* Edge lighting effect on right side */}
+          <div
+            className="absolute inset-0 hidden sm:block"
+            style={{ opacity: 0.5 }}
+          >
+            <div
+              className="absolute"
+              style={{
+                top: '25%',
+                right: '0%',
+                width: '35%',
+                height: '50%',
+                background: 'linear-gradient(to left, rgba(0,230,118,0.3) 0%, rgba(0,200,83,0.2) 30%, transparent 60%)',
+                filter: 'blur(40px)'
+              }}
+            />
+          </div>
+
+          {/* Product Image - Full Screen with maximum clarity and brightness */}
           <div
             className="absolute inset-0 w-full h-full"
-            style={{ filter: 'contrast(1.15) saturate(1.25) brightness(1.1)' }}
+            style={{ filter: 'contrast(1.2) saturate(1.35) brightness(1.2)' }}
           >
             <PerformanceImage
               src={nessHeroProduct}
@@ -80,11 +98,11 @@ const Index = () => {
             />
           </div>
 
-          {/* Gradient overlay - lighter on right to show product better */}
+          {/* Minimal gradient overlay - much lighter on right side */}
           <div 
             className="absolute inset-0"
             style={{
-              background: 'linear-gradient(to bottom, #0B1220dd 0%, #0B1220aa 50%, #0B1220dd 100%), linear-gradient(110deg, #0B1220f5 0%, #0B1220dd 20%, #0B122077 40%, #1C1F2611 60%, transparent 75%)'
+              background: 'linear-gradient(to bottom, #0B1220cc 0%, #0B122099 50%, #0B1220cc 100%), linear-gradient(110deg, #0B1220f5 0%, #0B1220cc 18%, #0B122066 38%, #1C1F2608 55%, transparent 70%)'
             }}
           />
         </div>
