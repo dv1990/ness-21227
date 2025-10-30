@@ -6,6 +6,7 @@ import { ArrowRight, Sun, Zap, Battery, Settings } from "lucide-react";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
+import SystemConfigurator from "@/components/SystemConfigurator";
 
 type EnergySetup = 'new-solar' | 'existing-solar' | 'backup-only' | 'custom' | null;
 
@@ -412,7 +413,7 @@ export const HomeownerConfigurator = () => {
             </motion.div>
           )}
 
-          {/* STEP 3: Summary Screen */}
+          {/* STEP 3: System Configurator */}
           {step === 'summary' && selectedSetup && (
             <motion.div
               key="summary"
@@ -420,134 +421,70 @@ export const HomeownerConfigurator = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.6 }}
-              className="min-h-screen py-20 px-6 flex items-center"
+              className="min-h-screen py-20 px-6"
             >
-              <div className="max-w-5xl mx-auto w-full">
-                {(() => {
-                  const product = getProductForSetup();
-                  return (
-                    <div className="space-y-12">
-                      {/* Back Button */}
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        className="flex justify-start"
-                      >
-                        <button
-                          onClick={handleBackToProduct}
-                          className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
-                          aria-label="Go back to product details"
-                        >
-                          <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
-                          <span className="text-sm">Back</span>
-                        </button>
-                      </motion.div>
+              <div className="max-w-7xl mx-auto w-full">
+                <div className="space-y-8">
+                  {/* Back Button */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="flex justify-start"
+                  >
+                    <button
+                      onClick={handleBackToProduct}
+                      className="flex items-center gap-2 text-muted-foreground hover:text-primary transition-colors group"
+                      aria-label="Go back to product details"
+                    >
+                      <ArrowRight className="w-4 h-4 rotate-180 group-hover:-translate-x-1 transition-transform" />
+                      <span className="text-sm">Back to Product</span>
+                    </button>
+                  </motion.div>
 
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-center space-y-4"
-                      >
-                        <p className="text-sm uppercase tracking-widest text-primary">Step 3 of 3 • Your Perfect Match</p>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl font-light text-foreground">
-                          {product.name}
-                        </h2>
-                      </motion.div>
-
-                      {/* Summary Card */}
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ delay: 0.2 }}
-                        className="bg-card/80 backdrop-blur-xl rounded-3xl p-12 border border-border/50 shadow-2xl"
-                      >
-                        <div className="grid md:grid-cols-3 gap-8 mb-12">
-                          <div className="text-center space-y-2">
-                            <p className="text-sm text-muted-foreground uppercase tracking-wider">Estimated Savings*</p>
-                            <p className="text-4xl font-light text-primary">₹ {product.savings.toLocaleString()}</p>
-                            <p className="text-xs text-muted-foreground">per month</p>
-                          </div>
-                          <div className="text-center space-y-2">
-                            <p className="text-sm text-muted-foreground uppercase tracking-wider">Backup Time</p>
-                            <p className="text-4xl font-light text-primary">{product.backupHours}</p>
-                            <p className="text-xs text-muted-foreground">hours</p>
-                          </div>
-                          <div className="text-center space-y-2">
-                            <p className="text-sm text-muted-foreground uppercase tracking-wider">Installation</p>
-                            <p className="text-4xl font-light text-primary">{product.installation}</p>
-                            <p className="text-xs text-muted-foreground">professional setup</p>
-                          </div>
-                        </div>
-
-                        <div className="border-t border-border/30 pt-8 space-y-4 text-center">
-                          <p className="text-muted-foreground">
-                            Smart monitoring included • 15-year warranty • Expert support
-                          </p>
-                          <p className="text-xs text-muted-foreground/60">
-                            *Based on typical 5kW system with 8 hours daily grid outage. Actual savings vary by usage and location.
-                          </p>
-                        </div>
-                      </motion.div>
-
-                      {/* CTAs */}
-                      <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.4 }}
-                        className="flex flex-col sm:flex-row gap-4 justify-center"
-                      >
-                        <Button
-                          size="lg"
-                          onClick={() => (window.location.href = '/contact/homeowner')}
-                          className="bg-primary text-primary-foreground hover:bg-primary/90 px-12 py-7 rounded-full text-lg font-medium shadow-[0_0_40px_rgba(0,200,83,0.3)] hover:shadow-[0_0_60px_rgba(0,200,83,0.5)] transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                        >
-                          Get Instant Quote
-                          <ArrowRight className="ml-2 w-5 h-5" />
-                        </Button>
-                        <Button
-                          variant="outline"
-                          size="lg"
-                          onClick={() => (window.location.href = '/contact')}
-                          className="border-2 border-border/50 hover:border-primary/50 px-12 py-7 rounded-full text-lg focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
-                        >
-                          Talk to Expert
-                        </Button>
-                      </motion.div>
-
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="text-center"
-                      >
-                        <button
-                          onClick={() => {
-                            setSelectedSetup(null);
-                            setStep('intro');
-                          }}
-                          className="text-sm text-muted-foreground hover:text-primary transition-colors underline"
-                        >
-                          Start over
-                        </button>
-                      </motion.div>
-
-                      {/* Tagline */}
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.6 }}
-                        className="text-center space-y-2 pt-8"
-                      >
-                        <p className="text-lg text-muted-foreground font-light">
-                          NESS — Clean energy, beautifully built.
-                        </p>
-                        <p className="text-sm text-muted-foreground/60">
-                          Engineered in India. Designed for life.
-                        </p>
-                      </motion.div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center space-y-4 mb-8"
+                  >
+                    <div className="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-primary/20 backdrop-blur-md">
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_rgba(0,200,83,0.6)]"></div>
+                      <p className="text-xs uppercase tracking-[0.2em] text-primary font-medium">Step 3 of 3 • Design Your System</p>
                     </div>
-                  );
-                })()}
+                    <h2 className="text-4xl sm:text-5xl md:text-6xl font-extralight text-foreground tracking-[-0.02em]">
+                      Personalize Your Energy Solution
+                    </h2>
+                    <p className="text-xl text-muted-foreground/70 font-light max-w-3xl mx-auto">
+                      Tell us about your home's energy needs and we'll design the perfect NESS system for you
+                    </p>
+                  </motion.div>
+
+                  {/* System Configurator */}
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.2 }}
+                  >
+                    <SystemConfigurator />
+                  </motion.div>
+
+                  {/* Bottom Actions */}
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.4 }}
+                    className="text-center pt-8"
+                  >
+                    <button
+                      onClick={() => {
+                        setSelectedSetup(null);
+                        setStep('intro');
+                      }}
+                      className="text-sm text-muted-foreground hover:text-primary transition-colors underline"
+                    >
+                      Start over with different product
+                    </button>
+                  </motion.div>
+                </div>
               </div>
             </motion.div>
           )}
