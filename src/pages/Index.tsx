@@ -12,10 +12,9 @@ import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, lazy, Suspense, useRef } from "react";
 
 // Lazy load AnimatedCounter to reduce initial bundle
-const AnimatedCounter = lazy(() => 
-  import("@/components/ui/animated-counter").then(m => ({ default: m.AnimatedCounter }))
-);
-
+const AnimatedCounter = lazy(() => import("@/components/ui/animated-counter").then(m => ({
+  default: m.AnimatedCounter
+})));
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [scrollY, setScrollY] = useState(0);
@@ -35,7 +34,9 @@ const Index = () => {
     const handleScroll = () => {
       setScrollY(window.scrollY);
     };
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {
+      passive: true
+    });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -47,117 +48,85 @@ const Index = () => {
 
   // Smooth scroll to next section
   const scrollToNext = () => {
-    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    nextSectionRef.current?.scrollIntoView({
+      behavior: 'smooth'
+    });
   };
-
   return <Layout>
       {/* 1. HERO SECTION */}
-      <section 
-        className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden"
-      >
+      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
         {/* Full-screen Product Image Background */}
-        <div 
-          className="absolute inset-0 w-full h-full"
-        >
+        <div className="absolute inset-0 w-full h-full">
           {/* Primary ambient glow - 2x brighter */}
-          <div
-            className="absolute inset-0 hidden sm:flex items-center justify-center"
-            style={{ opacity: 1 }}
-          >
-            <div
-              className="w-full h-full"
-              style={{
-                background: 'radial-gradient(ellipse at 65% 50%, #00FFAA 0%, #00FF88 10%, #00E676 20%, #00C853 35%, rgba(0,230,118,0.7) 50%, rgba(0,200,83,0.4) 65%, transparent 75%)',
-                filter: 'blur(60px)'
-              }}
-            />
+          <div className="absolute inset-0 hidden sm:flex items-center justify-center" style={{
+          opacity: 1
+        }}>
+            <div className="w-full h-full" style={{
+            background: 'radial-gradient(ellipse at 65% 50%, #00FFAA 0%, #00FF88 10%, #00E676 20%, #00C853 35%, rgba(0,230,118,0.7) 50%, rgba(0,200,83,0.4) 65%, transparent 75%)',
+            filter: 'blur(60px)'
+          }} />
           </div>
 
           {/* Strong spotlight on product area - 2x intensity */}
-          <div
-            className="absolute inset-0 hidden sm:block"
-            style={{ opacity: 1 }}
-          >
-            <div
-              className="absolute"
-              style={{
-                top: '10%',
-                right: '0%',
-                width: '60%',
-                height: '80%',
-                background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.25) 35%, rgba(255,255,255,0.1) 55%, transparent 70%)',
-                filter: 'blur(45px)'
-              }}
-            />
+          <div className="absolute inset-0 hidden sm:block" style={{
+          opacity: 1
+        }}>
+            <div className="absolute" style={{
+            top: '10%',
+            right: '0%',
+            width: '60%',
+            height: '80%',
+            background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.25) 35%, rgba(255,255,255,0.1) 55%, transparent 70%)',
+            filter: 'blur(45px)'
+          }} />
           </div>
 
           {/* Edge lighting effect on right side - 2x stronger */}
-          <div
-            className="absolute inset-0 hidden sm:block"
-            style={{ opacity: 0.9 }}
-          >
-            <div
-              className="absolute"
-              style={{
-                top: '20%',
-                right: '-5%',
-                width: '45%',
-                height: '60%',
-                background: 'linear-gradient(to left, rgba(0,255,136,0.5) 0%, rgba(0,230,118,0.4) 25%, rgba(0,200,83,0.3) 45%, transparent 65%)',
-                filter: 'blur(35px)'
-              }}
-            />
+          <div className="absolute inset-0 hidden sm:block" style={{
+          opacity: 0.9
+        }}>
+            <div className="absolute" style={{
+            top: '20%',
+            right: '-5%',
+            width: '45%',
+            height: '60%',
+            background: 'linear-gradient(to left, rgba(0,255,136,0.5) 0%, rgba(0,230,118,0.4) 25%, rgba(0,200,83,0.3) 45%, transparent 65%)',
+            filter: 'blur(35px)'
+          }} />
           </div>
 
           {/* Product Image - Maximum brightness */}
-          <div
-            className="absolute inset-0 w-full h-full"
-            style={{ filter: 'contrast(1.3) saturate(1.5) brightness(1.4)' }}
-          >
-            <PerformanceImage
-              src={nessHeroProduct}
-              alt="NESS home battery — reliable backup power for modern Indian homes"
-              className="w-full h-full object-cover object-center"
-              priority={true}
-            />
+          <div className="absolute inset-0 w-full h-full" style={{
+          filter: 'contrast(1.3) saturate(1.5) brightness(1.4)'
+        }}>
+            <PerformanceImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} />
           </div>
 
           {/* Minimal gradient overlay - very light on right side */}
-          <div 
-            className="absolute inset-0"
-            style={{
-              background: 'linear-gradient(to bottom, #0B1220aa 0%, #0B122077 50%, #0B1220aa 100%), linear-gradient(110deg, #0B1220dd 0%, #0B1220aa 16%, #0B122055 35%, #1C1F2605 50%, transparent 65%)'
-            }}
-          />
+          <div className="absolute inset-0" style={{
+          background: 'linear-gradient(to bottom, #0B1220aa 0%, #0B122077 50%, #0B1220aa 100%), linear-gradient(110deg, #0B1220dd 0%, #0B1220aa 16%, #0B122055 35%, #1C1F2605 50%, transparent 65%)'
+        }} />
         </div>
 
         {/* Text Content Overlaid - Mobile Optimized with Entrance Animations */}
-        <div 
-          className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0"
-          style={{
-            transform: `translateY(${scrollY * 0.15}px)`,
-            transition: 'transform 0.1s ease-out'
-          }}
-        >
+        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0" style={{
+        transform: `translateY(${scrollY * 0.15}px)`,
+        transition: 'transform 0.1s ease-out'
+      }}>
           <div className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full">
             {/* Headline with colored highlights - Mobile optimized with fade-in */}
-            <h1 
-              className={cn(
-                "font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] sm:leading-[1.05] tracking-[0.02em] text-white transition-all duration-1000 ease-out",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}
-            >
-              When the grid goes <span className="inline-block" style={{ color: '#00C853' }}>dark,</span> your life stays <span style={{ color: '#00C853' }}>lit.</span>
+            <h1 className={cn("font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] sm:leading-[1.05] tracking-[0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              When the grid goes <span className="inline-block" style={{
+              color: '#00C853'
+            }}>dark,</span> your life stays <span style={{
+              color: '#00C853'
+            }}>lit.</span>
             </h1>
             
             {/* Subtext - Mobile optimized with delayed fade-in */}
-            <p 
-              className={cn(
-                "font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px] transition-all duration-1000 ease-out delay-150",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}
-              style={{ color: '#E5E7EB' }}
-            >
+            <p className={cn("font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px] transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
+            color: '#E5E7EB'
+          }}>
               Meet NESS — the intelligent home battery that keeps your home bright, connected, and alive.
               <span className="hidden sm:inline">
                 <br />
@@ -166,20 +135,11 @@ const Index = () => {
             </p>
 
             {/* CTA - Mobile optimized with delayed fade-in and pulse effect */}
-            <div 
-              className={cn(
-                "pt-2 sm:pt-4 space-y-3 sm:space-y-4 transition-all duration-1000 ease-out delay-300",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-              )}
-            >
+            <div className={cn("pt-2 sm:pt-4 space-y-3 sm:space-y-4 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               <Link to="/residential" className="inline-block w-full sm:w-auto group">
-                <Button 
-                  size="lg" 
-                  className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_50px_rgba(0,230,118,0.6)] transition-all duration-300 w-full sm:w-auto overflow-hidden"
-                  style={{
-                    transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
+                <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_50px_rgba(0,230,118,0.6)] transition-all duration-300 w-full sm:w-auto overflow-hidden" style={{
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+              }}>
                   <span className="relative z-10 flex items-center justify-center">
                     Design My System
                     <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
@@ -189,36 +149,24 @@ const Index = () => {
               </Link>
               
               {/* CTA Subtext */}
-              <p
-                className="font-sans text-xs sm:text-[14px] font-normal tracking-[0.005em]"
-                style={{ color: '#A1A1AA' }}
-              >
+              <p className="font-sans text-xs sm:text-[14px] font-normal tracking-[0.005em]" style={{
+              color: '#A1A1AA'
+            }}>
                 Find your perfect setup in under 30 seconds.
               </p>
             </div>
 
             {/* Footer Tagline */}
-            <p
-              className={cn(
-                "font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500",
-                isVisible ? "opacity-100" : "opacity-0"
-              )}
-              style={{ color: '#9CA3AF' }}
-            >
+            <p className={cn("font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500", isVisible ? "opacity-100" : "opacity-0")} style={{
+            color: '#9CA3AF'
+          }}>
               Engineered in India for homes that never pause.
             </p>
           </div>
         </div>
 
         {/* Enhanced Scroll Indicator with interaction */}
-        <button
-          onClick={scrollToNext}
-          className={cn(
-            "absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )}
-          aria-label="Scroll to next section"
-        >
+        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
           <div className="relative">
             <div className="w-8 h-12 border-2 border-white/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy/50 transition-colors duration-300">
               <div className="w-1.5 h-3 bg-white/50 rounded-full animate-bounce group-hover:bg-energy/80 transition-colors duration-300" />
@@ -295,12 +243,7 @@ const Index = () => {
               </div>
 
               <div className="relative mt-8 md:mt-0">
-                <PerformanceImage
-                  src={nessProProduct}
-                  alt="NESS Powerwall - Premium home battery backup system"
-                  className="w-full h-auto rounded-2xl"
-                  priority={false}
-                />
+                <PerformanceImage src={nessProProduct} alt="NESS Powerwall - Premium home battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
               </div>
             </div>
           </div>
@@ -313,12 +256,7 @@ const Index = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1 mt-8 md:mt-0">
-                <PerformanceImage
-                  src={nessPodProduct}
-                  alt="NESS Pod - Commercial & Industrial battery backup system"
-                  className="w-full h-auto rounded-2xl"
-                  priority={false}
-                />
+                <PerformanceImage src={nessPodProduct} alt="NESS Pod - Commercial & Industrial battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
               </div>
 
               <div className="order-1 md:order-2">
@@ -335,7 +273,7 @@ const Index = () => {
                     <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
                     <div>
                       <p className="font-medium text-base sm:text-lg text-graphite">Scalable power</p>
-                      <p className="text-sm sm:text-base text-graphite/60 font-light">20-50 kWh systems for commercial needs</p>
+                      <p className="text-sm sm:text-base text-graphite/60 font-light">45-200 kWh systems for commercial needs</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
@@ -387,20 +325,9 @@ const Index = () => {
 
             <div className="max-w-5xl mx-auto px-4 sm:px-8">
               <div className="relative min-h-[300px] sm:min-h-[350px] flex items-center justify-center">
-                {testimonials.map((testimonial) => {
-                  const testimonialIndex = testimonials.indexOf(testimonial);
-                  return (
-                  <div 
-                    key={`testimonial-${testimonialIndex}`}
-                  className={cn(
-                    "absolute inset-0 transition-all duration-1000 ease-in-out will-change-transform",
-                    currentTestimonial === testimonialIndex 
-                      ? "opacity-100 translate-x-0" 
-                      : testimonialIndex < currentTestimonial 
-                        ? "opacity-0 -translate-x-full pointer-events-none" 
-                        : "opacity-0 translate-x-full pointer-events-none"
-                  )}
-                >
+                {testimonials.map(testimonial => {
+              const testimonialIndex = testimonials.indexOf(testimonial);
+              return <div key={`testimonial-${testimonialIndex}`} className={cn("absolute inset-0 transition-all duration-1000 ease-in-out will-change-transform", currentTestimonial === testimonialIndex ? "opacity-100 translate-x-0" : testimonialIndex < currentTestimonial ? "opacity-0 -translate-x-full pointer-events-none" : "opacity-0 translate-x-full pointer-events-none")}>
                   <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8 px-4">
                     <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-energy/10 flex items-center justify-center text-xl sm:text-2xl font-light text-white border-2 border-energy/30">
                       {testimonial.initials}
@@ -415,24 +342,11 @@ const Index = () => {
                       <p className="text-xs sm:text-sm text-pearl/60 font-light">{testimonial.location}</p>
                     </div>
                     </div>
-                  </div>
-                );
-                })}
+                  </div>;
+            })}
 
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3">
-                  {testimonials.map((_, dotIndex) => (
-                    <button 
-                      key={`dot-${dotIndex}`}
-                      onClick={() => setCurrentTestimonial(dotIndex)}
-                    className={cn(
-                      "w-2 h-2 rounded-full transition-all duration-500",
-                      currentTestimonial === dotIndex 
-                        ? "w-6 sm:w-8 bg-energy" 
-                        : "bg-white/30 hover:bg-white/50"
-                    )}
-                    aria-label={`View testimonial ${dotIndex + 1}`}
-                  />
-                ))}
+                  {testimonials.map((_, dotIndex) => <button key={`dot-${dotIndex}`} onClick={() => setCurrentTestimonial(dotIndex)} className={cn("w-2 h-2 rounded-full transition-all duration-500", currentTestimonial === dotIndex ? "w-6 sm:w-8 bg-energy" : "bg-white/30 hover:bg-white/50")} aria-label={`View testimonial ${dotIndex + 1}`} />)}
               </div>
             </div>
           </div>
@@ -461,25 +375,20 @@ const Index = () => {
 };
 
 // Testimonials
-const testimonials = [
-  {
-    initials: "MK",
-    quote: "Two years. Not one reset. Not one worry.",
-    name: "Dr. Mohan Krishna",
-    location: "Bengaluru • Off-grid since 2022"
-  },
-  {
-    initials: "RG",
-    quote: "Our operations run smoother than ever. The grid is just backup now.",
-    name: "Rajesh Gupta",
-    location: "Delhi • EV Charging Hub"
-  },
-  {
-    initials: "PS",
-    quote: "The configurator made it simple. The installation was flawless.",
-    name: "Priya Sharma",
-    location: "Gurgaon • Villa Community"
-  }
-];
-
+const testimonials = [{
+  initials: "MK",
+  quote: "Two years. Not one reset. Not one worry.",
+  name: "Dr. Mohan Krishna",
+  location: "Bengaluru • Off-grid since 2022"
+}, {
+  initials: "RG",
+  quote: "Our operations run smoother than ever. The grid is just backup now.",
+  name: "Rajesh Gupta",
+  location: "Delhi • EV Charging Hub"
+}, {
+  initials: "PS",
+  quote: "The configurator made it simple. The installation was flawless.",
+  name: "Priya Sharma",
+  location: "Gurgaon • Villa Community"
+}];
 export default Index;
