@@ -81,7 +81,7 @@ const NavigationEnhanced = () => {
             <img 
               src={nunamLogo} 
               alt="Nunam" 
-              className="h-16 w-auto group-hover:scale-105 transition-all duration-300 ease-out"
+              className="h-12 w-auto group-hover:scale-105 transition-all duration-300 ease-out"
             />
           </Link>
 
