@@ -235,9 +235,7 @@ const Index = () => {
                     </Button>
                   </Link>
                   <Link to="/residential" className="w-full sm:w-auto">
-                    <Button variant="outline" size="lg" className="border-2 border-white/30 bg-white/10 backdrop-blur-md text-white hover:bg-white/20 px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full w-full sm:w-auto">
-                      View All Models
-                    </Button>
+                    
                   </Link>
                 </div>
               </div>
@@ -300,9 +298,7 @@ const Index = () => {
                     </Button>
                   </Link>
                   <Link to="/commercial" className="w-full sm:w-auto">
-                    <Button variant="outline" size="lg" className="border-2 border-graphite/30 text-graphite hover:bg-graphite/5 px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full w-full sm:w-auto">
-                      Get a Quote
-                    </Button>
+                    
                   </Link>
                 </div>
               </div>
@@ -354,23 +350,7 @@ const Index = () => {
       </LazySection>
 
       {/* 5. FINAL CTA - Mobile Optimized */}
-      <section className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-graphite text-white">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight">
-            Power that lasts.
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 sm:mb-12 font-light">
-            Design your system in under 2 minutes.
-          </p>
-
-          <Link to="/residential" className="inline-block w-full sm:w-auto">
-            <Button size="lg" className="bg-energy hover:bg-energy-glow text-white px-8 sm:px-12 py-5 sm:py-7 text-base sm:text-lg rounded-full shadow-glow hover:shadow-[0_0_50px_rgba(0,200,83,0.5)] transition-all duration-500 w-full sm:w-auto">
-              Design My System
-              <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-            </Button>
-          </Link>
-        </div>
-      </section>
+      
     </Layout>;
 };
 
