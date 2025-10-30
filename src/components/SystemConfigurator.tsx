@@ -434,22 +434,6 @@ const SystemConfigurator = () => {
                 </div>
               </div>
 
-              {/* Financial Story */}
-              <div className="max-w-2xl mx-auto">
-                <div className="bg-gradient-to-br from-primary/10 to-primary/5 backdrop-blur-sm border border-primary/20 rounded-3xl p-8">
-                  <h3 className="text-2xl font-light mb-6">Monthly Savings</h3>
-                  <div className="text-center space-y-4">
-                    <div className="text-5xl font-extralight text-primary">
-                      ₹{Math.round(recommendation.monthlySavings / 1000)}k
-                    </div>
-                    <div className="text-muted-foreground">Every month</div>
-                    <div className="text-sm text-muted-foreground bg-background/50 p-3 rounded-xl">
-                      ₹{Math.round(recommendation.monthlySavings * 12 / 100000)}L saved annually
-                    </div>
-                  </div>
-                </div>
-              </div>
-
               {/* Environmental Impact */}
               <div className="text-center bg-gradient-to-r from-green-500/5 via-primary/5 to-green-500/5 backdrop-blur-sm border border-green-500/10 rounded-3xl p-8">
                 <Leaf className="w-12 h-12 text-green-600 mx-auto mb-4" />
