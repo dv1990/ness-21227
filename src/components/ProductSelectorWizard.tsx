@@ -19,7 +19,7 @@ import { ApplianceSelector } from './forms/ApplianceSelector';
 import { ConfigurationSummary } from './forms/ConfigurationSummary';
 import { QuoteContactForm } from './forms/QuoteContactForm';
 
-const STEP_LABELS = ['Choose Product', 'Size Your Home', 'Contact Details'];
+const STEP_LABELS = ['Choose Product', 'Size Your Battery', 'Contact Details'];
 
 export const ProductSelectorWizard: React.FC = () => {
   const { toast } = useToast();
@@ -225,12 +225,14 @@ ${formData.message || 'No additional message'}
         </div>
       )}
 
-      {/* Step 2: Home Sizing */}
+      {/* Step 2: Battery Sizing */}
       {step === 2 && (
         <div className="space-y-8 animate-fade-in max-w-4xl mx-auto">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl md:text-4xl font-light">Size it for your home</h2>
-            <p className="text-lg text-muted-foreground">Help us recommend the perfect capacity</p>
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-light">Let's size your battery correctly</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Tell me which appliances you'd like to run during power cuts. I'll calculate the right battery capacity for you.
+            </p>
           </div>
 
           <Card className="p-8 space-y-8">
@@ -284,19 +286,58 @@ ${formData.message || 'No additional message'}
 
             {/* Recommendation Preview */}
             {selectedAppliances.length > 0 && (
-              <div className="bg-primary/5 rounded-lg p-6 border border-primary/20">
-                <h3 className="font-medium mb-2 flex items-center gap-2">
-                  <Check className="w-5 h-5 text-primary" aria-hidden="true" />
-                  Based on your selections
-                </h3>
-                <p className="text-sm text-muted-foreground mb-4">
-                  We recommend: <span className="text-foreground font-medium">{calculateRecommendation().name}</span>
-                </p>
-                <div className="text-sm text-muted-foreground">
-                  Total estimated load: {selectedAppliances.reduce((sum, appId) => {
-                    const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-                    return sum + (appliance?.watts || 0);
-                  }, 0)}W
+              <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-8 border border-primary/20 space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                    <Check className="w-6 h-6 text-primary" aria-hidden="true" />
+                  </div>
+                  <div className="space-y-2 flex-1">
+                    <h3 className="text-xl font-medium text-foreground">
+                      Perfect! Here's your customized solution
+                    </h3>
+                    <p className="text-base text-muted-foreground">
+                      Based on your power needs, we recommend: <span className="text-foreground font-semibold">{calculateRecommendation().name}</span>
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="grid grid-cols-2 gap-4 pt-4 border-t border-primary/10">
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Total Power Load</p>
+                    <p className="text-2xl font-semibold text-foreground">
+                      {selectedAppliances.reduce((sum, appId) => {
+                        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+                        return sum + (appliance?.watts || 0);
+                      }, 0)}W
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <p className="text-sm text-muted-foreground">Daily Energy Need</p>
+                    <p className="text-2xl font-semibold text-foreground">
+                      {(selectedAppliances.reduce((sum, appId) => {
+                        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+                        return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
+                      }, 0) / 1000).toFixed(1)} kWh
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-background/50 rounded-lg p-4 space-y-3">
+                  <div className="flex items-center gap-2 text-primary">
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                    </svg>
+                    <h4 className="font-medium text-foreground">Become a Sustainability Champion</h4>
+                  </div>
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    By choosing solar + storage, you're joining the elite group of forward-thinking homeowners who are reducing carbon emissions and leading India's clean energy revolution. Your system will offset approximately <strong className="text-foreground">{(selectedAppliances.reduce((sum, appId) => {
+                      const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+                      return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
+                    }, 0) * 0.365 * 0.82 / 1000000).toFixed(1)} tons of CO₂</strong> annually—equivalent to planting {Math.round(selectedAppliances.reduce((sum, appId) => {
+                      const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+                      return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
+                    }, 0) * 0.365 * 0.82 / 1000000 * 45)} trees every year.
+                  </p>
                 </div>
               </div>
             )}

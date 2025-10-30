@@ -256,7 +256,7 @@ const ImpactSection = () => {
               { metric: 'Demand Charges', improvement: '↓ 40–60%' },
               { metric: 'CO₂ Emissions', improvement: '↓ 90–100%' },
               { metric: 'Uptime', improvement: '99.9%' },
-              { metric: 'ROI Period', improvement: '2–4 years' }
+              { metric: 'Carbon Offset', improvement: '50+ tons/year' }
             ].map((item, i) => (
               <div 
                 key={i}

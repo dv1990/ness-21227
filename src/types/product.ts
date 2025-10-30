@@ -12,6 +12,7 @@ export interface Product {
   price: string;
   idealFor: string;
   features: string[];
+  description?: string;
 }
 
 export interface Appliance {

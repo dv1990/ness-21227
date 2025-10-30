@@ -22,13 +22,19 @@ export const PRODUCTS: Product[] = [
   {
     id: 'oneaio',
     name: 'NESS AIO',
-    tier: 'Backup + Solar',
+    tier: 'All-In-One Solar Solution',
     image: nessCubeImage,
     capacity: '5-20 kWh',
     backupTime: '24-48 hours',
     price: '₹1,39,999',
-    idealFor: 'Backup + Solar integration',
-    features: ['Built-in solar inverter', 'Grid backup included', 'Save on electricity bills']
+    idealFor: 'Complete solar + storage solution in one elegant unit',
+    features: [
+      'Built-in solar inverter (no separate equipment needed)',
+      'Battery storage + grid backup in single system', 
+      'Reduces electricity bills by up to 80%',
+      'Plug-and-play installation, future-ready design'
+    ],
+    description: 'An All-In-One (AIO) system combines three essential components in a single unit: solar inverter, battery storage, and grid backup. This eliminates the complexity of multiple devices, reduces installation costs, and ensures all components work seamlessly together.'
   },
   {
     id: 'brick',

@@ -314,7 +314,7 @@ const InstallersEnhanced = () => {
                 {[
                   "Load pattern analysis",
                   "Optimal component sizing", 
-                  "ROI calculations",
+                  "Environmental impact reports",
                   "Professional documentation"
                 ].map((feature) => (
                   <div key={feature} className="flex items-center space-x-3">

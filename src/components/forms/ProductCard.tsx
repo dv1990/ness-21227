@@ -73,10 +73,19 @@ export const ProductCard: React.FC<ProductCardProps> = ({
             </div>
           </div>
 
+          {/* Description for AIO product */}
+          {product.description && (
+            <div className="pt-3 border-t border-border/50">
+              <p className="text-xs text-muted-foreground/80 leading-relaxed">
+                <strong className="text-foreground">What is All-In-One?</strong> {product.description}
+              </p>
+            </div>
+          )}
+
           <div className="pt-4">
             <div className="text-3xl font-light mb-2">{product.price}</div>
             <Button className="w-full">
-              Select {product.name}
+              {product.id === 'oneaio' ? 'Configure' : `Select ${product.name}`}
             </Button>
           </div>
         </div>
