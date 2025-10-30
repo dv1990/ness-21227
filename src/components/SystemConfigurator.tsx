@@ -67,6 +67,16 @@ const SystemConfigurator = () => {
 
   // Calculate system requirements
   const calculateSystem = () => {
+    // Validate inputs
+    if (config.dailyLoad === 0 || config.peakLoad === 0 || config.roofArea === 0) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields before calculating.",
+        variant: "destructive"
+      });
+      return;
+    }
+
     setIsCalculating(true);
     
     // Simulate calculation delay
@@ -96,7 +106,7 @@ const SystemConfigurator = () => {
       // Savings calculation
       const electricityRate = 8; // ₹8 per kWh
       const monthlySavings = (dailyLoad * 30 * electricityRate * 0.8); // 80% solar offset
-      const paybackPeriod = totalCost / (monthlySavings * 12);
+      const paybackPeriod = monthlySavings > 0 ? totalCost / (monthlySavings * 12) : 0;
       
       // Environmental impact
       const co2Factor = 0.82; // kg CO2 per kWh in India
