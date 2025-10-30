@@ -435,20 +435,7 @@ const SystemConfigurator = () => {
               </div>
 
               {/* Financial Story */}
-              <div className="grid md:grid-cols-2 gap-8">
-                <div className="bg-card/30 backdrop-blur-sm border border-border/30 rounded-3xl p-8">
-                  <h3 className="text-2xl font-light mb-6">Investment</h3>
-                  <div className="text-center space-y-4">
-                    <div className="text-5xl font-extralight text-foreground">
-                      ₹{(recommendation.totalCost / 100000).toFixed(1)}L
-                    </div>
-                    <div className="text-muted-foreground">Total system cost</div>
-                    <div className="text-sm text-muted-foreground bg-muted/10 p-3 rounded-xl">
-                      Pays for itself in {recommendation.paybackPeriod} years
-                    </div>
-                  </div>
-                </div>
-                
+              <div className="max-w-2xl mx-auto">
                 <div className="bg-gradient-to-br from-primary/10 to-primary/5 backdrop-blur-sm border border-primary/20 rounded-3xl p-8">
                   <h3 className="text-2xl font-light mb-6">Monthly Savings</h3>
                   <div className="text-center space-y-4">
