@@ -208,11 +208,17 @@ const ContactHomeowner = () => {
                     <div className="relative w-24 h-1 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto rounded-full">
                       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary to-transparent rounded-full animate-pulse blur-sm"></div>
                     </div>
-                    <h2 className="text-6xl sm:text-7xl md:text-8xl font-extralight tracking-[-0.03em] text-foreground leading-[0.95]">
-                      Choose your NESS
-                    </h2>
-                    <p className="text-xl sm:text-2xl text-muted-foreground/70 font-light max-w-2xl mx-auto leading-relaxed">
-                      Because every home deserves intelligent energy.
+                    <div className="space-y-4">
+                      <p className="text-lg sm:text-xl text-muted-foreground/60 font-light">
+                        Not sure which system is right for you?
+                      </p>
+                      <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight tracking-[-0.03em] text-foreground leading-[0.95]">
+                        Let me help you identify the ideal product
+                      </h2>
+                    </div>
+                    <p className="text-xl sm:text-2xl text-muted-foreground/70 font-light max-w-3xl mx-auto leading-relaxed">
+                      I'll ask you a few simple questions about your home and energy needs. 
+                      In under a minute, we'll find the perfect NESS system for you.
                     </p>
                   </motion.div>
 
@@ -227,7 +233,7 @@ const ContactHomeowner = () => {
                       className="bg-primary text-primary-foreground hover:bg-primary/90 px-12 py-7 rounded-full text-lg font-medium shadow-[0_0_40px_rgba(0,200,83,0.3)] hover:shadow-[0_0_60px_rgba(0,200,83,0.5)] transition-all duration-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
                       aria-label="Begin the product selection process"
                     >
-                      Begin
+                      Let's Get Started
                     </Button>
                   </motion.div>
                 </div>
