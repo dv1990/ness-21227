@@ -4,6 +4,7 @@ import { Shield, Zap, Battery, Clock, ArrowRight, Play, Users, CheckCircle, Chec
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { PerformanceImage } from "@/components/ui/performance-image";
+import { ProductSectionSkeleton } from "@/components/ui/product-section-skeleton";
 import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
@@ -241,7 +242,7 @@ const Index = () => {
       </section>
 
       {/* 3. PRODUCT SPOTLIGHT - NESS Powerwall - Mobile Optimized */}
-      <LazySection>
+      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
         <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-white">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
@@ -307,7 +308,7 @@ const Index = () => {
       </LazySection>
 
       {/* 3B. C&I PRODUCT SPOTLIGHT - NESS Pod - Mobile Optimized */}
-      <LazySection>
+      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
         <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
