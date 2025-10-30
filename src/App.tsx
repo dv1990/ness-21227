@@ -5,12 +5,7 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Suspense, lazy } from 'react';
-import * as React from 'react';
-
-// Lazy load QueryClient to reduce initial bundle
-const QueryClientProvider = lazy(() => 
-  import("@tanstack/react-query").then(m => ({ default: m.QueryClientProvider }))
-);
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Critical page - Eager loaded for instant first paint
 import Index from "./pages/Index";
@@ -48,21 +43,14 @@ const Downloads = lazy(() => import("./pages/Downloads"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Create QueryClient instance outside component to avoid re-creation
-let queryClient: any = null;
-const getQueryClient = async () => {
-  if (!queryClient) {
-    const { QueryClient } = await import("@tanstack/react-query");
-    queryClient = new QueryClient({
-      defaultOptions: {
-        queries: {
-          staleTime: 1000 * 60 * 5, // 5 minutes
-          retry: 1,
-        },
-      },
-    });
-  }
-  return queryClient;
-};
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 5, // 5 minutes
+      retry: 1,
+    },
+  },
+});
 
 // Loading fallback component with skeleton
 const PageLoadingFallback = () => (
@@ -75,20 +63,9 @@ const PageLoadingFallback = () => (
 );
 
 const App = () => {
-  const [client, setClient] = React.useState<any>(null);
-
-  React.useEffect(() => {
-    getQueryClient().then(setClient);
-  }, []);
-
-  if (!client) {
-    return <PageLoadingFallback />;
-  }
-
   return (
     <ErrorBoundary>
-      <Suspense fallback={<PageLoadingFallback />}>
-        <QueryClientProvider client={client}>
+      <QueryClientProvider client={queryClient}>
           <TooltipProvider>
             <Toaster />
             <Sonner />
@@ -154,7 +131,6 @@ const App = () => {
           </Router>
         </TooltipProvider>
       </QueryClientProvider>
-    </Suspense>
     </ErrorBoundary>
   );
 };
