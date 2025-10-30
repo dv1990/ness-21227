@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
-
 const Footer = () => {
-  return (
-    <footer className="bg-foreground text-background border-t border-border/10">
+  return <footer className="bg-foreground text-background border-t border-border/10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-12">
           {/* Company Info */}
@@ -20,12 +18,7 @@ const Footer = () => {
                   contact@nunam.com
                 </a>
               </div>
-              <div className="flex items-center gap-3 text-background/70">
-                <Phone className="w-4 h-4" />
-                <a href="tel:+911234567890" className="hover:text-background transition-colors">
-                  +91 123 456 7890
-                </a>
-              </div>
+              
               <div className="flex items-start gap-3 text-background/70">
                 <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
                 <span>
@@ -136,48 +129,22 @@ const Footer = () => {
 
             {/* Social Media */}
             <div className="flex gap-4">
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                aria-label="LinkedIn"
-              >
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="LinkedIn">
                 <Linkedin className="w-5 h-5" />
               </a>
-              <a 
-                href="https://twitter.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                aria-label="Twitter"
-              >
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Twitter">
                 <Twitter className="w-5 h-5" />
               </a>
-              <a 
-                href="https://facebook.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                aria-label="Facebook"
-              >
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Facebook">
                 <Facebook className="w-5 h-5" />
               </a>
-              <a 
-                href="https://instagram.com" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors"
-                aria-label="Instagram"
-              >
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Instagram">
                 <Instagram className="w-5 h-5" />
               </a>
             </div>
           </div>
         </div>
       </div>
-    </footer>
-  );
+    </footer>;
 };
-
 export default Footer;
