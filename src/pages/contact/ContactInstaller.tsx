@@ -22,6 +22,10 @@ import {
 } from "@/components/ui/dialog";
 import SystemConfigurator from "@/components/SystemConfigurator";
 import { useToast } from "@/hooks/use-toast";
+import installerHero from "@/assets/installer-hero.jpg";
+import nessPodInstall from "@/assets/ness-pod-installation-hero.webp";
+import configuratorTool from "@/assets/configurator-tool.jpg";
+import industrialFacility from "@/assets/industrial-solar-facility.jpg";
 
 const formSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
@@ -90,416 +94,478 @@ const ContactInstaller = () => {
   return (
     <Layout>
       <div className="bg-background">
-        {/* Hero Section */}
-        <section className="relative py-20 md:py-24 px-6">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              <div className="space-y-6 animate-fade-in-up">
-                <p className="text-sm font-semibold tracking-wider uppercase text-energy">
-                  For EPC Installers
-                </p>
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-                  The easiest battery you'll ever install.
-                </h1>
-                <p className="text-lg md:text-xl text-muted-foreground max-w-xl">
-                  Powered by digital intelligence. Built for reliability—without the headaches.
-                </p>
-                <p className="text-xs text-muted-foreground">
-                  Fix it. Forget it. Powered by Digital Trust.
-                </p>
+        {/* Hero Section - Full bleed with image */}
+        <section className="relative min-h-[85vh] flex items-center overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={nessPodInstall}
+              alt="Professional battery installation"
+              className="w-full h-full object-cover"
+              loading="eager"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-charcoal/95 via-charcoal/70 to-charcoal/40" />
+          </div>
+          
+          {/* Content */}
+          <div className="relative z-10 mx-auto max-w-screen-xl px-6 py-20">
+            <div className="max-w-3xl space-y-8 animate-fade-in-up">
+              <p className="text-sm font-semibold tracking-[0.2em] uppercase text-energy-bright">
+                For EPC Installers
+              </p>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-[0.95]">
+                The easiest
+                <br />
+                battery you'll
+                <br />
+                ever install.
+              </h1>
+              <p className="text-xl md:text-2xl text-white/80 font-light max-w-2xl leading-relaxed">
+                Powered by digital intelligence. Built for reliability—without the headaches.
+              </p>
+              <div className="flex items-center gap-3 text-white/60 text-sm">
+                <div className="w-12 h-px bg-energy" />
+                <span>Fix it. Forget it. Powered by Digital Trust.</span>
+              </div>
+              <div className="pt-4">
                 <Button
                   onClick={scrollToContact}
                   id="cta-become-partner"
                   data-cta="become-partner"
-                  className="bg-energy hover:brightness-95 text-white rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5"
+                  size="lg"
+                  className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
                 >
                   Become a Nunam Partner
                 </Button>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* The Reality - Empathy Block with Visual Stats */}
+        <section className="py-32 md:py-40 px-6">
+          <div className="mx-auto max-w-screen-xl">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              {/* Text Content */}
+              <div className="max-w-xl space-y-10">
+                <div className="space-y-6">
+                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-foreground leading-tight">
+                    Every installer
+                    <br />
+                    knows this moment.
+                  </h2>
+                  <div className="text-lg md:text-xl text-muted-foreground space-y-4 font-light leading-relaxed">
+                    <p>The panels go up smooth.</p>
+                    <p>The inverter syncs perfectly.</p>
+                    <p className="text-foreground/90">Then comes the battery — and the pause.</p>
+                  </div>
+                  <p className="text-2xl md:text-3xl font-medium text-foreground pt-4 leading-snug">
+                    One wrong configuration, and the customer calls never stop.
+                  </p>
+                </div>
+              </div>
               
-              <div className="relative animate-fade-in-up" style={{ animationDelay: "150ms" }}>
-                <div className="bg-card rounded-2xl p-8 shadow-soft border border-border/20">
-                  <svg
-                    viewBox="0 0 400 300"
-                    className="w-full h-auto"
-                    aria-hidden="true"
-                  >
-                    {/* Installer figure */}
-                    <circle cx="200" cy="80" r="25" fill="hsl(var(--graphite))" />
-                    <rect x="180" y="110" width="40" height="60" rx="5" fill="hsl(var(--graphite))" />
-                    <rect x="165" y="125" width="70" height="8" rx="4" fill="hsl(var(--energy-core))" />
-                    
-                    {/* Battery unit */}
-                    <rect x="100" y="180" width="80" height="100" rx="8" fill="hsl(var(--card))" stroke="hsl(var(--border))" strokeWidth="2" />
-                    <rect x="110" y="200" width="60" height="40" rx="4" fill="hsl(var(--energy-core))" opacity="0.2" />
-                    
-                    {/* Dashboard with green checkmark */}
-                    <rect x="220" y="180" width="100" height="80" rx="8" fill="hsl(var(--card))" stroke="hsl(var(--border))" strokeWidth="2" />
-                    <circle cx="270" cy="220" r="20" fill="hsl(var(--energy-core))" opacity="0.2" />
-                    <path d="M 260 220 L 267 227 L 280 210" stroke="hsl(var(--energy-core))" strokeWidth="3" fill="none" strokeLinecap="round" strokeLinejoin="round" />
-                    <text x="235" y="253" fontSize="10" fill="hsl(var(--energy-core))" fontWeight="600">Verified</text>
-                  </svg>
+              {/* Visual Stats Cards */}
+              <div className="grid grid-cols-2 gap-6">
+                <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1">
+                  <div className="text-5xl font-light text-energy mb-3">3hrs</div>
+                  <div className="text-sm text-muted-foreground">Average troubleshooting time per install</div>
+                </div>
+                <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
+                  <div className="text-5xl font-light text-energy mb-3">47%</div>
+                  <div className="text-sm text-muted-foreground">Of callbacks are config-related</div>
+                </div>
+                <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1">
+                  <div className="text-5xl font-light text-energy mb-3">₹45k</div>
+                  <div className="text-sm text-muted-foreground">Lost per botched commissioning</div>
+                </div>
+                <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
+                  <div className="text-5xl font-light text-energy mb-3">0min</div>
+                  <div className="text-sm text-muted-foreground">Setup time with Nunam</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* The Reality - Empathy Block */}
-        <section className="py-20 md:py-24 px-6 border-t border-border">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="max-w-[48ch] mx-auto text-center space-y-8">
-              <h2 className="text-3xl md:text-4xl font-medium text-foreground">
-                Every installer knows this moment.
-              </h2>
-              <div className="text-lg md:text-xl text-muted-foreground space-y-4">
-                <p>The panels go up smooth.</p>
-                <p>The inverter syncs perfectly.</p>
-                <p>Then comes the battery — and the pause.</p>
+        {/* The Shift - Solution Block with Image */}
+        <section className="relative py-32 md:py-40 overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 z-0">
+            <img 
+              src={industrialFacility}
+              alt="Modern industrial facility"
+              className="w-full h-full object-cover opacity-10"
+            />
+          </div>
+          
+          <div className="relative z-10 mx-auto max-w-screen-xl px-6">
+            <div className="max-w-4xl mx-auto text-center space-y-12">
+              <div className="space-y-8">
+                <h2 className="text-5xl md:text-7xl font-light text-foreground leading-tight">
+                  Nunam ends
+                  <br />
+                  that story.
+                </h2>
+                <div className="text-xl md:text-2xl text-muted-foreground space-y-6 font-light leading-relaxed max-w-3xl mx-auto">
+                  <p>
+                    Our batteries run on a digital backbone — auto-configured,
+                    cloud-verified, and always monitored.
+                  </p>
+                  <p className="text-2xl md:text-3xl text-foreground font-normal">
+                    You plug it in, and it just works.
+                  </p>
+                  <p>
+                    Health reports, live data, and smart alerts are built in — no
+                    guesswork.
+                  </p>
+                </div>
               </div>
-              <p className="text-xl md:text-2xl font-semibold text-foreground">
-                One wrong configuration, and the customer calls never stop.
+              
+              {/* Feature Pills */}
+              <div className="flex flex-wrap justify-center gap-4 pt-8">
+                {[
+                  "Auto-configured",
+                  "Cloud-verified", 
+                  "Smart alerts",
+                  "Real-time monitoring",
+                  "Predictive maintenance"
+                ].map((feature, idx) => (
+                  <span 
+                    key={feature}
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-card/80 backdrop-blur-sm rounded-full border border-energy/20 text-sm font-medium text-foreground hover:bg-energy/10 hover:border-energy/40 transition-all duration-300 hover:scale-105"
+                    style={{
+                      animation: `fade-in-up 600ms ease-out forwards`,
+                      animationDelay: `${idx * 100}ms`,
+                      opacity: 0
+                    }}
+                  >
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                      <circle cx="8" cy="8" r="7" stroke="hsl(var(--energy-core))" strokeWidth="1.5"/>
+                      <path d="M5 8L7 10L11 6" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    {feature}
+                  </span>
+                ))}
+              </div>
+
+              {/* Animated Progress Bar */}
+              <div className="pt-12 flex justify-center">
+                <div className="relative w-full max-w-2xl">
+                  <div className="flex justify-between text-sm text-muted-foreground mb-3 font-medium">
+                    <span>Plug in</span>
+                    <span>Auto-config</span>
+                    <span>Verified</span>
+                    <span>Online</span>
+                  </div>
+                  <div className="relative h-2 bg-border/30 rounded-full overflow-hidden">
+                    <div 
+                      className="absolute h-full bg-gradient-to-r from-energy via-energy-bright to-energy rounded-full"
+                      style={{
+                        width: '0%',
+                        animation: 'grow 2s ease-out forwards'
+                      }}
+                    />
+                  </div>
+                  <div className="text-center mt-4 text-sm text-energy font-semibold">
+                    Setup complete in under 60 seconds
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Grid - Visual Cards with Icons */}
+        <section className="py-32 md:py-40 px-6 bg-whisper">
+          <div className="mx-auto max-w-screen-xl">
+            <div className="text-center mb-20 space-y-6">
+              <h2 className="text-5xl md:text-6xl font-light text-foreground leading-tight">
+                Why EPCs
+                <br />
+                choose Nunam.
+              </h2>
+              <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
+                More than a battery. A partnership that protects your reputation.
               </p>
             </div>
-          </div>
-        </section>
-
-        {/* The Shift - Solution Block */}
-        <section className="py-20 md:py-24 px-6 bg-muted/30">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="max-w-3xl mx-auto space-y-8">
-              <h2 className="text-3xl md:text-4xl font-medium text-foreground text-center">
-                Nunam ends that story.
-              </h2>
-              <div className="text-lg md:text-xl text-muted-foreground space-y-4 text-center">
-                <p>
-                  Our batteries run on a digital backbone — auto-configured,
-                  cloud-verified, and always monitored.
-                </p>
-                <p>You plug it in, and it just works.</p>
-                <p>
-                  Health reports, live data, and smart alerts are built in — no
-                  guesswork.
-                </p>
-              </div>
-              
-              <div className="flex flex-wrap justify-center gap-4 pt-6">
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border text-sm text-muted-foreground">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Auto-configured
-                </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border text-sm text-muted-foreground">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Cloud-verified
-                </span>
-                <span className="inline-flex items-center gap-2 px-4 py-2 bg-card rounded-full border border-border text-sm text-muted-foreground">
-                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                    <path d="M13.3334 4L6.00008 11.3333L2.66675 8" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                  Smart alerts
-                </span>
-              </div>
-
-              <div className="pt-8 flex justify-center">
-                <div className="relative w-full max-w-md h-32 overflow-hidden">
-                  <svg
-                    viewBox="0 0 400 100"
-                    className="w-full h-full"
-                    aria-hidden="true"
-                  >
-                    <rect
-                      x="50"
-                      y="40"
-                      width="300"
-                      height="20"
-                      rx="10"
-                      fill="hsl(var(--border))"
-                    />
-                    <rect
-                      x="50"
-                      y="40"
-                      width="0"
-                      height="20"
-                      rx="10"
-                      fill="hsl(var(--energy-core))"
-                      className="animate-[grow_800ms_ease-out_forwards]"
-                    >
-                      <animate
-                        attributeName="width"
-                        from="0"
-                        to="300"
-                        dur="800ms"
-                        fill="freeze"
-                      />
-                    </rect>
-                  </svg>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Benefits Grid */}
-        <section className="py-20 md:py-24 px-6">
-          <div className="mx-auto max-w-screen-xl">
-            <h2 className="text-3xl md:text-4xl font-medium text-foreground text-center mb-12">
-              Why EPCs choose Nunam.
-            </h2>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
+                  icon: (
+                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+                      <circle cx="24" cy="24" r="20" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
+                      <path d="M16 24L22 30L32 18" stroke="hsl(var(--energy-core))" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
                   title: "Plug & play setup",
                   description: "No hidden menus. No messy calibration.",
+                  stat: "15 min",
+                  statLabel: "avg install"
                 },
                 {
+                  icon: (
+                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+                      <path d="M24 8V24L32 32" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="24" cy="24" r="18" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
+                    </svg>
+                  ),
                   title: "Fewer customer calls",
                   description: "Predictable systems, happier clients.",
+                  stat: "94%",
+                  statLabel: "satisfaction"
                 },
                 {
+                  icon: (
+                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+                      <path d="M12 24L24 36L36 12" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
                   title: "Faster handovers",
                   description: "Commission, sign off, move on.",
+                  stat: "3x",
+                  statLabel: "faster"
                 },
                 {
+                  icon: (
+                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
+                      <path d="M34 20V14H28M34 14L24 24L18 18L8 28" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  ),
                   title: "Higher margins",
                   description: "Time saved is margin protected.",
+                  stat: "23%",
+                  statLabel: "margin boost"
                 },
               ].map((benefit, index) => (
                 <div
                   key={index}
-                  className="bg-card rounded-2xl p-6 shadow-soft border border-border/20 transition-all duration-200 hover:shadow-lifted hover:border-border/40"
+                  className="group bg-card/50 backdrop-blur-sm rounded-3xl p-8 border border-border/50 transition-all duration-500 hover:shadow-lifted hover:border-energy/30 hover:-translate-y-2 hover:bg-card"
                   style={{
-                    animation: `fade-in-up 600ms ease-out forwards`,
-                    animationDelay: `${index * 100}ms`,
+                    animation: `fade-in-up 700ms ease-out forwards`,
+                    animationDelay: `${index * 150}ms`,
                     opacity: 0,
                   }}
                 >
-                  <h3 className="text-xl font-semibold text-foreground mb-3">
-                    {benefit.title}
-                  </h3>
-                  <p className="text-muted-foreground">{benefit.description}</p>
+                  <div className="space-y-6">
+                    <div className="flex items-start justify-between">
+                      <div className="text-energy group-hover:scale-110 transition-transform duration-300">
+                        {benefit.icon}
+                      </div>
+                      <div className="text-right">
+                        <div className="text-3xl font-light text-energy">{benefit.stat}</div>
+                        <div className="text-xs text-muted-foreground uppercase tracking-wider">{benefit.statLabel}</div>
+                      </div>
+                    </div>
+                    <div className="space-y-3">
+                      <h3 className="text-2xl font-medium text-foreground">
+                        {benefit.title}
+                      </h3>
+                      <p className="text-muted-foreground leading-relaxed">{benefit.description}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* Proof Strip */}
-        <section className="py-16 px-6 bg-muted/30">
+        {/* Proof Strip - Enhanced */}
+        <section className="py-20 px-6 bg-gradient-to-r from-energy/5 via-energy/10 to-energy/5">
           <div className="mx-auto max-w-screen-xl">
-            <div className="text-center space-y-4">
-              <span className="inline-block bg-energy text-white rounded-full px-3 py-1 text-xs uppercase tracking-wide font-semibold">
-                Field-proven
-              </span>
-              <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-                Already running at airports and bus depots across India — zero
-                diesel, zero downtime.
+            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
+              <div className="flex items-center gap-4">
+                <span className="inline-block bg-energy text-white rounded-full px-4 py-2 text-xs uppercase tracking-[0.15em] font-bold shadow-energy">
+                  Field-proven
+                </span>
+              </div>
+              <div className="h-12 w-px bg-border hidden md:block" />
+              <p className="text-lg md:text-xl text-foreground font-light text-center md:text-left max-w-2xl leading-relaxed">
+                Already running at <span className="font-semibold text-energy">airports and bus depots</span> across India
+                <br className="hidden md:block" />
+                <span className="text-muted-foreground"> — zero diesel, zero downtime.</span>
               </p>
             </div>
           </div>
         </section>
 
-        {/* System Configurator Section */}
-        <section className="py-20 md:py-24 px-6">
+        {/* System Configurator Section - Enhanced */}
+        <section className="py-32 md:py-40 px-6">
           <div className="mx-auto max-w-screen-xl">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="space-y-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="space-y-10 order-2 lg:order-1">
                 <div className="space-y-6">
-                  <span className="inline-block text-sm font-semibold tracking-wider uppercase text-energy">
+                  <span className="inline-block text-sm font-semibold tracking-[0.2em] uppercase text-energy">
                     Smart Tools
                   </span>
                   
-                  <h2 className="text-4xl md:text-5xl font-medium text-foreground">
-                    System configurator
+                  <h2 className="text-5xl md:text-6xl font-light text-foreground leading-tight">
+                    System
+                    <br />
+                    configurator
                   </h2>
 
-                  <p className="text-lg text-muted-foreground leading-relaxed">
+                  <p className="text-xl text-muted-foreground font-light leading-relaxed">
                     Generate accurate system specifications and professional proposals 
                     in minutes with our advanced configuration tool.
                   </p>
                 </div>
 
-                <div className="space-y-4">
+                <div className="space-y-5">
                   {[
-                    "Load pattern analysis",
-                    "Optimal component sizing",
-                    "Environmental impact reports",
-                    "Professional documentation",
+                    { text: "Load pattern analysis", delay: 0 },
+                    { text: "Optimal component sizing", delay: 100 },
+                    { text: "Environmental impact reports", delay: 200 },
+                    { text: "Professional documentation", delay: 300 },
                   ].map((feature) => (
-                    <div key={feature} className="flex items-center gap-3">
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <circle
-                          cx="10"
-                          cy="10"
-                          r="9"
-                          stroke="hsl(var(--energy-core))"
-                          strokeWidth="1.5"
-                        />
-                        <path
-                          d="M6 10L9 13L14 7"
-                          stroke="hsl(var(--energy-core))"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                      <span className="text-foreground">{feature}</span>
+                    <div 
+                      key={feature.text} 
+                      className="flex items-center gap-4 group"
+                      style={{
+                        animation: `fade-in-up 600ms ease-out forwards`,
+                        animationDelay: `${feature.delay}ms`,
+                        opacity: 0
+                      }}
+                    >
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M4 8L7 11L12 5"
+                            stroke="hsl(var(--energy-core))"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                      <span className="text-lg text-foreground group-hover:text-energy transition-colors duration-300">{feature.text}</span>
                     </div>
                   ))}
                 </div>
 
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      className="bg-energy hover:brightness-95 text-white rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5"
-                    >
-                      <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
-                        className="mr-2"
-                        aria-hidden="true"
+                <div className="pt-4">
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button
+                        size="lg"
+                        className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy group"
                       >
-                        <rect
-                          x="3"
-                          y="3"
-                          width="6"
-                          height="6"
-                          rx="1"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <rect
-                          x="11"
-                          y="3"
-                          width="6"
-                          height="6"
-                          rx="1"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <rect
-                          x="3"
-                          y="11"
-                          width="6"
-                          height="6"
-                          rx="1"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                        <rect
-                          x="11"
-                          y="11"
-                          width="6"
-                          height="6"
-                          rx="1"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                        />
-                      </svg>
-                      Launch Configurator
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
-                    <SystemConfigurator />
-                  </DialogContent>
-                </Dialog>
+                        <svg
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          className="mr-3 group-hover:rotate-90 transition-transform duration-500"
+                          aria-hidden="true"
+                        >
+                          <rect
+                            x="3"
+                            y="3"
+                            width="8"
+                            height="8"
+                            rx="2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <rect
+                            x="13"
+                            y="3"
+                            width="8"
+                            height="8"
+                            rx="2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <rect
+                            x="3"
+                            y="13"
+                            width="8"
+                            height="8"
+                            rx="2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                          <rect
+                            x="13"
+                            y="13"
+                            width="8"
+                            height="8"
+                            rx="2"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                          />
+                        </svg>
+                        Launch Configurator
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+                      <SystemConfigurator />
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
 
-              <div className="relative">
-                <div className="bg-card rounded-2xl p-8 shadow-soft border border-border/20">
-                  <svg
-                    viewBox="0 0 400 300"
-                    className="w-full h-auto"
-                    aria-hidden="true"
-                  >
-                    {/* Dashboard mockup */}
-                    <rect
-                      x="20"
-                      y="20"
-                      width="360"
-                      height="260"
-                      rx="12"
-                      fill="hsl(var(--card))"
-                      stroke="hsl(var(--border))"
-                      strokeWidth="2"
-                    />
-                    
-                    {/* Header bar */}
-                    <rect x="40" y="40" width="320" height="30" rx="6" fill="hsl(var(--muted))" opacity="0.3" />
-                    
-                    {/* Charts */}
-                    <rect x="40" y="90" width="150" height="100" rx="8" fill="hsl(var(--energy-core))" opacity="0.1" />
-                    <rect x="210" y="90" width="150" height="100" rx="8" fill="hsl(var(--energy-core))" opacity="0.1" />
-                    
-                    {/* Graph lines */}
-                    <path
-                      d="M 60 140 L 90 120 L 120 130 L 150 110 L 170 115"
-                      stroke="hsl(var(--energy-core))"
-                      strokeWidth="3"
-                      fill="none"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    
-                    {/* Bars */}
-                    <rect x="230" y="160" width="30" height="20" rx="4" fill="hsl(var(--energy-core))" opacity="0.6" />
-                    <rect x="270" y="140" width="30" height="40" rx="4" fill="hsl(var(--energy-core))" opacity="0.8" />
-                    <rect x="310" y="150" width="30" height="30" rx="4" fill="hsl(var(--energy-core))" />
-                    
-                    {/* Stats cards */}
-                    <rect x="40" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
-                    <rect x="150" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
-                    <rect x="260" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
-                    
-                    {/* Values */}
-                    <text x="90" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">5.1</text>
-                    <text x="90" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">kWh</text>
-                    
-                    <text x="200" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">3.2</text>
-                    <text x="200" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">kW</text>
-                    
-                    <text x="310" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">95%</text>
-                    <text x="310" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">Efficient</text>
-                  </svg>
+              <div className="relative order-1 lg:order-2">
+                <div className="relative rounded-3xl overflow-hidden shadow-premium border border-border/50 group">
+                  <img 
+                    src={configuratorTool}
+                    alt="System configurator interface"
+                    className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+                {/* Floating stat card */}
+                <div className="absolute -bottom-6 -left-6 bg-card rounded-2xl p-6 shadow-premium border border-border/50 backdrop-blur-sm">
+                  <div className="text-4xl font-light text-energy mb-2">2.3min</div>
+                  <div className="text-sm text-muted-foreground">Average config time</div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Belief / Purpose Block */}
-        <section className="py-20 md:py-24 px-6">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="max-w-3xl mx-auto text-center space-y-8">
-              <h2 className="text-3xl md:text-4xl font-medium text-foreground">
-                India doesn't just need more solar — it needs power that stays
-                trusted.
+        {/* Belief / Purpose Block - Full bleed */}
+        <section className="relative py-40 md:py-48 overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-foreground via-graphite to-foreground" />
+          
+          <div className="relative z-10 mx-auto max-w-screen-xl px-6">
+            <div className="max-w-4xl mx-auto text-center space-y-12">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-white leading-[0.95]">
+                India doesn't just
+                <br />
+                need more solar —
+                <br />
+                <span className="text-white/60">it needs power that</span>
+                <br />
+                stays trusted.
               </h2>
-              <p className="text-lg md:text-xl text-muted-foreground">
+              <p className="text-2xl md:text-3xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto">
                 You build the future. We keep it running — quietly, continuously,
                 confidently.
               </p>
-              <Button
-                onClick={scrollToContact}
-                data-cta="become-partner-2"
-                className="bg-energy hover:brightness-95 text-white rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5"
-              >
-                Become a Nunam Partner
-              </Button>
+              <div className="pt-8">
+                <Button
+                  onClick={scrollToContact}
+                  data-cta="become-partner-2"
+                  size="lg"
+                  className="bg-energy hover:brightness-110 text-white rounded-xl px-10 py-8 text-xl font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
+                >
+                  Become a Nunam Partner
+                </Button>
+              </div>
             </div>
           </div>
+          
+          {/* Decorative elements */}
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-energy/10 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-energy/5 rounded-full blur-2xl" />
         </section>
 
         {/* Contact Section */}
