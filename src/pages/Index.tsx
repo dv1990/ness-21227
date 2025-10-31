@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Shield, Zap, Battery, Clock, ArrowRight, Play, Users, CheckCircle, CheckCircle2, ChevronDown } from "lucide-react";
+import { CheckCircle2, ChevronDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { WebPImage } from "@/components/ui/webp-image";
@@ -11,9 +11,13 @@ import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, lazy, Suspense, useRef, useCallback, memo } from "react";
 
-// Lazy load AnimatedCounter to reduce initial bundle
-const AnimatedCounter = lazy(() => import("@/components/ui/animated-counter").then(m => ({
-  default: m.AnimatedCounter
+// Lazy load heavy components to reduce initial bundle
+const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
+  default: m.BelowFoldSections
+})));
+
+const HomeownerConfigurator = lazy(() => import("@/components/homeowner/HomeownerConfigurator").then(m => ({
+  default: m.HomeownerConfigurator
 })));
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -29,16 +33,28 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Smooth scroll tracking for parallax - optimized with useCallback
+  // Throttled scroll tracking for parallax - optimized performance
   const handleScroll = useCallback(() => {
-    setScrollY(window.scrollY);
+    if (window.scrollY < 800) { // Only track scroll in hero section
+      setScrollY(window.scrollY);
+    }
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
-    return () => window.removeEventListener('scroll', handleScroll);
+    let rafId: number;
+    const throttledScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        handleScroll();
+        rafId = 0 as unknown as number;
+      });
+    };
+    
+    window.addEventListener('scroll', throttledScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', throttledScroll);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
   }, [handleScroll]);
 
   // Entrance animation
@@ -59,55 +75,22 @@ const Index = () => {
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
         {/* Full-screen Product Image Background */}
         <div className="absolute inset-0 w-full h-full">
-          {/* Primary ambient glow - 2x brighter */}
-          <div className="absolute inset-0 hidden sm:flex items-center justify-center" style={{
-          opacity: 1
-        }}>
-            <div className="w-full h-full" style={{
-            background: 'radial-gradient(ellipse at 65% 50%, #00FFAA 0%, #00FF88 10%, #00E676 20%, #00C853 35%, rgba(0,230,118,0.7) 50%, rgba(0,200,83,0.4) 65%, transparent 75%)',
-            filter: 'blur(60px)'
-          }} />
+          {/* Optimized ambient glow - CSS only */}
+          <div className="absolute inset-0 hidden sm:block hero-glow" />
+
+          {/* Product Image - Optimized filters */}
+          <div className="absolute inset-0 w-full h-full hero-image">
+            <WebPImage 
+              src={nessHeroProduct} 
+              alt="NESS home battery — reliable backup power for modern Indian homes" 
+              className="w-full h-full object-cover object-center" 
+              priority={true}
+              loading="eager"
+            />
           </div>
 
-          {/* Strong spotlight on product area - 2x intensity */}
-          <div className="absolute inset-0 hidden sm:block" style={{
-          opacity: 1
-        }}>
-            <div className="absolute" style={{
-            top: '10%',
-            right: '0%',
-            width: '60%',
-            height: '80%',
-            background: 'radial-gradient(ellipse at center, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.25) 35%, rgba(255,255,255,0.1) 55%, transparent 70%)',
-            filter: 'blur(45px)'
-          }} />
-          </div>
-
-          {/* Edge lighting effect on right side - 2x stronger */}
-          <div className="absolute inset-0 hidden sm:block" style={{
-          opacity: 0.9
-        }}>
-            <div className="absolute" style={{
-            top: '20%',
-            right: '-5%',
-            width: '45%',
-            height: '60%',
-            background: 'linear-gradient(to left, rgba(0,255,136,0.5) 0%, rgba(0,230,118,0.4) 25%, rgba(0,200,83,0.3) 45%, transparent 65%)',
-            filter: 'blur(35px)'
-          }} />
-          </div>
-
-          {/* Product Image - Maximum brightness */}
-          <div className="absolute inset-0 w-full h-full" style={{
-          filter: 'contrast(1.3) saturate(1.5) brightness(1.4)'
-        }}>
-            <WebPImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} />
-          </div>
-
-          {/* Minimal gradient overlay - very light on right side */}
-          <div className="absolute inset-0" style={{
-          background: 'linear-gradient(to bottom, #0B1220aa 0%, #0B122077 50%, #0B1220aa 100%), linear-gradient(110deg, #0B1220dd 0%, #0B1220aa 16%, #0B122055 35%, #1C1F2605 50%, transparent 65%)'
-        }} />
+          {/* Minimal gradient overlay */}
+          <div className="absolute inset-0 hero-overlay" />
         </div>
 
         {/* Text Content Overlaid - Mobile Optimized with Entrance Animations */}
@@ -351,8 +334,26 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 5. FINAL CTA - Mobile Optimized */}
-      
+      {/* 5. BELOW FOLD CONTENT - Lazy Loaded */}
+      <Suspense fallback={
+        <div className="py-32 flex items-center justify-center">
+          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
+        </div>
+      }>
+        <BelowFoldSections />
+      </Suspense>
+
+      {/* 6. CONFIGURATOR - Lazy Loaded */}
+      <Suspense fallback={
+        <div className="py-32 flex items-center justify-center bg-muted/10">
+          <div className="text-center space-y-4">
+            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-sm text-muted-foreground">Loading configurator...</p>
+          </div>
+        </div>
+      }>
+        <HomeownerConfigurator />
+      </Suspense>
     </Layout>;
 };
 

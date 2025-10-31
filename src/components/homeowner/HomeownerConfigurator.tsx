@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
@@ -6,7 +6,9 @@ import { ArrowRight, Sun, Zap, Battery, Settings } from "lucide-react";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
-import SystemConfigurator from "@/components/SystemConfigurator";
+
+// Lazy load SystemConfigurator only when needed
+const SystemConfigurator = lazy(() => import("@/components/SystemConfigurator"));
 
 type EnergySetup = 'new-solar' | 'existing-solar' | 'backup-only' | 'custom' | null;
 
@@ -458,7 +460,7 @@ export const HomeownerConfigurator = () => {
                     </p>
                   </motion.div>
 
-                  {/* System Configurator - wrapped to prevent layout conflicts */}
+                  {/* System Configurator - Lazy loaded with Suspense */}
                   <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -466,7 +468,16 @@ export const HomeownerConfigurator = () => {
                     className="bg-background rounded-3xl overflow-hidden"
                   >
                     <div className="[&>div]:min-h-0 [&>div]:bg-transparent">
-                      <SystemConfigurator />
+                      <Suspense fallback={
+                        <div className="min-h-[500px] flex items-center justify-center">
+                          <div className="text-center space-y-4">
+                            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
+                            <p className="text-sm text-muted-foreground">Loading configurator...</p>
+                          </div>
+                        </div>
+                      }>
+                        <SystemConfigurator />
+                      </Suspense>
                     </div>
                   </motion.div>
 
