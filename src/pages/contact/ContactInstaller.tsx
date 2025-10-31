@@ -241,7 +241,7 @@ const ContactInstaller = () => {
               {/* Visual Stats Cards */}
               <div className="grid grid-cols-2 gap-6">
                 <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1">
-                  <div className="text-5xl font-light text-energy mb-3">3hrs</div>
+                  <div className="text-5xl font-light text-energy mb-3">3 hours</div>
                   <div className="text-sm text-muted-foreground">Average troubleshooting time per install</div>
                 </div>
                 <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
@@ -253,7 +253,7 @@ const ContactInstaller = () => {
                   <div className="text-sm text-muted-foreground">Lost per botched commissioning</div>
                 </div>
                 <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
-                  <div className="text-5xl font-light text-energy mb-3">3hrs</div>
+                  <div className="text-5xl font-light text-energy mb-3">3 hours</div>
                   <div className="text-sm text-muted-foreground">Setup time with NESS</div>
                 </div>
               </div>
