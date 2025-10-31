@@ -438,7 +438,9 @@ const CommercialEnhanced = () => {
                   </div>
                 </div>
 
-                <Button size="lg" onClick={() => window.location.href = '/ev-charging-microgrid'} className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 rounded-2xl group">
+                <Button size="lg" onClick={() => document.getElementById('contact')?.scrollIntoView({
+                behavior: 'smooth'
+              })} className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 rounded-2xl group">
                   Charge Without Limits
                   <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
                 </Button>
