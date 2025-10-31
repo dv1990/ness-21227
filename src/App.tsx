@@ -11,7 +11,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Index from "./pages/Index";
 
 // Main pages - Lazy loaded for better performance
-const InstallersEnhanced = lazy(() => import("./pages/InstallersEnhanced"));
 const CommercialEnhanced = lazy(() => import("./pages/CommercialEnhanced"));
 // const TechnologyEnhanced = lazy(() => import("./pages/TechnologyEnhanced"));
 const ContactEnhanced = lazy(() => import("./pages/ContactEnhanced"));
@@ -37,6 +36,7 @@ const KnowledgeHub = lazy(() => import("./pages/KnowledgeHub"));
 const KnowledgeArticle = lazy(() => import("./pages/KnowledgeArticle"));
 const ContactDistributor = lazy(() => import("./pages/contact/ContactDistributor"));
 const ContactInstaller = lazy(() => import("./pages/contact/ContactInstaller"));
+const InstallersEnhanced = lazy(() => import("./pages/InstallersEnhanced"));
 const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
 const TroubleshootingGuide = lazy(() => import("./pages/TroubleshootingGuide"));
 const Downloads = lazy(() => import("./pages/Downloads"));
@@ -84,7 +84,7 @@ const App = () => {
           {/* Product Routes */}
           <Route path="/homeowners" element={<ContactHomeowner />} />
           <Route path="/ci" element={<CommercialEnhanced />} />
-          <Route path="/installers" element={<InstallersEnhanced />} />
+          <Route path="/installers" element={<ContactInstaller />} />
           {/* <Route path="/technology" element={<TechnologyEnhanced />} /> */}
           <Route path="/warranty" element={<TrueWarranty />} />
           <Route path="/find-installer" element={<FindInstaller />} />
