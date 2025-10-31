@@ -1,10 +1,11 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { ArrowRight, ArrowLeft, Check, Home, Sun, Edit, Zap, Battery, TrendingUp } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { safeLocalStorage } from '@/lib/safe-storage';
 
 
 // Import types and config
@@ -44,26 +45,27 @@ export const ProductSelectorWizard: React.FC = () => {
     message: ''
   });
 
-  // Load saved progress on mount
+  // Load saved progress on mount with validation
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.timestamp && Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
-          setStep(parsed.step || 1);
-          setSelectedProduct(parsed.selectedProduct || null);
-          setSelectedAppliances(parsed.selectedAppliances || []);
-          setHomeSize(parsed.homeSize || '');
-          setHasSolar(parsed.hasSolar || '');
-          setBackupDuration(parsed.backupDuration || 8);
-          setCustomAppliances(parsed.customAppliances || []);
-        }
-      } catch (e) {
-        if (import.meta.env.DEV) {
-          console.error('Failed to load saved progress:', e);
-        }
-      }
+    const parsed = safeLocalStorage.getJSON<{
+      step?: number;
+      selectedProduct?: Product | null;
+      selectedAppliances?: string[];
+      homeSize?: string;
+      hasSolar?: string;
+      backupDuration?: number;
+      customAppliances?: Appliance[];
+      timestamp?: number;
+    }>(STORAGE_KEY);
+
+    if (parsed && parsed.timestamp && Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+      setStep(parsed.step || 1);
+      setSelectedProduct(parsed.selectedProduct || null);
+      setSelectedAppliances(parsed.selectedAppliances || []);
+      setHomeSize(parsed.homeSize || '');
+      setHasSolar(parsed.hasSolar || '');
+      setBackupDuration(parsed.backupDuration || 8);
+      setCustomAppliances(parsed.customAppliances || []);
     }
   }, []);
 
@@ -79,7 +81,7 @@ export const ProductSelectorWizard: React.FC = () => {
       customAppliances,
       timestamp: Date.now()
     };
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(saveData));
+    safeLocalStorage.setJSON(STORAGE_KEY, saveData);
   }, [step, selectedProduct, selectedAppliances, homeSize, hasSolar, backupDuration, customAppliances]);
 
   // Smart defaults based on home size
@@ -282,7 +284,7 @@ ${formData.message || 'No additional message'}
       });
 
       // Clear saved progress and reset form
-      localStorage.removeItem(STORAGE_KEY);
+      safeLocalStorage.removeItem(STORAGE_KEY);
       setTimeout(() => {
         setStep(1);
         setSelectedProduct(null);

@@ -68,13 +68,14 @@ const MANUFACTURING_STORY = {
     steps: ["Every cell undergoes precision measurement to ensure optimal performance from day one.", "Cells are meticulously graded and sorted for perfect compatibility and longevity.", "Matched cells are grouped into balanced teams for consistent, reliable power delivery.", "Expert assembly in temperature-controlled environments ensures premium quality.", "Rigorous validation testing guarantees only the finest systems reach your home.", "Advanced digital intelligence provides continuous monitoring and protection.", "Delivered as a complete premium experience, engineered for your peace of mind."]
   }
 };
+
 function LuxuryStepIndicator({
   step,
   index,
   isActive,
   onClick
 }: {
-  step: any;
+  step: any; // TODO: Define proper step type
   index: number;
   isActive: boolean;
   onClick: () => void;

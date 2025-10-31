@@ -11,13 +11,15 @@ import {
   Shield
 } from "lucide-react";
 
+import { LucideIcon } from 'lucide-react';
+
 interface MobileMenuProps {
   isOpen: boolean;
   setIsOpen: (open: boolean) => void;
   mainNavItems: Array<{
     label: string;
     href: string;
-    icon: any;
+    icon: LucideIcon;
     description: string;
   }>;
 }

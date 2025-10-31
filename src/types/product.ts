@@ -15,10 +15,12 @@ export interface Product {
   description?: string;
 }
 
+import { LucideIcon } from 'lucide-react';
+
 export interface Appliance {
   id: string;
   name: string;
-  icon: any; // Lucide icon component
+  icon: LucideIcon; // Lucide icon component type
   watts: number;
   hours: number;
 }

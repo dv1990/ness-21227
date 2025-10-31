@@ -2,24 +2,25 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { X, Cookie } from "lucide-react";
 import { Link } from "react-router-dom";
+import { safeLocalStorage } from "@/lib/safe-storage";
 
 const CookieConsent = () => {
   const [showBanner, setShowBanner] = useState(false);
 
   useEffect(() => {
-    const consent = localStorage.getItem("cookie-consent");
+    const consent = safeLocalStorage.getItem("cookie-consent");
     if (!consent) {
       setShowBanner(true);
     }
   }, []);
 
   const handleAccept = () => {
-    localStorage.setItem("cookie-consent", "accepted");
+    safeLocalStorage.setItem("cookie-consent", "accepted");
     setShowBanner(false);
   };
 
   const handleDecline = () => {
-    localStorage.setItem("cookie-consent", "declined");
+    safeLocalStorage.setItem("cookie-consent", "declined");
     setShowBanner(false);
   };
 
