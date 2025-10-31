@@ -15,7 +15,6 @@ import { useState, useEffect, lazy, Suspense, useRef, useCallback, memo } from "
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
   default: m.BelowFoldSections
 })));
-
 const HomeownerConfigurator = lazy(() => import("@/components/homeowner/HomeownerConfigurator").then(m => ({
   default: m.HomeownerConfigurator
 })));
@@ -35,11 +34,11 @@ const Index = () => {
 
   // Throttled scroll tracking for parallax - optimized performance
   const handleScroll = useCallback(() => {
-    if (window.scrollY < 800) { // Only track scroll in hero section
+    if (window.scrollY < 800) {
+      // Only track scroll in hero section
       setScrollY(window.scrollY);
     }
   }, []);
-
   useEffect(() => {
     let rafId: number;
     const throttledScroll = () => {
@@ -49,8 +48,9 @@ const Index = () => {
         rafId = 0 as unknown as number;
       });
     };
-    
-    window.addEventListener('scroll', throttledScroll, { passive: true });
+    window.addEventListener('scroll', throttledScroll, {
+      passive: true
+    });
     return () => {
       window.removeEventListener('scroll', throttledScroll);
       if (rafId) cancelAnimationFrame(rafId);
@@ -69,7 +69,6 @@ const Index = () => {
       behavior: 'smooth'
     });
   }, []);
-
   return <Layout>
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
@@ -80,13 +79,7 @@ const Index = () => {
 
           {/* Product Image - Optimized filters */}
           <div className="absolute inset-0 w-full h-full hero-image">
-            <WebPImage 
-              src={nessHeroProduct} 
-              alt="NESS home battery — reliable backup power for modern Indian homes" 
-              className="w-full h-full object-cover object-center" 
-              priority={true}
-              loading="eager"
-            />
+            <WebPImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} loading="eager" />
           </div>
 
           {/* Minimal gradient overlay */}
@@ -167,10 +160,7 @@ const Index = () => {
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight">
             Lasts 10+ years.
           </h2>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-graphite/60 font-light leading-relaxed px-4">
-            While others need replacement every 2 years, NESS is engineered to endure. 
-            One investment. A decade of reliability. Zero maintenance.
-          </p>
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-graphite/60 font-light leading-relaxed px-4">While others need replacement every 5 years, NESS is engineered to endure. One investment. A decade of reliability. Zero maintenance.</p>
         </div>
       </section>
 
@@ -335,23 +325,19 @@ const Index = () => {
       </LazySection>
 
       {/* 5. BELOW FOLD CONTENT - Lazy Loaded */}
-      <Suspense fallback={
-        <div className="py-32 flex items-center justify-center">
+      <Suspense fallback={<div className="py-32 flex items-center justify-center">
           <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-        </div>
-      }>
+        </div>}>
         <BelowFoldSections />
       </Suspense>
 
       {/* 6. CONFIGURATOR - Lazy Loaded */}
-      <Suspense fallback={
-        <div className="py-32 flex items-center justify-center bg-muted/10">
+      <Suspense fallback={<div className="py-32 flex items-center justify-center bg-muted/10">
           <div className="text-center space-y-4">
             <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-sm text-muted-foreground">Loading configurator...</p>
           </div>
-        </div>
-      }>
+        </div>}>
         <HomeownerConfigurator />
       </Suspense>
     </Layout>;
@@ -374,5 +360,4 @@ const testimonials = [{
   name: "Priya Sharma",
   location: "Gurgaon • Villa Community"
 }];
-
 export default memo(Index);
