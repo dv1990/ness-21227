@@ -276,11 +276,21 @@ CUSTOMER MESSAGE:
 ${formData.message || 'No additional message'}
       `.trim();
 
-      // EmailJS disabled until configured - see EMAILJS_SETUP.md
+      const { sendEmail } = await import('@/lib/email-service');
+      
+      await sendEmail({
+        from_name: formData.name,
+        from_email: formData.email,
+        from_phone: formData.phone,
+        message: emailContent,
+        form_type: 'Product Selector Quote',
+        selected_product: selectedProduct?.name || '',
+        appliances: selectedAppliances.join(', '),
+      });
 
       toast({
-        title: "Configuration Saved!",
-        description: "Please email your quote request to contact@nunam.com. We'll respond within 24 hours.",
+        title: "Quote Request Sent!",
+        description: "We'll contact you within 24 hours with your personalized quote.",
       });
 
       // Clear saved progress and reset form

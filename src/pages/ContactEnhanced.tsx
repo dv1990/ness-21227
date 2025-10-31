@@ -24,30 +24,52 @@ const ContactEnhanced = () => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSubmit = () => {
-    if (!formData.name || !formData.email || !formData.phone) {
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!formData.name || !formData.email) {
       toast({
-        title: "Missing information",
-        description: "Please fill in all required fields.",
-        variant: "destructive"
+        title: "Missing Information",
+        description: "Please fill in your name and email.",
+        variant: "destructive",
       });
       return;
     }
-
-    toast({
-      title: "Message sent",
-      description: "We'll respond within 24 hours."
-    });
-
-    // Reset form
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      location: "",
-      propertyType: "",
-      message: ""
-    });
+    
+    try {
+      const { sendEmail } = await import('@/lib/email-service');
+      
+      await sendEmail({
+        from_name: formData.name,
+        from_email: formData.email,
+        from_phone: formData.phone || '',
+        message: `Location: ${formData.location}\nProperty Type: ${formData.propertyType}\n\n${formData.message}`,
+        form_type: 'General Contact',
+        location: formData.location,
+        property_type: formData.propertyType,
+      });
+      
+      toast({
+        title: "Message Sent!",
+        description: "We'll get back to you as soon as possible.",
+      });
+      
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        location: "",
+        propertyType: "",
+        message: "",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again.",
+        variant: "destructive",
+      });
+    }
   };
 
   return (
@@ -147,7 +169,7 @@ const ContactEnhanced = () => {
 
                 <Button 
                   className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg"
-                  onClick={handleSubmit}
+                  onClick={(e) => handleSubmit(e)}
                 >
                   Send Message
                   <Send className="ml-2 w-5 h-5" />

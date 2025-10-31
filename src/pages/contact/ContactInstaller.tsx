@@ -81,18 +81,28 @@ const ContactInstaller = () => {
 
   const onSubmit = async (data: FormData) => {
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      console.log("Form data:", data);
-      setIsSubmitted(true);
-      toast({
-        title: "Request received",
-        description: "We'll reach out within one business day.",
+      const { sendEmail } = await import('@/lib/email-service');
+      
+      await sendEmail({
+        from_name: data.fullName || '',
+        from_email: data.email || '',
+        from_phone: data.phone || '',
+        company: data.company || '',
+        message: `Project Type: ${data.projectType}\n\n${data.message}`,
+        form_type: 'Installer Contact',
+        project_type: data.projectType,
       });
+      
+      toast({
+        title: "Message sent!",
+        description: "We'll get back to you within 24 hours.",
+      });
+      setIsSubmitted(true);
+      scrollToTop();
     } catch (error) {
       toast({
         title: "Error",
-        description: "Something went wrong. Please try again.",
+        description: "Failed to send message. Please try again.",
         variant: "destructive",
       });
     }
