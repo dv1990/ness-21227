@@ -15,6 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import SystemConfigurator from "@/components/SystemConfigurator";
 import { useToast } from "@/hooks/use-toast";
 
 const formSchema = z.object({
@@ -293,6 +299,182 @@ const ContactInstaller = () => {
                 Already running at airports and bus depots across India — zero
                 diesel, zero downtime.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* System Configurator Section */}
+        <section className="py-20 md:py-24 px-6">
+          <div className="mx-auto max-w-screen-xl">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div className="space-y-8">
+                <div className="space-y-6">
+                  <span className="inline-block text-sm font-semibold tracking-wider uppercase text-energy">
+                    Smart Tools
+                  </span>
+                  
+                  <h2 className="text-4xl md:text-5xl font-medium text-foreground">
+                    System configurator
+                  </h2>
+
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Generate accurate system specifications and professional proposals 
+                    in minutes with our advanced configuration tool.
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {[
+                    "Load pattern analysis",
+                    "Optimal component sizing",
+                    "Environmental impact reports",
+                    "Professional documentation",
+                  ].map((feature) => (
+                    <div key={feature} className="flex items-center gap-3">
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="10"
+                          cy="10"
+                          r="9"
+                          stroke="hsl(var(--energy-core))"
+                          strokeWidth="1.5"
+                        />
+                        <path
+                          d="M6 10L9 13L14 7"
+                          stroke="hsl(var(--energy-core))"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                      <span className="text-foreground">{feature}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      className="bg-energy hover:brightness-95 text-white rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5"
+                    >
+                      <svg
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        className="mr-2"
+                        aria-hidden="true"
+                      >
+                        <rect
+                          x="3"
+                          y="3"
+                          width="6"
+                          height="6"
+                          rx="1"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                        <rect
+                          x="11"
+                          y="3"
+                          width="6"
+                          height="6"
+                          rx="1"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                        <rect
+                          x="3"
+                          y="11"
+                          width="6"
+                          height="6"
+                          rx="1"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                        <rect
+                          x="11"
+                          y="11"
+                          width="6"
+                          height="6"
+                          rx="1"
+                          stroke="currentColor"
+                          strokeWidth="1.5"
+                        />
+                      </svg>
+                      Launch Configurator
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+                    <SystemConfigurator />
+                  </DialogContent>
+                </Dialog>
+              </div>
+
+              <div className="relative">
+                <div className="bg-card rounded-2xl p-8 shadow-soft border border-border/20">
+                  <svg
+                    viewBox="0 0 400 300"
+                    className="w-full h-auto"
+                    aria-hidden="true"
+                  >
+                    {/* Dashboard mockup */}
+                    <rect
+                      x="20"
+                      y="20"
+                      width="360"
+                      height="260"
+                      rx="12"
+                      fill="hsl(var(--card))"
+                      stroke="hsl(var(--border))"
+                      strokeWidth="2"
+                    />
+                    
+                    {/* Header bar */}
+                    <rect x="40" y="40" width="320" height="30" rx="6" fill="hsl(var(--muted))" opacity="0.3" />
+                    
+                    {/* Charts */}
+                    <rect x="40" y="90" width="150" height="100" rx="8" fill="hsl(var(--energy-core))" opacity="0.1" />
+                    <rect x="210" y="90" width="150" height="100" rx="8" fill="hsl(var(--energy-core))" opacity="0.1" />
+                    
+                    {/* Graph lines */}
+                    <path
+                      d="M 60 140 L 90 120 L 120 130 L 150 110 L 170 115"
+                      stroke="hsl(var(--energy-core))"
+                      strokeWidth="3"
+                      fill="none"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    
+                    {/* Bars */}
+                    <rect x="230" y="160" width="30" height="20" rx="4" fill="hsl(var(--energy-core))" opacity="0.6" />
+                    <rect x="270" y="140" width="30" height="40" rx="4" fill="hsl(var(--energy-core))" opacity="0.8" />
+                    <rect x="310" y="150" width="30" height="30" rx="4" fill="hsl(var(--energy-core))" />
+                    
+                    {/* Stats cards */}
+                    <rect x="40" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
+                    <rect x="150" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
+                    <rect x="260" y="210" width="100" height="50" rx="8" fill="hsl(var(--muted))" opacity="0.2" />
+                    
+                    {/* Values */}
+                    <text x="90" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">5.1</text>
+                    <text x="90" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">kWh</text>
+                    
+                    <text x="200" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">3.2</text>
+                    <text x="200" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">kW</text>
+                    
+                    <text x="310" y="240" fontSize="18" fill="hsl(var(--energy-core))" fontWeight="600" textAnchor="middle">95%</text>
+                    <text x="310" y="255" fontSize="10" fill="hsl(var(--muted-foreground))" textAnchor="middle">Efficient</text>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </section>
