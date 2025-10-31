@@ -243,7 +243,7 @@ const ContactInstaller = () => {
                   <div className="text-sm text-muted-foreground">Lost per botched commissioning</div>
                 </div>
                 <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
-                  <div className="text-5xl font-light text-energy mb-3">0min</div>
+                  <div className="text-5xl font-light text-energy mb-3">3hrs</div>
                   <div className="text-sm text-muted-foreground">Setup time with Nunam</div>
                 </div>
               </div>
@@ -251,89 +251,78 @@ const ContactInstaller = () => {
           </div>
         </section>
 
-        {/* The Shift - Solution Block with Image */}
-        <section className="relative py-32 md:py-40 overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
-            <img 
-              src={industrialFacility}
-              alt="Modern industrial facility"
-              className="w-full h-full object-cover opacity-10"
-            />
-          </div>
+        {/* The Shift - Solution Block Simplified */}
+        <section 
+          ref={solution.ref as React.RefObject<HTMLElement>}
+          className={`relative py-32 md:py-40 overflow-hidden transition-all duration-1000 ${
+            solution.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+        >
+          {/* Subtle background */}
+          <div className="absolute inset-0 z-0 bg-gradient-to-b from-whisper via-background to-whisper" />
           
           <div className="relative z-10 mx-auto max-w-screen-xl px-6">
-            <div className="max-w-4xl mx-auto text-center space-y-12">
-              <div className="space-y-8">
+            <div className="max-w-5xl mx-auto">
+              {/* Main Message */}
+              <div className="text-center space-y-12 mb-20">
                 <h2 className="text-5xl md:text-7xl font-light text-foreground leading-tight">
                   Nunam ends
                   <br />
                   that story.
                 </h2>
-                <div className="text-xl md:text-2xl text-muted-foreground space-y-6 font-light leading-relaxed max-w-3xl mx-auto">
-                  <p>
-                    Our batteries run on a digital backbone — auto-configured,
-                    cloud-verified, and always monitored.
-                  </p>
-                  <p className="text-2xl md:text-3xl text-foreground font-normal">
-                    You plug it in, and it just works.
-                  </p>
-                  <p>
-                    Health reports, live data, and smart alerts are built in — no
-                    guesswork.
-                  </p>
-                </div>
-              </div>
-              
-              {/* Feature Pills */}
-              <div className="flex flex-wrap justify-center gap-4 pt-8">
-                {[
-                  "Auto-configured",
-                  "Cloud-verified", 
-                  "Smart alerts",
-                  "Real-time monitoring",
-                  "Predictive maintenance"
-                ].map((feature, idx) => (
-                  <span 
-                    key={feature}
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-card/80 backdrop-blur-sm rounded-full border border-energy/20 text-sm font-medium text-foreground hover:bg-energy/10 hover:border-energy/40 transition-all duration-300 hover:scale-105"
-                    style={{
-                      animation: `fade-in-up 600ms ease-out forwards`,
-                      animationDelay: `${idx * 100}ms`,
-                      opacity: 0
-                    }}
-                  >
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
-                      <circle cx="8" cy="8" r="7" stroke="hsl(var(--energy-core))" strokeWidth="1.5"/>
-                      <path d="M5 8L7 10L11 6" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                    {feature}
-                  </span>
-                ))}
+                <p className="text-2xl md:text-3xl text-foreground font-light leading-relaxed max-w-3xl mx-auto">
+                  You plug it in, and it just works.
+                </p>
               </div>
 
-              {/* Animated Progress Bar */}
-              <div className="pt-12 flex justify-center">
-                <div className="relative w-full max-w-2xl">
-                  <div className="flex justify-between text-sm text-muted-foreground mb-3 font-medium">
-                    <span>Plug in</span>
-                    <span>Auto-config</span>
-                    <span>Verified</span>
-                    <span>Online</span>
+              {/* Three Core Benefits in Grid */}
+              <div className="grid md:grid-cols-3 gap-8 md:gap-12">
+                <div className="text-center space-y-4 group">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <path d="M16 6V16L22 22" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      <circle cx="16" cy="16" r="12" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
+                    </svg>
                   </div>
-                  <div className="relative h-2 bg-border/30 rounded-full overflow-hidden">
-                    <div 
-                      className="absolute h-full bg-gradient-to-r from-energy via-energy-bright to-energy rounded-full"
-                      style={{
-                        width: '0%',
-                        animation: 'grow 2s ease-out forwards'
-                      }}
-                    />
-                  </div>
-                  <div className="text-center mt-4 text-sm text-energy font-semibold">
-                    Setup complete in under 60 seconds
-                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Auto-configured</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    No menus. No calibration. The battery sets itself up in 3 hours.
+                  </p>
                 </div>
+
+                <div className="text-center space-y-4 group">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <path d="M16 4C16 4 8 8 8 14V20C8 24 12 28 16 28C20 28 24 24 24 20V14C24 8 16 4 16 4Z" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 16L15 19L20 13" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Cloud-verified</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Every unit is monitored and validated in real-time from our cloud.
+                  </p>
+                </div>
+
+                <div className="text-center space-y-4 group">
+                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                      <circle cx="16" cy="10" r="3" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
+                      <path d="M10 24C10 20.686 12.686 18 16 18C19.314 18 22 20.686 22 24" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round"/>
+                      <path d="M24 12L28 16M28 16L24 20M28 16H20" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </div>
+                  <h3 className="text-xl font-semibold text-foreground">Smart support</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    Predictive alerts catch issues before your customer even notices.
+                  </p>
+                </div>
+              </div>
+
+              {/* Simple CTA */}
+              <div className="text-center mt-16">
+                <p className="text-lg text-muted-foreground mb-6">
+                  Commission faster. Sleep better. Protect your margins.
+                </p>
               </div>
             </div>
           </div>
@@ -445,7 +434,7 @@ const ContactInstaller = () => {
               </div>
               <div className="h-12 w-px bg-border hidden md:block" />
               <p className="text-lg md:text-xl text-foreground font-light text-center md:text-left max-w-2xl leading-relaxed">
-                Already running at <span className="font-semibold text-energy">airports and bus depots</span> across India
+                Powering <span className="font-semibold text-energy">1000+ homes</span> across India
                 <br className="hidden md:block" />
                 <span className="text-muted-foreground"> — zero diesel, zero downtime.</span>
               </p>
