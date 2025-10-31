@@ -178,9 +178,9 @@ const ContactInstaller = () => {
                   data-cta="become-partner"
                   size="lg"
                   className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-4 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy active:scale-100 min-h-[56px]"
-                  aria-label="Become a Nunam Partner - Scroll to contact form"
+                  aria-label="Become a NESS Partner - Scroll to contact form"
                 >
-                  Become a Nunam Partner
+                  Become a NESS Partner
                 </Button>
               </div>
             </div>
@@ -244,7 +244,7 @@ const ContactInstaller = () => {
                 </div>
                 <div className="bg-gradient-to-br from-card to-muted/20 rounded-3xl p-8 border border-border/50 hover:shadow-lifted transition-all duration-300 hover:-translate-y-1 mt-8">
                   <div className="text-5xl font-light text-energy mb-3">3hrs</div>
-                  <div className="text-sm text-muted-foreground">Setup time with Nunam</div>
+                  <div className="text-sm text-muted-foreground">Setup time with NESS</div>
                 </div>
               </div>
             </div>
@@ -266,7 +266,7 @@ const ContactInstaller = () => {
               {/* Main Message */}
               <div className="text-center space-y-12 mb-20">
                 <h2 className="text-5xl md:text-7xl font-light text-foreground leading-tight">
-                  Nunam ends
+                  NESS ends
                   <br />
                   that story.
                 </h2>
@@ -335,7 +335,7 @@ const ContactInstaller = () => {
               <h2 className="text-5xl md:text-6xl font-light text-foreground leading-tight">
                 Why EPCs
                 <br />
-                choose Nunam.
+                choose NESS.
               </h2>
               <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto">
                 More than a battery. A partnership that protects your reputation.
@@ -609,7 +609,7 @@ const ContactInstaller = () => {
                   size="lg"
                   className="bg-energy hover:brightness-110 text-white rounded-xl px-10 py-8 text-xl font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
                 >
-                  Become a Nunam Partner
+                  Become a NESS Partner
                 </Button>
               </div>
             </div>
@@ -628,7 +628,7 @@ const ContactInstaller = () => {
                 <div className="space-y-8">
                   <div className="text-center space-y-4">
                     <h2 className="text-3xl md:text-4xl font-medium text-foreground">
-                      Talk to the Nunam team.
+                      Talk to the NESS team.
                     </h2>
                     <p className="text-lg text-muted-foreground">
                       Tell us about your project. We'll simplify the storage —
@@ -780,7 +780,7 @@ const ContactInstaller = () => {
                           htmlFor="consent"
                           className="text-sm text-muted-foreground leading-relaxed cursor-pointer"
                         >
-                          I agree to be contacted about Nunam solutions and
+                          I agree to be contacted about NESS solutions and
                           understand the privacy policy. *
                         </Label>
                       </div>
