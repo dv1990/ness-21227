@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/dialog";
 import SystemConfigurator from "@/components/SystemConfigurator";
 import { useToast } from "@/hooks/use-toast";
-import installerHero from "@/assets/installer-hero.jpg";
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import nessPodInstall from "@/assets/ness-pod-installation-hero.webp";
 import configuratorTool from "@/assets/configurator-tool.jpg";
 import industrialFacility from "@/assets/industrial-solar-facility.jpg";
@@ -44,6 +44,25 @@ type FormData = z.infer<typeof formSchema>;
 const ContactInstaller = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const [scrollY, setScrollY] = useState(0);
+
+  // Scroll reveal hooks for sections
+  const empathy = useScrollReveal({ threshold: 0.2 });
+  const solution = useScrollReveal({ threshold: 0.2 });
+  const benefits = useScrollReveal({ threshold: 0.15 });
+  const proof = useScrollReveal({ threshold: 0.3 });
+  const configurator = useScrollReveal({ threshold: 0.2 });
+  const belief = useScrollReveal({ threshold: 0.2 });
+
+  // Parallax effect for hero
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const {
     register,
@@ -94,56 +113,100 @@ const ContactInstaller = () => {
   return (
     <Layout>
       <div className="bg-background">
-        {/* Hero Section - Full bleed with image */}
-        <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 z-0">
+        {/* Hero Section - Full bleed with image and parallax */}
+        <section 
+          ref={heroRef}
+          className="relative min-h-[85vh] flex items-center overflow-hidden"
+        >
+          {/* Background Image with Parallax */}
+          <div 
+            className="absolute inset-0 z-0"
+            style={{
+              transform: `translateY(${scrollY * 0.5}px)`,
+              willChange: 'transform'
+            }}
+          >
             <img 
               src={nessPodInstall}
               alt="Professional battery installation"
-              className="w-full h-full object-cover"
+              className="w-full h-[120%] object-cover"
               loading="eager"
+              fetchPriority="high"
             />
             <div className="absolute inset-0 bg-gradient-to-r from-charcoal/95 via-charcoal/70 to-charcoal/40" />
           </div>
           
           {/* Content */}
           <div className="relative z-10 mx-auto max-w-screen-xl px-6 py-20">
-            <div className="max-w-3xl space-y-8 animate-fade-in-up">
-              <p className="text-sm font-semibold tracking-[0.2em] uppercase text-energy-bright">
+            <div className="max-w-3xl space-y-8">
+              <p 
+                className="text-sm font-semibold tracking-[0.2em] uppercase text-energy-bright opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}
+              >
                 For EPC Installers
               </p>
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-[0.95]">
+              <h1 
+                className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-[0.95] opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
+              >
                 The easiest
                 <br />
                 battery you'll
                 <br />
                 ever install.
               </h1>
-              <p className="text-xl md:text-2xl text-white/80 font-light max-w-2xl leading-relaxed">
+              <p 
+                className="text-xl md:text-2xl text-white/80 font-light max-w-2xl leading-relaxed opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}
+              >
                 Powered by digital intelligence. Built for reliability—without the headaches.
               </p>
-              <div className="flex items-center gap-3 text-white/60 text-sm">
+              <div 
+                className="flex items-center gap-3 text-white/60 text-sm opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
+              >
                 <div className="w-12 h-px bg-energy" />
                 <span>Fix it. Forget it. Powered by Digital Trust.</span>
               </div>
-              <div className="pt-4">
+              <div 
+                className="pt-4 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}
+              >
                 <Button
                   onClick={scrollToContact}
                   id="cta-become-partner"
                   data-cta="become-partner"
                   size="lg"
-                  className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
+                  className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-4 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy active:scale-100 min-h-[56px]"
+                  aria-label="Become a Nunam Partner - Scroll to contact form"
                 >
                   Become a Nunam Partner
                 </Button>
               </div>
             </div>
           </div>
+
+          {/* Scroll indicator */}
+          <div 
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 opacity-0 animate-fade-in"
+            style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}
+            aria-hidden="true"
+          >
+            <span className="text-xs uppercase tracking-wider">Scroll</span>
+            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="animate-bounce">
+              <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" strokeWidth="2"/>
+              <circle cx="10" cy="10" r="2" fill="currentColor"/>
+            </svg>
+          </div>
         </section>
 
-        {/* The Reality - Empathy Block with Visual Stats */}
-        <section className="py-32 md:py-40 px-6">
+        {/* The Reality - Empathy Block with Scroll Reveal */}
+        <section 
+          ref={empathy.ref as React.RefObject<HTMLElement>}
+          className={`py-32 md:py-40 px-6 transition-all duration-1000 ${
+            empathy.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+          }`}
+        >
           <div className="mx-auto max-w-screen-xl">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               {/* Text Content */}
@@ -155,11 +218,11 @@ const ContactInstaller = () => {
                     knows this moment.
                   </h2>
                   <div className="text-lg md:text-xl text-muted-foreground space-y-4 font-light leading-relaxed">
-                    <p>The panels go up smooth.</p>
-                    <p>The inverter syncs perfectly.</p>
-                    <p className="text-foreground/90">Then comes the battery — and the pause.</p>
+                    <p className="transition-opacity duration-700 delay-100">The panels go up smooth.</p>
+                    <p className="transition-opacity duration-700 delay-200">The inverter syncs perfectly.</p>
+                    <p className="text-foreground/90 transition-opacity duration-700 delay-300">Then comes the battery — and the pause.</p>
                   </div>
-                  <p className="text-2xl md:text-3xl font-medium text-foreground pt-4 leading-snug">
+                  <p className="text-2xl md:text-3xl font-medium text-foreground pt-4 leading-snug transition-opacity duration-700 delay-400">
                     One wrong configuration, and the customer calls never stop.
                   </p>
                 </div>
