@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useState, useEffect, memo, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,8 +51,8 @@ const SystemConfigurator = () => {
   const [recommendation, setRecommendation] = useState<SystemRecommendation | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
 
-  // Appliance presets for quick load calculation
-  const appliances = [
+  // Appliance presets for quick load calculation - memoized to prevent recreation
+  const appliances = useMemo(() => [
     { name: "LED Lights (10W)", power: 10, hours: 8 },
     { name: "Ceiling Fan (70W)", power: 70, hours: 12 },
     { name: "Refrigerator (150W)", power: 150, hours: 24 },
@@ -61,12 +61,12 @@ const SystemConfigurator = () => {
     { name: "Washing Machine (500W)", power: 500, hours: 1 },
     { name: "Air Conditioner (1500W)", power: 1500, hours: 8 },
     { name: "Water Heater (2000W)", power: 2000, hours: 2 }
-  ];
+  ], []);
 
   const [selectedAppliances, setSelectedAppliances] = useState<{[key: string]: number}>({});
 
-  // Calculate system requirements
-  const calculateSystem = () => {
+  // Calculate system requirements - memoized callback
+  const calculateSystem = useCallback(() => {
     // Validate inputs
     if (config.dailyLoad === 0 || config.peakLoad === 0 || config.roofArea === 0) {
       toast({
@@ -129,9 +129,9 @@ const SystemConfigurator = () => {
       setIsCalculating(false);
       setActiveTab("results");
     }, 2000);
-  };
+  }, [config, toast]);
 
-  // Update daily load based on selected appliances
+  // Update daily load based on selected appliances - memoized dependencies
   useEffect(() => {
     const totalLoad = Object.entries(selectedAppliances).reduce((total, [applianceName, quantity]) => {
       const appliance = appliances.find(a => a.name === applianceName);
@@ -150,7 +150,7 @@ const SystemConfigurator = () => {
     }, 0);
     
     setConfig(prev => ({ ...prev, dailyLoad: totalLoad, peakLoad: peakLoad }));
-  }, [selectedAppliances]);
+  }, [selectedAppliances, appliances]);
 
   const handleApplianceChange = (applianceName: string, quantity: number) => {
     setSelectedAppliances(prev => ({

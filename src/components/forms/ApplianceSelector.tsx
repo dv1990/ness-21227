@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Zap, Plus } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { Appliance } from '@/types/product';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 
 interface ApplianceSelectorProps {
   appliances: Appliance[];
@@ -34,10 +34,14 @@ export const ApplianceSelector: React.FC<ApplianceSelectorProps> = ({
     }
   };
 
-  const totalWatts = selectedAppliances.reduce((sum, id) => {
-    const appliance = appliances.find(a => a.id === id);
-    return sum + (appliance?.watts || 0);
-  }, 0);
+  // Memoize expensive calculation
+  const totalWatts = useMemo(() => 
+    selectedAppliances.reduce((sum, id) => {
+      const appliance = appliances.find(a => a.id === id);
+      return sum + (appliance?.watts || 0);
+    }, 0),
+    [selectedAppliances, appliances]
+  );
 
   return (
     <div className="space-y-4">

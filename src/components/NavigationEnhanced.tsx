@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense, memo } from "react";
+import { useState, useEffect, lazy, Suspense, memo, useMemo, useCallback } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, ChevronDown, Home, Building2, Wrench, LayoutGrid, ArrowRight, Shield } from "lucide-react";
@@ -11,17 +11,25 @@ const NavigationEnhanced = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
-  // Apple-style scroll detection for navigation bar
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+  // Apple-style scroll detection for navigation bar - memoized handler
+  const handleScroll = useCallback(() => {
+    setScrolled(window.scrollY > 50);
   }, []);
-  const isActive = (path: string) => location.pathname === path;
-  const isActiveSection = (paths: string[]) => paths.some(path => location.pathname.startsWith(path));
-  const mainNavItems = [{
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
+
+  // Memoized helper functions
+  const isActive = useCallback((path: string) => location.pathname === path, [location.pathname]);
+  const isActiveSection = useCallback((paths: string[]) => 
+    paths.some(path => location.pathname.startsWith(path)), 
+    [location.pathname]
+  );
+
+  // Memoized navigation items to prevent recreation
+  const mainNavItems = useMemo(() => [{
     label: "Overview",
     href: "/",
     icon: LayoutGrid,
@@ -46,8 +54,9 @@ const NavigationEnhanced = () => {
     href: "/warranty",
     icon: Shield,
     description: "Trust that matters"
-  }];
-  const companyItems = [{
+  }], []);
+
+  const companyItems = useMemo(() => [{
     label: "About Us",
     href: "/company/about",
     description: "Our mission and vision"
@@ -55,8 +64,9 @@ const NavigationEnhanced = () => {
     label: "News",
     href: "/company/news",
     description: "Latest updates and insights"
-  }];
-  const supportItems = [{
+  }], []);
+
+  const supportItems = useMemo(() => [{
     label: "Knowledge Hub",
     href: "/knowledge",
     description: "Learn about energy storage"
@@ -68,7 +78,8 @@ const NavigationEnhanced = () => {
     label: "Support",
     href: "/support/troubleshooting",
     description: "Get help with your system"
-  }];
+  }], []);
+
   return <nav className={`
       fixed top-0 left-0 right-0 z-50 transition-all duration-300
       ${scrolled ? 'bg-background/95 backdrop-blur-xl border-b border-border/20 shadow-lg' : 'bg-background/80 backdrop-blur-sm'}
