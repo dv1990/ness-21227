@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useCallback, memo } from 'react';
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
@@ -12,11 +12,11 @@ const HomeownerConfigurator = lazy(() => import("@/components/homeowner/Homeowne
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({ default: m.BelowFoldSections })));
 
 const ContactHomeowner = () => {
-  const scrollToConfigurator = () => {
+  const scrollToConfigurator = useCallback(() => {
     setTimeout(() => {
       document.getElementById('configurator')?.scrollIntoView({ behavior: 'smooth' });
     }, 100);
-  };
+  }, []);
 
   return <Layout>
       {/* Full-Screen Hero Section */}
@@ -115,4 +115,5 @@ const ContactHomeowner = () => {
       </Suspense>
     </Layout>;
   };
-export default ContactHomeowner;
+
+export default memo(ContactHomeowner);

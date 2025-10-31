@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
@@ -298,4 +298,4 @@ const TrueWarranty = () => {
   );
 };
 
-export default TrueWarranty;
+export default memo(TrueWarranty);

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
@@ -385,4 +385,4 @@ const InstallersEnhanced = () => {
   );
 };
 
-export default InstallersEnhanced;
+export default memo(InstallersEnhanced);

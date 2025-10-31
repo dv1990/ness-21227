@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import { z } from "zod";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -45,16 +45,18 @@ const CommercialEnhanced = () => {
   const [scrollY, setScrollY] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
 
-  // Parallax effect
+  // Parallax effect - optimized with useCallback
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
     window.addEventListener('scroll', handleScroll, {
       passive: true
     });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
+
   return <Layout>
       <div className="min-h-screen bg-background">
         
@@ -805,4 +807,4 @@ const CommercialEnhanced = () => {
       </div>
     </Layout>;
 };
-export default CommercialEnhanced;
+export default memo(CommercialEnhanced);

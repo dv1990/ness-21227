@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, memo } from 'react';
 import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -8,14 +8,14 @@ import heroImage from '@/assets/ev-hero-sunrise.webp';
 const EVChargingMicrogrid = () => {
   const [stickyNav, setStickyNav] = useState(false);
 
+  const handleScroll = useCallback(() => {
+    setStickyNav(window.scrollY > 600);
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setStickyNav(window.scrollY > 600);
-    };
-    
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   return (
     <Layout>
@@ -331,4 +331,4 @@ const FinalSection = () => {
   );
 };
 
-export default EVChargingMicrogrid;
+export default memo(EVChargingMicrogrid);

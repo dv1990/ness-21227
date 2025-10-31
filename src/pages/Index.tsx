@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
-import { useState, useEffect, lazy, Suspense, useRef } from "react";
+import { useState, useEffect, lazy, Suspense, useRef, useCallback, memo } from "react";
 
 // Lazy load AnimatedCounter to reduce initial bundle
 const AnimatedCounter = lazy(() => import("@/components/ui/animated-counter").then(m => ({
@@ -29,16 +29,17 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Smooth scroll tracking for parallax
+  // Smooth scroll tracking for parallax - optimized with useCallback
+  const handleScroll = useCallback(() => {
+    setScrollY(window.scrollY);
+  }, []);
+
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
     window.addEventListener('scroll', handleScroll, {
       passive: true
     });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [handleScroll]);
 
   // Entrance animation
   useEffect(() => {
@@ -46,12 +47,13 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Smooth scroll to next section
-  const scrollToNext = () => {
+  // Smooth scroll to next section - memoized
+  const scrollToNext = useCallback(() => {
     nextSectionRef.current?.scrollIntoView({
       behavior: 'smooth'
     });
-  };
+  }, []);
+
   return <Layout>
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
@@ -371,4 +373,5 @@ const testimonials = [{
   name: "Priya Sharma",
   location: "Gurgaon • Villa Community"
 }];
-export default Index;
+
+export default memo(Index);
