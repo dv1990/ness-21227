@@ -9,6 +9,7 @@ import {
   Leaf
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { sendEmail } from "@/lib/email-service";
 
 interface SystemConfiguration {
   dailyLoad: number;
@@ -50,6 +51,8 @@ const SystemConfigurator = () => {
   
   const [recommendation, setRecommendation] = useState<SystemRecommendation | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
+  const [contactInfo, setContactInfo] = useState({ name: '', email: '', phone: '' });
+  const [isSendingEmail, setIsSendingEmail] = useState(false);
 
   // Appliance presets for quick load calculation - memoized to prevent recreation
   const appliances = useMemo(() => [
@@ -159,11 +162,78 @@ const SystemConfigurator = () => {
     }));
   };
 
-  const generateProposal = () => {
-    toast({
-      title: "Proposal Generated",
-      description: "Professional system proposal has been generated and is ready for download."
-    });
+  const generateProposal = async () => {
+    if (!contactInfo.name || !contactInfo.email || !contactInfo.phone) {
+      toast({
+        title: "Contact Information Required",
+        description: "Please provide your contact details to receive the proposal.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (!recommendation) return;
+
+    setIsSendingEmail(true);
+
+    try {
+      const emailContent = `
+System Configuration Request from Installer
+
+Contact Information:
+- Name: ${contactInfo.name}
+- Email: ${contactInfo.email}
+- Phone: ${contactInfo.phone}
+
+System Requirements:
+- Location: ${config.location}
+- System Type: ${config.systemType}
+- Daily Load: ${config.dailyLoad.toFixed(1)} kWh
+- Peak Load: ${config.peakLoad.toFixed(1)} kW
+- Backup Hours: ${config.backupHours} hours
+- Roof Area: ${config.roofArea} sq ft
+
+Recommended System:
+- NESS Battery Units: ${recommendation.batteryUnits} (${recommendation.batteryUnits * 5.1}kWh)
+- Solar Panels: ${recommendation.solarPanels} (${(recommendation.solarPanels * 0.54).toFixed(1)}kW)
+- Inverter: ${recommendation.inverterSize}kW
+- Total Investment: ₹${recommendation.totalCost.toLocaleString('en-IN')}
+- Monthly Savings: ₹${recommendation.monthlySavings.toLocaleString('en-IN')}
+- Payback Period: ${recommendation.paybackPeriod} years
+- Annual CO₂ Reduction: ${Math.round(recommendation.co2Reduction / 1000)} tons
+
+Selected Appliances:
+${Object.entries(selectedAppliances)
+  .filter(([_, qty]) => qty > 0)
+  .map(([name, qty]) => `- ${name}: ${qty}`)
+  .join('\n')}
+      `;
+
+      await sendEmail({
+        from_name: contactInfo.name,
+        from_email: contactInfo.email,
+        from_phone: contactInfo.phone,
+        message: emailContent,
+        form_type: 'System Configurator - Installer'
+      });
+
+      toast({
+        title: "Proposal Request Sent!",
+        description: "We'll send you a detailed proposal within 24 hours."
+      });
+
+      // Reset contact form
+      setContactInfo({ name: '', email: '', phone: '' });
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      toast({
+        title: "Failed to Send",
+        description: "Please try again or contact us directly.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsSendingEmail(false);
+    }
   };
 
   return (
@@ -456,17 +526,78 @@ const SystemConfigurator = () => {
                 </div>
               </div>
 
-              {/* Actions */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-                <Button onClick={generateProposal} size="lg" className="h-14 rounded-2xl font-medium flex-1">
-                  Get Detailed Proposal
-                </Button>
-                <Button variant="outline" size="lg" className="h-14 rounded-2xl font-medium" onClick={() => {
-                  setRecommendation(null);
-                  setActiveTab("requirements");
-                }}>
-                  Start Over
-                </Button>
+              {/* Contact Form for Proposal */}
+              <div className="max-w-2xl mx-auto">
+                <div className="bg-card/50 backdrop-blur-sm border border-border/50 rounded-3xl p-8">
+                  <h3 className="text-2xl font-light text-foreground mb-6 text-center">
+                    Get Your Detailed Proposal
+                  </h3>
+                  <div className="space-y-4 mb-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Full Name</Label>
+                      <Input
+                        id="name"
+                        placeholder="Your name"
+                        value={contactInfo.name}
+                        onChange={(e) => setContactInfo(prev => ({ ...prev, name: e.target.value }))}
+                        className="h-12 rounded-2xl border-border/50"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={contactInfo.email}
+                        onChange={(e) => setContactInfo(prev => ({ ...prev, email: e.target.value }))}
+                        className="h-12 rounded-2xl border-border/50"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="phone">Phone</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        placeholder="Your phone number"
+                        value={contactInfo.phone}
+                        onChange={(e) => setContactInfo(prev => ({ ...prev, phone: e.target.value }))}
+                        className="h-12 rounded-2xl border-border/50"
+                      />
+                    </div>
+                  </div>
+                  
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    <Button 
+                      onClick={generateProposal} 
+                      size="lg" 
+                      className="h-14 rounded-2xl font-medium flex-1"
+                      disabled={isSendingEmail || !contactInfo.name || !contactInfo.email || !contactInfo.phone}
+                    >
+                      {isSendingEmail ? (
+                        <div className="flex items-center">
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current mr-3"></div>
+                          Sending...
+                        </div>
+                      ) : (
+                        'Send Proposal Request'
+                      )}
+                    </Button>
+                    <Button 
+                      variant="outline" 
+                      size="lg" 
+                      className="h-14 rounded-2xl font-medium" 
+                      onClick={() => {
+                        setRecommendation(null);
+                        setActiveTab("requirements");
+                        setContactInfo({ name: '', email: '', phone: '' });
+                      }}
+                      disabled={isSendingEmail}
+                    >
+                      Start Over
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
