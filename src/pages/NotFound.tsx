@@ -7,10 +7,7 @@ const NotFound = () => {
   const location = useLocation();
 
   useEffect(() => {
-    // Track 404 for development debugging only
-    if (import.meta.env.DEV) {
-      console.error("404 Error:", location.pathname);
-    }
+    // 404 tracking removed - handle via analytics if needed
   }, [location.pathname]);
 
   return (

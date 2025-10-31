@@ -113,6 +113,8 @@ class PerformanceMonitor {
   }
 
   private reportMetrics() {
+    if (!import.meta.env.DEV) return;
+    
     console.group('📊 Performance Metrics');
     console.log('LCP (Largest Contentful Paint):', this.metrics.lcp?.toFixed(2), 'ms');
     console.log('FID (First Input Delay):', this.metrics.fid?.toFixed(2), 'ms');

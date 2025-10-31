@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -60,7 +60,9 @@ export const ProductSelectorWizard: React.FC = () => {
           setCustomAppliances(parsed.customAppliances || []);
         }
       } catch (e) {
-        console.error('Failed to load saved progress:', e);
+        if (import.meta.env.DEV) {
+          console.error('Failed to load saved progress:', e);
+        }
       }
     }
   }, []);
@@ -273,9 +275,6 @@ ${formData.message || 'No additional message'}
       `.trim();
 
       // EmailJS disabled until configured - see EMAILJS_SETUP.md
-      if (import.meta.env.DEV) {
-        console.info('Quote request details:', emailContent);
-      }
 
       toast({
         title: "Configuration Saved!",
@@ -297,7 +296,9 @@ ${formData.message || 'No additional message'}
       }, 2000);
 
     } catch (error) {
-      console.error('Error submitting form:', error);
+      if (import.meta.env.DEV) {
+        console.error('Error submitting form:', error);
+      }
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       toast({
         title: "Submission Failed",
@@ -609,3 +610,5 @@ ${formData.message || 'No additional message'}
     </div>
   );
 };
+
+export default memo(ProductSelectorWizard);

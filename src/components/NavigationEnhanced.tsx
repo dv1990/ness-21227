@@ -1,4 +1,4 @@
-import { useState, useEffect, lazy, Suspense } from "react";
+import { useState, useEffect, lazy, Suspense, memo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, ChevronDown, Home, Building2, Wrench, LayoutGrid, ArrowRight, Shield } from "lucide-react";
@@ -179,4 +179,4 @@ const NavigationEnhanced = () => {
       </div>
     </nav>;
 };
-export default NavigationEnhanced;
+export default memo(NavigationEnhanced);

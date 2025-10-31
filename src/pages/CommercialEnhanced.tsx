@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { z } from "zod";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { PerformanceImage } from "@/components/ui/performance-image";
+import { WebPImage } from "@/components/ui/webp-image";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -65,7 +65,7 @@ const CommercialEnhanced = () => {
           transform: `translateY(${scrollY * 0.5}px)`,
           transition: 'transform 0.1s ease-out'
         }}>
-            <PerformanceImage
+            <WebPImage
               src={ciHeroPremium}
               alt="NESS energy storage systems for commercial and industrial applications"
               className="w-full h-full"

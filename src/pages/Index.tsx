@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Shield, Zap, Battery, Clock, ArrowRight, Play, Users, CheckCircle, CheckCircle2, ChevronDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
-import { PerformanceImage } from "@/components/ui/performance-image";
+import { WebPImage } from "@/components/ui/webp-image";
 import { ProductSectionSkeleton } from "@/components/ui/product-section-skeleton";
 import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
@@ -99,7 +99,7 @@ const Index = () => {
           <div className="absolute inset-0 w-full h-full" style={{
           filter: 'contrast(1.3) saturate(1.5) brightness(1.4)'
         }}>
-            <PerformanceImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} />
+            <WebPImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} />
           </div>
 
           {/* Minimal gradient overlay - very light on right side */}
@@ -241,7 +241,7 @@ const Index = () => {
               </div>
 
               <div className="relative mt-8 md:mt-0">
-                <PerformanceImage src={nessProProduct} alt="NESS Powerwall - Premium home battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
+                <WebPImage src={nessProProduct} alt="NESS Powerwall - Premium home battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
               </div>
             </div>
           </div>
@@ -254,7 +254,7 @@ const Index = () => {
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1 mt-8 md:mt-0">
-                <PerformanceImage src={nessPodProduct} alt="NESS Pod - Commercial & Industrial battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
+                <WebPImage src={nessPodProduct} alt="NESS Pod - Commercial & Industrial battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
               </div>
 
               <div className="order-1 md:order-2">

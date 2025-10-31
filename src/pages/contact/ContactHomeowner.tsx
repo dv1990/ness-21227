@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { PerformanceImage } from "@/components/ui/performance-image";
+import { WebPImage } from "@/components/ui/webp-image";
 import { Zap, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/homeowner-hero-battery.webp";
 
@@ -23,7 +23,7 @@ const ContactHomeowner = () => {
       <section className="relative min-h-[90vh] md:h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <PerformanceImage
+          <WebPImage
             src={heroImage}
             alt="Premium NESS home battery system with sophisticated wall-mount design"
             className="w-full h-full"

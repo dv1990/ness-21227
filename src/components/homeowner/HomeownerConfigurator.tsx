@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
-import { PerformanceImage } from "@/components/ui/performance-image";
+import { WebPImage } from "@/components/ui/webp-image";
 import { ArrowRight, Sun, Zap, Battery, Settings } from "lucide-react";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
@@ -356,7 +356,7 @@ export const HomeownerConfigurator = () => {
                         transition={{ delay: 0.2, duration: 0.8 }}
                         className="max-w-2xl mx-auto"
                       >
-                        <PerformanceImage
+                        <WebPImage
                           src={product.image}
                           alt={product.name}
                           className="w-full drop-shadow-2xl"

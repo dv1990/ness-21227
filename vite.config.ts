@@ -110,18 +110,13 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react-router-dom',
+      '@tanstack/react-query',
       '@radix-ui/react-slot',
     ],
     exclude: [
-      'framer-motion',
       'three',
       '@react-three/fiber',
       '@react-three/drei',
-      '@tanstack/react-query',
-      '@radix-ui/react-sheet',
-      '@radix-ui/react-dialog',
-      'react-hook-form',
-      'zod',
       'recharts'
     ]
   }
