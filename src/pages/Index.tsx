@@ -9,7 +9,8 @@ import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
-import { useState, useEffect, lazy, Suspense, useRef, useCallback, memo } from "react";
+import { useState, useEffect, lazy, Suspense, useRef, memo } from "react";
+import { useThrottle } from "@/hooks/use-performance";
 
 // Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
@@ -32,29 +33,16 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Throttled scroll tracking for parallax - optimized performance
-  const handleScroll = useCallback(() => {
+  // Optimized scroll tracking with built-in throttle
+  const handleScroll = useThrottle(() => {
     if (window.scrollY < 800) {
-      // Only track scroll in hero section
       setScrollY(window.scrollY);
     }
-  }, []);
+  }, 16); // ~60fps
+
   useEffect(() => {
-    let rafId: number;
-    const throttledScroll = () => {
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        handleScroll();
-        rafId = 0 as unknown as number;
-      });
-    };
-    window.addEventListener('scroll', throttledScroll, {
-      passive: true
-    });
-    return () => {
-      window.removeEventListener('scroll', throttledScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [handleScroll]);
 
   // Entrance animation
@@ -63,12 +51,10 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Smooth scroll to next section - memoized
-  const scrollToNext = useCallback(() => {
-    nextSectionRef.current?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  }, []);
+  // Smooth scroll to next section
+  const scrollToNext = () => {
+    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   return <Layout>
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">

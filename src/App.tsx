@@ -2,6 +2,12 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+
+// Router future flags for v7 compatibility
+const routerFutureConfig = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+};
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { Suspense, lazy } from 'react';
@@ -70,7 +76,7 @@ const App = () => {
             <Toaster />
             <Sonner />
             <ScrollProgressBar />
-            <Router>
+            <Router future={routerFutureConfig}>
               <Suspense fallback={<PageLoadingFallback />}>
                 <Routes>
           {/* Overview (Landing) */}

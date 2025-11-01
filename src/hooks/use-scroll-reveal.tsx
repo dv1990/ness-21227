@@ -1,54 +1,14 @@
-import { useEffect, useRef, useState } from 'react';
+/**
+ * @deprecated This hook has been consolidated into use-intersection-observer
+ * Please migrate to: import { useIntersectionObserver } from '@/hooks/use-intersection-observer'
+ * 
+ * This file is kept for backward compatibility only.
+ */
 
-interface ScrollRevealOptions {
-  threshold?: number;
-  rootMargin?: string;
-  triggerOnce?: boolean;
-}
+import { useIntersectionObserver } from './use-intersection-observer';
 
-export const useScrollReveal = (options: ScrollRevealOptions = {}) => {
-  const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options;
-  const ref = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element) return;
-
-    // Check for reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReducedMotion) {
-      setIsVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            if (triggerOnce) {
-              observer.unobserve(entry.target);
-            }
-          } else if (!triggerOnce) {
-            setIsVisible(false);
-          }
-        });
-      },
-      {
-        threshold,
-        rootMargin,
-      }
-    );
-
-    observer.observe(element);
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, [threshold, rootMargin, triggerOnce]);
-
-  return { ref, isVisible };
+export const useScrollReveal = (options?: any) => {
+  const { ref, isIntersecting } = useIntersectionObserver(options);
+  // Map to old property name for backwards compatibility
+  return { ref, isVisible: isIntersecting };
 };

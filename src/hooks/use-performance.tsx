@@ -1,9 +1,10 @@
 /**
  * Performance-related React hooks
- * Keep React-specific code here to avoid bundle duplication
+ * Optimized utilities for React components
  */
 
 import { useCallback, useMemo, useRef } from 'react';
+import { performanceMonitor } from '@/lib/performance';
 
 // Debounce hook
 export const useDebounce = <T extends any[]>(
@@ -50,17 +51,8 @@ export const useVirtualization = (
   }, [itemCount, itemHeight, containerHeight]);
 };
 
-// Performance tracking hook (development only)
+// Performance tracking hook (uses unified monitor)
 export const usePerformanceTracking = (componentName: string) => {
-  if (import.meta.env.DEV) {
-    const startTime = performance.now();
-    const endTracking = () => {
-      const renderTime = performance.now() - startTime;
-      if (renderTime > 16) {
-        console.warn(`Slow render (${renderTime.toFixed(2)}ms):`, componentName);
-      }
-    };
-    return { endTracking };
-  }
-  return { endTracking: () => {} };
+  const endTracking = performanceMonitor.trackComponentRender(componentName);
+  return { endTracking };
 };
