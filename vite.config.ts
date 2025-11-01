@@ -105,12 +105,14 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name]-[hash].js',
       }
     },
-    // Optimize module preload to load only JS, defer CSS
+    // Optimize module preload to break dependency chain
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps) => {
-        // Only preload JS dependencies, let CSS load async
-        return deps.filter(dep => !dep.endsWith('.css'));
+        // Ensure CSS is preloaded with high priority to avoid sequential loading
+        return deps.filter(dep => {
+          return dep.endsWith('.css') || dep.endsWith('.js');
+        });
       }
     },
   },
