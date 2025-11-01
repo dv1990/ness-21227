@@ -94,6 +94,12 @@
       })();
     </script>
     
+    <!-- Load non-critical CSS asynchronously -->
+    <script>
+      // Async CSS loading function
+      !function(e){"use strict";var t=function(t,n,r,o){var i,a=e.document,s=a.createElement("link");if(n)i=n;else{var l=(a.body||a.getElementsByTagName("head")[0]).childNodes;i=l[l.length-1]}var d=a.styleSheets;if(o)for(var f=0;f<d.length;f++)d[f].href&&d[f].href.indexOf(t)>-1&&(s.sheet=d[f]);s.rel="stylesheet",s.href=t,s.media="only x",r&&(s.onload=r),i.parentNode.insertBefore(s,n?i:i.nextSibling);var c=function(e){for(var t=s.media,n=e||"all",r=0;r<d.length;r++)if(d[r].href&&d[r].href.indexOf(t)>-1){d[r].media=n;return}setTimeout(function(){c(n)})};return s.addEventListener&&s.addEventListener("load",function(){this.media=n||"all"}),s.onloadcssdefined=c,c(),s};"undefined"!=typeof exports?exports.loadCSS=t:e.loadCSS=t}("undefined"!=typeof global?global:this);
+    </script>
+    
     <!-- Main application bundle -->
     <script type="module" src="/src/main.tsx"></script>
   </body>

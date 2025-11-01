@@ -29,8 +29,11 @@ export default defineConfig(({ mode }) => ({
     target: 'esnext',
     minify: 'esbuild',
     cssCodeSplit: true,
+    cssMinify: 'esbuild',
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
+    // Enable CSS code splitting per component
+    assetsInlineLimit: 0, // Don't inline any assets
     rollupOptions: {
       treeshake: {
         moduleSideEffects: false,
@@ -102,8 +105,14 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name]-[hash].js',
       }
     },
-    // Standard module preload
-    modulePreload: true,
+    // Optimize module preload to load only JS, defer CSS
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies: (filename, deps) => {
+        // Only preload JS dependencies, let CSS load async
+        return deps.filter(dep => !dep.endsWith('.css'));
+      }
+    },
   },
   optimizeDeps: {
     include: [

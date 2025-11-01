@@ -1,0 +1,3 @@
+/* Deferred styles - loaded after critical path */
+/* This file is intentionally empty - it exists to split CSS bundles */
+/* Main styles are in index.css and will be code-split by Vite */
