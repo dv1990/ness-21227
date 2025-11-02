@@ -3,28 +3,6 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-// Plugin to inject CSS preload links to break dependency chain
-const cssPreloadPlugin = () => ({
-  name: 'css-preload-plugin',
-  transformIndexHtml(html: string, ctx: any) {
-    if (ctx.bundle) {
-      const cssFiles = Object.keys(ctx.bundle).filter((file: string) => file.endsWith('.css'));
-      const preloadLinks = cssFiles.map((file: string) => 
-        `<link rel="preload" href="/${file}" as="style">`
-      ).join('\n    ');
-      
-      if (preloadLinks) {
-        // Inject CSS preload links right after the modulepreload for main.tsx
-        return html.replace(
-          '<link rel="modulepreload" href="/src/main.tsx" />',
-          `<link rel="modulepreload" href="/src/main.tsx" />\n    ${preloadLinks}`
-        );
-      }
-    }
-    return html;
-  }
-});
-
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   base: '/',  // Use root path for proper React Fast Refresh
@@ -40,11 +18,7 @@ export default defineConfig(({ mode }) => ({
   esbuild: {
     target: 'esnext',
   },
-  plugins: [
-    react(), 
-    cssPreloadPlugin(),
-    mode === "development" && componentTagger()
-  ].filter(Boolean),
+  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
