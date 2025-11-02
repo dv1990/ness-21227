@@ -1,5 +1,6 @@
 import { ReactNode, lazy, Suspense } from "react";
 import NavigationEnhanced from "./NavigationEnhanced";
+import SkipLink from "./SkipLink";
 
 // Lazy load below-the-fold components to reduce initial CSS bundle
 const Footer = lazy(() => import("./Footer"));
@@ -13,8 +14,14 @@ interface LayoutProps {
 const Layout = ({ children, className = "" }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      <SkipLink />
       <NavigationEnhanced />
-      <main className={`flex-1 pt-20 ${className}`}>
+      <main 
+        id="main-content" 
+        className={`flex-1 pt-20 ${className}`}
+        role="main"
+        aria-label="Main content"
+      >
         {children}
       </main>
       <Suspense fallback={<div className="h-20" />}>

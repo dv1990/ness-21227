@@ -24,32 +24,69 @@ const ContactForm = ({ type }: ContactFormProps) => {
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="name">Full Name</Label>
-          <Input id="name" placeholder="Your name" required />
+          <Label htmlFor="name">Full Name <span className="text-destructive" aria-label="required">*</span></Label>
+          <Input 
+            id="name" 
+            name="name"
+            placeholder="Your name" 
+            required 
+            aria-required="true"
+            autoComplete="name"
+          />
         </div>
         <div>
-          <Label htmlFor="phone">Phone Number</Label>
-          <Input id="phone" type="tel" placeholder="+91 98765 43210" required />
+          <Label htmlFor="phone">Phone Number <span className="text-destructive" aria-label="required">*</span></Label>
+          <Input 
+            id="phone" 
+            name="phone"
+            type="tel" 
+            placeholder="+91 98765 43210" 
+            required 
+            aria-required="true"
+            autoComplete="tel"
+          />
         </div>
       </div>
       <div>
-        <Label htmlFor="email">Email</Label>
-        <Input id="email" type="email" placeholder="your@email.com" required />
+        <Label htmlFor="email">Email <span className="text-destructive" aria-label="required">*</span></Label>
+        <Input 
+          id="email" 
+          name="email"
+          type="email" 
+          placeholder="your@email.com" 
+          required 
+          aria-required="true"
+          autoComplete="email"
+        />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <Label htmlFor="city">City</Label>
-          <Input id="city" placeholder="Your city" required />
+          <Label htmlFor="city">City <span className="text-destructive" aria-label="required">*</span></Label>
+          <Input 
+            id="city" 
+            name="city"
+            placeholder="Your city" 
+            required 
+            aria-required="true"
+            autoComplete="address-level2"
+          />
         </div>
         <div>
-          <Label htmlFor="pin">PIN Code</Label>
-          <Input id="pin" placeholder="400001" required />
+          <Label htmlFor="pin">PIN Code <span className="text-destructive" aria-label="required">*</span></Label>
+          <Input 
+            id="pin" 
+            name="pin"
+            placeholder="400001" 
+            required 
+            aria-required="true"
+            autoComplete="postal-code"
+          />
         </div>
       </div>
       <div>
         <Label htmlFor="solar-status">Current Solar/Inverter Setup</Label>
-        <Select>
-          <SelectTrigger>
+        <Select name="solar-status">
+          <SelectTrigger id="solar-status" aria-label="Current Solar/Inverter Setup">
             <SelectValue placeholder="Select your current setup" />
           </SelectTrigger>
           <SelectContent>
@@ -63,8 +100,8 @@ const ContactForm = ({ type }: ContactFormProps) => {
       </div>
       <div>
         <Label htmlFor="contact-pref">Preferred Contact Method</Label>
-        <Select>
-          <SelectTrigger>
+        <Select name="contact-pref">
+          <SelectTrigger id="contact-pref" aria-label="Preferred Contact Method">
             <SelectValue placeholder="How should we reach you?" />
           </SelectTrigger>
           <SelectContent>
@@ -188,7 +225,13 @@ const ContactForm = ({ type }: ContactFormProps) => {
       
       <div>
         <Label htmlFor="message">Message (Optional)</Label>
-        <Textarea id="message" placeholder="Tell us more about your requirements..." rows={4} />
+        <Textarea 
+          id="message" 
+          name="message"
+          placeholder="Tell us more about your requirements..." 
+          rows={4}
+          aria-label="Additional message or requirements"
+        />
       </div>
 
       <div className="flex items-start space-x-3">
@@ -197,15 +240,29 @@ const ContactForm = ({ type }: ContactFormProps) => {
           checked={consent}
           onCheckedChange={(checked) => setConsent(checked as boolean)}
           required
+          aria-required="true"
+          aria-describedby="consent-description"
         />
         <Label htmlFor="consent" className="text-sm leading-relaxed">
-          I consent to NESS Energy contacting me about their products and services. 
-          I understand my data will be processed according to their{" "}
-          <a href="/privacy" className="text-primary underline">privacy policy</a>.
+          <span id="consent-description">
+            I consent to NESS Energy contacting me about their products and services. 
+            I understand my data will be processed according to their{" "}
+            <a 
+              href="/privacy" 
+              className="text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+            >
+              privacy policy
+            </a>.
+          </span>
         </Label>
       </div>
 
-      <Button type="submit" className="btn-primary btn-large w-full" disabled={!consent}>
+      <Button 
+        type="submit" 
+        className="btn-primary btn-large w-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2" 
+        disabled={!consent}
+        aria-label="Submit contact form"
+      >
         Send Message
       </Button>
 
