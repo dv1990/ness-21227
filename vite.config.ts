@@ -41,6 +41,14 @@ export default defineConfig(({ mode }) => ({
         tryCatchDeoptimization: false,
       },
       output: {
+        // Enhanced CSS minification
+        assetFileNames: (assetInfo) => {
+          // Separate CSS files by component/route for better caching
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'assets/css/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
         manualChunks: (id) => {
           // Vendor chunk for React ecosystem (core only)
           if (id.includes('node_modules')) {
@@ -99,8 +107,6 @@ export default defineConfig(({ mode }) => ({
         },
         // Optimize chunk loading
         experimentalMinChunkSize: 20000,
-        // Add preload directives
-        assetFileNames: 'assets/[name]-[hash][extname]',
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
       }
