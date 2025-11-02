@@ -10,6 +10,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, CheckCircle2, Factory, Hotel, Fuel, Zap, TrendingDown, Clock, Leaf, MapPin, ChevronDown, Sparkles } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { toast } from "sonner";
+import { sendEmail } from "@/lib/email-service";
 import nessCubeResort from "@/assets/ness-cube-resort.webp";
 import nessPodInstallation from "@/assets/ness-pod-installation-hero.webp";
 import manufacturingFacility from "@/assets/manufacturing-facility.jpg";
@@ -42,6 +44,7 @@ const CommercialEnhanced = () => {
     notes: ""
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [scrollY, setScrollY] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
 
@@ -700,22 +703,70 @@ const CommercialEnhanced = () => {
 
             <Card className="bg-card shadow-xl">
               <CardContent className="pt-8">
-                <form className="space-y-6" onSubmit={e => {
-                e.preventDefault();
-                setFormErrors({});
-                const validation = contactSchema.safeParse(formData);
-                if (!validation.success) {
-                  const errors: Record<string, string> = {};
-                  validation.error.errors.forEach(err => {
-                    if (err.path[0]) errors[err.path[0].toString()] = err.message;
-                  });
-                  setFormErrors(errors);
-                  return;
-                }
-                // Success - open WhatsApp
-                const message = `C&I System Design Request\nName: ${encodeURIComponent(formData.name)}\nEmail: ${encodeURIComponent(formData.email)}\nPhone: ${encodeURIComponent(formData.phone)}\nUse Case: ${encodeURIComponent(formData.segment)}\nRuntime: ${encodeURIComponent(formData.runtime || 'N/A')}\nPeak Load: ${encodeURIComponent(formData.peak_load || 'N/A')}\nSolar: ${encodeURIComponent(formData.solar || 'N/A')}\nNotes: ${encodeURIComponent(formData.notes || 'None')}`;
-                window.open(`https://wa.me/919876543210?text=${message}`, '_blank');
-              }}>
+                <form className="space-y-6" onSubmit={async (e) => {
+                  e.preventDefault();
+                  setFormErrors({});
+                  
+                  const validation = contactSchema.safeParse(formData);
+                  if (!validation.success) {
+                    const errors: Record<string, string> = {};
+                    validation.error.errors.forEach(err => {
+                      if (err.path[0]) errors[err.path[0].toString()] = err.message;
+                    });
+                    setFormErrors(errors);
+                    return;
+                  }
+                  
+                  setIsSubmitting(true);
+                  
+                  try {
+                    // Construct email message
+                    const message = `
+C&I System Design Request
+
+Name: ${formData.name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Use Case: ${formData.segment}
+Runtime: ${formData.runtime || 'N/A'}
+Peak Load: ${formData.peak_load || 'N/A'}
+Solar: ${formData.solar || 'N/A'}
+Notes: ${formData.notes || 'None'}
+                    `.trim();
+                    
+                    await sendEmail({
+                      from_name: formData.name,
+                      from_email: formData.email,
+                      from_phone: formData.phone,
+                      message: message,
+                      form_type: "Commercial & Industrial Inquiry",
+                      segment: formData.segment,
+                      runtime: formData.runtime,
+                      peak_load: formData.peak_load,
+                      solar: formData.solar,
+                      notes: formData.notes
+                    });
+                    
+                    toast.success("Request sent successfully! We'll contact you soon.");
+                    
+                    // Reset form
+                    setFormData({
+                      name: "",
+                      email: "",
+                      phone: "",
+                      segment: "",
+                      runtime: "",
+                      peak_load: "",
+                      solar: "",
+                      notes: ""
+                    });
+                  } catch (error) {
+                    console.error("Form submission error:", error);
+                    toast.error("Failed to send request. Please try again or contact us directly.");
+                  } finally {
+                    setIsSubmitting(false);
+                  }
+                }}>
                   <div className="grid sm:grid-cols-2 gap-6">
                     <div className="space-y-2">
                       <Input placeholder="Full Name *" value={formData.name} onChange={e => setFormData({
@@ -794,8 +845,13 @@ const CommercialEnhanced = () => {
                     By submitting, you agree to be contacted about NESS products and services.
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 rounded-2xl text-lg group">
-                    Get My Plan
+                  <Button 
+                    type="submit" 
+                    size="lg" 
+                    disabled={isSubmitting}
+                    className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 rounded-2xl text-lg group disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isSubmitting ? "Sending..." : "Get My Plan"}
                     <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
                   </Button>
                 </form>
