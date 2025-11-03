@@ -45,31 +45,15 @@ const CommercialEnhanced = () => {
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [scrollY, setScrollY] = useState(0);
   const [imageLoaded, setImageLoaded] = useState(false);
-
-  // Parallax effect - optimized with useCallback
-  const handleScroll = useCallback(() => {
-    setScrollY(window.scrollY);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
 
   return <Layout>
       <div className="min-h-screen bg-background">
         
         {/* Hero Section - Full Page Image */}
         <section className="relative min-h-screen flex items-center overflow-hidden">
-          {/* Full page hero image with parallax */}
-          <div className="absolute inset-0" style={{
-          transform: `translateY(${scrollY * 0.5}px)`,
-          transition: 'transform 0.1s ease-out'
-        }}>
+          {/* Full page hero image */}
+          <div className="absolute inset-0">
             <WebPImage
               src={ciHeroPremium}
               alt="NESS energy storage systems for commercial and industrial applications"
@@ -100,40 +84,28 @@ const CommercialEnhanced = () => {
               {/* Content card */}
               <div className="rounded-3xl p-8 sm:p-12 lg:p-14 px-0">
                 
-                {/* Eyebrow text with icon - staggered animation */}
-                <div className="inline-flex items-center gap-2 mb-6 sm:mb-8 opacity-0 animate-fade-in" style={{
-                animationDelay: '0.1s',
-                animationFillMode: 'forwards'
-              }}>
+                {/* Eyebrow text with icon */}
+                <div className="inline-flex items-center gap-2 mb-6 sm:mb-8">
                   <Sparkles className="w-4 h-4 text-primary" />
                   <span className="text-xs sm:text-sm text-white/80 font-medium uppercase tracking-wider">
                     Commercial & Industrial Solutions
                   </span>
                 </div>
 
-                {/* Premium headline - staggered animation */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-white leading-[1.05] tracking-tighter mb-6 sm:mb-8 opacity-0 animate-fade-in" style={{
-                animationDelay: '0.3s',
-                animationFillMode: 'forwards'
-              }}>
+                {/* Premium headline */}
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-white leading-[1.05] tracking-tighter mb-6 sm:mb-8">
                   <span className="font-light">
                     Empower productivity, sustainably.
                   </span>
                 </h1>
                 
-                {/* Subtext - staggered animation */}
-                <p className="text-lg sm:text-xl lg:text-2xl font-light text-white/90 max-w-2xl leading-relaxed mb-8 sm:mb-10 opacity-0 animate-fade-in" style={{
-                animationDelay: '0.5s',
-                animationFillMode: 'forwards'
-              }}>
+                {/* Subtext */}
+                <p className="text-lg sm:text-xl lg:text-2xl font-light text-white/90 max-w-2xl leading-relaxed mb-8 sm:mb-10">
                   Clean, intelligent energy that drives progress     lowering costs, emissions, and complexity.
                 </p>
 
-                {/* Key stat badges - staggered animation */}
-                <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 opacity-0 animate-fade-in" style={{
-                animationDelay: '0.7s',
-                animationFillMode: 'forwards'
-              }}>
+                {/* Key stat badges */}
+                <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
                   <div className="bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-primary/30 transition-all">
                     <TrendingDown className="w-4 h-4 text-primary" />
                     <span className="text-xs sm:text-sm font-medium text-white">↓60% Energy Costs</span>
@@ -148,19 +120,14 @@ const CommercialEnhanced = () => {
                   </div>
                 </div>
 
-                {/* Enhanced CTA button with pulsing glow - staggered animation */}
-                <div className="opacity-0 animate-fade-in" style={{
-                animationDelay: '0.9s',
-                animationFillMode: 'forwards'
-              }}>
+                {/* Enhanced CTA button */}
+                <div>
                   <Button size="lg" onClick={() => document.getElementById('contact')?.scrollIntoView({
                   behavior: 'smooth'
-                })} className="relative bg-primary hover:bg-primary/90 text-primary-foreground px-10 sm:px-12 py-6 sm:py-7 rounded-full text-base sm:text-lg font-medium group shadow-xl shadow-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/50 hover:scale-[1.02] focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Start your transition to clean energy">
-                    {/* Pulsing glow effect */}
-                    <span className="absolute inset-0 rounded-full bg-primary/40 blur-xl animate-pulse" />
-                    <span className="relative flex items-center">
+                })} className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 sm:px-12 py-6 sm:py-7 rounded-full text-base sm:text-lg font-medium shadow-xl shadow-primary/30 transition-all hover:shadow-2xl hover:shadow-primary/50 focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black" aria-label="Start your transition to clean energy">
+                    <span className="flex items-center">
                       Start Your Transition
-                      <ArrowRight className="ml-3 w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                      <ArrowRight className="ml-3 w-5 h-5" />
                     </span>
                   </Button>
                 </div>
@@ -168,13 +135,13 @@ const CommercialEnhanced = () => {
             </div>
           </div>
 
-          {/* Animated scroll indicator */}
+          {/* Scroll indicator */}
           <button onClick={() => window.scrollBy({
           top: window.innerHeight,
           behavior: 'smooth'
-        })} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2" aria-label="Scroll to next section">
+        })} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2" aria-label="Scroll to next section">
             <span className="text-xs uppercase tracking-wider font-medium">Explore</span>
-            <ChevronDown className="w-6 h-6 animate-bounce group-hover:text-primary transition-colors" />
+            <ChevronDown className="w-6 h-6" />
           </button>
         </section>
 
