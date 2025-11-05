@@ -86,9 +86,9 @@ const ContactHomeowner = () => {
         
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 motion-safe:animate-bounce">
           <div className="w-6 h-10 border-2 border-foreground/30 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-foreground/50 rounded-full animate-pulse" />
+            <div className="w-1 h-3 bg-foreground/50 rounded-full motion-safe:animate-pulse" />
           </div>
         </div>
       </section>

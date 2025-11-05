@@ -203,7 +203,7 @@ const ContactInstaller = () => {
             aria-hidden="true"
           >
             <span className="text-xs uppercase tracking-wider">Scroll</span>
-            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="animate-bounce">
+            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="motion-safe:animate-bounce">
               <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" strokeWidth="2"/>
               <circle cx="10" cy="10" r="2" fill="currentColor"/>
             </svg>
