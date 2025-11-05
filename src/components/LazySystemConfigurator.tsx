@@ -2,7 +2,11 @@ import { lazy, Suspense } from 'react';
 
 const SystemConfigurator = lazy(() => import('./SystemConfigurator'));
 
-export const LazySystemConfigurator = (props: any) => {
+interface LazySystemConfiguratorProps {
+  [key: string]: unknown;
+}
+
+export const LazySystemConfigurator = (props: LazySystemConfiguratorProps) => {
   return (
     <Suspense fallback={
       <div className="min-h-[500px] flex items-center justify-center bg-muted/5 rounded-lg">

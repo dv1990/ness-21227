@@ -11,8 +11,8 @@ export const ProductSectionSkeleton = ({ isDark = false }: { isDark?: boolean })
             <Skeleton className={`h-20 w-full mb-8 ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
             
             <div className="space-y-4 mb-10">
-              {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-start gap-3">
+              {[1, 2, 3].map((num) => (
+                <div key={`skeleton-feature-${num}`} className="flex items-start gap-3">
                   <Skeleton className={`w-6 h-6 rounded-full flex-shrink-0 ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />
                   <div className="flex-1 space-y-2">
                     <Skeleton className={`h-4 w-40 ${isDark ? 'bg-white/10' : 'bg-gray-200'}`} />

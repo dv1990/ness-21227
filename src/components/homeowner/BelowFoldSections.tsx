@@ -77,7 +77,7 @@ export const BelowFoldSections = memo(() => {
             {/* Star Rating */}
             <div className="text-center p-6">
               <div className="flex justify-center gap-1 mb-3">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-6 h-6 fill-primary text-primary" />)}
+                {[...Array(5)].map((_, i) => <Star key={`rating-star-${i}`} className="w-6 h-6 fill-primary text-primary" />)}
               </div>
               <div className="text-3xl font-light mb-2">4.9/5</div>
               <div className="text-sm text-muted-foreground">Customer Rating</div>
@@ -107,7 +107,7 @@ export const BelowFoldSections = memo(() => {
           <div className="mt-16 max-w-3xl mx-auto">
             <div className="bg-card/50 backdrop-blur-sm rounded-2xl p-8 border border-border/30">
               <div className="flex gap-1 mb-4 justify-center">
-                {[...Array(5)].map((_, i) => <Star key={i} className="w-4 h-4 fill-primary text-primary" />)}
+                {[...Array(5)].map((_, i) => <Star key={`testimonial-star-${i}`} className="w-4 h-4 fill-primary text-primary" />)}
               </div>
               <blockquote className="text-lg text-center text-muted-foreground leading-relaxed mb-4">
                 "What made me choose NESS was the silence. My generator used to wake the neighborhood. Now, nobody even knows when the power goes out. It's been flawless for 18 months."

@@ -122,12 +122,12 @@ const ProblemSection = () => {
 
           <div className="space-y-1 border-t border-border/50">
             {[
-              { title: 'Grid downtime', subtitle: 'Lost revenue every minute offline' },
-              { title: 'Peak demand charges', subtitle: 'Heavy bills during charging hours' },
-              { title: 'Unreliable power', subtitle: 'Damaged reputation and lost customers' }
-            ].map((item, i) => (
+              { id: 'grid-downtime', title: 'Grid downtime', subtitle: 'Lost revenue every minute offline' },
+              { id: 'peak-demand', title: 'Peak demand charges', subtitle: 'Heavy bills during charging hours' },
+              { id: 'unreliable-power', title: 'Unreliable power', subtitle: 'Damaged reputation and lost customers' }
+            ].map((item) => (
               <div 
-                key={i}
+                key={item.id}
                 className="group py-8 border-b border-border/50 transition-colors hover:bg-muted/30"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -159,8 +159,8 @@ const SolutionSection = () => {
 
           {/* Clean Flow */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border/50">
-            {['Solar', 'Battery', 'Charger', 'Vehicle'].map((item, i) => (
-              <div key={i} className="bg-card p-12 flex items-center justify-center">
+            {['Solar', 'Battery', 'Charger', 'Vehicle'].map((item) => (
+              <div key={`flow-${item.toLowerCase()}`} className="bg-card p-12 flex items-center justify-center">
                 <span className="text-xl font-light tracking-wide text-foreground">{item}</span>
               </div>
             ))}
@@ -252,14 +252,14 @@ const ImpactSection = () => {
 
           <div className="space-y-1 border-t border-border/50">
             {[
-              { metric: 'Energy Cost', improvement: '↓ 25–40%' },
-              { metric: 'Demand Charges', improvement: '↓ 40–60%' },
-              { metric: 'CO₂ Emissions', improvement: '↓ 90–100%' },
-              { metric: 'Uptime', improvement: '99.9%' },
-              { metric: 'Carbon Offset', improvement: '50+ tons/year' }
-            ].map((item, i) => (
+              { id: 'energy-cost', metric: 'Energy Cost', improvement: '↓ 25–40%' },
+              { id: 'demand-charges', metric: 'Demand Charges', improvement: '↓ 40–60%' },
+              { id: 'co2-emissions', metric: 'CO₂ Emissions', improvement: '↓ 90–100%' },
+              { id: 'uptime', metric: 'Uptime', improvement: '99.9%' },
+              { id: 'carbon-offset', metric: 'Carbon Offset', improvement: '50+ tons/year' }
+            ].map((item) => (
               <div 
-                key={i}
+                key={item.id}
                 className="py-8 border-b border-border/50 flex justify-between items-center"
               >
                 <span className="text-xl sm:text-2xl font-light text-foreground">{item.metric}</span>
@@ -284,9 +284,9 @@ const UseCasesSection = () => {
           </h2>
 
           <div className="mt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-border/50">
-            {['Fleet Depots', 'Bus Depots', 'Highways', 'Airports', 'Industrial Yards'].map((item, i) => (
+            {['Fleet Depots', 'Bus Depots', 'Highways', 'Airports', 'Industrial Yards'].map((item) => (
               <div 
-                key={i}
+                key={`usecase-${item.toLowerCase().replace(/\s+/g, '-')}`}
                 className="bg-card p-12 flex items-center justify-center text-center hover:bg-muted/30 transition-colors"
               >
                 <span className="text-base font-light tracking-wide text-foreground">{item}</span>

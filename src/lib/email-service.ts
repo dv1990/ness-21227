@@ -28,10 +28,14 @@ export const sendEmail = async (data: EmailData): Promise<boolean> => {
       EMAILJS_PUBLIC_KEY
     );
 
-    console.log('Email sent successfully:', result);
+    if (import.meta.env.DEV) {
+      console.log('Email sent successfully:', result);
+    }
     return true;
   } catch (error) {
-    console.error('Email sending failed:', error);
+    if (import.meta.env.DEV) {
+      console.error('Email sending failed:', error);
+    }
     throw error;
   }
 };

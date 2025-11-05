@@ -364,7 +364,7 @@ const TechnologyEnhanced = () => {
             <AnimatedCard hover="lift" className="p-10 space-y-6">
               <div className="flex gap-2 text-primary">
                 {[...Array(5)].map((_, i) => (
-                  <CheckCircle2 key={i} className="w-5 h-5" />
+                  <CheckCircle2 key={`tech-rating-1-${i}`} className="w-5 h-5" />
                 ))}
               </div>
               <p className="text-body-large text-foreground leading-relaxed italic">
@@ -378,7 +378,7 @@ const TechnologyEnhanced = () => {
             <AnimatedCard hover="lift" delay={100} className="p-10 space-y-6">
               <div className="flex gap-2 text-primary">
                 {[...Array(5)].map((_, i) => (
-                  <CheckCircle2 key={i} className="w-5 h-5" />
+                  <CheckCircle2 key={`tech-rating-2-${i}`} className="w-5 h-5" />
                 ))}
               </div>
               <p className="text-body-large text-foreground leading-relaxed italic">

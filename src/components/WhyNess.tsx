@@ -69,13 +69,19 @@ const MANUFACTURING_STORY = {
   }
 };
 
+interface Step {
+  key: string;
+  label: string;
+  title: string;
+}
+
 function LuxuryStepIndicator({
   step,
   index,
   isActive,
   onClick
 }: {
-  step: any; // TODO: Define proper step type
+  step: Step;
   index: number;
   isActive: boolean;
   onClick: () => void;

@@ -728,7 +728,9 @@ Notes: ${formData.notes || 'None'}
                       notes: ""
                     });
                   } catch (error) {
-                    console.error("Form submission error:", error);
+                    if (import.meta.env.DEV) {
+                      console.error("Form submission error:", error);
+                    }
                     toast.error("Failed to send request. Please try again or contact us directly.");
                   } finally {
                     setIsSubmitting(false);

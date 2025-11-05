@@ -225,7 +225,9 @@ ${Object.entries(selectedAppliances)
       // Reset contact form
       setContactInfo({ name: '', email: '', phone: '' });
     } catch (error) {
-      console.error('Failed to send email:', error);
+      if (import.meta.env.DEV) {
+        console.error('Failed to send email:', error);
+      }
       toast({
         title: "Failed to Send",
         description: "Please try again or contact us directly.",

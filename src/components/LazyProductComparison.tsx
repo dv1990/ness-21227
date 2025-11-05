@@ -4,7 +4,11 @@ const LazyProductComparisonComponent = lazy(() =>
   import('./ProductComparison').then(module => ({ default: module.ProductComparison }))
 );
 
-export const LazyProductComparison = (props: any) => {
+interface LazyProductComparisonProps {
+  [key: string]: unknown;
+}
+
+export const LazyProductComparison = (props: LazyProductComparisonProps) => {
   return (
     <Suspense fallback={
       <div className="min-h-[400px] flex items-center justify-center">

@@ -39,7 +39,7 @@ const NessAcSync = () => {
                   <div className="grid grid-cols-3 gap-3 p-8">
                     {[...Array(3)].map((_, i) => (
                       <div 
-                        key={i} 
+                        key={`battery-cell-visual-${i}`} 
                         className="w-16 h-20 rounded-lg bg-gradient-to-br from-white/20 to-white/5 border border-white/20"
                         style={{ animationDelay: `${i * 0.2}s` }}
                       />
@@ -159,7 +159,7 @@ const NessAcSync = () => {
                   <div className="flex gap-2 justify-center">
                     {[...Array(num)].map((_, i) => (
                       <div 
-                        key={i}
+                        key={`module-unit-${num}-${i}`}
                         className="w-12 h-16 rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 group-hover:border-primary/40 transition-all"
                       />
                     ))}
