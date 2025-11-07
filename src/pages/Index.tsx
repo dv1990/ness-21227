@@ -4,6 +4,7 @@ import { CheckCircle2, ChevronDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { WebPImage } from "@/components/ui/webp-image";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ProductSectionSkeleton } from "@/components/ui/product-section-skeleton";
 import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
@@ -63,9 +64,19 @@ const Index = () => {
           {/* Optimized ambient glow - CSS only */}
           <div className="absolute inset-0 hidden sm:block hero-glow" />
 
-          {/* Product Image - Optimized filters */}
+          {/* Product Image - Optimized with srcset for LCP */}
           <div className="absolute inset-0 w-full h-full hero-image">
-            <WebPImage src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" priority={true} loading="eager" />
+            <ResponsiveImage 
+              src={nessHeroProduct} 
+              alt="NESS home battery — reliable backup power for modern Indian homes" 
+              className="w-full h-full object-cover object-center" 
+              priority={true} 
+              loading="eager"
+              width={1920}
+              height={1080}
+              sizes="100vw"
+              fetchPriority="high"
+            />
           </div>
 
           {/* Minimal gradient overlay */}

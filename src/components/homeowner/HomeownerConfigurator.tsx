@@ -2,6 +2,7 @@ import { useState, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
+import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ArrowRight, Sun, Zap, Battery, Settings } from "lucide-react";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
