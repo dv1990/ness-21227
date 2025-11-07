@@ -126,6 +126,15 @@ export default defineConfig(({ mode }) => ({
     chunkSizeWarningLimit: 1500,
     // Enable CSS code splitting per component
     assetsInlineLimit: 0, // Don't inline any assets
+    modulePreload: {
+      polyfill: true,
+      resolveDependencies: (filename, deps, { hostId, hostType }) => {
+        // Ensure CSS is preloaded with high priority to break dependency chain
+        return deps.filter(dep => {
+          return dep.endsWith('.css') || dep.endsWith('.js');
+        });
+      }
+    },
     rollupOptions: {
       treeshake: {
         moduleSideEffects: false,
