@@ -117,6 +117,8 @@ const ContactEnhanced = () => {
                   <div className="space-y-2">
                     <Label>Phone</Label>
                     <Input 
+                      type="tel"
+                      inputMode="tel"
                       placeholder="+91"
                       value={formData.phone}
                       onChange={(e) => handleInputChange('phone', e.target.value)}

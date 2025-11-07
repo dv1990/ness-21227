@@ -1,6 +1,8 @@
 import { ReactNode, lazy, Suspense } from "react";
 import NavigationEnhanced from "./NavigationEnhanced";
 import SkipLink from "./SkipLink";
+import { MobileStickyCTA } from "./MobileStickyCTA";
+import { PWAInstallPrompt } from "./PWAInstallPrompt";
 
 // Lazy load below-the-fold components to reduce initial CSS bundle
 const Footer = lazy(() => import("./Footer"));
@@ -30,6 +32,8 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
       <Suspense fallback={null}>
         <CookieConsent />
       </Suspense>
+      <MobileStickyCTA phoneNumber="+918012345678" label="Call Us Now" />
+      <PWAInstallPrompt />
     </div>
   );
 };

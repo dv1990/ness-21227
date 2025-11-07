@@ -74,6 +74,7 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
             <Input
               id="quote-phone"
               type="tel"
+              inputMode="tel"
               placeholder="+91 98765 43210"
               value={formData.phone}
               onChange={(e) => onChange('phone', e.target.value)}
@@ -143,6 +144,8 @@ export const QuoteContactForm: React.FC<QuoteContactFormProps> = ({
             <Input
               id="quote-pincode"
               type="text"
+              inputMode="numeric"
+              pattern="[0-9]{6}"
               placeholder="400001"
               maxLength={6}
               value={formData.pincode}

@@ -39,7 +39,8 @@ const ContactForm = ({ type }: ContactFormProps) => {
           <Input 
             id="phone" 
             name="phone"
-            type="tel" 
+            type="tel"
+            inputMode="tel"
             placeholder="+91 98765 43210" 
             required 
             aria-required="true"
@@ -76,6 +77,10 @@ const ContactForm = ({ type }: ContactFormProps) => {
           <Input 
             id="pin" 
             name="pin"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]{6}"
+            maxLength={6}
             placeholder="400001" 
             required 
             aria-required="true"

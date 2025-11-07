@@ -1,17 +1,18 @@
+import { Suspense, lazy, useEffect } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { ScrollProgressBar } from "@/components/ScrollProgressBar";
+import ErrorBoundary from "@/components/ErrorBoundary";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useRegisterSW } from 'virtual:pwa-register/react';
 
 // Router future flags for v7 compatibility
 const routerFutureConfig = {
   v7_startTransition: true,
   v7_relativeSplatPath: true,
 };
-import { ScrollProgressBar } from "@/components/ScrollProgressBar";
-import ErrorBoundary from "@/components/ErrorBoundary";
-import { Suspense, lazy } from 'react';
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 // Critical page - Eager loaded for instant first paint
 import Index from "./pages/Index";
@@ -27,6 +28,7 @@ const EVChargingMicrogrid = lazy(() => import("./pages/EVChargingMicrogrid"));
 
 // Contact pages - Lazy loaded (includes framer-motion)
 const ContactHomeowner = lazy(() => import("./pages/contact/ContactHomeowner"));
+const PWAInstall = lazy(() => import("./pages/PWAInstall"));
 
 // Secondary pages - Lazy loaded
 const TrueWarranty = lazy(() => import("./pages/TrueWarranty"));
@@ -69,6 +71,26 @@ const PageLoadingFallback = () => (
 );
 
 const App = () => {
+  // Register service worker for PWA
+  const {
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(r) {
+      console.log('PWA: Service worker registered');
+    },
+    onRegisterError(error) {
+      console.error('PWA: Service worker registration error', error);
+    },
+  });
+
+  useEffect(() => {
+    if (needRefresh) {
+      // Auto-update service worker when new version is available
+      updateServiceWorker(true);
+    }
+  }, [needRefresh, updateServiceWorker]);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -109,6 +131,9 @@ const App = () => {
           {/* Contact Routes */}
           <Route path="/contact" element={<ContactEnhanced />} />
           <Route path="/contact-enhanced" element={<ContactEnhanced />} />
+          
+          {/* PWA Install */}
+          <Route path="/install" element={<PWAInstall />} />
           
           {/* Support Routes */}
           <Route path="/support/troubleshooting" element={<Troubleshooting />} />
