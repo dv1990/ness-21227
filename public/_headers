@@ -6,61 +6,87 @@
 # ============================================
 
 # Cache all assets in /assets/ folder aggressively (they have hash in filename)
+# Nested subdirectories first (more specific)
+/assets/css/*
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: text/css
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+/assets/js/*
+  Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: application/javascript
+  Access-Control-Allow-Origin: *
+  X-Content-Type-Options: nosniff
+
+# Direct /assets/ files by extension
 /assets/*.js
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: application/javascript
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.mjs
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: application/javascript
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.tsx
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: application/javascript
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.ts
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: application/javascript
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.css
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: text/css
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.webp
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/webp
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.jpg
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/jpeg
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.jpeg
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/jpeg
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.png
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/png
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.gif
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/gif
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
 /assets/*.svg
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
+  Content-Type: image/svg+xml
   Access-Control-Allow-Origin: *
   X-Content-Type-Options: nosniff
 
+# Catch-all for any other files in /assets/
 /assets/*
   Cache-Control: public, max-age=31536000, s-maxage=31536000, immutable
   Access-Control-Allow-Origin: *
