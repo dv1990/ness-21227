@@ -53,8 +53,9 @@
     <!-- Preload critical hero image for faster LCP -->
     <link rel="preload" as="image" href="/src/assets/ness-hero-product.webp" type="image/webp" fetchpriority="high" />
     
-    <!-- Preload critical application scripts to break dependency chain -->
-    <link rel="modulepreload" href="/src/main.tsx" />
+    <!-- Critical Resource Preloading Strategy -->
+    <!-- Preload main entry point to enable immediate parallel resource discovery -->
+    <link rel="modulepreload" href="/src/main.tsx" crossorigin />
     
     <!-- Preconnect to optimize external resources -->
     <link rel="dns-prefetch" href="https://dawn-whisper-quest.lovable.app" />
@@ -110,10 +111,7 @@
       })();
     </script>
     
-    <!-- Preload main entry to enable parallel resource discovery -->
-    <link rel="modulepreload" href="/src/main.tsx" />
-    
-    <!-- Main application bundle -->
+    <!-- Main application bundle with native ES module loading -->
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

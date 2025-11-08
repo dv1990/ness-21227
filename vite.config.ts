@@ -129,10 +129,17 @@ export default defineConfig(({ mode }) => ({
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
-        // Ensure CSS is preloaded with high priority to break dependency chain
-        return deps.filter(dep => {
-          return dep.endsWith('.css') || dep.endsWith('.js');
+        // Preload ALL dependencies immediately to enable parallel loading
+        // This breaks the HTML → JS → CSS chain into HTML → (JS + CSS) parallel
+        const filteredDeps = deps.filter(dep => {
+          // Include both JS and CSS files
+          const isJS = dep.endsWith('.js') || dep.endsWith('.jsx') || dep.endsWith('.ts') || dep.endsWith('.tsx');
+          const isCSS = dep.endsWith('.css');
+          return isJS || isCSS;
         });
+        
+        // Return all deps to ensure parallel discovery
+        return filteredDeps;
       }
     },
     rollupOptions: {
