@@ -1,4 +1,4 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { Suspense, lazy } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -72,24 +72,6 @@ const PageLoadingFallback = () => (
 );
 
 const App = () => {
-  // Register service worker for PWA using vanilla approach to avoid React dispatcher issues
-  useEffect(() => {
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/sw.js').then(
-        (registration) => {
-          if (import.meta.env.DEV) {
-            console.log('PWA: Service worker registered');
-          }
-        },
-        (error) => {
-          if (import.meta.env.DEV) {
-            console.error('PWA: Service worker registration error', error);
-          }
-        }
-      );
-    }
-  }, []);
-
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>

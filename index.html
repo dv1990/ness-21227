@@ -121,7 +121,7 @@
   <body>
     <div id="root"></div>
     
-    <!-- Inline critical script for service worker cleanup and error logging -->
+    <!-- Inline critical script for error logging -->
     <script>
       (function () {
         // Log unhandled errors for production debugging
@@ -131,18 +131,6 @@
         window.addEventListener('unhandledrejection', function(e) {
           console.error('Unhandled promise rejection:', e.reason);
         });
-        
-        // Clean up service workers
-        try {
-          if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister())).catch(() => {});
-          }
-          if (window.caches && caches.keys) {
-            caches.keys().then(keys => keys.forEach(k => caches.delete(k))).catch(() => {});
-          }
-        } catch (e) {
-          console.error('Service worker cleanup error:', e);
-        }
       })();
     </script>
     
