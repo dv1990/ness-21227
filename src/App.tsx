@@ -6,7 +6,6 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { useRegisterSW } from 'virtual:pwa-register/react';
 
 // Router future flags for v7 compatibility
 const routerFutureConfig = {
@@ -73,25 +72,23 @@ const PageLoadingFallback = () => (
 );
 
 const App = () => {
-  // Register service worker for PWA
-  const {
-    needRefresh: [needRefresh, setNeedRefresh],
-    updateServiceWorker,
-  } = useRegisterSW({
-    onRegistered(r) {
-      console.log('PWA: Service worker registered');
-    },
-    onRegisterError(error) {
-      console.error('PWA: Service worker registration error', error);
-    },
-  });
-
+  // Register service worker for PWA using vanilla approach to avoid React dispatcher issues
   useEffect(() => {
-    if (needRefresh) {
-      // Auto-update service worker when new version is available
-      updateServiceWorker(true);
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/sw.js').then(
+        (registration) => {
+          if (import.meta.env.DEV) {
+            console.log('PWA: Service worker registered');
+          }
+        },
+        (error) => {
+          if (import.meta.env.DEV) {
+            console.error('PWA: Service worker registration error', error);
+          }
+        }
+      );
     }
-  }, [needRefresh, updateServiceWorker]);
+  }, []);
 
   return (
     <ErrorBoundary>
