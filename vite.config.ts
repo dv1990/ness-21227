@@ -155,6 +155,10 @@ export default defineConfig(({ mode }) => ({
           if (assetInfo.name?.endsWith('.css')) {
             return 'assets/css/[name]-[hash][extname]';
           }
+          // Force .js extension for any JS/TS files that end up here
+          if (assetInfo.name?.match(/\.(js|jsx|ts|tsx)$/)) {
+            return 'assets/[name]-[hash].js';
+          }
           return 'assets/[name]-[hash][extname]';
         },
         manualChunks: (id) => {
