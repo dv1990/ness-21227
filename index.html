@@ -7,10 +7,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     
-    <!-- Inline Critical CSS for FCP/LCP optimization -->
+    <!-- Inline Critical CSS for immediate FCP/LCP optimization -->
     <style>
       @font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuLyfAZ9hiA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(https://fonts.gstatic.com/s/inter/v18/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIw2boKoduKmMEVuI6fAZ9hiA.woff2) format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}:root{--charcoal:0 0% 10%;--pearl:0 0% 100%;--graphite:0 0% 18%;--silver:0 0% 58%;--platinum:0 0% 92%;--whisper:0 0% 98%;--energy-core:142 25% 38%;--energy-bright:142 25% 42%;--energy:142 25% 38%;--background:var(--pearl);--foreground:var(--charcoal);--primary:var(--graphite);--primary-foreground:var(--pearl);--border:var(--platinum);--radius:.75rem}.dark{--background:var(--charcoal);--foreground:var(--pearl);--primary:var(--platinum);--primary-foreground:var(--charcoal)}*{border-color:hsl(var(--border));box-sizing:border-box;margin:0;padding:0}body{background-color:hsl(var(--background));color:hsl(var(--foreground));font-family:Inter,-apple-system,BlinkMacSystemFont,system-ui,sans-serif;font-feature-settings:"rlig" 1,"calt" 1;text-rendering:optimizeLegibility;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;min-height:100vh;line-height:1.5}.flex{display:flex}.flex-col{flex-direction:column}.items-center{align-items:center}.justify-between{justify-content:space-between}.min-h-screen{min-height:100vh}.relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}.inset-0{top:0;right:0;bottom:0;left:0}.w-full{width:100%}.h-full{height:100%}.z-50{z-index:50}nav{position:fixed;top:0;left:0;right:0;z-index:50;transition:background-color .3s ease,backdrop-filter .3s ease}.hero-section{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}button,.button{font-family:inherit;cursor:pointer;border:none;outline:none;transition:all .3s ease}@media (prefers-reduced-motion:no-preference){*{scroll-behavior:smooth}}@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
     </style>
+    
+    <!-- Defer non-critical CSS to load asynchronously after critical path -->
+    <script>
+      (function() {
+        // Store reference to defer full CSS loading until after critical render
+        window.__deferredStyles = window.__deferredStyles || [];
+        
+        // Intercept stylesheet loading and defer non-critical CSS
+        var observer = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            mutation.addedNodes.forEach(function(node) {
+              if (node.tagName === 'LINK' && node.rel === 'stylesheet' && node.href.includes('/assets/css/')) {
+                // Found the main CSS bundle - defer it
+                node.media = 'print';
+                node.onload = function() { 
+                  this.media = 'all';
+                  this.onload = null;
+                };
+                observer.disconnect();
+              }
+            });
+          });
+        });
+        
+        observer.observe(document.documentElement, {
+          childList: true,
+          subtree: true
+        });
+        
+        // Cleanup observer after page load
+        window.addEventListener('load', function() {
+          setTimeout(function() { observer.disconnect(); }, 1000);
+        });
+      })();
+    </script>
     
     <!-- Critical Resource Hints - Load assets in parallel -->
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
