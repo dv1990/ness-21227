@@ -1,7 +1,6 @@
 import { memo, useState } from 'react';
 import { Battery, Zap, Shield, Sun, Gauge, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import heroImage from '@/assets/hero-home-solar.webp';
 
 const NessFeatureGrid = () => {
@@ -103,17 +102,12 @@ const NessFeatureGrid = () => {
   );
 };
 
-// Lazy-loaded Hero Tile Component
+// Hero Tile Component - loads immediately for optimal LCP
 const HeroTile = memo(() => {
   const [imageLoaded, setImageLoaded] = useState(false);
-  const { ref, isIntersecting } = useIntersectionObserver({ 
-    threshold: 0.1, 
-    triggerOnce: true 
-  });
 
   return (
     <div 
-      ref={ref as any}
       className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden border border-energy/20 relative group hover:border-energy/40 transition-all duration-500"
     >
       <div className="aspect-square md:aspect-auto md:h-full relative">
@@ -122,19 +116,17 @@ const HeroTile = memo(() => {
           <div className="absolute inset-0 bg-gradient-to-br from-muted via-muted/50 to-muted/20 animate-pulse" />
         )}
         
-        {/* Lazy-loaded image */}
-        {isIntersecting && (
-          <img 
-            src={heroImage} 
-            alt="Modern home with solar panels and NESS battery system" 
-            className={cn(
-              "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
-              imageLoaded ? "opacity-100" : "opacity-0"
-            )}
-            onLoad={() => setImageLoaded(true)}
-            loading="lazy"
-          />
-        )}
+        {/* Hero image - loads immediately */}
+        <img 
+          src={heroImage} 
+          alt="Modern home with solar panels and NESS battery system" 
+          className={cn(
+            "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
+            imageLoaded ? "opacity-100" : "opacity-0"
+          )}
+          onLoad={() => setImageLoaded(true)}
+          fetchPriority="high"
+        />
         
         {/* Text overlay with subtle gradient for readability */}
         <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-background/20 to-transparent" />
