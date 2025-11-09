@@ -1,7 +1,14 @@
 import { memo } from 'react';
 import { Battery, Zap, Shield, Sun, Gauge, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { WebPImage } from '@/components/ui/webp-image';
+import villaHero from '@/assets/ness-villa-hero.jpg';
+import inverterCloseup from '@/assets/ness-inverter-closeup.jpg';
+import plugPlay from '@/assets/ness-plug-play.jpg';
+import explodedView from '@/assets/ness-exploded-view.jpg';
+import ip55Outdoor from '@/assets/ness-ip55-outdoor.jpg';
+import smartMeter from '@/assets/ness-smart-meter.jpg';
+import lfpBattery from '@/assets/ness-lfp-battery.jpg';
+import solarInput from '@/assets/ness-solar-input.jpg';
 
 const NessFeatureGrid = () => {
   return (
@@ -14,11 +21,11 @@ const NessFeatureGrid = () => {
           <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10 border border-border/50 relative group">
             <div className="aspect-square md:aspect-auto md:h-full relative">
               {/* Background Image */}
-              <WebPImage 
-                src="/assets/ness-villa-hero.jpg"
+              <img 
+                src={villaHero}
                 alt="Premium architectural villa with NESS solar battery system"
-                className="absolute inset-0"
-                priority
+                className="absolute inset-0 w-full h-full object-cover"
+                loading="eager"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
               <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
@@ -44,7 +51,7 @@ const NessFeatureGrid = () => {
             title="Max. 10 kW AC Output"
             subtitle="Hybrid"
             description="Seamless power delivery"
-            image="/assets/ness-inverter-closeup.jpg"
+            image={inverterCloseup}
           />
 
           {/* Tile 2 - Savings */}
@@ -61,7 +68,7 @@ const NessFeatureGrid = () => {
             title="Plug-and-Play"
             subtitle="Installation"
             description="Ready in hours, not days"
-            image="/assets/ness-plug-play.jpg"
+            image={plugPlay}
           />
 
           {/* Tile 4 - All-in-One */}
@@ -70,7 +77,7 @@ const NessFeatureGrid = () => {
             title="All-in-One Design"
             subtitle="Integrated System"
             description="BMS, modules, electronics"
-            image="/assets/ness-exploded-view.jpg"
+            image={explodedView}
           />
 
           {/* Tile 5 - Certification */}
@@ -96,7 +103,7 @@ const NessFeatureGrid = () => {
             subtitle="Weather Resistant"
             description="Built for outdoors"
             highlight="Protected"
-            image="/assets/ness-ip55-outdoor.jpg"
+            image={ip55Outdoor}
           />
 
           {/* Tile 8 - Smart Meter */}
@@ -105,7 +112,7 @@ const NessFeatureGrid = () => {
             title="Smart Meter"
             subtitle="Compatible"
             description="Real-time monitoring"
-            image="/assets/ness-smart-meter.jpg"
+            image={smartMeter}
           />
 
           {/* Tile 9 - Battery Life */}
@@ -115,7 +122,7 @@ const NessFeatureGrid = () => {
             subtitle="Battery Life"
             description="Long-lasting power"
             highlight="Premium"
-            image="/assets/ness-lfp-battery.jpg"
+            image={lfpBattery}
           />
 
           {/* Tile 10 - Solar Input */}
@@ -124,7 +131,7 @@ const NessFeatureGrid = () => {
             title="15 kWp Solar Input"
             subtitle="3 MPPT"
             description="Maximum efficiency"
-            image="/assets/ness-solar-input.jpg"
+            image={solarInput}
           />
 
         </div>
@@ -153,10 +160,11 @@ const FeatureTile = memo(({ icon, title, subtitle, description, highlight, image
       {/* Background Image if provided */}
       {image && (
         <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300">
-          <WebPImage 
-            src={image} 
+          <img 
+            src={image}
             alt={title}
-            className="w-full h-full"
+            className="w-full h-full object-cover"
+            loading="lazy"
           />
         </div>
       )}
