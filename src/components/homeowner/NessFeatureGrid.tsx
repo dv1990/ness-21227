@@ -4,23 +4,23 @@ import { cn } from '@/lib/utils';
 
 const NessFeatureGrid = () => {
   return (
-    <section className="py-24 bg-gradient-to-b from-background via-muted/5 to-background">
+    <section className="py-24 bg-gradient-to-b from-background via-energy-light/30 to-background">
       <div className="container mx-auto px-6 lg:px-12">
         {/* Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-7xl mx-auto">
           
           {/* Hero Tile - Spans 2x2 on larger screens */}
-          <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10 border border-border/50 relative group">
+          <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gradient-to-br from-energy/20 via-energy-bright/10 to-background border border-energy/20 relative group hover:border-energy/40 transition-all duration-500">
             <div className="aspect-square md:aspect-auto md:h-full relative">
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-muted/20" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/98 via-energy-light/20 to-energy/5" />
               <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
                 <div className="space-y-4">
-                  <div className="inline-block px-4 py-2 bg-primary/10 rounded-full backdrop-blur-sm border border-primary/20">
-                    <span className="text-sm font-medium text-primary">NESS Hybrid System</span>
+                  <div className="inline-block px-4 py-2 bg-energy/15 rounded-full backdrop-blur-sm border border-energy/30 shadow-lg shadow-energy/10">
+                    <span className="text-sm font-medium text-energy-bright">NESS Hybrid System</span>
                   </div>
                   <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-foreground leading-tight">
                     Your home.<br/>
-                    <span className="text-primary font-normal">Powered differently.</span>
+                    <span className="text-energy font-semibold">Powered differently.</span>
                   </h3>
                   <p className="text-lg text-muted-foreground font-light max-w-md">
                     Premium solar battery system designed for modern architectural homes
@@ -129,29 +129,29 @@ interface FeatureTileProps {
 const FeatureTile = memo(({ icon, title, subtitle, description, highlight }: FeatureTileProps) => {
   return (
     <div className={cn(
-      "rounded-2xl bg-card border border-border/50 overflow-hidden",
-      "hover:shadow-elegant hover:border-primary/20 transition-all duration-300",
-      "group cursor-default",
+      "rounded-2xl bg-gradient-to-br from-card via-card to-energy-light/5 border border-border/50 overflow-hidden",
+      "hover:shadow-lg hover:shadow-energy/10 hover:border-energy/30 transition-all duration-500",
+      "hover:scale-[1.02] group cursor-default",
       "backdrop-blur-sm relative"
     )}>
       <div className="relative p-6 lg:p-8">
         <div className="space-y-4">
           {/* Icon */}
-          <div className="text-primary group-hover:scale-110 transition-transform duration-300">
+          <div className="text-energy group-hover:text-energy-bright group-hover:scale-110 transition-all duration-300">
             {icon}
           </div>
           
           {/* Content */}
           <div className="space-y-2">
             {highlight && (
-              <span className="text-xs font-medium text-primary uppercase tracking-wider">
+              <span className="text-xs font-semibold text-energy uppercase tracking-wider bg-energy-light/50 px-2 py-1 rounded-md">
                 {highlight}
               </span>
             )}
-            <h4 className="text-xl lg:text-2xl font-light text-foreground leading-tight">
+            <h4 className="text-xl lg:text-2xl font-light text-foreground leading-tight group-hover:text-energy-bright transition-colors duration-300">
               {title}
             </h4>
-            <p className="text-sm font-medium text-muted-foreground">
+            <p className="text-sm font-medium text-muted-foreground group-hover:text-foreground transition-colors duration-300">
               {subtitle}
             </p>
             <p className="text-xs text-muted-foreground/70 leading-relaxed">
