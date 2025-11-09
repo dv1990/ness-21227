@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
 import { Zap, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/homeowner-hero-battery.webp";
+import NessFeatureGrid from "@/components/homeowner/NessFeatureGrid";
 
 // Lazy load below-the-fold sections for better initial load
 const LazySection = lazy(() => import("@/components/ui/lazy-section").then(m => ({ default: m.LazySection })));
@@ -92,6 +93,9 @@ const ContactHomeowner = () => {
           </div>
         </div>
       </section>
+
+      {/* Apple-style Feature Grid */}
+      <NessFeatureGrid />
 
       {/* Lazy load below-the-fold sections */}
       <Suspense fallback={<div className="min-h-[400px] bg-gradient-to-b from-background to-muted/20" />}>
