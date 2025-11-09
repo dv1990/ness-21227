@@ -141,7 +141,7 @@ const HeroTile = memo(() => {
         
         <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
           <div className="space-y-4">
-            <div className="inline-block px-4 py-2 bg-energy/20 rounded-full backdrop-blur-md border border-energy/40 shadow-lg shadow-energy/20">
+            <div className="inline-block px-4 py-2 bg-energy/20 rounded-full border border-energy/40 shadow-lg shadow-energy/20">
               <span className="text-sm font-semibold text-energy-bright">NESS Hybrid System</span>
             </div>
             <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight drop-shadow-lg">
