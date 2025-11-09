@@ -1,14 +1,6 @@
 import { memo } from 'react';
 import { Battery, Zap, Shield, Sun, Gauge, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import villaHero from '@/assets/ness-villa-hero.jpg';
-import inverterCloseup from '@/assets/ness-inverter-closeup.jpg';
-import plugPlay from '@/assets/ness-plug-play.jpg';
-import explodedView from '@/assets/ness-exploded-view.jpg';
-import ip55Outdoor from '@/assets/ness-ip55-outdoor.jpg';
-import smartMeter from '@/assets/ness-smart-meter.jpg';
-import lfpBattery from '@/assets/ness-lfp-battery.jpg';
-import solarInput from '@/assets/ness-solar-input.jpg';
 
 const NessFeatureGrid = () => {
   return (
@@ -20,14 +12,7 @@ const NessFeatureGrid = () => {
           {/* Hero Tile - Spans 2x2 on larger screens */}
           <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gradient-to-br from-muted/30 to-muted/10 border border-border/50 relative group">
             <div className="aspect-square md:aspect-auto md:h-full relative">
-              {/* Background Image */}
-              <img 
-                src={villaHero}
-                alt="Premium architectural villa with NESS solar battery system"
-                className="absolute inset-0 w-full h-full object-cover"
-                loading="eager"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/40 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-muted/20" />
               <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
                 <div className="space-y-4">
                   <div className="inline-block px-4 py-2 bg-primary/10 rounded-full backdrop-blur-sm border border-primary/20">
@@ -51,7 +36,6 @@ const NessFeatureGrid = () => {
             title="Max. 10 kW AC Output"
             subtitle="Hybrid"
             description="Seamless power delivery"
-            image={inverterCloseup}
           />
 
           {/* Tile 2 - Savings */}
@@ -68,7 +52,6 @@ const NessFeatureGrid = () => {
             title="Plug-and-Play"
             subtitle="Installation"
             description="Ready in hours, not days"
-            image={plugPlay}
           />
 
           {/* Tile 4 - All-in-One */}
@@ -77,7 +60,6 @@ const NessFeatureGrid = () => {
             title="All-in-One Design"
             subtitle="Integrated System"
             description="BMS, modules, electronics"
-            image={explodedView}
           />
 
           {/* Tile 5 - Certification */}
@@ -103,7 +85,6 @@ const NessFeatureGrid = () => {
             subtitle="Weather Resistant"
             description="Built for outdoors"
             highlight="Protected"
-            image={ip55Outdoor}
           />
 
           {/* Tile 8 - Smart Meter */}
@@ -112,7 +93,6 @@ const NessFeatureGrid = () => {
             title="Smart Meter"
             subtitle="Compatible"
             description="Real-time monitoring"
-            image={smartMeter}
           />
 
           {/* Tile 9 - Battery Life */}
@@ -122,7 +102,6 @@ const NessFeatureGrid = () => {
             subtitle="Battery Life"
             description="Long-lasting power"
             highlight="Premium"
-            image={lfpBattery}
           />
 
           {/* Tile 10 - Solar Input */}
@@ -131,7 +110,6 @@ const NessFeatureGrid = () => {
             title="15 kWp Solar Input"
             subtitle="3 MPPT"
             description="Maximum efficiency"
-            image={solarInput}
           />
 
         </div>
@@ -146,10 +124,9 @@ interface FeatureTileProps {
   subtitle: string;
   description: string;
   highlight?: string;
-  image?: string;
 }
 
-const FeatureTile = memo(({ icon, title, subtitle, description, highlight, image }: FeatureTileProps) => {
+const FeatureTile = memo(({ icon, title, subtitle, description, highlight }: FeatureTileProps) => {
   return (
     <div className={cn(
       "rounded-2xl bg-card border border-border/50 overflow-hidden",
@@ -157,18 +134,6 @@ const FeatureTile = memo(({ icon, title, subtitle, description, highlight, image
       "group cursor-default",
       "backdrop-blur-sm relative"
     )}>
-      {/* Background Image if provided */}
-      {image && (
-        <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300">
-          <img 
-            src={image}
-            alt={title}
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
-        </div>
-      )}
-      
       <div className="relative p-6 lg:p-8">
         <div className="space-y-4">
           {/* Icon */}
