@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { Battery, Zap, Shield, Sun, Gauge, Award } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import heroImage from '@/assets/hero-home-solar.webp';
 
 const NessFeatureGrid = () => {
   return (
@@ -10,19 +11,28 @@ const NessFeatureGrid = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 max-w-7xl mx-auto">
           
           {/* Hero Tile - Spans 2x2 on larger screens */}
-          <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden bg-gradient-to-br from-energy/20 via-energy-bright/10 to-background border border-energy/20 relative group hover:border-energy/40 transition-all duration-500">
+          <div className="md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden border border-energy/20 relative group hover:border-energy/40 transition-all duration-500">
             <div className="aspect-square md:aspect-auto md:h-full relative">
-              <div className="absolute inset-0 bg-gradient-to-t from-background/98 via-energy-light/20 to-energy/5" />
+              {/* Full-size image */}
+              <img 
+                src={heroImage} 
+                alt="Modern home with solar panels and NESS battery system" 
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              
+              {/* Text overlay with gradient for readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
+              
               <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
                 <div className="space-y-4">
-                  <div className="inline-block px-4 py-2 bg-energy/15 rounded-full backdrop-blur-sm border border-energy/30 shadow-lg shadow-energy/10">
-                    <span className="text-sm font-medium text-energy-bright">NESS Hybrid System</span>
+                  <div className="inline-block px-4 py-2 bg-energy/20 rounded-full backdrop-blur-md border border-energy/40 shadow-lg shadow-energy/20">
+                    <span className="text-sm font-semibold text-energy-bright">NESS Hybrid System</span>
                   </div>
-                  <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-foreground leading-tight">
+                  <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight drop-shadow-lg">
                     Your home.<br/>
-                    <span className="text-energy font-semibold">Powered differently.</span>
+                    <span className="text-energy-bright font-semibold">Powered differently.</span>
                   </h3>
-                  <p className="text-lg text-muted-foreground font-light max-w-md">
+                  <p className="text-lg text-white/90 font-light max-w-md drop-shadow-md">
                     Premium solar battery system designed for modern architectural homes
                   </p>
                 </div>
