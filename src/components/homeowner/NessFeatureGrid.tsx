@@ -136,8 +136,8 @@ const HeroTile = memo(() => {
           />
         )}
         
-        {/* Text overlay with gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/95 via-background/60 to-transparent" />
+        {/* Text overlay with subtle gradient for readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-background/20 to-transparent" />
         
         <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
           <div className="space-y-4">
