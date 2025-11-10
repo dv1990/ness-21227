@@ -91,7 +91,8 @@ const Index = () => {
           <div className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full">
             {/* Headline with colored highlights - Mobile optimized with fade-in */}
             <h1 className={cn("font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.1] sm:leading-[1.05] tracking-[0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              Life. Uninterrupted.
+              Life.<br />
+              <span style={{ color: '#00C853' }}>Uninterrupted.</span>
             </h1>
             
             {/* Subtext - Mobile optimized with delayed fade-in */}
