@@ -1,6 +1,5 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ChevronDown, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { WebPImage } from "@/components/ui/webp-image";
@@ -10,7 +9,13 @@ import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
-import { useState, useEffect, lazy, Suspense, useRef, memo } from "react";
+import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
+import { testimonials } from "@/data/testimonials";
+
+// Lazy load icons to reduce initial bundle size
+const CheckCircle2 = lazy(() => import("lucide-react").then(m => ({ default: m.CheckCircle2 })));
+const ChevronDown = lazy(() => import("lucide-react").then(m => ({ default: m.ChevronDown })));
+const ArrowRight = lazy(() => import("lucide-react").then(m => ({ default: m.ArrowRight })));
 
 // Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
@@ -112,13 +117,15 @@ const Index = () => {
 
             {/* CTA - Benefit-focused, no subtext clutter */}
             <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Link to="/residential" className="inline-block group">
+                  <Link to="/residential" className="inline-block group">
                 <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl shadow-[0_0_40px_rgba(0,200,83,0.4)] hover:shadow-[0_0_60px_rgba(0,230,118,0.7)] transition-all duration-500 overflow-hidden" style={{
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                   <span className="relative z-10 flex items-center justify-center">
                     Never Worry About Power Again
-                    <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                    <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
+                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                    </Suspense>
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </Button>
@@ -133,7 +140,9 @@ const Index = () => {
             <div className="w-8 h-12 border-2 border-white/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy/50 transition-colors duration-300">
               <div className="w-1.5 h-3 bg-white/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy/80 transition-colors duration-300" />
             </div>
-            <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-white/30 group-hover:text-energy/50 motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+            <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
+              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-white/30 group-hover:text-energy/50 motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+            </Suspense>
           </div>
         </button>
       </section>
@@ -163,38 +172,39 @@ const Index = () => {
                 </p>
                 
                 <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg">Powers your entire home</p>
-                      <p className="text-sm sm:text-base text-white/60 font-light">From AC to refrigerator, run everything simultaneously</p>
+                  <Suspense fallback={<div className="h-20" />}>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg">Powers your entire home</p>
+                        <p className="text-sm sm:text-base text-white/60 font-light">From AC to refrigerator, run everything simultaneously</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg">Instant backup</p>
-                      <p className="text-sm sm:text-base text-white/60 font-light">10ms switchover—WiFi stays connected, work never stops</p>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg">Instant backup</p>
+                        <p className="text-sm sm:text-base text-white/60 font-light">10ms switchover—WiFi stays connected, work never stops</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg">Solar ready</p>
-                      <p className="text-sm sm:text-base text-white/60 font-light">Seamless integration with any solar system</p>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg">Solar ready</p>
+                        <p className="text-sm sm:text-base text-white/60 font-light">Seamless integration with any solar system</p>
+                      </div>
                     </div>
-                  </div>
+                  </Suspense>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link to="/residential" className="w-full sm:w-auto">
                     <Button size="lg" className="bg-energy hover:bg-energy-glow text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full shadow-glow hover:shadow-[0_0_40px_rgba(0,200,83,0.4)] transition-all duration-500 w-full sm:w-auto">
                       Design My System
-                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                      <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
+                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                      </Suspense>
                     </Button>
-                  </Link>
-                  <Link to="/residential" className="w-full sm:w-auto">
-                    
                   </Link>
                 </div>
               </div>
@@ -226,38 +236,39 @@ const Index = () => {
                 </p>
                 
                 <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg text-graphite">Scalable power</p>
-                      <p className="text-sm sm:text-base text-graphite/60 font-light">45-200 kWh systems for commercial needs</p>
+                  <Suspense fallback={<div className="h-20" />}>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg text-graphite">Scalable power</p>
+                        <p className="text-sm sm:text-base text-graphite/60 font-light">45-200 kWh systems for commercial needs</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg text-graphite">Cut diesel costs</p>
-                      <p className="text-sm sm:text-base text-graphite/60 font-light">Reduce dependency by 80%</p>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg text-graphite">Cut diesel costs</p>
+                        <p className="text-sm sm:text-base text-graphite/60 font-light">Reduce dependency by 80%</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
-                    <div>
-                      <p className="font-medium text-base sm:text-lg text-graphite">Remote monitoring</p>
-                      <p className="text-sm sm:text-base text-graphite/60 font-light">Track performance from anywhere</p>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <div>
+                        <p className="font-medium text-base sm:text-lg text-graphite">Remote monitoring</p>
+                        <p className="text-sm sm:text-base text-graphite/60 font-light">Track performance from anywhere</p>
+                      </div>
                     </div>
-                  </div>
+                  </Suspense>
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link to="/commercial" className="w-full sm:w-auto">
                     <Button size="lg" className="bg-energy hover:bg-energy-glow text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full shadow-glow hover:shadow-[0_0_40px_rgba(0,200,83,0.4)] transition-all duration-500 w-full sm:w-auto">
                       Explore Commercial
-                      <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                      <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
+                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                      </Suspense>
                     </Button>
-                  </Link>
-                  <Link to="/commercial" className="w-full sm:w-auto">
-                    
                   </Link>
                 </div>
               </div>
@@ -327,21 +338,4 @@ const Index = () => {
     </Layout>;
 };
 
-// Testimonials
-const testimonials = [{
-  initials: "MK",
-  quote: "Two years. Not one reset. Not one worry.",
-  name: "Dr. Mohan Krishna",
-  location: "Bengaluru • Off-grid since 2022"
-}, {
-  initials: "RG",
-  quote: "Our operations run smoother than ever. The grid is just backup now.",
-  name: "Rajesh Gupta",
-  location: "Delhi • EV Charging Hub"
-}, {
-  initials: "PS",
-  quote: "The configurator made it simple. The installation was flawless.",
-  name: "Priya Sharma",
-  location: "Gurgaon • Villa Community"
-}];
 export default memo(Index);
