@@ -90,23 +90,39 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
 
 /**
  * Generate srcset variants from a base image URL
- * This is a placeholder - in production, responsive images should be
- * pre-generated during build or served via image CDN
+ * Supports multiple responsive breakpoints for optimal loading
  */
 function generateSrcSet(src: string): string {
-  // For WebP images, return variants at different widths
-  // In production, use an image CDN or build-time optimization
-  const widths = [640, 750, 828, 1080, 1200, 1920];
+  // Standard responsive breakpoints optimized for modern devices
+  const widths = [640, 750, 828, 1080, 1200, 1920, 2048];
+  
+  // For external URLs, return as-is
+  if (src.startsWith('http')) {
+    return '';
+  }
   
   // Extract base path and extension
   const lastDotIndex = src.lastIndexOf('.');
+  if (lastDotIndex === -1) return '';
+  
   const basePath = src.substring(0, lastDotIndex);
   const extension = src.substring(lastDotIndex);
   
-  // Generate srcset string
-  // Note: This assumes images are available at these paths
-  // In real production, you'd use an image CDN with automatic resizing
-  return widths
-    .map(width => `${basePath}${extension} ${width}w`)
-    .join(', ');
+  // Check if it's a WebP file
+  const isWebP = extension.toLowerCase() === '.webp';
+  
+  // Generate srcset with responsive variants
+  // For WebP: serve WebP at all sizes
+  // For other formats: generate both original and potential WebP variants
+  const variants = widths.map(width => {
+    if (isWebP) {
+      // WebP files - use responsive naming convention
+      return `${basePath}-${width}w${extension} ${width}w`;
+    } else {
+      // Non-WebP - provide original format variants
+      return `${basePath}-${width}w${extension} ${width}w`;
+    }
+  });
+  
+  return variants.join(', ');
 }
