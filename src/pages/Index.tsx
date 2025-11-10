@@ -34,17 +34,23 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Optimized scroll tracking with built-in throttle
-  const handleScroll = useThrottle(() => {
-    if (window.scrollY < 800) {
-      setScrollY(window.scrollY);
-    }
-  }, 16); // ~60fps
-
+  // Smooth parallax scroll tracking with RAF
   useEffect(() => {
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking && window.scrollY < 800) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
+  }, []);
 
   // Entrance animation
   useEffect(() => {
@@ -84,9 +90,8 @@ const Index = () => {
         </div>
 
         {/* Text Content Overlaid - Simplified Jobs-style */}
-        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0" style={{
-        transform: `translateY(${scrollY * 0.15}px)`,
-        transition: 'transform 0.1s ease-out'
+        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform" style={{
+        transform: `translate3d(0, ${scrollY * 0.15}px, 0)`
       }}>
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
             {/* Headline - Jobs-style: Massive spacing, minimal words */}
