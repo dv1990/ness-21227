@@ -64,14 +64,8 @@ const Index = () => {
           {/* Optimized ambient glow - CSS only */}
           <div className="absolute inset-0 hidden sm:block hero-glow" />
 
-          {/* Product Image - Optimized with srcset for LCP and parallax effect */}
-          <div 
-            className="absolute inset-0 w-full h-full hero-image"
-            style={{
-              transform: `translateY(${scrollY * 0.35}px)`,
-              transition: 'transform 0.1s ease-out'
-            }}
-          >
+          {/* Product Image - Optimized with srcset for LCP */}
+          <div className="absolute inset-0 w-full h-full hero-image">
             <ResponsiveImage 
               src={nessHeroProduct} 
               alt="NESS home battery — reliable backup power for modern Indian homes" 
@@ -94,76 +88,65 @@ const Index = () => {
         transform: `translateY(${scrollY * 0.15}px)`,
         transition: 'transform 0.1s ease-out'
       }}>
-          <div className="space-y-8 sm:space-y-10 md:space-y-12 max-w-2xl w-full">
+          <div className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full">
             {/* Headline with colored highlights - Mobile optimized with fade-in */}
-            <h1 className={cn("font-display text-4xl sm:text-[48px] md:text-[64px] lg:text-[80px] font-bold leading-[1.15] sm:leading-[1.1] tracking-[-0.01em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+            <h1 className={cn("font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.2] sm:leading-[1.15] tracking-[0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               Life.<br />
               <span style={{ 
                 color: '#00C853',
-                textShadow: '0 0 30px rgba(0, 200, 83, 0.6), 0 0 60px rgba(0, 200, 83, 0.3)'
+                textShadow: '0 0 20px rgba(0, 200, 83, 0.5), 0 0 40px rgba(0, 200, 83, 0.3)'
               }}>Uninterrupted.</span>
             </h1>
             
             {/* Subtext - Mobile optimized with delayed fade-in */}
-            <div className={cn("space-y-4 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <p className="font-sans text-lg sm:text-[20px] md:text-[22px] font-normal leading-[1.6] tracking-[-0.01em] max-w-[520px]" style={{
-                color: '#F3F4F6'
-              }}>
-                Meet NESS — the intelligent home battery that keeps your home bright, connected, and alive.
-              </p>
-              <p className="hidden sm:block font-sans text-base sm:text-[18px] font-light leading-[1.6] max-w-[480px]" style={{
-                color: '#D1D5DB'
-              }}>
+            <p className={cn("font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px] transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
+            color: '#E5E7EB'
+          }}>
+              Meet NESS — the intelligent home battery that keeps your home bright, connected, and alive.
+              <span className="hidden sm:inline">
+                <br />
                 Clean energy. Seamlessly delivered. Beautifully lit.
-              </p>
-            </div>
+              </span>
+            </p>
 
-            {/* CTA - Mobile optimized with delayed fade-in and enhanced interaction */}
-            <div className={cn("pt-4 sm:pt-6 space-y-4 sm:space-y-5 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Link to="/residential" className="inline-block w-full sm:w-auto group" aria-label="Design your NESS battery system">
-                <Button 
-                  size="lg" 
-                  className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-10 sm:px-12 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl shadow-[0_0_40px_rgba(0,200,83,0.4)] hover:shadow-[0_0_60px_rgba(0,230,118,0.7)] hover:scale-105 transition-all duration-300 w-full sm:w-auto overflow-hidden active:scale-100"
-                >
-                  <span className="relative z-10 flex items-center justify-center gap-3">
+            {/* CTA - Mobile optimized with delayed fade-in and pulse effect */}
+            <div className={cn("pt-2 sm:pt-4 space-y-3 sm:space-y-4 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              <Link to="/residential" className="inline-block w-full sm:w-auto group">
+                <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_50px_rgba(0,230,118,0.6)] transition-all duration-300 w-full sm:w-auto overflow-hidden" style={{
+                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
+              }}>
+                  <span className="relative z-10 flex items-center justify-center">
                     Design My System
-                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
                   </span>
                   <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </Button>
               </Link>
               
-              {/* CTA Subtext with better contrast */}
-              <p className="font-sans text-sm sm:text-[15px] font-normal tracking-[0.005em]" style={{
-                color: '#D1D5DB'
-              }}>
+              {/* CTA Subtext */}
+              <p className="font-sans text-xs sm:text-[14px] font-normal tracking-[0.005em]" style={{
+              color: '#A1A1AA'
+            }}>
                 Find your perfect setup in under 30 seconds.
               </p>
             </div>
 
-            {/* Footer Tagline with improved spacing */}
-            <p className={cn("pt-2 sm:pt-4 font-sans text-sm sm:text-[15px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500", isVisible ? "opacity-100" : "opacity-0")} style={{
-              color: '#9CA3AF'
-            }}>
+            {/* Footer Tagline */}
+            <p className={cn("font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500", isVisible ? "opacity-100" : "opacity-0")} style={{
+            color: '#9CA3AF'
+          }}>
               Engineered in India for homes that never pause.
             </p>
           </div>
         </div>
 
-        {/* Enhanced Scroll Indicator with better visibility and interaction */}
-        <button 
-          onClick={scrollToNext} 
-          className={cn(
-            "absolute bottom-8 sm:bottom-12 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-10 sm:hover:bottom-14 focus:outline-none focus:ring-2 focus:ring-energy/50 focus:ring-offset-2 focus:ring-offset-transparent rounded-full",
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          )} 
-          aria-label="Scroll to next section"
-        >
-          <div className="relative flex flex-col items-center gap-2">
-            <div className="w-7 h-11 sm:w-8 sm:h-12 border-2 border-white/40 group-hover:border-energy/70 rounded-full flex items-start justify-center p-2 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(0,200,83,0.3)]">
-              <div className="w-1.5 h-3 bg-white/60 group-hover:bg-energy rounded-full motion-safe:animate-bounce transition-colors duration-300" />
+        {/* Enhanced Scroll Indicator with interaction */}
+        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
+          <div className="relative">
+            <div className="w-8 h-12 border-2 border-white/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy/50 transition-colors duration-300">
+              <div className="w-1.5 h-3 bg-white/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy/80 transition-colors duration-300" />
             </div>
-            <ChevronDown className="w-5 h-5 text-white/50 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+            <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-white/30 group-hover:text-energy/50 motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
           </div>
         </button>
       </section>
