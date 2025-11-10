@@ -68,7 +68,7 @@ const Index = () => {
           <div 
             className="absolute inset-0 w-full h-full hero-image"
             style={{
-              transform: `translateY(${scrollY * 0.3}px)`,
+              transform: `translateY(${scrollY * 0.5}px)`,
               transition: 'transform 0.1s ease-out'
             }}
           >
