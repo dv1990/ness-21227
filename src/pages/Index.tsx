@@ -11,7 +11,6 @@ import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, lazy, Suspense, useRef, memo } from "react";
-import { useThrottle } from "@/hooks/use-performance";
 
 // Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
