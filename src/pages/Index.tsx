@@ -64,8 +64,8 @@ const Index = () => {
           {/* Optimized ambient glow - CSS only */}
           <div className="absolute inset-0 hidden sm:block hero-glow" />
 
-          {/* Product Image - Optimized with srcset for LCP */}
-          <div className="absolute inset-0 w-full h-full hero-image">
+          {/* Product Image - With breathing animation */}
+          <div className="absolute inset-0 w-full h-full hero-image product-breathe">
             <ResponsiveImage 
               src={nessHeroProduct} 
               alt="NESS home battery — reliable backup power for modern Indian homes" 
@@ -79,64 +79,47 @@ const Index = () => {
             />
           </div>
 
-          {/* Minimal gradient overlay */}
-          <div className="absolute inset-0 hero-overlay" />
+          {/* Darker, premium gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
         </div>
 
-        {/* Text Content Overlaid - Mobile Optimized with Entrance Animations */}
+        {/* Text Content Overlaid - Simplified Jobs-style */}
         <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0" style={{
         transform: `translateY(${scrollY * 0.15}px)`,
         transition: 'transform 0.1s ease-out'
       }}>
-          <div className="space-y-6 sm:space-y-8 md:space-y-10 max-w-2xl w-full">
-            {/* Headline with colored highlights - Mobile optimized with fade-in */}
-            <h1 className={cn("font-display text-3xl sm:text-[42px] md:text-[56px] lg:text-[72px] font-bold leading-[1.2] sm:leading-[1.15] tracking-[0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              Life.<br />
+          <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
+            {/* Headline - Jobs-style: Massive spacing, minimal words */}
+            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.5] sm:leading-[1.6] tracking-[-0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              Life.
+              <br />
               <span style={{ 
                 color: '#00C853',
-                textShadow: '0 0 20px rgba(0, 200, 83, 0.5), 0 0 40px rgba(0, 200, 83, 0.3)'
+                textShadow: '0 0 30px rgba(0, 200, 83, 0.6), 0 0 60px rgba(0, 200, 83, 0.4)'
               }}>Uninterrupted.</span>
             </h1>
             
-            {/* Subtext - Mobile optimized with delayed fade-in */}
-            <p className={cn("font-sans text-base sm:text-[18px] font-normal leading-[1.5] sm:leading-[1.4] tracking-[-0.011em] max-w-[440px] transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
+            {/* Subtext - Cut by 70%, one powerful line */}
+            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[600px] transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
             color: '#E5E7EB'
           }}>
-              Meet NESS — the intelligent home battery that keeps your home bright, connected, and alive.
-              <span className="hidden sm:inline">
-                <br />
-                Clean energy. Seamlessly delivered. Beautifully lit.
-              </span>
+              The intelligent home battery that keeps your life running.
             </p>
 
-            {/* CTA - Mobile optimized with delayed fade-in and pulse effect */}
-            <div className={cn("pt-2 sm:pt-4 space-y-3 sm:space-y-4 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Link to="/residential" className="inline-block w-full sm:w-auto group">
-                <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-8 sm:px-10 py-5 sm:py-7 text-base sm:text-lg rounded-xl shadow-[0_0_30px_rgba(0,200,83,0.3)] hover:shadow-[0_0_50px_rgba(0,230,118,0.6)] transition-all duration-300 w-full sm:w-auto overflow-hidden" style={{
+            {/* CTA - Benefit-focused, no subtext clutter */}
+            <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              <Link to="/residential" className="inline-block group">
+                <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl shadow-[0_0_40px_rgba(0,200,83,0.4)] hover:shadow-[0_0_60px_rgba(0,230,118,0.7)] transition-all duration-500 overflow-hidden" style={{
                 transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
               }}>
                   <span className="relative z-10 flex items-center justify-center">
-                    Design My System
-                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                    Never Worry About Power Again
+                    <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                   </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </Button>
               </Link>
-              
-              {/* CTA Subtext */}
-              <p className="font-sans text-xs sm:text-[14px] font-normal tracking-[0.005em]" style={{
-              color: '#A1A1AA'
-            }}>
-                Find your perfect setup in under 30 seconds.
-              </p>
             </div>
-
-            {/* Footer Tagline */}
-            <p className={cn("font-sans text-xs sm:text-[14px] font-normal tracking-[0.01em] transition-all duration-1000 ease-out delay-500", isVisible ? "opacity-100" : "opacity-0")} style={{
-            color: '#9CA3AF'
-          }}>
-              Engineered in India for homes that never pause.
-            </p>
           </div>
         </div>
 
