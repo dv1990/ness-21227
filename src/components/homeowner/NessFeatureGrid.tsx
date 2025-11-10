@@ -128,19 +128,19 @@ const HeroTile = memo(() => {
           fetchPriority="high"
         />
         
-        {/* Text overlay with subtle gradient for readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-background/20 to-transparent" />
+        {/* Dark gradient overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/50 to-transparent" />
         
         <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
           <div className="space-y-4">
-            <div className="inline-block px-4 py-2 bg-energy/20 rounded-full border border-energy/40 shadow-lg shadow-energy/20">
-              <span className="text-sm font-semibold text-energy-bright">NESS Hybrid System</span>
+            <div className="inline-block px-4 py-2 bg-energy/30 rounded-full border border-energy/50 shadow-xl shadow-energy/30 backdrop-blur-sm">
+              <span className="text-sm font-semibold text-pearl">NESS Hybrid System</span>
             </div>
-            <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-white leading-tight drop-shadow-lg">
+            <h3 className="text-4xl lg:text-5xl font-light tracking-tight text-pearl leading-tight" style={{ textShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)' }}>
               Your home.<br/>
               <span className="text-energy-bright font-semibold">Powered differently.</span>
             </h3>
-            <p className="text-lg text-white/90 font-light max-w-md drop-shadow-md">
+            <p className="text-lg text-pearl font-light max-w-md" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5)' }}>
               Premium solar battery system designed for modern architectural homes
             </p>
           </div>
