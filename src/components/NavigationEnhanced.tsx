@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Menu, ChevronDown, Home, Building2, Wrench, LayoutGrid, ArrowRight, Shield } from "lucide-react";
 import nunamLogo from "@/assets/nunam-logo.png";
+import { prefetchRoute } from "@/lib/route-prefetch";
 
 // Lazy load mobile menu to reduce initial bundle (only loaded on mobile)
 const MobileMenu = lazy(() => import("./MobileMenu"));
@@ -108,7 +109,8 @@ const NavigationEnhanced = () => {
           <div className="hidden lg:flex items-center space-x-2" role="menubar">
             {mainNavItems.map(item => <div key={item.href} className="relative group">
                 <Link 
-                  to={item.href} 
+                  to={item.href}
+                  onMouseEnter={() => prefetchRoute(item.href)}
                   className={`
                     px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out
                     focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2
@@ -149,7 +151,8 @@ const NavigationEnhanced = () => {
               >
                 {companyItems.map(item => <Link 
                     key={item.href} 
-                    to={item.href} 
+                    to={item.href}
+                    onMouseEnter={() => prefetchRoute(item.href)}
                     className={`
                       block p-4 rounded-2xl transition-all duration-200 group/item
                       focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2
@@ -194,7 +197,8 @@ const NavigationEnhanced = () => {
               >
                 {supportItems.map(item => <Link 
                     key={item.href} 
-                    to={item.href} 
+                    to={item.href}
+                    onMouseEnter={() => prefetchRoute(item.href)}
                     className={`
                       block p-4 rounded-2xl transition-all duration-200 group/item
                       focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2
@@ -217,7 +221,7 @@ const NavigationEnhanced = () => {
 
           {/* Enhanced CTA Button */}
           <div className="hidden lg:flex ml-4">
-            <Link to="/contact/homeowner">
+            <Link to="/contact/homeowner" onMouseEnter={() => prefetchRoute('/contact/homeowner')}>
               <Button 
                 className="rounded-full px-6 py-2 bg-primary text-primary-foreground font-medium shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2"
                 size="sm"

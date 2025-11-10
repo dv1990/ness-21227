@@ -6,6 +6,9 @@ import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ServiceWorkerPrompt } from "@/components/ServiceWorkerPrompt";
+import { useEffect } from "react";
+import { prefetchCriticalRoutes } from "@/lib/route-prefetch";
 
 // Router future flags for v7 compatibility
 const routerFutureConfig = {
@@ -13,8 +16,8 @@ const routerFutureConfig = {
   v7_relativeSplatPath: true,
 };
 
-// Critical page - Eager loaded for instant first paint
-import Index from "./pages/Index";
+// All pages lazy loaded for optimal route-based code splitting
+const Index = lazy(() => import("./pages/Index"));
 
 // Main pages - Lazy loaded for better performance
 const CommercialEnhanced = lazy(() => import("./pages/CommercialEnhanced"));
@@ -72,6 +75,11 @@ const PageLoadingFallback = () => (
 );
 
 const App = () => {
+  // Prefetch critical routes after initial load
+  useEffect(() => {
+    prefetchCriticalRoutes();
+  }, []);
+
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -79,6 +87,7 @@ const App = () => {
             <Toaster />
             <Sonner />
             <ScrollProgressBar />
+            <ServiceWorkerPrompt />
             <Router future={routerFutureConfig}>
               <Suspense fallback={<PageLoadingFallback />}>
                 <Routes>
