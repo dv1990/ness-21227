@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { cn } from '@/lib/utils';
+import { AmbientParticles } from '@/components/ui/ambient-particles';
 
 export const PhilosophicalSection = memo(() => {
   const { ref: headingRef, isIntersecting: headingVisible } = useIntersectionObserver({ threshold: 0.3 });
@@ -8,8 +9,11 @@ export const PhilosophicalSection = memo(() => {
   const { ref: statsRef, isIntersecting: statsVisible } = useIntersectionObserver({ threshold: 0.2 });
 
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-background via-muted/10 to-background">
-      <div className="container mx-auto max-w-5xl px-6">
+    <section className="relative py-20 md:py-28 bg-gradient-to-b from-background via-muted/10 to-background overflow-hidden">
+      {/* Ambient particle effect */}
+      <AmbientParticles />
+      
+      <div className="container mx-auto max-w-5xl px-6 relative z-10">
         
         {/* Emotional Opening */}
         <div className="text-center mb-20 space-y-10">
