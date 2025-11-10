@@ -22,6 +22,11 @@ export const AmbientParticles = memo(() => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
+    // Get the energy color from CSS variables
+    const energyColor = getComputedStyle(document.documentElement)
+      .getPropertyValue('--energy-core')
+      .trim();
+
     // Set canvas size
     const updateCanvasSize = () => {
       canvas.width = canvas.offsetWidth;
@@ -73,10 +78,10 @@ export const AmbientParticles = memo(() => {
           particle.radius * 3
         );
         
-        // Use energy color from CSS variables
-        gradient.addColorStop(0, `hsla(var(--energy-core), ${particle.opacity})`);
-        gradient.addColorStop(0.5, `hsla(var(--energy-core), ${particle.opacity * 0.5})`);
-        gradient.addColorStop(1, 'hsla(var(--energy-core), 0)');
+        // Use energy color - convert HSL to HSLA with opacity
+        gradient.addColorStop(0, `hsl(${energyColor} / ${particle.opacity})`);
+        gradient.addColorStop(0.5, `hsl(${energyColor} / ${particle.opacity * 0.5})`);
+        gradient.addColorStop(1, `hsl(${energyColor} / 0)`);
 
         ctx.fillStyle = gradient;
         ctx.beginPath();
