@@ -64,8 +64,14 @@ const Index = () => {
           {/* Optimized ambient glow - CSS only */}
           <div className="absolute inset-0 hidden sm:block hero-glow" />
 
-          {/* Product Image - Optimized with srcset for LCP */}
-          <div className="absolute inset-0 w-full h-full hero-image">
+          {/* Product Image - Optimized with srcset for LCP and parallax effect */}
+          <div 
+            className="absolute inset-0 w-full h-full hero-image"
+            style={{
+              transform: `translateY(${scrollY * 0.3}px)`,
+              transition: 'transform 0.1s ease-out'
+            }}
+          >
             <ResponsiveImage 
               src={nessHeroProduct} 
               alt="NESS home battery — reliable backup power for modern Indian homes" 
