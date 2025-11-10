@@ -266,12 +266,11 @@ export default defineConfig(({ mode }) => ({
       'react-router-dom',
       '@tanstack/react-query',
       '@radix-ui/react-slot',
+      'framer-motion',
+      'lucide-react'
     ],
     exclude: [
-      'three',
-      '@react-three/fiber',
-      '@react-three/drei',
-      'recharts'
+      'three'
     ]
   }
 }));
