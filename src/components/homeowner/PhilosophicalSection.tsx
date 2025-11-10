@@ -51,7 +51,7 @@ export const PhilosophicalSection = memo(() => {
           )}
         >
           <StatItem 
-            value="99.97%" 
+            value="99%" 
             label="System Uptime"
             delay={0}
             visible={statsVisible}
