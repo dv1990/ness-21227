@@ -1,7 +1,6 @@
 import { lazy, Suspense, useCallback, memo } from 'react';
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { Zap, ArrowRight } from "lucide-react";
 import heroImage from "@/assets/homeowner-hero-battery.webp";
 import NessFeatureGrid from "@/components/homeowner/NessFeatureGrid";
@@ -24,16 +23,13 @@ const ContactHomeowner = () => {
       <section className="relative min-h-[90vh] md:h-screen w-full overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0">
-          <ResponsiveImage
+          <img
             src={heroImage}
-            srcSet="homeowner-hero-battery-640w.webp 640w, homeowner-hero-battery-750w.webp 750w, homeowner-hero-battery-828w.webp 828w, homeowner-hero-battery-1080w.webp 1080w, homeowner-hero-battery-1200w.webp 1200w, homeowner-hero-battery-1920w.webp 1920w"
             alt="Premium NESS home battery system with sophisticated wall-mount design"
-            className="w-full h-full"
-            priority={true}
+            className="w-full h-full object-cover"
             loading="eager"
             width={1920}
             height={1080}
-            sizes="100vw"
             fetchPriority="high"
           />
           {/* Dark overlay for text readability - concentrated on left side only */}
