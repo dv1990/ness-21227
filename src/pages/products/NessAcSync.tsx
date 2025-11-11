@@ -15,8 +15,8 @@ const NessAcSync = () => {
   return (
     <Layout>
       {/* 1. HERO - The Promise */}
-      <section className="min-h-[80vh] sm:min-h-screen bg-[#0B1220] text-white px-6 sm:px-8 relative overflow-hidden flex items-center justify-center py-12 sm:py-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0B1220] via-[#0B1220]/95 to-[#0B1220]"></div>
+      <section className="min-h-[80vh] sm:min-h-screen bg-charcoal text-pearl px-6 sm:px-8 relative overflow-hidden flex items-center justify-center py-12 sm:py-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal"></div>
         
         <div className="max-w-6xl mx-auto relative z-10 py-12 sm:py-20 text-center">
           <div className="space-y-8 sm:space-y-12 animate-fade-in">
@@ -24,7 +24,7 @@ const NessAcSync = () => {
               Power That Scales<br />With You.
             </h1>
             
-            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 font-light leading-relaxed max-w-4xl mx-auto">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-pearl/70 font-light leading-relaxed max-w-4xl mx-auto">
               A modular battery with a built-in inverter.<br />
               Add one. Or two. Or more.<br />
               Plug in and grow your power, your way.
@@ -33,14 +33,14 @@ const NessAcSync = () => {
             {/* Product Visual - Abstract */}
             <div className="pt-12 pb-8">
               <div className="relative w-full max-w-md mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-[#00C853]/20 to-transparent rounded-full blur-3xl"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-energy/20 to-transparent rounded-full blur-3xl"></div>
                 <div className="relative aspect-square flex items-center justify-center">
                   {/* Abstract modular representation */}
                   <div className="grid grid-cols-3 gap-3 p-8">
                     {[...Array(3)].map((_, i) => (
                       <div 
                         key={`battery-cell-visual-${i}`} 
-                        className="w-16 h-20 rounded-lg bg-gradient-to-br from-white/20 to-white/5 border border-white/20"
+                        className="w-16 h-20 rounded-lg bg-gradient-to-br from-pearl/20 to-pearl/5 border border-pearl/20"
                         style={{ animationDelay: `${i * 0.2}s` }}
                       />
                     ))}
@@ -49,14 +49,14 @@ const NessAcSync = () => {
               </div>
             </div>
 
-            <p className="text-xl text-white/60 font-light">
+            <p className="text-xl text-pearl/60 font-light">
               5 kWh per pack. 3.3 kW built in. Infinite calm.
             </p>
 
             <div className="pt-6 sm:pt-8">
               <Button 
                 size="lg"
-                className="bg-[#00C853] hover:bg-[#00C853]/90 text-white px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-7 rounded-full text-base sm:text-lg font-medium shadow-lg shadow-[#00C853]/20"
+                className="bg-energy hover:bg-energy-bright text-pearl px-8 sm:px-10 md:px-12 py-4 sm:py-5 md:py-7 rounded-full text-base sm:text-lg font-medium transition-all duration-300"
                 onClick={() => document.getElementById('configurator')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 Configure Your System

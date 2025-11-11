@@ -156,7 +156,7 @@ const ContactInstaller = () => {
                 For EPC Installers
               </p>
               <h1 
-                className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-white leading-[0.95] opacity-0 animate-fade-in-up"
+                className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-pearl leading-[0.95] opacity-0 animate-fade-in-up"
                 style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
               >
                 The easiest
@@ -166,13 +166,13 @@ const ContactInstaller = () => {
                 ever install.
               </h1>
               <p 
-                className="text-xl md:text-2xl text-white/80 font-light max-w-2xl leading-relaxed opacity-0 animate-fade-in-up"
+                className="text-xl md:text-2xl text-pearl/80 font-light max-w-2xl leading-relaxed opacity-0 animate-fade-in-up"
                 style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}
               >
                 Powered by digital intelligence. Built for reliability—without the headaches.
               </p>
               <div 
-                className="flex items-center gap-3 text-white/60 text-sm opacity-0 animate-fade-in-up"
+                className="flex items-center gap-3 text-pearl/60 text-sm opacity-0 animate-fade-in-up"
                 style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
               >
                 <div className="w-12 h-px bg-energy" />
@@ -187,7 +187,7 @@ const ContactInstaller = () => {
                   id="cta-become-partner"
                   data-cta="become-partner"
                   size="lg"
-                  className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-4 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy active:scale-100 min-h-[56px]"
+                  className="bg-energy hover:brightness-110 text-pearl rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-4 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy active:scale-100 min-h-[56px]"
                   aria-label="Become a NESS Partner - Scroll to contact form"
                 >
                   Become a NESS Partner
@@ -198,7 +198,7 @@ const ContactInstaller = () => {
 
           {/* Scroll indicator */}
           <div 
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 opacity-0 animate-fade-in"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-pearl/40 opacity-0 animate-fade-in"
             style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}
             aria-hidden="true"
           >
@@ -438,7 +438,7 @@ const ContactInstaller = () => {
           <div className="mx-auto max-w-screen-xl">
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
               <div className="flex items-center gap-4">
-                <span className="inline-block bg-energy text-white rounded-full px-4 py-2 text-xs uppercase tracking-[0.15em] font-bold shadow-energy">
+                <span className="inline-block bg-energy text-pearl rounded-full px-4 py-2 text-xs uppercase tracking-[0.15em] font-bold shadow-energy">
                   Field-proven
                 </span>
               </div>
@@ -517,7 +517,7 @@ const ContactInstaller = () => {
                     <DialogTrigger asChild>
                       <Button
                         size="lg"
-                        className="bg-energy hover:brightness-110 text-white rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy group"
+                        className="bg-energy hover:brightness-110 text-pearl rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy group"
                       >
                         <svg
                           width="24"
@@ -599,16 +599,16 @@ const ContactInstaller = () => {
           
           <div className="relative z-10 mx-auto max-w-screen-xl px-6">
             <div className="max-w-4xl mx-auto text-center space-y-12">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-white leading-[0.95]">
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-pearl leading-[0.95]">
                 India doesn't just
                 <br />
                 need more solar —
                 <br />
-                <span className="text-white/60">it needs power that</span>
+                <span className="text-pearl/60">it needs power that</span>
                 <br />
                 stays trusted.
               </h2>
-              <p className="text-2xl md:text-3xl text-white/80 font-light leading-relaxed max-w-3xl mx-auto">
+              <p className="text-2xl md:text-3xl text-pearl/80 font-light leading-relaxed max-w-3xl mx-auto">
                 You build the future. We keep it running — quietly, continuously,
                 confidently.
               </p>
@@ -617,7 +617,7 @@ const ContactInstaller = () => {
                   onClick={scrollToContact}
                   data-cta="become-partner-2"
                   size="lg"
-                  className="bg-energy hover:brightness-110 text-white rounded-xl px-10 py-8 text-xl font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
+                  className="bg-energy hover:brightness-110 text-pearl rounded-xl px-10 py-8 text-xl font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
                 >
                   Become a NESS Partner
                 </Button>
@@ -806,7 +806,7 @@ const ContactInstaller = () => {
                       disabled={isSubmitting}
                       id="cta-submit-contact"
                       data-cta="submit-contact"
-                      className="w-full bg-energy hover:brightness-95 text-white rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="w-full bg-energy hover:brightness-95 text-pearl rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
                       {isSubmitting ? "Sending..." : "Request a Callback"}
                     </Button>

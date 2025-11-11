@@ -268,18 +268,18 @@ const InstallersEnhanced = () => {
             alt="NESS partners building the future"
             className="w-full h-full object-cover"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 to-transparent"></div>
         </div>
         
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-6xl mx-auto px-8 w-full">
             <div className="max-w-3xl">
-              <div className="text-5xl md:text-7xl font-thin text-white mb-8 leading-[0.85] tracking-tight">
+              <div className="text-5xl md:text-7xl font-thin text-pearl mb-8 leading-[0.85] tracking-tight">
                 This is how
                 <br />
-                <span className="text-white/60">legends are built</span>
+                <span className="text-pearl/60">legends are built</span>
               </div>
-              <div className="text-xl text-white/80 font-light leading-relaxed">
+              <div className="text-xl text-pearl/80 font-light leading-relaxed">
                 Not just installing systems. Creating sanctuaries. Building legacies.
               </div>
             </div>

@@ -69,12 +69,12 @@ const CommercialEnhanced = () => {
             height: '60%',
             bottom: 0
           }} />
-            {/* Subtle bottom gradient for scroll indicator */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+          {/* Subtle bottom gradient for scroll indicator */}
+            <div className="absolute inset-0 bg-gradient-to-t from-charcoal/30 via-transparent to-transparent" />
           </div>
           
           {/* Subtle grid overlay */}
-          <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808008_1px,transparent_1px),linear-gradient(to_bottom,#80808008_1px,transparent_1px)] bg-[size:64px_64px]" />
+          <div className="absolute inset-0 bg-[linear-gradient(to_right,hsl(var(--silver)/0.03)_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--silver)/0.03)_1px,transparent_1px)] bg-[size:64px_64px]" />
           
           {/* Content */}
           <div style={{
@@ -87,20 +87,20 @@ const CommercialEnhanced = () => {
                 {/* Eyebrow text with icon */}
                 <div className="inline-flex items-center gap-2 mb-6 sm:mb-8">
                   <Sparkles className="w-4 h-4 text-primary" />
-                  <span className="text-xs sm:text-sm text-white/80 font-medium uppercase tracking-wider">
+                  <span className="text-xs sm:text-sm text-pearl/80 font-medium uppercase tracking-wider">
                     Commercial & Industrial Solutions
                   </span>
                 </div>
 
                 {/* Premium headline */}
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-white leading-[1.05] tracking-tighter mb-6 sm:mb-8">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight text-pearl leading-[1.05] tracking-tighter mb-6 sm:mb-8">
                   <span className="font-light">
                     Empower productivity, sustainably.
                   </span>
                 </h1>
                 
                 {/* Subtext */}
-                <p className="text-lg sm:text-xl lg:text-2xl font-light text-white/90 max-w-2xl leading-relaxed mb-8 sm:mb-10">
+                <p className="text-lg sm:text-xl lg:text-2xl font-light text-pearl/90 max-w-2xl leading-relaxed mb-8 sm:mb-10">
                   Clean, intelligent energy that drives progress     lowering costs, emissions, and complexity.
                 </p>
 
@@ -108,15 +108,15 @@ const CommercialEnhanced = () => {
                 <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
                   <div className="bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-primary/30 transition-all">
                     <TrendingDown className="w-4 h-4 text-primary" />
-                    <span className="text-xs sm:text-sm font-medium text-white">↓60% Energy Costs</span>
+                    <span className="text-xs sm:text-sm font-medium text-pearl">↓60% Energy Costs</span>
                   </div>
                   <div className="bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-primary/30 transition-all">
                     <Leaf className="w-4 h-4 text-primary" />
-                    <span className="text-xs sm:text-sm font-medium text-white">Zero Emissions</span>
+                    <span className="text-xs sm:text-sm font-medium text-pearl">Zero Emissions</span>
                   </div>
                   <div className="bg-primary/20 backdrop-blur-sm border border-primary/30 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-primary/30 transition-all">
                     <Zap className="w-4 h-4 text-primary" />
-                    <span className="text-xs sm:text-sm font-medium text-white">≤50ms Switch</span>
+                    <span className="text-xs sm:text-sm font-medium text-pearl">≤50ms Switch</span>
                   </div>
                 </div>
 
@@ -139,7 +139,7 @@ const CommercialEnhanced = () => {
           <button onClick={() => window.scrollBy({
           top: window.innerHeight,
           behavior: 'smooth'
-        })} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/60 hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-black rounded-lg p-2" aria-label="Scroll to next section">
+        })} className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-pearl/60 hover:text-pearl transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-charcoal rounded-lg p-2" aria-label="Scroll to next section">
             <span className="text-xs uppercase tracking-wider font-medium">Explore</span>
             <ChevronDown className="w-6 h-6" />
           </button>

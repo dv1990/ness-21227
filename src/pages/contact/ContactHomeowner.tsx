@@ -76,7 +76,7 @@ const ContactHomeowner = () => {
                 <Button 
                   size="lg" 
                   onClick={scrollToConfigurator}
-                  className="bg-primary hover:bg-primary/90 text-white px-8 py-6 text-lg rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300"
                   aria-label="Start the product selection process to find your perfect NESS system"
                 >
                   Find Your Perfect System
