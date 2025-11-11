@@ -68,94 +68,6 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // 4-Panel Parallax Hero Script
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const panels = document.querySelectorAll('.hero-panel') as NodeListOf<HTMLElement>;
-    const cta = document.getElementById('panel-4-cta');
-    
-    if (panels.length === 0) return;
-
-    let ticking = false;
-    
-    const handleScroll = () => {
-      if (!ticking) {
-        ticking = true;
-        requestAnimationFrame(updatePanels);
-      }
-    };
-
-    function updatePanels() {
-      ticking = false;
-      const vh = window.innerHeight;
-      
-      panels.forEach((panel, idx) => {
-        const rect = panel.getBoundingClientRect();
-        const panelTop = rect.top;
-        const panelHeight = rect.height;
-        
-        // Calculate visibility progress (0 = entering, 0.5 = center, 1 = exiting)
-        const progress = Math.max(0, Math.min(1, (vh - panelTop) / (vh + panelHeight)));
-        
-        const textEl = panel.querySelector('.panel-text') as HTMLElement;
-        const imgEl = panel.querySelector('.panel-image') as HTMLElement;
-        
-        if (!textEl) return;
-
-        // Text fade & translate
-        if (progress < 0.15) {
-          // Entering
-          const enterProgress = progress / 0.15;
-          textEl.style.opacity = String(enterProgress);
-          if (!prefersReduced) {
-            textEl.style.transform = `translateY(${16 * (1 - enterProgress)}px)`;
-            textEl.style.filter = `blur(${6 * (1 - enterProgress)}px)`;
-          }
-        } else if (progress > 0.85) {
-          // Exiting
-          const exitProgress = (progress - 0.85) / 0.15;
-          textEl.style.opacity = String(1 - exitProgress);
-          if (!prefersReduced) {
-            textEl.style.transform = `translateY(${-8 * exitProgress}px)`;
-            textEl.style.filter = `blur(${3 * exitProgress}px)`;
-          }
-        } else {
-          // Visible
-          textEl.style.opacity = '1';
-          if (!prefersReduced) {
-            textEl.style.transform = 'translateY(0)';
-            textEl.style.filter = 'blur(0)';
-          }
-        }
-
-        // Image parallax (subtle)
-        if (imgEl && !prefersReduced) {
-          const imgProgress = Math.max(0, Math.min(1, progress));
-          const yOffset = 20 + (-30 * imgProgress); // +20px to -10px
-          imgEl.style.transform = `translateY(${yOffset}px)`;
-        }
-      });
-
-      // Show CTA on panel 4
-      if (cta) {
-        const panel4 = panels[3];
-        if (panel4) {
-          const rect = panel4.getBoundingClientRect();
-          const show = rect.top < window.innerHeight * 0.5;
-          cta.toggleAttribute('hidden', !show);
-          cta.setAttribute('aria-hidden', String(!show));
-        }
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    updatePanels(); // Initial call
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   // Smooth scroll to next section
   const scrollToNext = () => {
     nextSectionRef.current?.scrollIntoView({
@@ -163,89 +75,38 @@ const Index = () => {
     });
   };
   return <Layout>
-      {/* 1. 4-PANEL PARALLAX HERO */}
-      
-      {/* Panel 1 */}
-      <section className="hero-panel" aria-label="NESS Hero - Life Uninterrupted">
-        <div className="hero-container">
-          <div className="panel-text">
-            <h1 className="hero-h1">
-              Life.<br />
-              <span className="hero-green">Uninterrupted.</span>
+      {/* 1. HERO SECTION */}
+      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
+        {/* Full-screen Product Image Background */}
+        <div className="absolute inset-0 w-full h-full">
+          {/* Product Image - Static confidence */}
+          <div className="absolute inset-0 w-full h-full">
+            <img src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" loading="eager" width={1920} height={1080} fetchPriority="high" />
+          </div>
+
+          {/* Left-to-right gradient - product fully visible on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 via-40% to-transparent" />
+        </div>
+
+        {/* Text Content Overlaid - Simplified Jobs-style */}
+        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform" style={{
+        transform: `translate3d(0, ${scrollY * 0.15}px, 0)`
+      }}>
+          <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
+            {/* Headline - Jobs-style: Massive spacing, minimal words */}
+            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              Life.
+              <br />
+              <span className="text-energy">Uninterrupted.</span>
             </h1>
-            <p className="hero-sub">Because your home shouldn't pause just because the grid does.</p>
-          </div>
-          <aside className="panel-image" aria-hidden="true">
-            <img 
-              src={nessHeroProduct}
-              alt="NESS home energy storage system"
-              width="1200" 
-              height="1600"
-              fetchPriority="high"
-              decoding="async"
-            />
-          </aside>
-        </div>
-      </section>
-
-      {/* Panel 2 */}
-      <section className="hero-panel" aria-label="NESS Hero - Make Your Power">
-        <div className="hero-container">
-          <div className="panel-text">
-            <h2 className="hero-h1">
-              You make the <span className="hero-green">power</span>.<br />
-              Why depend on someone else to generate it?
-            </h2>
-            <p className="hero-sub">The sun gives it freely — but most homes let it slip away.</p>
-          </div>
-          <aside className="panel-image" aria-hidden="true">
-            <img 
-              src={nessHeroProduct}
-              alt="NESS home energy storage system"
-              width="1200" 
-              height="1600"
-              loading="lazy"
-              decoding="async"
-            />
-          </aside>
-        </div>
-      </section>
-
-      {/* Panel 3 */}
-      <section className="hero-panel" aria-label="NESS Hero - Your Energy">
-        <div className="hero-container">
-          <div className="panel-text">
-            <h2 className="hero-h1">
-              Your <span className="hero-green">energy</span>.<br />
-              Stored. Ready. Yours.
-            </h2>
-            <p className="hero-sub">There's nothing more reassuring than storing the power you create.</p>
-          </div>
-          <aside className="panel-image" aria-hidden="true">
-            <img 
-              src={nessHeroProduct}
-              alt="NESS home energy storage system"
-              width="1200" 
-              height="1600"
-              loading="lazy"
-              decoding="async"
-            />
-          </aside>
-        </div>
-      </section>
-
-      {/* Panel 4 */}
-      <section className="hero-panel" aria-label="NESS Hero - Meet NESS">
-        <div className="hero-container">
-          <div className="panel-text">
-            <h2 className="hero-h1">
-              Meet <span className="hero-green">NESS</span>,<br />
-              Your partner in energy freedom.
-            </h2>
-            <p className="hero-sub">Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone.</p>
             
-            {/* CTA - visible only on Panel 4 */}
-            <div id="panel-4-cta" className="hero-cta" aria-live="polite" aria-hidden="true" hidden>
+            {/* Subtext - Cut by 70%, one powerful line */}
+            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
+            </p>
+
+            {/* CTA - Benefit-focused, no subtext clutter */}
+            <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               <Link to="/residential" className="inline-block group">
                 <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
                   <span className="flex items-center justify-center">
@@ -258,17 +119,19 @@ const Index = () => {
               </Link>
             </div>
           </div>
-          <aside className="panel-image" aria-hidden="true">
-            <img 
-              src={nessHeroProduct}
-              alt="NESS home energy storage system"
-              width="1200" 
-              height="1600"
-              loading="lazy"
-              decoding="async"
-            />
-          </aside>
         </div>
+
+        {/* Enhanced Scroll Indicator with interaction */}
+        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
+          <div className="relative">
+            <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
+              <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
+            </div>
+            <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
+              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+            </Suspense>
+          </div>
+        </button>
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
