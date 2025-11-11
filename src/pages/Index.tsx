@@ -84,8 +84,8 @@ const Index = () => {
             />
           </div>
 
-          {/* Single thoughtful gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-charcoal/80" />
+          {/* Left-to-right gradient - keeps product visible on right */}
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/50 to-transparent" />
         </div>
 
         {/* Text Content Overlaid - Simplified Jobs-style */}
