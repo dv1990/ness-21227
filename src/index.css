@@ -20,10 +20,10 @@
     --whisper: 0 0% 98%;             /* #fafafa - Off white */
     
     /* Restrained Accent - Used Sparingly */
-    --energy-core: 142 25% 38%;      /* Whisper green - accent to an accent */
-    --energy-bright: 142 25% 42%;    /* Subtle highlight */
-    --energy-subtle: 142 15% 94%;    /* Barely-there tint */
-    --energy-glow: 142 25% 45%;      /* Reserved glow */
+    --energy-core: 145 100% 39%;     /* #00C853 - Primary green */
+    --energy-bright: 145 100% 45%;   /* Brighter highlight */
+    --energy-subtle: 145 100% 95%;   /* Barely-there tint */
+    --energy-glow: 145 100% 50%;     /* Reserved glow */
     
     /* Premium Gradients */
     --gradient-energy: linear-gradient(135deg, hsl(var(--energy-core)), hsl(var(--energy-bright)));
