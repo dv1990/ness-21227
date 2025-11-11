@@ -94,7 +94,7 @@ const Index = () => {
       }}>
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
             {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.5] sm:leading-[1.6] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               Life.
               <br />
               <span className="text-energy">Uninterrupted.</span>
@@ -102,7 +102,7 @@ const Index = () => {
             
             {/* Subtext - Cut by 70%, one powerful line */}
             <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[600px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              The intelligent home battery that keeps your life running.
+              NESS - Your home battery that keeps your life running.
             </p>
 
             {/* CTA - Benefit-focused, no subtext clutter */}
