@@ -68,161 +68,92 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Parallax Hero Script
+  // 4-Panel Parallax Hero Script
   useEffect(() => {
-    const root = document.getElementById('ness-hero');
-    if (!root) return;
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const panels = document.querySelectorAll('.hero-panel') as NodeListOf<HTMLElement>;
+    const cta = document.getElementById('panel-4-cta');
+    
+    if (panels.length === 0) return;
 
-    // Read config from data-attributes
-    const TOTAL_MS = +(root.dataset.totalMs || 3800);
-    const GREEN = safeJSON(root.dataset.greenWords, ["Uninterrupted.", "power", "energy", "NESS"]);
-    const stagesData = [1, 2, 3, 4].map(i => safeJSON((root.dataset as any)[`stage${i}`], {}));
-
-    // Inject stages 2–4
-    const dyn = root.querySelector('#nh-dynamic');
-    if (dyn) {
-      dyn.innerHTML = stagesData.slice(1).map((st, k) => {
-        const stageIndex = k + 2;
-        const h1 = renderH1(st.h1 || "");
-        const sub = st.sub ? `<p class="nh-sub">${escapeHtml(st.sub)}</p>` : "";
-        return `<article class="nh-stage" data-stage="${stageIndex}" aria-live="polite">${h1}${sub}</article>`;
-      }).join("");
-    }
-
-    // Utils
-    function renderH1(text: string) {
-      const html = escapeHtml(text || "");
-      const withMarkers = html.replace(/\[\[(.*?)\]\]/g, (_, w) => `<span class="nh-g">${w}</span>`)
-        .replace(/\\n/g, "<br />");
-      return `<h1 class="nh-h1">${autoGreen(withMarkers)}</h1>`;
-    }
-
-    function autoGreen(html: string) {
-      const pattern = new RegExp(`\\b(${GREEN.map(escRx).join('|')})\\b`, 'g');
-      return html.replace(pattern, (m) => `<span class="nh-g">${m}</span>`);
-    }
-
-    function escRx(s: string) {
-      return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
-
-    function escapeHtml(s: string) {
-      const map: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-      return (s || "").replace(/[&<>"']/g, m => map[m] || m);
-    }
-
-    function safeJSON(str: string | undefined, fallback: any) {
-      try {
-        return JSON.parse(str || "");
-      } catch (e) {
-        return fallback;
+    let ticking = false;
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(updatePanels);
       }
-    }
+    };
 
-    // Check for CSS scroll-timeline support
-    const hasScrollTimeline = CSS && (CSS as any).supports && (CSS as any).supports('(animation-timeline: scroll())');
-    if (!hasScrollTimeline) {
-      fallbackParallax();
-    }
+    function updatePanels() {
+      ticking = false;
+      const vh = window.innerHeight;
+      
+      panels.forEach((panel, idx) => {
+        const rect = panel.getBoundingClientRect();
+        const panelTop = rect.top;
+        const panelHeight = rect.height;
+        
+        // Calculate visibility progress (0 = entering, 0.5 = center, 1 = exiting)
+        const progress = Math.max(0, Math.min(1, (vh - panelTop) / (vh + panelHeight)));
+        
+        const textEl = panel.querySelector('.panel-text') as HTMLElement;
+        const imgEl = panel.querySelector('.panel-image') as HTMLElement;
+        
+        if (!textEl) return;
 
-    function fallbackParallax() {
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const stages = Array.from(root.querySelectorAll('.nh-stage')) as HTMLElement[];
-      const cta = document.getElementById('nh-cta');
-      const prodImg = document.getElementById('nh-product-img') as HTMLElement;
-
-      const windows: Record<number, { in: number; hold: [number, number]; out: [number, number] }> = {
-        1: { in: 0, hold: [0, 900], out: [900, 1100] },
-        2: { in: 900, hold: [900, 1900], out: [1900, 2100] },
-        3: { in: 1900, hold: [1900, 2900], out: [2900, 3100] },
-        4: { in: 2900, hold: [2900, 3800], out: [3800, 3800] }
-      };
-
-      let vh = window.innerHeight;
-      let heroTop = 0;
-
-      function measure() {
-        const r = root.getBoundingClientRect();
-        heroTop = r.top + window.scrollY;
-        vh = window.innerHeight || document.documentElement.clientHeight;
-      }
-
-      measure();
-      window.addEventListener('resize', measure, { passive: true });
-
-      let ticking = false;
-      const handleScroll = () => {
-        if (!ticking) {
-          ticking = true;
-          requestAnimationFrame(update);
-        }
-      };
-
-      window.addEventListener('scroll', handleScroll, { passive: true });
-      update();
-
-      function update() {
-        ticking = false;
-        const y = window.scrollY;
-        const progress = Math.min(1, Math.max(0, (y + vh - heroTop) / vh));
-        const t = Math.max(0, Math.min(TOTAL_MS, progress * TOTAL_MS));
-        setStages(t);
-      }
-
-      function setStages(t: number) {
-        stages.forEach(s => {
-          const id = +s.dataset.stage!;
-          const w = windows[id];
-          let state = 'off';
-          if (t >= w.hold[0] && t <= w.hold[1]) state = 'nh-active';
-          else if (t > w.out[0] && t <= w.out[1]) state = 'nh-exit';
-          else if (t >= w.in && t < w.hold[0]) state = 'nh-active';
-
-          s.classList.toggle('nh-active', state === 'nh-active');
-          s.classList.toggle('nh-exit', state === 'nh-exit');
-
-          if (prefersReduced) {
-            s.style.filter = 'none';
-            s.style.transform = 'none';
-            s.style.opacity = (state === 'nh-active') ? '1' : '0';
-          } else {
-            if (state === 'nh-active') {
-              s.style.opacity = '1';
-              s.style.transform = 'translateY(0)';
-              s.style.filter = 'blur(0px)';
-            } else if (state === 'nh-exit') {
-              s.style.opacity = '0';
-              s.style.transform = 'translateY(-8px)';
-              s.style.filter = 'blur(3px)';
-            } else {
-              s.style.opacity = '0';
-              s.style.transform = 'translateY(16px)';
-              s.style.filter = 'blur(6px)';
-            }
+        // Text fade & translate
+        if (progress < 0.15) {
+          // Entering
+          const enterProgress = progress / 0.15;
+          textEl.style.opacity = String(enterProgress);
+          if (!prefersReduced) {
+            textEl.style.transform = `translateY(${16 * (1 - enterProgress)}px)`;
+            textEl.style.filter = `blur(${6 * (1 - enterProgress)}px)`;
           }
-        });
+        } else if (progress > 0.85) {
+          // Exiting
+          const exitProgress = (progress - 0.85) / 0.15;
+          textEl.style.opacity = String(1 - exitProgress);
+          if (!prefersReduced) {
+            textEl.style.transform = `translateY(${-8 * exitProgress}px)`;
+            textEl.style.filter = `blur(${3 * exitProgress}px)`;
+          }
+        } else {
+          // Visible
+          textEl.style.opacity = '1';
+          if (!prefersReduced) {
+            textEl.style.transform = 'translateY(0)';
+            textEl.style.filter = 'blur(0)';
+          }
+        }
 
-        // CTA only from Stage 4 onward
-        if (cta) {
-          const show = (t >= windows[4].in);
+        // Image parallax (subtle)
+        if (imgEl && !prefersReduced) {
+          const imgProgress = Math.max(0, Math.min(1, progress));
+          const yOffset = 20 + (-30 * imgProgress); // +20px to -10px
+          imgEl.style.transform = `translateY(${yOffset}px)`;
+        }
+      });
+
+      // Show CTA on panel 4
+      if (cta) {
+        const panel4 = panels[3];
+        if (panel4) {
+          const rect = panel4.getBoundingClientRect();
+          const show = rect.top < window.innerHeight * 0.5;
           cta.toggleAttribute('hidden', !show);
           cta.setAttribute('aria-hidden', String(!show));
         }
-
-        // Subtle product parallax
-        if (!prefersReduced && prodImg) {
-          const y = 20 + (-30) * (t / TOTAL_MS);
-          const s = 0.995 + 0.005 * (t / TOTAL_MS);
-          prodImg.style.setProperty('--nh-prod-y', y + 'px');
-          prodImg.style.setProperty('--nh-prod-s', String(s));
-        }
       }
-
-      return () => {
-        window.removeEventListener('scroll', handleScroll);
-        window.removeEventListener('resize', measure);
-      };
     }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    updatePanels(); // Initial call
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   // Smooth scroll to next section
@@ -232,54 +163,111 @@ const Index = () => {
     });
   };
   return <Layout>
-      {/* 1. PARALLAX HERO SECTION */}
-      <section 
-        id="ness-hero"
-        aria-label="NESS Parallax Hero"
-        data-total-ms="3800"
-        data-green-words={JSON.stringify(["Uninterrupted.","power","energy","NESS"])}
-        data-stage1={JSON.stringify({h1:"Life.\n[[Uninterrupted.]]",sub:"Because your home shouldn't pause just because the grid does."})}
-        data-stage2={JSON.stringify({h1:"You make the [[power]].\nWhy depend on someone else to generate it?",sub:"The sun gives it freely — but most homes let it slip away."})}
-        data-stage3={JSON.stringify({h1:"Your [[energy]].\nStored. Ready. Yours.",sub:"There's nothing more reassuring than storing the power you create."})}
-        data-stage4={JSON.stringify({h1:"Meet [[NESS]],\nYour partner in energy freedom.",sub:"Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone."})}
-      >
-        <div className="nh-wrap">
-          {/* Left: Stage 1 static (SEO/LCP), rest injected */}
-          <div className="nh-text">
-            <article className="nh-stage nh-active" data-stage="1">
-              <h1 className="nh-h1">Life.<br /><span className="nh-g">Uninterrupted.</span></h1>
-              <p className="nh-sub">Because your home shouldn't pause just because the grid does.</p>
-            </article>
-            <div id="nh-dynamic"></div>
+      {/* 1. 4-PANEL PARALLAX HERO */}
+      
+      {/* Panel 1 */}
+      <section className="hero-panel" aria-label="NESS Hero - Life Uninterrupted">
+        <div className="hero-container">
+          <div className="panel-text">
+            <h1 className="hero-h1">
+              Life.<br />
+              <span className="hero-green">Uninterrupted.</span>
+            </h1>
+            <p className="hero-sub">Because your home shouldn't pause just because the grid does.</p>
           </div>
-
-          {/* Right: hero product asset */}
-          <aside className="nh-product" aria-hidden="true">
+          <aside className="panel-image" aria-hidden="true">
             <img 
-              id="nh-product-img"
               src={nessHeroProduct}
-              alt="NESS home energy storage — product render"
+              alt="NESS home energy storage system"
               width="1200" 
-              height="1600" 
-              style={{ aspectRatio: '3 / 4' }}
-              fetchPriority="high" 
-              decoding="async" 
+              height="1600"
+              fetchPriority="high"
+              decoding="async"
             />
           </aside>
         </div>
+      </section>
 
-        {/* CTA - visible only on Stage 4 */}
-        <div id="nh-cta" aria-live="polite" aria-hidden="true" hidden>
-          <Link to="/residential" className="inline-block group">
-            <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
-              <span className="flex items-center justify-center">
-                Never Worry About Power Again
-                <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
-                  <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                </Suspense>
-              </span>
-            </Button>
-          </Link>
+      {/* Panel 2 */}
+      <section className="hero-panel" aria-label="NESS Hero - Make Your Power">
+        <div className="hero-container">
+          <div className="panel-text">
+            <h2 className="hero-h1">
+              You make the <span className="hero-green">power</span>.<br />
+              Why depend on someone else to generate it?
+            </h2>
+            <p className="hero-sub">The sun gives it freely — but most homes let it slip away.</p>
+          </div>
+          <aside className="panel-image" aria-hidden="true">
+            <img 
+              src={nessHeroProduct}
+              alt="NESS home energy storage system"
+              width="1200" 
+              height="1600"
+              loading="lazy"
+              decoding="async"
+            />
+          </aside>
+        </div>
+      </section>
+
+      {/* Panel 3 */}
+      <section className="hero-panel" aria-label="NESS Hero - Your Energy">
+        <div className="hero-container">
+          <div className="panel-text">
+            <h2 className="hero-h1">
+              Your <span className="hero-green">energy</span>.<br />
+              Stored. Ready. Yours.
+            </h2>
+            <p className="hero-sub">There's nothing more reassuring than storing the power you create.</p>
+          </div>
+          <aside className="panel-image" aria-hidden="true">
+            <img 
+              src={nessHeroProduct}
+              alt="NESS home energy storage system"
+              width="1200" 
+              height="1600"
+              loading="lazy"
+              decoding="async"
+            />
+          </aside>
+        </div>
+      </section>
+
+      {/* Panel 4 */}
+      <section className="hero-panel" aria-label="NESS Hero - Meet NESS">
+        <div className="hero-container">
+          <div className="panel-text">
+            <h2 className="hero-h1">
+              Meet <span className="hero-green">NESS</span>,<br />
+              Your partner in energy freedom.
+            </h2>
+            <p className="hero-sub">Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone.</p>
+            
+            {/* CTA - visible only on Panel 4 */}
+            <div id="panel-4-cta" className="hero-cta" aria-live="polite" aria-hidden="true" hidden>
+              <Link to="/residential" className="inline-block group">
+                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
+                  <span className="flex items-center justify-center">
+                    Never Worry About Power Again
+                    <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
+                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                    </Suspense>
+                  </span>
+                </Button>
+              </Link>
+            </div>
+          </div>
+          <aside className="panel-image" aria-hidden="true">
+            <img 
+              src={nessHeroProduct}
+              alt="NESS home energy storage system"
+              width="1200" 
+              height="1600"
+              loading="lazy"
+              decoding="async"
+            />
+          </aside>
         </div>
       </section>
 
