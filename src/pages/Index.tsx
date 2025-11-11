@@ -141,7 +141,7 @@ const Index = () => {
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
-      <section ref={nextSectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-white scroll-mt-16">
+      <section ref={nextSectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl scroll-mt-16">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight">
             Lasts 10+ years.
@@ -152,7 +152,7 @@ const Index = () => {
 
       {/* 3. PRODUCT SPOTLIGHT - NESS Powerwall - Mobile Optimized */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-white">
+        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div>
@@ -160,7 +160,7 @@ const Index = () => {
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight">
                   NESS Powerwall
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-white/80 mb-6 sm:mb-8 leading-relaxed font-light">
+                <p className="text-base sm:text-lg md:text-xl text-pearl/80 mb-6 sm:mb-8 leading-relaxed font-light">
                   Elegant. Powerful. Silent. Everything your home needs, nothing it doesn't.
                 </p>
                 
@@ -170,21 +170,21 @@ const Index = () => {
                       <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium text-base sm:text-lg">Powers your entire home</p>
-                        <p className="text-sm sm:text-base text-white/60 font-light">From AC to refrigerator, run everything simultaneously</p>
+                        <p className="text-sm sm:text-base text-pearl/60 font-light">From AC to refrigerator, run everything simultaneously</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium text-base sm:text-lg">Instant backup</p>
-                        <p className="text-sm sm:text-base text-white/60 font-light">10ms switchover—WiFi stays connected, work never stops</p>
+                        <p className="text-sm sm:text-base text-pearl/60 font-light">10ms switchover—WiFi stays connected, work never stops</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
                       <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium text-base sm:text-lg">Solar ready</p>
-                        <p className="text-sm sm:text-base text-white/60 font-light">Seamless integration with any solar system</p>
+                        <p className="text-sm sm:text-base text-pearl/60 font-light">Seamless integration with any solar system</p>
                       </div>
                     </div>
                   </Suspense>
@@ -192,7 +192,7 @@ const Index = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link to="/residential" className="w-full sm:w-auto">
-                    <Button size="lg" className="bg-energy hover:bg-energy-glow text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full shadow-glow hover:shadow-[0_0_40px_rgba(0,200,83,0.4)] transition-all duration-500 w-full sm:w-auto">
+                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto">
                       Design My System
                       <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
                         <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -212,7 +212,7 @@ const Index = () => {
 
       {/* 3B. C&I PRODUCT SPOTLIGHT - NESS Pod - Mobile Optimized */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-white">
+        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl">
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1 mt-8 md:mt-0">
@@ -256,7 +256,7 @@ const Index = () => {
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                   <Link to="/commercial" className="w-full sm:w-auto">
-                    <Button size="lg" className="bg-energy hover:bg-energy-glow text-white px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full shadow-glow hover:shadow-[0_0_40px_rgba(0,200,83,0.4)] transition-all duration-500 w-full sm:w-auto">
+                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto">
                       Explore Commercial
                       <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
                         <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -274,10 +274,10 @@ const Index = () => {
       <LazySection>
         <section className="py-16 sm:py-24 md:py-32 bg-charcoal">
           <div className="max-w-4xl mx-auto px-4 sm:px-8 text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-white mb-3 sm:mb-4 tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-pearl mb-3 sm:mb-4 tracking-tight">
               Trusted by thousands
             </h2>
-            <p className="text-white/60 text-base sm:text-lg font-light">
+            <p className="text-pearl/60 text-base sm:text-lg font-light">
               across India
             </p>
           </div>
@@ -288,11 +288,11 @@ const Index = () => {
               const testimonialIndex = testimonials.indexOf(testimonial);
               return <div key={`testimonial-${testimonialIndex}`} className={cn("absolute inset-0 transition-all duration-1000 ease-in-out will-change-transform", currentTestimonial === testimonialIndex ? "opacity-100 translate-x-0" : testimonialIndex < currentTestimonial ? "opacity-0 -translate-x-full pointer-events-none" : "opacity-0 translate-x-full pointer-events-none")}>
                   <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8 px-4">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-energy/10 flex items-center justify-center text-xl sm:text-2xl font-light text-white border-2 border-energy/30">
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-energy/10 flex items-center justify-center text-xl sm:text-2xl font-light text-pearl border-2 border-energy/30">
                       {testimonial.initials}
                     </div>
 
-                    <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-white leading-relaxed max-w-2xl">
+                    <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-pearl leading-relaxed max-w-2xl">
                       {testimonial.quote}
                     </blockquote>
 
@@ -305,7 +305,7 @@ const Index = () => {
             })}
 
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3">
-                  {testimonials.map((_, dotIndex) => <button key={`dot-${dotIndex}`} onClick={() => setCurrentTestimonial(dotIndex)} className={cn("w-2 h-2 rounded-full transition-all duration-500", currentTestimonial === dotIndex ? "w-6 sm:w-8 bg-energy" : "bg-white/30 hover:bg-white/50")} aria-label={`View testimonial ${dotIndex + 1}`} />)}
+                  {testimonials.map((_, dotIndex) => <button key={`dot-${dotIndex}`} onClick={() => setCurrentTestimonial(dotIndex)} className={cn("w-2 h-2 rounded-full transition-all duration-500", currentTestimonial === dotIndex ? "w-6 sm:w-8 bg-energy" : "bg-pearl/30 hover:bg-pearl/50")} aria-label={`View testimonial ${dotIndex + 1}`} />)}
               </div>
             </div>
           </div>
