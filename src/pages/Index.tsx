@@ -68,6 +68,163 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Parallax Hero Script
+  useEffect(() => {
+    const root = document.getElementById('ness-hero');
+    if (!root) return;
+
+    // Read config from data-attributes
+    const TOTAL_MS = +(root.dataset.totalMs || 3800);
+    const GREEN = safeJSON(root.dataset.greenWords, ["Uninterrupted.", "power", "energy", "NESS"]);
+    const stagesData = [1, 2, 3, 4].map(i => safeJSON((root.dataset as any)[`stage${i}`], {}));
+
+    // Inject stages 2–4
+    const dyn = root.querySelector('#nh-dynamic');
+    if (dyn) {
+      dyn.innerHTML = stagesData.slice(1).map((st, k) => {
+        const stageIndex = k + 2;
+        const h1 = renderH1(st.h1 || "");
+        const sub = st.sub ? `<p class="nh-sub">${escapeHtml(st.sub)}</p>` : "";
+        return `<article class="nh-stage" data-stage="${stageIndex}" aria-live="polite">${h1}${sub}</article>`;
+      }).join("");
+    }
+
+    // Utils
+    function renderH1(text: string) {
+      const html = escapeHtml(text || "");
+      const withMarkers = html.replace(/\[\[(.*?)\]\]/g, (_, w) => `<span class="nh-g">${w}</span>`)
+        .replace(/\\n/g, "<br />");
+      return `<h1 class="nh-h1">${autoGreen(withMarkers)}</h1>`;
+    }
+
+    function autoGreen(html: string) {
+      const pattern = new RegExp(`\\b(${GREEN.map(escRx).join('|')})\\b`, 'g');
+      return html.replace(pattern, (m) => `<span class="nh-g">${m}</span>`);
+    }
+
+    function escRx(s: string) {
+      return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function escapeHtml(s: string) {
+      const map: Record<string, string> = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
+      return (s || "").replace(/[&<>"']/g, m => map[m] || m);
+    }
+
+    function safeJSON(str: string | undefined, fallback: any) {
+      try {
+        return JSON.parse(str || "");
+      } catch (e) {
+        return fallback;
+      }
+    }
+
+    // Check for CSS scroll-timeline support
+    const hasScrollTimeline = CSS && (CSS as any).supports && (CSS as any).supports('(animation-timeline: scroll())');
+    if (!hasScrollTimeline) {
+      fallbackParallax();
+    }
+
+    function fallbackParallax() {
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const stages = Array.from(root.querySelectorAll('.nh-stage')) as HTMLElement[];
+      const cta = document.getElementById('nh-cta');
+      const prodImg = document.getElementById('nh-product-img') as HTMLElement;
+
+      const windows: Record<number, { in: number; hold: [number, number]; out: [number, number] }> = {
+        1: { in: 0, hold: [0, 900], out: [900, 1100] },
+        2: { in: 900, hold: [900, 1900], out: [1900, 2100] },
+        3: { in: 1900, hold: [1900, 2900], out: [2900, 3100] },
+        4: { in: 2900, hold: [2900, 3800], out: [3800, 3800] }
+      };
+
+      let vh = window.innerHeight;
+      let heroTop = 0;
+
+      function measure() {
+        const r = root.getBoundingClientRect();
+        heroTop = r.top + window.scrollY;
+        vh = window.innerHeight || document.documentElement.clientHeight;
+      }
+
+      measure();
+      window.addEventListener('resize', measure, { passive: true });
+
+      let ticking = false;
+      const handleScroll = () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      update();
+
+      function update() {
+        ticking = false;
+        const y = window.scrollY;
+        const progress = Math.min(1, Math.max(0, (y + vh - heroTop) / vh));
+        const t = Math.max(0, Math.min(TOTAL_MS, progress * TOTAL_MS));
+        setStages(t);
+      }
+
+      function setStages(t: number) {
+        stages.forEach(s => {
+          const id = +s.dataset.stage!;
+          const w = windows[id];
+          let state = 'off';
+          if (t >= w.hold[0] && t <= w.hold[1]) state = 'nh-active';
+          else if (t > w.out[0] && t <= w.out[1]) state = 'nh-exit';
+          else if (t >= w.in && t < w.hold[0]) state = 'nh-active';
+
+          s.classList.toggle('nh-active', state === 'nh-active');
+          s.classList.toggle('nh-exit', state === 'nh-exit');
+
+          if (prefersReduced) {
+            s.style.filter = 'none';
+            s.style.transform = 'none';
+            s.style.opacity = (state === 'nh-active') ? '1' : '0';
+          } else {
+            if (state === 'nh-active') {
+              s.style.opacity = '1';
+              s.style.transform = 'translateY(0)';
+              s.style.filter = 'blur(0px)';
+            } else if (state === 'nh-exit') {
+              s.style.opacity = '0';
+              s.style.transform = 'translateY(-8px)';
+              s.style.filter = 'blur(3px)';
+            } else {
+              s.style.opacity = '0';
+              s.style.transform = 'translateY(16px)';
+              s.style.filter = 'blur(6px)';
+            }
+          }
+        });
+
+        // CTA only from Stage 4 onward
+        if (cta) {
+          const show = (t >= windows[4].in);
+          cta.toggleAttribute('hidden', !show);
+          cta.setAttribute('aria-hidden', String(!show));
+        }
+
+        // Subtle product parallax
+        if (!prefersReduced && prodImg) {
+          const y = 20 + (-30) * (t / TOTAL_MS);
+          const s = 0.995 + 0.005 * (t / TOTAL_MS);
+          prodImg.style.setProperty('--nh-prod-y', y + 'px');
+          prodImg.style.setProperty('--nh-prod-s', String(s));
+        }
+      }
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('resize', measure);
+      };
+    }
+  }, []);
+
   // Smooth scroll to next section
   const scrollToNext = () => {
     nextSectionRef.current?.scrollIntoView({
@@ -75,63 +232,55 @@ const Index = () => {
     });
   };
   return <Layout>
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
-        {/* Full-screen Product Image Background */}
-        <div className="absolute inset-0 w-full h-full">
-          {/* Product Image - Static confidence */}
-          <div className="absolute inset-0 w-full h-full">
-            <img src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" loading="eager" width={1920} height={1080} fetchPriority="high" />
+      {/* 1. PARALLAX HERO SECTION */}
+      <section 
+        id="ness-hero"
+        aria-label="NESS Parallax Hero"
+        data-total-ms="3800"
+        data-green-words={JSON.stringify(["Uninterrupted.","power","energy","NESS"])}
+        data-stage1={JSON.stringify({h1:"Life.\n[[Uninterrupted.]]",sub:"Because your home shouldn't pause just because the grid does."})}
+        data-stage2={JSON.stringify({h1:"You make the [[power]].\nWhy depend on someone else to generate it?",sub:"The sun gives it freely — but most homes let it slip away."})}
+        data-stage3={JSON.stringify({h1:"Your [[energy]].\nStored. Ready. Yours.",sub:"There's nothing more reassuring than storing the power you create."})}
+        data-stage4={JSON.stringify({h1:"Meet [[NESS]],\nYour partner in energy freedom.",sub:"Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone."})}
+      >
+        <div className="nh-wrap">
+          {/* Left: Stage 1 static (SEO/LCP), rest injected */}
+          <div className="nh-text">
+            <article className="nh-stage nh-active" data-stage="1">
+              <h1 className="nh-h1">Life.<br /><span className="nh-g">Uninterrupted.</span></h1>
+              <p className="nh-sub">Because your home shouldn't pause just because the grid does.</p>
+            </article>
+            <div id="nh-dynamic"></div>
           </div>
 
-          {/* Left-to-right gradient - product fully visible on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 via-40% to-transparent" />
+          {/* Right: hero product asset */}
+          <aside className="nh-product" aria-hidden="true">
+            <img 
+              id="nh-product-img"
+              src={nessHeroProduct}
+              alt="NESS home energy storage — product render"
+              width="1200" 
+              height="1600" 
+              style={{ aspectRatio: '3 / 4' }}
+              fetchPriority="high" 
+              decoding="async" 
+            />
+          </aside>
         </div>
 
-        {/* Text Content Overlaid - Simplified Jobs-style */}
-        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform" style={{
-        transform: `translate3d(0, ${scrollY * 0.15}px, 0)`
-      }}>
-          <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              Life.
-              <br />
-              <span className="text-energy">Uninterrupted.</span>
-            </h1>
-            
-            {/* Subtext - Cut by 70%, one powerful line */}
-            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
-            </p>
-
-            {/* CTA - Benefit-focused, no subtext clutter */}
-            <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Link to="/residential" className="inline-block group">
-                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
-                  <span className="flex items-center justify-center">
-                    Never Worry About Power Again
-                    <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
-                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                    </Suspense>
-                  </span>
-                </Button>
-              </Link>
-            </div>
-          </div>
+        {/* CTA - visible only on Stage 4 */}
+        <div id="nh-cta" aria-live="polite" aria-hidden="true" hidden>
+          <Link to="/residential" className="inline-block group">
+            <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
+              <span className="flex items-center justify-center">
+                Never Worry About Power Again
+                <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
+                  <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                </Suspense>
+              </span>
+            </Button>
+          </Link>
         </div>
-
-        {/* Enhanced Scroll Indicator with interaction */}
-        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
-          <div className="relative">
-            <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
-              <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
-            </div>
-            <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
-              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
-            </Suspense>
-          </div>
-        </button>
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
