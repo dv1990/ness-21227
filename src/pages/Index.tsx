@@ -73,16 +73,13 @@ const Index = () => {
         <div className="absolute inset-0 w-full h-full">
           {/* Product Image - Static confidence */}
           <div className="absolute inset-0 w-full h-full">
-            <ResponsiveImage 
+            <img 
               src={nessHeroProduct} 
-              srcSet="ness-hero-product-640w.webp 640w, ness-hero-product-750w.webp 750w, ness-hero-product-828w.webp 828w, ness-hero-product-1080w.webp 1080w, ness-hero-product-1200w.webp 1200w, ness-hero-product-1920w.webp 1920w"
               alt="NESS home battery — reliable backup power for modern Indian homes" 
               className="w-full h-full object-cover object-center" 
-              priority={true} 
               loading="eager"
               width={1920}
               height={1080}
-              sizes="100vw"
               fetchPriority="high"
             />
           </div>
