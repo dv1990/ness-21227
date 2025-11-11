@@ -71,11 +71,8 @@ const Index = () => {
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
         {/* Full-screen Product Image Background */}
         <div className="absolute inset-0 w-full h-full">
-          {/* Optimized ambient glow - CSS only */}
-          <div className="absolute inset-0 hidden sm:block hero-glow" />
-
-          {/* Product Image - With breathing animation */}
-          <div className="absolute inset-0 w-full h-full hero-image product-breathe">
+          {/* Product Image - Static confidence */}
+          <div className="absolute inset-0 w-full h-full">
             <ResponsiveImage 
               src={nessHeroProduct} 
               srcSet="ness-hero-product-640w.webp 640w, ness-hero-product-750w.webp 750w, ness-hero-product-828w.webp 828w, ness-hero-product-1080w.webp 1080w, ness-hero-product-1200w.webp 1200w, ness-hero-product-1920w.webp 1920w"
@@ -90,8 +87,8 @@ const Index = () => {
             />
           </div>
 
-          {/* Darker, premium gradient overlay */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70" />
+          {/* Single thoughtful gradient overlay */}
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal/80 via-charcoal/60 to-charcoal/80" />
         </div>
 
         {/* Text Content Overlaid - Simplified Jobs-style */}
@@ -100,35 +97,30 @@ const Index = () => {
       }}>
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
             {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.5] sm:leading-[1.6] tracking-[-0.02em] text-white transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.5] sm:leading-[1.6] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               Life.
               <br />
-              <span style={{ 
-                color: '#00C853',
-                textShadow: '0 0 30px rgba(0, 200, 83, 0.6), 0 0 60px rgba(0, 200, 83, 0.4)'
-              }}>Uninterrupted.</span>
+              <span className="text-energy">Uninterrupted.</span>
             </h1>
             
             {/* Subtext - Cut by 70%, one powerful line */}
-            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[600px] transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")} style={{
-            color: '#E5E7EB'
-          }}>
+            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[600px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               The intelligent home battery that keeps your life running.
             </p>
 
             {/* CTA - Benefit-focused, no subtext clutter */}
             <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-                  <Link to="/residential" className="inline-block group">
-                <Button size="lg" className="relative font-sans bg-[#00C853] hover:bg-[#00E676] text-white font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl shadow-[0_0_40px_rgba(0,200,83,0.4)] hover:shadow-[0_0_60px_rgba(0,230,118,0.7)] transition-all duration-500 overflow-hidden" style={{
-                transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)'
-              }}>
-                  <span className="relative z-10 flex items-center justify-center">
+              <Link to="/residential" className="inline-block group">
+                <Button 
+                  size="lg" 
+                  className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300"
+                >
+                  <span className="flex items-center justify-center">
                     Never Worry About Power Again
                     <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
                       <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                     </Suspense>
                   </span>
-                  <span className="absolute inset-0 bg-gradient-to-r from-[#00E676] to-[#00C853] opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </Button>
               </Link>
             </div>
@@ -138,11 +130,11 @@ const Index = () => {
         {/* Enhanced Scroll Indicator with interaction */}
         <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
           <div className="relative">
-            <div className="w-8 h-12 border-2 border-white/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy/50 transition-colors duration-300">
-              <div className="w-1.5 h-3 bg-white/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy/80 transition-colors duration-300" />
+            <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
+              <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
             </div>
             <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
-              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-white/30 group-hover:text-energy/50 motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
             </Suspense>
           </div>
         </button>
