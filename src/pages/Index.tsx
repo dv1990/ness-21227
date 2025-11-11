@@ -13,9 +13,15 @@ import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
 import { testimonials } from "@/data/testimonials";
 
 // Lazy load icons to reduce initial bundle size
-const CheckCircle2 = lazy(() => import("lucide-react").then(m => ({ default: m.CheckCircle2 })));
-const ChevronDown = lazy(() => import("lucide-react").then(m => ({ default: m.ChevronDown })));
-const ArrowRight = lazy(() => import("lucide-react").then(m => ({ default: m.ArrowRight })));
+const CheckCircle2 = lazy(() => import("lucide-react").then(m => ({
+  default: m.CheckCircle2
+})));
+const ChevronDown = lazy(() => import("lucide-react").then(m => ({
+  default: m.ChevronDown
+})));
+const ArrowRight = lazy(() => import("lucide-react").then(m => ({
+  default: m.ArrowRight
+})));
 
 // Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
@@ -41,7 +47,6 @@ const Index = () => {
   // Smooth parallax scroll tracking with RAF
   useEffect(() => {
     let ticking = false;
-    
     const handleScroll = () => {
       if (!ticking && window.scrollY < 800) {
         window.requestAnimationFrame(() => {
@@ -51,8 +56,9 @@ const Index = () => {
         ticking = true;
       }
     };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('scroll', handleScroll, {
+      passive: true
+    });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -64,7 +70,9 @@ const Index = () => {
 
   // Smooth scroll to next section
   const scrollToNext = () => {
-    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
+    nextSectionRef.current?.scrollIntoView({
+      behavior: 'smooth'
+    });
   };
   return <Layout>
       {/* 1. HERO SECTION */}
@@ -73,15 +81,7 @@ const Index = () => {
         <div className="absolute inset-0 w-full h-full">
           {/* Product Image - Static confidence */}
           <div className="absolute inset-0 w-full h-full">
-            <img 
-              src={nessHeroProduct} 
-              alt="NESS home battery — reliable backup power for modern Indian homes" 
-              className="w-full h-full object-cover object-center" 
-              loading="eager"
-              width={1920}
-              height={1080}
-              fetchPriority="high"
-            />
+            <img src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" loading="eager" width={1920} height={1080} fetchPriority="high" />
           </div>
 
           {/* Left-to-right gradient - product fully visible on right */}
@@ -102,16 +102,13 @@ const Index = () => {
             
             {/* Subtext - Cut by 70%, one powerful line */}
             <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[600px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <span className="text-energy font-semibold">NESS</span> - Your home battery that keeps your life running.
+              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
             </p>
 
             {/* CTA - Benefit-focused, no subtext clutter */}
             <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               <Link to="/residential" className="inline-block group">
-                <Button 
-                  size="lg" 
-                  className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300"
-                >
+                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
                   <span className="flex items-center justify-center">
                     Never Worry About Power Again
                     <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
@@ -327,5 +324,4 @@ const Index = () => {
       </Suspense>
     </Layout>;
 };
-
 export default memo(Index);
