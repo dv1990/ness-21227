@@ -28,13 +28,22 @@ export const RESPONSIVE_BREAKPOINTS = {
 } as const;
 
 /**
- * Generate srcset string for hero images
+ * Generate srcset string for hero images with format support
  * Optimized for full-width viewport images
  */
-export function generateHeroSrcSet(basePath: string, extension: string = '.webp'): string {
+export function generateHeroSrcSet(
+  basePath: string, 
+  format: 'avif' | 'webp' | 'jpeg' = 'webp'
+): string {
   const widths = [640, 750, 828, 1080, 1200, 1920];
+  const extension = format === 'avif' ? '.avif' : format === 'webp' ? '.webp' : '.jpg';
+  const folder = format === 'avif' ? 'assets-avif' : format === 'webp' ? 'assets-webp' : 'assets';
+  
+  // Replace assets folder if needed
+  const adjustedPath = basePath.replace(/assets(-webp|-avif)?/, folder);
+  
   return widths
-    .map(width => `${basePath}-${width}w${extension} ${width}w`)
+    .map(width => `${adjustedPath}-${width}w${extension} ${width}w`)
     .join(', ');
 }
 
@@ -47,13 +56,22 @@ export function getHeroSizes(): string {
 }
 
 /**
- * Generate srcset string for product images
+ * Generate srcset string for product images with format support
  * Optimized for contained content images
  */
-export function generateProductSrcSet(basePath: string, extension: string = '.webp'): string {
+export function generateProductSrcSet(
+  basePath: string, 
+  format: 'avif' | 'webp' | 'jpeg' = 'webp'
+): string {
   const widths = [400, 640, 828, 1080, 1200];
+  const extension = format === 'avif' ? '.avif' : format === 'webp' ? '.webp' : '.jpg';
+  const folder = format === 'avif' ? 'assets-avif' : format === 'webp' ? 'assets-webp' : 'assets';
+  
+  // Replace assets folder if needed
+  const adjustedPath = basePath.replace(/assets(-webp|-avif)?/, folder);
+  
   return widths
-    .map(width => `${basePath}-${width}w${extension} ${width}w`)
+    .map(width => `${adjustedPath}-${width}w${extension} ${width}w`)
     .join(', ');
 }
 
@@ -86,22 +104,30 @@ export function getOptimalVariant(viewportWidth: number): number {
 }
 
 /**
- * Preload critical hero image with responsive srcset
+ * Preload critical hero image with AVIF, WebP, and JPEG support
  */
-export function preloadHeroImage(src: string, srcSet: string) {
+export function preloadHeroImage(basePath: string) {
   if (typeof window === 'undefined') return;
   
-  const link = document.createElement('link');
-  link.rel = 'preload';
-  link.as = 'image';
-  link.href = src;
-  if (srcSet) {
-    link.setAttribute('imagesrcset', srcSet);
-    link.setAttribute('imagesizes', getHeroSizes());
-  }
-  link.fetchPriority = 'high';
+  // Preload AVIF (best compression)
+  const avifLink = document.createElement('link');
+  avifLink.rel = 'preload';
+  avifLink.as = 'image';
+  avifLink.type = 'image/avif';
+  avifLink.setAttribute('imagesrcset', generateHeroSrcSet(basePath, 'avif'));
+  avifLink.setAttribute('imagesizes', getHeroSizes());
+  avifLink.fetchPriority = 'high';
+  document.head.appendChild(avifLink);
   
-  document.head.appendChild(link);
+  // Preload WebP (fallback)
+  const webpLink = document.createElement('link');
+  webpLink.rel = 'preload';
+  webpLink.as = 'image';
+  webpLink.type = 'image/webp';
+  webpLink.setAttribute('imagesrcset', generateHeroSrcSet(basePath, 'webp'));
+  webpLink.setAttribute('imagesizes', getHeroSizes());
+  webpLink.fetchPriority = 'high';
+  document.head.appendChild(webpLink);
 }
 
 /**

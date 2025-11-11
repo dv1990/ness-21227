@@ -1,10 +1,17 @@
-# Responsive Image Generation Guide
+# Responsive Image Generation Guide with AVIF Support
 
-This guide explains how to generate responsive image variants for optimal performance.
+This guide explains how to generate responsive image variants with AVIF, WebP, and JPEG formats for optimal performance and compression.
+
+## Image Format Strategy
+
+### Progressive Format Support (Best → Fallback)
+1. **AVIF** - Next-gen format, 30-50% smaller than WebP, best compression
+2. **WebP** - Modern format, 25-35% smaller than JPEG, wide browser support
+3. **JPEG** - Universal fallback, 100% browser support
 
 ## Required Image Variants
 
-For each hero and critical image, generate the following variants:
+For each hero and critical image, generate variants in **all three formats** (AVIF, WebP, JPEG):
 
 ### Hero Images (Full Width)
 - 640w - Mobile portrait
@@ -20,6 +27,15 @@ For each hero and critical image, generate the following variants:
 - 828w - Small laptop
 - 1080w - Laptop
 - 1200w - Desktop
+
+## File Structure
+
+```
+src/
+  assets/          # Original JPEG files
+  assets-webp/     # WebP variants
+  assets-avif/     # AVIF variants (NEW)
+```
 
 ## Generation Methods
 
@@ -38,33 +54,49 @@ const path = require('path');
 const heroWidths = [640, 750, 828, 1080, 1200, 1920];
 const productWidths = [400, 640, 828, 1080, 1200];
 
-async function generateVariants(inputPath, outputDir, widths, quality = 80) {
+async function generateVariants(inputPath, widths, quality = 80) {
   const filename = path.basename(inputPath, path.extname(inputPath));
+  const baseDir = path.dirname(inputPath);
   
   for (const width of widths) {
-    await sharp(inputPath)
+    const resizedImage = sharp(inputPath)
       .resize(width, null, { 
         fit: 'cover',
         withoutEnlargement: true 
-      })
-      .webp({ quality })
-      .toFile(path.join(outputDir, `${filename}-${width}w.webp`));
+      });
     
+    // Generate AVIF (best compression - 30-50% smaller than WebP)
+    await resizedImage
+      .clone()
+      .avif({ quality, effort: 6 })
+      .toFile(path.join(baseDir, '../assets-avif', `${filename}-${width}w.avif`));
+    console.log(`✓ Generated ${filename}-${width}w.avif`);
+    
+    // Generate WebP (good compression, wide support)
+    await resizedImage
+      .clone()
+      .webp({ quality })
+      .toFile(path.join(baseDir, '../assets-webp', `${filename}-${width}w.webp`));
     console.log(`✓ Generated ${filename}-${width}w.webp`);
+    
+    // Generate JPEG (universal fallback)
+    await resizedImage
+      .clone()
+      .jpeg({ quality, progressive: true })
+      .toFile(path.join(baseDir, `${filename}-${width}w.jpg`));
+    console.log(`✓ Generated ${filename}-${width}w.jpg`);
   }
 }
 
 // Generate hero image variants
 generateVariants(
-  './src/assets/ness-hero-product.webp',
-  './src/assets-webp',
+  './src/assets/ness-hero-product.jpg',
   heroWidths
 );
 
 // Generate other critical images
 generateVariants(
-  './src/assets/homeowner-hero-battery.webp',
-  './src/assets-webp',
+  './src/assets/homeowner-hero-battery.jpg',
   heroWidths
 );
 ```
@@ -72,13 +104,20 @@ generateVariants(
 ### Option 2: Using ImageMagick (CLI)
 
 ```bash
-# Install ImageMagick
+# Install ImageMagick with AVIF support
 brew install imagemagick  # macOS
-apt-get install imagemagick  # Ubuntu/Debian
+apt-get install imagemagick libheif-dev  # Ubuntu/Debian
 
-# Generate variants
+# Generate all format variants
 for width in 640 750 828 1080 1200 1920; do
+  # AVIF (best compression)
+  convert input.jpg -resize ${width}x -quality 80 output-${width}w.avif
+  
+  # WebP (good compression)
   convert input.jpg -resize ${width}x -quality 80 output-${width}w.webp
+  
+  # JPEG (fallback)
+  convert input.jpg -resize ${width}x -quality 80 output-${width}w.jpg
 done
 ```
 
@@ -87,9 +126,20 @@ done
 ```bash
 npm install -g @squoosh/cli
 
+# Generate AVIF
+squoosh-cli --avif '{"quality":80,"effort":6}' \
+  --resize '{"enabled":true,"width":640}' \
+  input.jpg -d assets-avif/
+
+# Generate WebP
 squoosh-cli --webp '{"quality":80}' \
   --resize '{"enabled":true,"width":640}' \
-  input.jpg -d output/
+  input.jpg -d assets-webp/
+
+# Generate JPEG
+squoosh-cli --mozjpeg '{"quality":80}' \
+  --resize '{"enabled":true,"width":640}' \
+  input.jpg -d assets/
 ```
 
 ### Option 4: Using Online Tools
@@ -97,41 +147,41 @@ squoosh-cli --webp '{"quality":80}' \
 For non-technical users:
 1. **Squoosh.app** - https://squoosh.app/
    - Upload image
-   - Select WebP format
-   - Adjust quality to 80%
+   - Select AVIF format (best compression)
+   - Adjust quality to 80%, effort to 6
    - Resize to each width
    - Download
+   - Repeat for WebP and JPEG formats
 
 2. **CloudConvert** - https://cloudconvert.com/
    - Batch conversion support
+   - Supports AVIF, WebP, and JPEG
    - Can resize and convert in one step
 
 ## Priority Images to Generate
 
 ### Critical Hero Images (Priority: HIGH)
-```
-src/assets/ness-hero-product.webp
-  → ness-hero-product-640w.webp
-  → ness-hero-product-750w.webp
-  → ness-hero-product-828w.webp
-  → ness-hero-product-1080w.webp
-  → ness-hero-product-1200w.webp
-  → ness-hero-product-1920w.webp
+Generate in all 3 formats (AVIF, WebP, JPEG):
 
-src/assets/homeowner-hero-battery.webp
-  → homeowner-hero-battery-640w.webp
-  → homeowner-hero-battery-750w.webp
-  → homeowner-hero-battery-828w.webp
-  → homeowner-hero-battery-1080w.webp
-  → homeowner-hero-battery-1200w.webp
-  → homeowner-hero-battery-1920w.webp
+```
+src/assets/ness-hero-product.jpg
+  → assets-avif/ness-hero-product-640w.avif (and all widths)
+  → assets-webp/ness-hero-product-640w.webp (and all widths)
+  → assets/ness-hero-product-640w.jpg (and all widths)
+
+src/assets/homeowner-hero-battery.jpg
+  → assets-avif/homeowner-hero-battery-640w.avif
+  → assets-webp/homeowner-hero-battery-640w.webp
+  → assets/homeowner-hero-battery-640w.jpg
 ```
 
 ### Secondary Images (Priority: MEDIUM)
 ```
-src/assets/ness-pod-hero-new.webp
-src/assets-webp/ness-pro-product.webp
+src/assets/ness-pod-hero-new.jpg
+src/assets/ness-pro-product.jpg
 ```
+
+All images should have variants at: 640w, 750w, 828w, 1080w, 1200w, 1920w
 
 ## Recommended Build Script
 
@@ -148,10 +198,24 @@ Add to `package.json`:
 
 ## Quality Guidelines
 
-- **Hero images**: 80% quality, WebP format
-- **Product images**: 85% quality (higher for product clarity)
-- **Background images**: 75% quality (less critical)
+### AVIF Settings (Best Compression)
+- **Hero images**: 80% quality, effort: 6
+- **Product images**: 85% quality, effort: 6
+- **Background images**: 75% quality, effort: 4
+
+### WebP Settings (Good Compression)
+- **Hero images**: 80% quality
+- **Product images**: 85% quality
+- **Background images**: 75% quality
+
+### JPEG Settings (Universal Fallback)
+- **Hero images**: 80% quality, progressive
+- **Product images**: 85% quality, progressive
+- **Background images**: 75% quality, progressive
+
+### Special Cases
 - **Icons/Logos**: PNG (lossless), don't resize
+- **SVG**: Keep as-is, no conversion needed
 
 ## File Naming Convention
 
@@ -159,8 +223,10 @@ Add to `package.json`:
 [original-name]-[width]w.[extension]
 
 Examples:
+ness-hero-product-640w.avif
 ness-hero-product-640w.webp
-ness-hero-product-1920w.webp
+ness-hero-product-640w.jpg
+ness-hero-product-1920w.avif
 homeowner-hero-battery-828w.webp
 ```
 
@@ -176,11 +242,17 @@ After generating variants, verify they're being used:
 
 ## Performance Impact
 
-Expected improvements:
-- **Mobile**: 60-70% smaller image size
-- **Tablet**: 40-50% smaller image size  
-- **Desktop**: 20-30% smaller (with better quality)
-- **LCP improvement**: 30-50% faster on mobile
+Expected improvements with AVIF:
+- **Mobile**: 70-80% smaller image size (vs original JPEG)
+- **Tablet**: 50-65% smaller image size  
+- **Desktop**: 40-50% smaller (with better quality)
+- **LCP improvement**: 40-60% faster on mobile
+- **Data savings**: 30-50% smaller than WebP alone
+
+### Format Comparison (Example: 1920px hero image)
+- **Original JPEG**: 500 KB
+- **WebP**: 325 KB (35% smaller)
+- **AVIF**: 200 KB (60% smaller, 38% smaller than WebP)
 
 ## Automation (Optional)
 

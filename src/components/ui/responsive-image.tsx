@@ -17,8 +17,8 @@ interface ResponsiveImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageEle
 }
 
 /**
- * ResponsiveImage component with srcset support for LCP optimization
- * Automatically generates responsive image variants for different viewport sizes
+ * ResponsiveImage component with AVIF, WebP, and JPEG fallback support
+ * Automatically generates responsive image variants for optimal compression
  */
 export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   src,
@@ -46,13 +46,18 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   // Use original source directly
   const imageSrc = fallbackSrc || src;
 
-  // Auto-generate srcset if src is provided but srcSet is not
-  // This assumes the build tool generates responsive variants
-  const responsiveSrcSet = srcSet || generateSrcSet(imageSrc);
+  // Generate srcsets for all formats
+  const avifSrcSet = srcSet || generateSrcSet(imageSrc, 'avif');
+  const webpSrcSet = srcSet || generateSrcSet(imageSrc, 'webp');
+  const jpegSrcSet = srcSet || generateSrcSet(imageSrc, 'jpeg');
   
   // Default sizes attribute optimized for hero images
   const responsiveSizes = sizes || 
     '(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px';
+
+  // Generate format-specific src URLs
+  const avifSrc = getFormatSrc(imageSrc, 'avif');
+  const webpSrc = getFormatSrc(imageSrc, 'webp');
 
   return (
     <div 
@@ -64,35 +69,76 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
         <div className="absolute inset-0 bg-muted animate-pulse" />
       )}
       
-      {/* Optimized responsive image */}
-      <img
-        ref={imgRef}
-        src={imageSrc}
-        srcSet={responsiveSrcSet}
-        sizes={responsiveSizes}
-        alt={alt}
-        width={width}
-        height={height}
-        loading={priority ? 'eager' : loading}
-        fetchPriority={priority ? 'high' : fetchPriority}
-        onLoad={handleLoad}
-        decoding={priority ? 'sync' : 'async'}
-        className={cn(
-          "transition-opacity duration-300",
-          isLoaded ? "opacity-100" : "opacity-0",
-          "w-full h-full object-cover"
+      {/* Progressive image format support with AVIF > WebP > JPEG */}
+      <picture>
+        {/* AVIF format - best compression (30-50% smaller than WebP) */}
+        {avifSrcSet && (
+          <source
+            type="image/avif"
+            srcSet={avifSrcSet}
+            sizes={responsiveSizes}
+          />
         )}
-        {...props}
-      />
+        
+        {/* WebP format - wide browser support, good compression */}
+        {webpSrcSet && (
+          <source
+            type="image/webp"
+            srcSet={webpSrcSet}
+            sizes={responsiveSizes}
+          />
+        )}
+        
+        {/* JPEG fallback - universal browser support */}
+        <img
+          ref={imgRef}
+          src={imageSrc}
+          srcSet={jpegSrcSet}
+          sizes={responsiveSizes}
+          alt={alt}
+          width={width}
+          height={height}
+          loading={priority ? 'eager' : loading}
+          fetchPriority={priority ? 'high' : fetchPriority}
+          onLoad={handleLoad}
+          decoding={priority ? 'sync' : 'async'}
+          className={cn(
+            "transition-opacity duration-300",
+            isLoaded ? "opacity-100" : "opacity-0",
+            "w-full h-full object-cover"
+          )}
+          {...props}
+        />
+      </picture>
     </div>
   );
 };
 
 /**
- * Generate srcset variants from a base image URL
- * Supports multiple responsive breakpoints for optimal loading
+ * Get format-specific image source
  */
-function generateSrcSet(src: string): string {
+function getFormatSrc(src: string, format: 'avif' | 'webp' | 'jpeg'): string {
+  if (src.startsWith('http')) return src;
+  
+  const lastDotIndex = src.lastIndexOf('.');
+  if (lastDotIndex === -1) return src;
+  
+  const basePath = src.substring(0, lastDotIndex);
+  
+  if (format === 'avif') {
+    return `${basePath.replace('/assets/', '/assets-avif/')}.avif`;
+  } else if (format === 'webp') {
+    return `${basePath.replace('/assets/', '/assets-webp/')}.webp`;
+  }
+  
+  return src;
+}
+
+/**
+ * Generate srcset variants from a base image URL
+ * Supports AVIF, WebP, and JPEG formats with multiple responsive breakpoints
+ */
+function generateSrcSet(src: string, format: 'avif' | 'webp' | 'jpeg' = 'jpeg'): string {
   // Standard responsive breakpoints optimized for modern devices
   const widths = [640, 750, 828, 1080, 1200, 1920, 2048];
   
@@ -106,22 +152,24 @@ function generateSrcSet(src: string): string {
   if (lastDotIndex === -1) return '';
   
   const basePath = src.substring(0, lastDotIndex);
-  const extension = src.substring(lastDotIndex);
   
-  // Check if it's a WebP file
-  const isWebP = extension.toLowerCase() === '.webp';
-  
-  // Generate srcset with responsive variants
-  // For WebP: serve WebP at all sizes
-  // For other formats: generate both original and potential WebP variants
+  // Generate srcset based on format
   const variants = widths.map(width => {
-    if (isWebP) {
-      // WebP files - use responsive naming convention
-      return `${basePath}-${width}w${extension} ${width}w`;
+    let path = basePath;
+    let ext = '';
+    
+    if (format === 'avif') {
+      path = basePath.replace('/assets/', '/assets-avif/');
+      ext = '.avif';
+    } else if (format === 'webp') {
+      path = basePath.replace('/assets/', '/assets-webp/');
+      ext = '.webp';
     } else {
-      // Non-WebP - provide original format variants
-      return `${basePath}-${width}w${extension} ${width}w`;
+      // JPEG - keep original path
+      ext = src.substring(lastDotIndex);
     }
+    
+    return `${path}-${width}w${ext} ${width}w`;
   });
   
   return variants.join(', ');

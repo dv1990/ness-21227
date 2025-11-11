@@ -1,32 +1,40 @@
 /**
  * Image Optimization System
- * Handles WebP conversion and lazy loading
+ * Handles AVIF, WebP conversion and lazy loading
  */
 
-// Image format detection and optimization with fallback
-export const getOptimizedImageSrc = (originalSrc: string, quality = 80): string => {
+// Image format detection and optimization with AVIF, WebP, and JPEG fallback
+export const getOptimizedImageSrc = (originalSrc: string, format: 'avif' | 'webp' | 'jpeg' = 'webp'): string => {
   // If it's an external URL, return as-is
   if (originalSrc.startsWith('http')) {
     return originalSrc;
   }
 
   // Return original if it's already optimized or unsupported format
-  if (originalSrc.includes('.webp') || originalSrc.includes('.svg')) {
+  if (originalSrc.includes('.svg')) {
     return originalSrc;
   }
 
-  // Convert to WebP path
-  const webpSrc = originalSrc.replace(/\.(jpg|jpeg|png)$/i, '.webp')
-    .replace('/assets/', '/assets-webp/');
+  // Convert to requested format path
+  const lastDotIndex = originalSrc.lastIndexOf('.');
+  if (lastDotIndex === -1) return originalSrc;
   
-  return webpSrc;
+  const basePath = originalSrc.substring(0, lastDotIndex);
+  
+  if (format === 'avif') {
+    return `${basePath.replace('/assets/', '/assets-avif/')}.avif`;
+  } else if (format === 'webp') {
+    return `${basePath.replace('/assets/', '/assets-webp/')}.webp`;
+  }
+  
+  return originalSrc;
 };
 
-// Get image with fallback support
-export const getImageWithFallback = (src: string): { webp: string; fallback: string } => {
-  const optimized = getOptimizedImageSrc(src);
+// Get image with progressive format fallback support (AVIF > WebP > JPEG)
+export const getImageWithFallback = (src: string): { avif: string; webp: string; fallback: string } => {
   return {
-    webp: optimized,
+    avif: getOptimizedImageSrc(src, 'avif'),
+    webp: getOptimizedImageSrc(src, 'webp'),
     fallback: src
   };
 };
@@ -38,25 +46,33 @@ export const trackImageLoad = (src: string, loadTime: number) => {
   }
 };
 
-// Preload critical images
+// Preload critical images with AVIF, WebP, and JPEG support
 export const preloadCriticalImages = (imageSrcs: string[]) => {
   if (typeof window === 'undefined') return;
 
   imageSrcs.forEach(src => {
-    const optimizedSrc = getOptimizedImageSrc(src);
+    // Preload AVIF (best compression - 30-50% smaller than WebP)
+    const avifLink = document.createElement('link');
+    avifLink.rel = 'preload';
+    avifLink.as = 'image';
+    avifLink.href = getOptimizedImageSrc(src, 'avif');
+    avifLink.type = 'image/avif';
+    avifLink.fetchPriority = 'high';
+    document.head.appendChild(avifLink);
     
+    // Preload WebP (fallback)
     const webpLink = document.createElement('link');
     webpLink.rel = 'preload';
     webpLink.as = 'image';
-    webpLink.href = optimizedSrc;
+    webpLink.href = getOptimizedImageSrc(src, 'webp');
     webpLink.type = 'image/webp';
+    document.head.appendChild(webpLink);
     
+    // Preload JPEG (universal fallback)
     const fallbackLink = document.createElement('link');
     fallbackLink.rel = 'preload';
     fallbackLink.as = 'image';
     fallbackLink.href = src;
-    
-    document.head.appendChild(webpLink);
     document.head.appendChild(fallbackLink);
   });
 };
@@ -92,3 +108,33 @@ export const getOptimalQuality = (): number => {
 
   return 80;
 };
+
+/**
+ * Check if AVIF is supported
+ */
+export function isAVIFSupported(): Promise<boolean> {
+  if (typeof window === 'undefined') return Promise.resolve(false);
+  
+  return new Promise((resolve) => {
+    const avif = new Image();
+    avif.onload = avif.onerror = () => {
+      resolve(avif.height === 2);
+    };
+    avif.src = 'data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADybWV0YQAAAAAAAAAoaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAGxpYmF2aWYAAAAADnBpdG0AAAAAAAEAAAAeaWxvYwAAAABEAAABAAEAAAABAAABGgAAABEAAAAoaWluZgAAAAAAAQAAABppbmZlAgAAAAABAABhdjAxQ29sb3IAAAAAamlwcnAAAABLaXBjbwAAABRpc3BlAAAAAAAAAAEAAAABAAAAEHBpeGkAAAAAAwgICAAAAAxhdjFDgQ0MAAAAABNjb2xybmNseAABAA0ABoAAAAAXaXBtYQAAAAAAAAABAAEEAQKDBAAAAB9tZGF0EgAKCBgABogQEDQgMgkQAAAAB8dSLfI=';
+  });
+}
+
+/**
+ * Check if WebP is supported
+ */
+export function isWebPSupported(): Promise<boolean> {
+  if (typeof window === 'undefined') return Promise.resolve(false);
+  
+  return new Promise((resolve) => {
+    const webP = new Image();
+    webP.onload = webP.onerror = () => {
+      resolve(webP.height === 2);
+    };
+    webP.src = 'data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACyAgCdASoCAAIALmk0mk0iIiIiIgBoSygABc6WWgAA/veff/0PP8bA//LwYAAA';
+  });
+}
