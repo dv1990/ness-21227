@@ -289,19 +289,13 @@ ${Object.entries(selectedAppliances)
                   <div className="grid gap-8">
                     <div className="space-y-3">
                       <Label className="text-base font-medium">Where is your home?</Label>
-                      <Select value={config.location} onValueChange={(value) => setConfig(prev => ({...prev, location: value}))}>
-                        <SelectTrigger className="h-14 rounded-2xl border-border/50 bg-transparent">
-                          <SelectValue placeholder="Choose your city" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="mumbai">Mumbai, Maharashtra</SelectItem>
-                          <SelectItem value="delhi">Delhi, NCR</SelectItem>
-                          <SelectItem value="bangalore">Bangalore, Karnataka</SelectItem>
-                          <SelectItem value="chennai">Chennai, Tamil Nadu</SelectItem>
-                          <SelectItem value="hyderabad">Hyderabad, Telangana</SelectItem>
-                          <SelectItem value="pune">Pune, Maharashtra</SelectItem>
-                        </SelectContent>
-                      </Select>
+                      <Input 
+                        type="text" 
+                        placeholder="Enter your city"
+                        className="h-14 rounded-2xl border-border/50 bg-transparent text-base"
+                        value={config.location} 
+                        onChange={(e) => setConfig(prev => ({...prev, location: e.target.value}))}
+                      />
                     </div>
                     
                     <div className="space-y-3">
