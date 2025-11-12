@@ -5,6 +5,8 @@ import "./index.css";
 import "./styles/hero-optimized.css";
 import "./styles/accessibility.css";
 
+// Force rebuild to clear React dispatcher cache
+
 const rootElement = document.getElementById("root");
 if (rootElement) {
   createRoot(rootElement).render(
