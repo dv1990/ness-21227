@@ -104,6 +104,23 @@ const Index = () => {
   return <Layout>
       {/* 1. HERO SECTION - 4 Stage Parallax */}
       <section ref={heroRef} className="relative w-full overflow-hidden" style={{ height: '400vh' }}>
+        {/* Scroll Snap Points - One per stage */}
+        <div className="absolute inset-0 pointer-events-none">
+          {[0, 1, 2, 3].map((stage) => (
+            <div
+              key={stage}
+              className="scroll-snap-align-start"
+              style={{
+                position: 'absolute',
+                top: `${stage * 100}vh`,
+                height: '100vh',
+                width: '100%',
+                scrollSnapAlign: 'start'
+              }}
+            />
+          ))}
+        </div>
+
         {/* Fixed Container */}
         <div className="sticky top-0 h-screen w-full">
           {/* Full-screen Product Image Background */}
