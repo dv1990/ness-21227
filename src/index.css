@@ -5,12 +5,6 @@
 /* NESS Energy Design System - Apple/Sonos Inspired */
 
 @layer base {
-  /* Smooth scroll snap for parallax stages */
-  html {
-    scroll-behavior: smooth;
-    scroll-snap-type: y proximity;
-  }
-
   :root {
     /* Premium Typography Scale */
     --font-system: "SF Pro Display", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
