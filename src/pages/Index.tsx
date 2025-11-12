@@ -34,7 +34,9 @@ const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
+  const [heroStage, setHeroStage] = useState(0);
   const nextSectionRef = useRef<HTMLElement>(null);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   // Testimonial auto-rotation
   useEffect(() => {
@@ -44,21 +46,29 @@ const Index = () => {
     return () => clearInterval(timer);
   }, []);
 
-  // Smooth parallax scroll tracking with RAF
+  // Parallax scroll tracking with stage transitions
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
-      if (!ticking && window.scrollY < 800) {
+      if (!ticking) {
         window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
+          const scrollPos = window.scrollY;
+          setScrollY(scrollPos);
+          
+          // Calculate hero stage based on scroll position
+          if (heroRef.current) {
+            const heroHeight = heroRef.current.offsetHeight;
+            const stageHeight = heroHeight / 4;
+            const stage = Math.min(3, Math.floor(scrollPos / stageHeight));
+            setHeroStage(stage);
+          }
+          
           ticking = false;
         });
         ticking = true;
       }
     };
-    window.addEventListener('scroll', handleScroll, {
-      passive: true
-    });
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -74,64 +84,113 @@ const Index = () => {
       behavior: 'smooth'
     });
   };
+  // Hero stage content
+  const stageContent = [
+    {
+      main: <>Life. <span className="text-energy">Uninterrupted.</span></>,
+      sub: "Because your home shouldn't pause just because the grid does."
+    },
+    {
+      main: <>You make the <span className="text-energy">power.</span></>,
+      sub: "Why depend on someone else to generate it? The sun gives it freely — but most homes let it slip away."
+    },
+    {
+      main: <>Your <span className="text-energy">energy.</span> Stored. Ready. Yours.</>,
+      sub: "There's nothing more reassuring than storing the power you create."
+    },
+    {
+      main: <>Meet <span className="text-energy">NESS</span>, a Home ESS solution Your partner in <span className="text-energy">energy</span> freedom.</>,
+      sub: "Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone."
+    }
+  ];
+
   return <Layout>
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
-        {/* Full-screen Product Image Background */}
-        <div className="absolute inset-0 w-full h-full">
-          {/* Product Image - Static confidence */}
+      {/* 1. HERO SECTION - 4 Stage Parallax */}
+      <section ref={heroRef} className="relative w-full overflow-hidden" style={{ height: '400vh' }}>
+        {/* Fixed Container */}
+        <div className="sticky top-0 h-screen w-full">
+          {/* Full-screen Product Image Background */}
           <div className="absolute inset-0 w-full h-full">
-            <img src={nessHeroProduct} alt="NESS home battery — reliable backup power for modern Indian homes" className="w-full h-full object-cover object-center" loading="eager" width={1920} height={1080} fetchPriority="high" />
+            {/* Product Image - Static confidence */}
+            <div className="absolute inset-0 w-full h-full">
+              <img 
+                src={nessHeroProduct} 
+                alt="NESS home battery — reliable backup power for modern Indian homes" 
+                className="w-full h-full object-cover object-center" 
+                loading="eager" 
+                width={1920} 
+                height={1080} 
+                fetchPriority="high"
+                style={{ transform: `translate3d(0, ${scrollY * 0.05}px, 0)` }}
+              />
+            </div>
+
+            {/* Left-to-right gradient - product fully visible on right */}
+            <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 via-40% to-transparent" />
           </div>
 
-          {/* Left-to-right gradient - product fully visible on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 via-40% to-transparent" />
-        </div>
+          {/* Text Content Overlaid - Stage-based */}
+          <div className="relative z-10 h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16">
+            <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
+              {stageContent.map((content, index) => (
+                <div
+                  key={index}
+                  className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-8 md:left-16 max-w-3xl transition-all duration-700 ease-out"
+                  style={{
+                    opacity: heroStage === index ? 1 : 0,
+                    transform: `translate3d(0, ${heroStage === index ? '-50%' : heroStage > index ? '-60%' : '-40%'}, 0)`,
+                    pointerEvents: heroStage === index ? 'auto' : 'none'
+                  }}
+                >
+                  {/* Headline */}
+                  <h1 className="font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl mb-6 sm:mb-8">
+                    {content.main}
+                  </h1>
+                  
+                  {/* Subtext */}
+                  <p className="font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 mb-8 sm:mb-10">
+                    {content.sub}
+                  </p>
 
-        {/* Text Content Overlaid - Simplified Jobs-style */}
-        <div className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform" style={{
-        transform: `translate3d(0, ${scrollY * 0.15}px, 0)`
-      }}>
-          <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              Life.
-              <br />
-              <span className="text-energy">Uninterrupted.</span>
-            </h1>
-            
-            {/* Subtext - Cut by 70%, one powerful line */}
-            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
-            </p>
-
-            {/* CTA - Benefit-focused, no subtext clutter */}
-            <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <Link to="/residential" className="inline-block group">
-                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
-                  <span className="flex items-center justify-center">
-                    Never Worry About Power Again
-                    <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
-                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                    </Suspense>
-                  </span>
-                </Button>
-              </Link>
+                  {/* CTA - Only visible in Stage 4 */}
+                  {index === 3 && (
+                    <div className="pt-4 sm:pt-6">
+                      <Link to="/residential" className="inline-block group">
+                        <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
+                          <span className="flex items-center justify-center">
+                            Never Worry About Power Again
+                            <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
+                              <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                            </Suspense>
+                          </span>
+                        </Button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
-        </div>
 
-        {/* Enhanced Scroll Indicator with interaction */}
-        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
-          <div className="relative">
-            <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
-              <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
+          {/* Enhanced Scroll Indicator */}
+          <button 
+            onClick={scrollToNext} 
+            className={cn(
+              "absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6",
+              isVisible && heroStage === 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}
+            aria-label="Scroll to next section"
+          >
+            <div className="relative">
+              <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
+                <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
+              </div>
+              <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
+                <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
+              </Suspense>
             </div>
-            <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
-              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
-            </Suspense>
-          </div>
-        </button>
+          </button>
+        </div>
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
