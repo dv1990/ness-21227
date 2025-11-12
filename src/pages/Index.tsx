@@ -55,13 +55,10 @@ const Index = () => {
           const scrollPos = window.scrollY;
           setScrollY(scrollPos);
           
-          // Calculate hero stage based on scroll position
-          if (heroRef.current) {
-            const heroHeight = heroRef.current.offsetHeight;
-            const stageHeight = heroHeight / 4;
-            const stage = Math.min(3, Math.floor(scrollPos / stageHeight));
-            setHeroStage(stage);
-          }
+          // Calculate hero stage based on viewport height (each stage = 1 viewport)
+          const viewportHeight = window.innerHeight;
+          const stage = Math.min(3, Math.floor(scrollPos / viewportHeight));
+          setHeroStage(stage);
           
           ticking = false;
         });
@@ -119,8 +116,7 @@ const Index = () => {
                 className="w-full h-full object-cover object-center" 
                 loading="eager" 
                 width={1920} 
-                height={1080} 
-                fetchPriority="high"
+                height={1080}
                 style={{ transform: `translate3d(0, ${scrollY * 0.05}px, 0)` }}
               />
             </div>
@@ -135,11 +131,12 @@ const Index = () => {
               {stageContent.map((content, index) => (
                 <div
                   key={index}
-                  className="absolute top-1/2 -translate-y-1/2 left-4 sm:left-8 md:left-16 max-w-3xl transition-all duration-700 ease-out"
+                  className="absolute top-1/2 left-4 sm:left-8 md:left-16 max-w-3xl transition-all duration-1000 ease-in-out"
                   style={{
                     opacity: heroStage === index ? 1 : 0,
-                    transform: `translate3d(0, ${heroStage === index ? '-50%' : heroStage > index ? '-60%' : '-40%'}, 0)`,
-                    pointerEvents: heroStage === index ? 'auto' : 'none'
+                    transform: `translateY(${heroStage === index ? '-50%' : heroStage > index ? 'calc(-50% - 30px)' : 'calc(-50% + 30px)'})`,
+                    pointerEvents: heroStage === index ? 'auto' : 'none',
+                    visibility: Math.abs(heroStage - index) > 1 ? 'hidden' : 'visible'
                   }}
                 >
                   {/* Headline */}
