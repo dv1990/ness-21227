@@ -55,10 +55,16 @@ const Index = () => {
           const scrollPos = window.scrollY;
           setScrollY(scrollPos);
           
-          // Calculate hero stage based on viewport height (each stage = 1 viewport)
-          const viewportHeight = window.innerHeight;
-          const stage = Math.min(3, Math.floor(scrollPos / viewportHeight));
-          setHeroStage(stage);
+          // Calculate hero stage based on hero section's position and viewport height
+          if (heroRef.current) {
+            const heroTop = heroRef.current.offsetTop;
+            const relativeScroll = scrollPos - heroTop;
+            const viewportHeight = window.innerHeight;
+            
+            // Each stage = 1 viewport height
+            const stage = Math.max(0, Math.min(3, Math.floor(relativeScroll / viewportHeight)));
+            setHeroStage(stage);
+          }
           
           ticking = false;
         });
@@ -66,6 +72,7 @@ const Index = () => {
       }
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll(); // Initial calculation
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
