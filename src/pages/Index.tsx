@@ -32,9 +32,41 @@ const HomeownerConfigurator = lazy(() => import("@/components/homeowner/Homeowne
 })));
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [currentHeroText, setCurrentHeroText] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const nextSectionRef = useRef<HTMLElement>(null);
+
+  const heroTexts = [
+    {
+      headline: "Life.",
+      highlight: "Uninterrupted.",
+      subtext: "NESS - Your home battery that keeps your life running."
+    },
+    {
+      headline: "Power.",
+      highlight: "Redefined.",
+      subtext: "NESS - Smart energy storage that adapts to your lifestyle."
+    },
+    {
+      headline: "Energy.",
+      highlight: "On Demand.",
+      subtext: "NESS - Instant backup power when you need it most."
+    },
+    {
+      headline: "Future.",
+      highlight: "Ready.",
+      subtext: "NESS - The battery system built for tomorrow's grid."
+    }
+  ];
+
+  // Hero text rotation
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeroText(prev => (prev + 1) % heroTexts.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, []);
 
   // Testimonial auto-rotation
   useEffect(() => {
@@ -93,17 +125,51 @@ const Index = () => {
         transform: `translate3d(0, ${scrollY * 0.15}px, 0)`
       }}>
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              Life.
-              <br />
-              <span className="text-energy">Uninterrupted.</span>
-            </h1>
+            {/* Headline - Jobs-style with parallax text rotation */}
+            <div className="relative min-h-[160px] sm:min-h-[240px] md:min-h-[280px] lg:min-h-[320px]">
+              {heroTexts.map((text, index) => (
+                <h1
+                  key={index}
+                  className={cn(
+                    "font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl absolute inset-0 transition-all duration-1000 ease-in-out",
+                    currentHeroText === index
+                      ? "opacity-100 translate-y-0"
+                      : index < currentHeroText
+                      ? "opacity-0 -translate-y-8 pointer-events-none"
+                      : "opacity-0 translate-y-8 pointer-events-none"
+                  )}
+                  style={{
+                    transform: currentHeroText === index ? `translate3d(0, ${scrollY * 0.05}px, 0)` : undefined
+                  }}
+                >
+                  {text.headline}
+                  <br />
+                  <span className="text-energy">{text.highlight}</span>
+                </h1>
+              ))}
+            </div>
             
-            {/* Subtext - Cut by 70%, one powerful line */}
-            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
-            </p>
+            {/* Subtext - Rotating based on current hero text */}
+            <div className="relative min-h-[80px] sm:min-h-[100px]">
+              {heroTexts.map((text, index) => (
+                <p
+                  key={index}
+                  className={cn(
+                    "font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 absolute inset-0 transition-all duration-1000 ease-in-out delay-150",
+                    currentHeroText === index
+                      ? "opacity-100 translate-y-0"
+                      : index < currentHeroText
+                      ? "opacity-0 -translate-y-4 pointer-events-none"
+                      : "opacity-0 translate-y-4 pointer-events-none"
+                  )}
+                  style={{
+                    transform: currentHeroText === index ? `translate3d(0, ${scrollY * 0.08}px, 0)` : undefined
+                  }}
+                >
+                  <span className="font-semibold text-zinc-50">NESS</span> - {text.subtext}
+                </p>
+              ))}
+            </div>
 
             {/* CTA - Benefit-focused, no subtext clutter */}
             <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
