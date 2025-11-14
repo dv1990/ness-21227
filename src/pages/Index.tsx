@@ -15,7 +15,6 @@ import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
 import { testimonials } from "@/data/testimonials";
 
-// Lazy load icons to reduce initial bundle size
 const CheckCircle2 = lazy(() => import("lucide-react").then(m => ({
   default: m.CheckCircle2
 })));
@@ -26,7 +25,6 @@ const ArrowRight = lazy(() => import("lucide-react").then(m => ({
   default: m.ArrowRight
 })));
 
-// Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSections").then(m => ({
   default: m.BelowFoldSections
 })));
@@ -34,7 +32,6 @@ const HomeownerConfigurator = lazy(() => import("@/components/homeowner/Homeowne
   default: m.HomeownerConfigurator
 })));
 
-// Panel configuration for Mary Wells-style hero
 const panels = [
   {
     id: 1,
@@ -83,7 +80,6 @@ const panels = [
   }
 ];
 
-// Utility to apply brand green color to specific words
 const applyBrandColor = (text: string, highlights: string[]) => {
   const words = text.split(' ');
   return words.map((word, i) => {
@@ -109,428 +105,321 @@ const Index = () => {
   const heroRef = useRef<HTMLElement>(null);
   const nextSectionRef = useRef<HTMLElement>(null);
 
-  // Auto-rotate testimonials
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(interval);
   }, []);
 
-  // Parallax scroll tracking with RAF for 60fps
   useEffect(() => {
-    let rafId: number;
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        rafId = requestAnimationFrame(() => {
-          const heroSection = heroRef.current;
-          if (!heroSection) return;
+      requestAnimationFrame(() => {
+        if (!heroRef.current) return;
 
-          const rect = heroSection.getBoundingClientRect();
-          const heroHeight = heroSection.offsetHeight;
-          const viewportHeight = window.innerHeight;
+        const heroRect = heroRef.current.getBoundingClientRect();
+        const heroHeight = heroRect.height;
+        const viewportHeight = window.innerHeight;
+        const scrolled = -heroRect.top;
+        const maxScroll = heroHeight - viewportHeight;
 
-          // Calculate scroll progress through hero (0-1)
-          const scrolled = Math.max(0, -rect.top);
-          const maxScroll = heroHeight - viewportHeight;
-          const progress = Math.max(0, Math.min(1, scrolled / maxScroll));
+        const progress = Math.max(0, Math.min(1, scrolled / maxScroll));
+        setScrollProgress(progress);
 
-          // Determine current panel (0-3)
-          const panel = Math.min(Math.floor(progress * 4), 3);
-          const panelProg = (progress * 4) % 1;
+        const panelIndex = Math.floor(progress * panels.length);
+        const panelStart = panelIndex / panels.length;
+        const panelEnd = (panelIndex + 1) / panels.length;
+        const localProgress = (progress - panelStart) / (panelEnd - panelStart);
 
-          setScrollProgress(progress);
-          setCurrentPanel(panel);
-          setPanelProgress(panelProg);
-
-          ticking = false;
-        });
-        ticking = true;
-      }
+        setCurrentPanel(Math.min(panelIndex, panels.length - 1));
+        setPanelProgress(localProgress);
+      });
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial calculation
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Calculate panel opacity for smooth transitions
-  const calculatePanelOpacity = (panelIndex: number) => {
-    const globalProgress = scrollProgress * 4;
-    const distance = Math.abs(globalProgress - panelIndex);
-    
-    if (distance > 1) return 0;
-    return 1 - distance;
+  const calculatePanelOpacity = (panelId: number): number => {
+    const panelIndex = panelId - 1;
+    if (currentPanel === panelIndex) {
+      return 1;
+    } else if (currentPanel === panelIndex - 1) {
+      return panelProgress;
+    } else if (currentPanel === panelIndex + 1) {
+      return 1 - panelProgress;
+    }
+    return 0;
   };
 
-  // Smooth scroll to next section
   const scrollToNext = () => {
-    nextSectionRef.current?.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
+    nextSectionRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
     <Layout>
-      {/* Mary Wells Parallax Hero - 400vh total */}
-      <section 
+      <section
         ref={heroRef}
         className="relative h-[400vh] w-full"
-        aria-label="Interactive story: Life with NESS battery"
       >
-        {/* Sticky container for all panels */}
         <div className="sticky top-0 h-screen w-full overflow-hidden">
-          {panels.map((panel, index) => {
-            const opacity = calculatePanelOpacity(index);
-            const isActive = currentPanel === index;
-            
-            return (
+          {panels.map((panel) => (
+            <div
+              key={panel.id}
+              className="absolute inset-0 transition-opacity duration-700 ease-out"
+              style={{
+                opacity: calculatePanelOpacity(panel.id),
+                pointerEvents: calculatePanelOpacity(panel.id) > 0.5 ? 'auto' : 'none'
+              }}
+            >
               <div
-                key={panel.id}
-                className="absolute inset-0 transition-opacity duration-500"
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 ease-out"
                 style={{
-                  opacity,
-                  pointerEvents: isActive ? 'auto' : 'none',
-                  willChange: 'opacity'
+                  backgroundImage: `url(${panel.bgImage})`,
+                  transform: `translateY(${scrollProgress * 100 * panel.bgSpeed}px) scale(${1 + scrollProgress * 0.1})`
                 }}
-              >
-                {/* Background Layer - slowest parallax */}
+              />
+              <div className={cn("absolute inset-0 bg-gradient-to-b", panel.gradient)} />
+
+              <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
                 <div 
-                  className="absolute inset-0 will-change-transform"
+                  className="max-w-4xl transform transition-all duration-1000"
                   style={{
-                    transform: `translate3d(0, ${scrollProgress * panel.bgSpeed * 100}px, 0)`,
+                    opacity: calculatePanelOpacity(panel.id),
+                    transform: `translateY(${calculatePanelOpacity(panel.id) < 1 ? '20px' : '0'})`
                   }}
                 >
-                  <WebPImage
-                    src={panel.bgImage}
-                    alt={`Panel ${panel.id} background`}
-                    className="w-full h-full object-cover scale-110"
-                    loading={index === 0 ? "eager" : "lazy"}
-                    fetchPriority={index === 0 ? "high" : "low"}
-                  />
-                  <div className={cn(
-                    "absolute inset-0 bg-gradient-to-b",
-                    panel.gradient
-                  )} />
+                  <h1 className="mb-6 text-5xl font-normal tracking-tight text-pearl md:text-7xl lg:text-8xl">
+                    {panel.content.highlight 
+                      ? applyBrandColor(panel.content.main, [panel.content.highlight, panel.content.highlight2].filter(Boolean) as string[])
+                      : panel.content.main
+                    }
+                  </h1>
+                  <p className="mx-auto max-w-2xl text-lg text-silver md:text-xl lg:text-2xl">
+                    {panel.content.subtext}
+                  </p>
+
+                  {panel.id === 4 && (
+                    <div 
+                      className="mt-12 opacity-0 transition-opacity duration-1000 delay-500"
+                      style={{
+                        opacity: calculatePanelOpacity(4) > 0.8 ? 1 : 0
+                      }}
+                    >
+                      <Button
+                        asChild
+                        size="lg"
+                        className="bg-energy hover:bg-energy-bright text-charcoal font-medium px-8 py-6 text-lg rounded-full shadow-[0_0_30px_rgba(139,195,74,0.3)] hover:shadow-[0_0_40px_rgba(139,195,74,0.5)] transition-all duration-300"
+                      >
+                        <Link to="/homeowners">Discover Your System</Link>
+                      </Button>
+                    </div>
+                  )}
                 </div>
 
-                {/* Text Content Layer - medium parallax */}
-                <div 
-                  className="relative z-10 h-full flex items-center justify-center will-change-transform"
-                  style={{
-                    transform: `translate3d(0, ${scrollProgress * 0.6 * 100}px, 0)`,
-                  }}
-                >
-                  <div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
-                    {/* Panel-specific content */}
-                    {index === 0 && (
-                      <div className="space-y-6 animate-fade-up">
-                        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl font-light tracking-tight">
-                          <span className="block text-pearl mb-2">Life.</span>
-                          <span 
-                            className="block text-energy"
-                            style={{ 
-                              textShadow: '0 0 40px hsl(var(--energy-core) / 0.4)',
-                              animation: 'fade-up 0.8s ease-out 0.3s both'
-                            }}
-                          >
-                            Uninterrupted.
-                          </span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-pearl/80 font-light max-w-3xl mx-auto">
-                          Because your home shouldn't pause just because the grid does.
-                        </p>
-                      </div>
-                    )}
-
-                    {index === 1 && (
-                      <div className="space-y-6 animate-fade-up">
-                        <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-pearl">
-                          {applyBrandColor("You make the power.", ["power"])}
-                        </h2>
-                        <p className="text-xl md:text-2xl text-pearl/80 font-light max-w-3xl mx-auto">
-                          Why depend on someone else to generate it? The sun gives it freely — but most homes let it slip away.
-                        </p>
-                      </div>
-                    )}
-
-                    {index === 2 && (
-                      <div className="space-y-6">
-                        <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-pearl space-y-2">
-                          <span className="block animate-fade-up" style={{ animationDelay: '0ms' }}>
-                            {applyBrandColor("Your energy.", ["energy"])}
-                          </span>
-                          <span className="block animate-fade-up" style={{ animationDelay: '200ms' }}>
-                            Stored.
-                          </span>
-                          <span className="block animate-fade-up" style={{ animationDelay: '400ms' }}>
-                            Ready.
-                          </span>
-                          <span className="block animate-fade-up" style={{ animationDelay: '600ms' }}>
-                            Yours.
-                          </span>
-                        </h2>
-                        <p className="text-xl md:text-2xl text-pearl/80 font-light max-w-3xl mx-auto animate-fade-up" style={{ animationDelay: '800ms' }}>
-                          {applyBrandColor("There's nothing more reassuring than storing the power you create.", ["power"])}
-                        </p>
-                      </div>
-                    )}
-
-                    {index === 3 && (
-                      <div className="space-y-8 animate-fade-up">
-                        <h2 className="font-display text-4xl md:text-6xl lg:text-7xl font-light tracking-tight text-pearl">
-                          Meet {applyBrandColor("NESS,", ["NESS"])}
-                        </h2>
-                        <p className="text-xl md:text-2xl text-pearl/80 font-light max-w-3xl mx-auto" style={{ letterSpacing: '0.02em' }}>
-                          Your partner in energy freedom. Elegantly storing the solar energy you'd otherwise lose — so your home stays bright, steady, and yours alone.
-                        </p>
-                        
-                        {/* CTA - Only visible in Panel 4 */}
-                        <div 
-                          className="pt-8 animate-fade-up"
-                          style={{ 
-                            animationDelay: '600ms',
-                            opacity: Math.max(0, (panelProgress - 0.3) / 0.7),
-                            transform: `translateY(${Math.max(0, (1 - panelProgress)) * 20}px)`
-                          }}
-                        >
-                          <Button 
-                            asChild
-                            size="lg"
-                            className="btn-premium text-lg px-8 py-6 bg-energy hover:bg-energy/90 text-charcoal font-medium shadow-elegant"
-                          >
-                            <Link to="/residential">
-                              Never Worry About Power Again
-                              <Suspense fallback={<span className="ml-2">→</span>}>
-                                <ArrowRight className="ml-2 h-5 w-5" />
-                              </Suspense>
-                            </Link>
-                          </Button>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                {/* Scroll indicator - only on first panel */}
-                {index === 0 && opacity > 0.5 && (
+                {panel.id < 4 && (
                   <button
                     onClick={scrollToNext}
-                    className="absolute bottom-12 left-1/2 -translate-x-1/2 z-20 text-pearl/60 hover:text-pearl transition-colors animate-bounce"
+                    className="absolute bottom-12 left-1/2 -translate-x-1/2 text-pearl/60 hover:text-pearl transition-colors duration-300"
                     aria-label="Scroll to next section"
                   >
-                    <Suspense fallback={<div className="w-8 h-8" />}>
-                      <ChevronDown className="w-8 h-8" />
+                    <Suspense fallback={<div className="h-8 w-8" />}>
+                      <ChevronDown className="h-8 w-8 animate-bounce" />
                     </Suspense>
                   </button>
                 )}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 
-      {/* Built to Last - First section after hero */}
-      <section ref={nextSectionRef} className="relative py-24 bg-background">
-        <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="text-center mb-16">
-            <h2 className="font-display text-4xl md:text-5xl font-light mb-6">
-              Built to Last a <span className="text-energy">Lifetime</span>
+      <section
+        ref={nextSectionRef}
+        className="relative bg-pearl py-24"
+      >
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-3xl text-center">
+            <h2 className="mb-6 text-4xl font-normal text-charcoal md:text-5xl">
+              Built to Last
             </h2>
-            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              While others design for obsolescence, we engineer for permanence. 
-              NESS isn't just a battery — it's a commitment to your energy independence.
+            <p className="mb-12 text-lg text-graphite md:text-xl">
+              NESS batteries are engineered for longevity, designed to perform
+              reliably for decades, not just years.
             </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "25-Year Warranty",
-                description: "Not marketing. Not conditional. A genuine promise backed by engineering excellence."
-              },
-              {
-                title: "Field-Serviceable Design",
-                description: "Every component accessible. Every part replaceable. Your investment protected for decades."
-              },
-              {
-                title: "Made for Indian Conditions",
-                description: "Designed and tested for extreme heat, humidity, and voltage fluctuations that others ignore."
-              }
-            ].map((feature, idx) => (
-              <div key={idx} className="glass-premium p-8 rounded-2xl">
-                <div className="mb-4">
-                  <Suspense fallback={<div className="w-12 h-12 bg-energy/20 rounded-full" />}>
-                    <CheckCircle2 className="w-12 h-12 text-energy" />
-                  </Suspense>
+            <div className="grid gap-8 md:grid-cols-3">
+              {[
+                { title: "15+ Years", desc: "Warranty coverage" },
+                { title: "99.5%", desc: "Round-trip efficiency" },
+                { title: "100%", desc: "Depth of discharge" }
+              ].map((stat, i) => (
+                <div
+                  key={i}
+                  className="rounded-2xl bg-white p-8 shadow-lg transition-transform hover:scale-105"
+                >
+                  <div className="mb-2 text-3xl font-semibold text-energy">
+                    {stat.title}
+                  </div>
+                  <div className="text-graphite">{stat.desc}</div>
                 </div>
-                <h3 className="text-xl font-medium mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Product Spotlight: Residential */}
-      <LazySection
-        fallback={<ProductSectionSkeleton />}
-        rootMargin="100px"
-      >
-        <section className="py-24 bg-muted/30">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <ResponsiveImage
-                src={nessPodProduct}
-                alt="NESS Powerwall - Home battery system"
-                className="rounded-2xl shadow-2xl"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-            <div className="space-y-6">
-              <h2 className="font-display text-4xl md:text-5xl font-light">
-                NESS <span className="text-energy">Powerwall</span>
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                The heart of your home's energy system. Modular, expandable, and built to last 25 years.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  "5.12 kWh per module, scale up to 40+ kWh",
-                  "True 25-year warranty on all components",
-                  "Works with any solar inverter",
-                  "Field-serviceable design"
-                ].map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <Suspense fallback={<span className="w-5 h-5 rounded-full bg-energy/20" />}>
-                      <CheckCircle2 className="w-5 h-5 text-energy mt-1 flex-shrink-0" />
+      <LazySection rootMargin="200px">
+        <section className="bg-charcoal py-24 text-pearl">
+          <div className="container mx-auto px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div>
+                <h2 className="mb-6 text-4xl font-normal md:text-5xl">
+                  Product Spotlight:{" "}
+                  <span className="text-energy">Residential</span>
+                </h2>
+                <p className="mb-8 text-lg text-silver">
+                  The NESS Pod is perfect for homes looking to store solar
+                  energy and maintain power during outages.
+                </p>
+                <ul className="mb-8 space-y-4">
+                  {[
+                    "5.12 kWh per unit, stackable",
+                    "Seamless grid integration",
+                    "Smart energy management",
+                    "Silent operation"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <Suspense fallback={<div className="h-5 w-5 mt-0.5" />}>
+                        <CheckCircle2 className="h-5 w-5 mt-0.5 text-energy flex-shrink-0" />
+                      </Suspense>
+                      <span>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-energy text-energy hover:bg-energy hover:text-charcoal"
+                >
+                  <Link to="/products/ness-pod">
+                    Learn More{" "}
+                    <Suspense fallback={<span className="ml-2">→</span>}>
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Suspense>
-                    <span className="text-muted-foreground">{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button asChild size="lg" className="btn-premium">
-                <Link to="/residential">
-                  Explore Residential Solutions
-                  <Suspense fallback={<span className="ml-2">→</span>}>
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Suspense>
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-        </section>
-      </LazySection>
-
-      {/* Product Spotlight: Commercial */}
-      <LazySection
-        fallback={<ProductSectionSkeleton />}
-        rootMargin="100px"
-      >
-        <section className="py-24 bg-background">
-          <div className="max-w-7xl mx-auto px-6 lg:px-12">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 lg:order-2">
-              <h2 className="font-display text-4xl md:text-5xl font-light">
-                NESS <span className="text-energy">Pod</span>
-              </h2>
-              <p className="text-xl text-muted-foreground">
-                Commercial-grade energy storage that pays for itself. Designed for businesses that refuse to compromise.
-              </p>
-              <ul className="space-y-4">
-                {[
-                  "100 kWh to multi-MWh configurations",
-                  "Peak shaving saves 40-60% on electricity bills",
-                  "Remote monitoring and predictive maintenance",
-                  "ISO 9001 certified manufacturing"
-                ].map((point, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <Suspense fallback={<span className="w-5 h-5 rounded-full bg-energy/20" />}>
-                      <CheckCircle2 className="w-5 h-5 text-energy mt-1 flex-shrink-0" />
-                    </Suspense>
-                    <span className="text-muted-foreground">{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <Button asChild size="lg" className="btn-premium">
-                <Link to="/commercial-enhanced">
-                  Explore Commercial Solutions
-                  <Suspense fallback={<span className="ml-2">→</span>}>
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Suspense>
-                </Link>
-              </Button>
-            </div>
-            <div className="lg:order-1">
-              <ResponsiveImage
-                src={nessProProduct}
-                alt="NESS Pod - Commercial battery system"
-                className="rounded-2xl shadow-2xl"
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-            </div>
-          </div>
-        </div>
-        </section>
-      </LazySection>
-
-      {/* Customer Testimonials */}
-      <section className="py-24 bg-muted/30">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="font-display text-3xl md:text-4xl font-light mb-12">
-            What Our Customers Say
-          </h2>
-          <div className="relative min-h-[200px]">
-            {testimonials.map((testimonial, idx) => (
-              <div
-                key={idx}
-                className={cn(
-                  "absolute inset-0 transition-opacity duration-500",
-                  idx === currentTestimonial ? "opacity-100" : "opacity-0 pointer-events-none"
-                )}
-              >
-                <blockquote className="text-xl md:text-2xl font-light text-muted-foreground mb-6">
-                  "{testimonial.quote}"
-                </blockquote>
-                <cite className="not-italic">
-                  <div className="font-medium">{testimonial.name}</div>
-                  <div className="text-sm text-muted-foreground">{testimonial.location}</div>
-                </cite>
+                  </Link>
+                </Button>
               </div>
-            ))}
+              <div className="relative">
+                <Suspense fallback={<ProductSectionSkeleton />}>
+                  <ResponsiveImage
+                    src={nessPodProduct}
+                    alt="NESS Pod residential battery system"
+                    className="w-full rounded-2xl"
+                    loading="lazy"
+                  />
+                </Suspense>
+              </div>
+            </div>
           </div>
-          <div className="flex justify-center gap-2 mt-8">
-            {testimonials.map((_, idx) => (
-              <button
-                key={idx}
-                onClick={() => setCurrentTestimonial(idx)}
-                className={cn(
-                  "w-2 h-2 rounded-full transition-all",
-                  idx === currentTestimonial ? "bg-energy w-8" : "bg-muted-foreground/30"
-                )}
-                aria-label={`View testimonial ${idx + 1}`}
-              />
-            ))}
+        </section>
+      </LazySection>
+
+      <LazySection rootMargin="200px">
+        <section className="bg-gradient-to-b from-pearl to-white py-24">
+          <div className="container mx-auto px-6">
+            <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div className="order-2 lg:order-1 relative">
+                <Suspense fallback={<ProductSectionSkeleton />}>
+                  <ResponsiveImage
+                    src={nessProProduct}
+                    alt="NESS Pro commercial battery system"
+                    className="w-full rounded-2xl"
+                    loading="lazy"
+                  />
+                </Suspense>
+              </div>
+              <div className="order-1 lg:order-2">
+                <h2 className="mb-6 text-4xl font-normal text-charcoal md:text-5xl">
+                  Product Spotlight:{" "}
+                  <span className="text-energy">Commercial</span>
+                </h2>
+                <p className="mb-8 text-lg text-graphite">
+                  The NESS Pro is built for businesses that need reliable,
+                  scalable energy storage.
+                </p>
+                <ul className="mb-8 space-y-4">
+                  {[
+                    "51.2 kWh per unit, highly scalable",
+                    "Peak shaving & demand management",
+                    "Remote monitoring & control",
+                    "Ruggedized for harsh conditions"
+                  ].map((feature, i) => (
+                    <li key={i} className="flex items-start gap-3">
+                      <Suspense fallback={<div className="h-5 w-5 mt-0.5" />}>
+                        <CheckCircle2 className="h-5 w-5 mt-0.5 text-energy flex-shrink-0" />
+                      </Suspense>
+                      <span className="text-charcoal">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-energy hover:bg-energy-bright text-charcoal"
+                >
+                  <Link to="/products/ness-pro">
+                    Explore NESS Pro{" "}
+                    <Suspense fallback={<span className="ml-2">→</span>}>
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Suspense>
+                  </Link>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
+      <section className="bg-charcoal py-24 text-pearl">
+        <div className="container mx-auto px-6">
+          <div className="mx-auto max-w-4xl text-center">
+            <h2 className="mb-12 text-3xl font-normal md:text-4xl">
+              What Our Customers Say
+            </h2>
+            <div className="relative min-h-[200px]">
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={index}
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-1000",
+                    index === currentTestimonial ? "opacity-100" : "opacity-0"
+                  )}
+                >
+                  <blockquote className="mb-6 text-xl italic text-silver md:text-2xl">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  <cite className="not-italic">
+                    <div className="font-medium text-pearl">
+                      {testimonial.name}
+                    </div>
+                    <div className="text-sm text-silver">
+                      {testimonial.location}
+                    </div>
+                  </cite>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Lazy load below-the-fold sections */}
-      <Suspense fallback={<div className="min-h-screen bg-background" />}>
+      <Suspense fallback={<div className="min-h-[400px] bg-pearl" />}>
         <BelowFoldSections />
       </Suspense>
 
-      {/* Lazy load configurator */}
-      <Suspense fallback={<div className="min-h-screen bg-muted/30" />}>
+      <Suspense fallback={<div className="min-h-[600px] bg-white" />}>
         <HomeownerConfigurator />
       </Suspense>
     </Layout>
