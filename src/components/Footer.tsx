@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 const Footer = () => {
-  return <footer className="bg-foreground text-background border-t border-border/10">
+  return <footer 
+      className="bg-foreground text-background border-t border-border/10"
+      role="contentinfo"
+      aria-label="Site footer"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-12">
           {/* Company Info */}

@@ -93,7 +93,11 @@ export const HomeownerConfigurator = () => {
   };
 
   return (
-    <section id="configurator" className="py-20 md:py-32 relative overflow-hidden">
+    <section 
+      id="configurator" 
+      className="py-20 md:py-32 relative overflow-hidden"
+      aria-labelledby="configurator-heading"
+    >
       {/* Premium Background Layers */}
       <div className="absolute inset-0 bg-gradient-to-b from-muted/20 via-background to-background"></div>
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/5 via-transparent to-transparent"></div>
@@ -124,7 +128,10 @@ export const HomeownerConfigurator = () => {
                     <p className="text-lg sm:text-xl text-muted-foreground/60 font-light">
                       Not sure which system is right for you?
                     </p>
-                    <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight tracking-[-0.03em] text-foreground leading-[0.95]">
+                    <h2 
+                      id="configurator-heading"
+                      className="text-5xl sm:text-6xl md:text-7xl font-extralight tracking-[-0.03em] text-foreground leading-[0.95]"
+                    >
                       Let me help you identify the ideal product
                     </h2>
                   </div>

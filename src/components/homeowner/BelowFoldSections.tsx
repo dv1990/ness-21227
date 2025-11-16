@@ -7,10 +7,16 @@ export const BelowFoldSections = memo(() => {
   return (
     <>
       {/* Why NESS - Refined Trust Section */}
-      <section className="py-32 md:py-48 bg-gradient-to-b from-background to-muted/10">
+      <section 
+        className="py-32 md:py-48 bg-gradient-to-b from-background to-muted/10"
+        aria-labelledby="benefits-heading"
+      >
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-extralight mb-6 tracking-tight">
+            <h2 
+              id="benefits-heading"
+              className="text-4xl md:text-5xl font-extralight mb-6 tracking-tight"
+            >
               Why Homeowners Choose NESS
             </h2>
             <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">

@@ -86,7 +86,6 @@ const NavigationEnhanced = () => {
         fixed top-0 left-0 right-0 z-50 transition-all duration-300
         ${scrolled ? 'bg-background/95 backdrop-blur-xl border-b border-border/20 shadow-lg' : 'bg-background/80 backdrop-blur-sm'}
       `}
-      role="navigation"
       aria-label="Main navigation"
     >
       <div className="container mx-auto max-w-7xl px-6">
