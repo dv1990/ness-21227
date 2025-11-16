@@ -3,6 +3,7 @@ import NavigationEnhanced from "./NavigationEnhanced";
 import SkipLink from "./SkipLink";
 import { MobileStickyCTA } from "./MobileStickyCTA";
 import { PWAInstallPrompt } from "./PWAInstallPrompt";
+import { LoadingSpinner } from "./ui/loading-spinner";
 
 // Lazy load below-the-fold components to reduce initial CSS bundle
 const Footer = lazy(() => import("./Footer"));
@@ -26,7 +27,11 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
       >
         {children}
       </main>
-      <Suspense fallback={<div className="h-20" />}>
+      <Suspense fallback={
+        <div className="h-20 flex items-center justify-center">
+          <LoadingSpinner size="sm" />
+        </div>
+      }>
         <Footer />
       </Suspense>
       <Suspense fallback={null}>

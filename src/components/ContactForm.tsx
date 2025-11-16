@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 interface ContactFormProps {
   type: "homeowner" | "distributor" | "installer";
@@ -13,11 +14,17 @@ interface ContactFormProps {
 const ContactForm = ({ type }: ContactFormProps) => {
   const [formData, setFormData] = useState({});
   const [consent, setConsent] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    // Form submission will be handled by the backend integration
+    setIsSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setIsSubmitting(false);
+    // TODO: Implement actual form submission logic
   };
 
   const renderHomeownerFields = () => (
@@ -265,10 +272,17 @@ const ContactForm = ({ type }: ContactFormProps) => {
       <Button 
         type="submit" 
         className="btn-primary btn-large w-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2" 
-        disabled={!consent}
+        disabled={!consent || isSubmitting}
         aria-label="Submit contact form"
       >
-        Send Message
+        {isSubmitting ? (
+          <span className="flex items-center gap-2">
+            <LoadingSpinner size="sm" label="Submitting..." />
+            Submitting...
+          </span>
+        ) : (
+          'Send Message'
+        )}
       </Button>
 
       <p className="text-xs text-muted-foreground text-center">
