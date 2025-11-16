@@ -79,7 +79,10 @@ const Index = () => {
   };
   return <Layout>
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden">
+      <section 
+        className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden"
+        aria-labelledby="hero-heading"
+      >
         {/* Full-screen Product Image Background */}
         <div className="absolute inset-0 w-full h-full">
           {/* Product Image - Static confidence */}
@@ -97,7 +100,10 @@ const Index = () => {
       }}>
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
             {/* Headline - Jobs-style: Massive spacing, minimal words */}
-            <h1 className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+            <h1 
+              id="hero-heading"
+              className={cn("font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}
+            >
               Life.
               <br />
               <span className="text-energy">Uninterrupted.</span>
@@ -138,9 +144,16 @@ const Index = () => {
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
-      <section ref={nextSectionRef} className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl scroll-mt-16">
+      <section 
+        ref={nextSectionRef} 
+        className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl scroll-mt-16"
+        aria-labelledby="key-benefit-heading"
+      >
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight">
+          <h2 
+            id="key-benefit-heading"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight"
+          >
             Lasts 10+ years.
           </h2>
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-graphite/60 font-light leading-relaxed px-4">While others need replacement every 5 years, NESS is engineered to endure. One investment. A decade of reliability. Zero maintenance.</p>
@@ -149,12 +162,18 @@ const Index = () => {
 
       {/* 3. PRODUCT SPOTLIGHT - NESS Powerwall - Mobile Optimized */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl">
+        <section 
+          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl"
+          aria-labelledby="residential-heading"
+        >
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div>
                 <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Homeowners</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight">
+                <h2 
+                  id="residential-heading"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight"
+                >
                   NESS Powerwall
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl text-pearl/80 mb-6 sm:mb-8 leading-relaxed font-light">
@@ -209,7 +228,10 @@ const Index = () => {
 
       {/* 3B. C&I PRODUCT SPOTLIGHT - NESS Pod - Mobile Optimized */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
-        <section className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl">
+        <section 
+          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl"
+          aria-labelledby="commercial-heading"
+        >
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1 mt-8 md:mt-0">
@@ -218,7 +240,10 @@ const Index = () => {
 
               <div className="order-1 md:order-2">
                 <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Business</p>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-graphite mb-4 sm:mb-6 tracking-tight">
+                <h2 
+                  id="commercial-heading"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-graphite mb-4 sm:mb-6 tracking-tight"
+                >
                   NESS Pod
                 </h2>
                 <p className="text-base sm:text-lg md:text-xl text-graphite/70 mb-6 sm:mb-8 leading-relaxed font-light">
@@ -269,9 +294,16 @@ const Index = () => {
 
       {/* 4. SOCIAL PROOF - Testimonials - Mobile Optimized */}
       <LazySection>
-        <section className="py-16 sm:py-24 md:py-32 bg-charcoal">
+        <section 
+          className="py-16 sm:py-24 md:py-32 bg-charcoal"
+          aria-labelledby="testimonials-heading"
+          role="region"
+        >
           <div className="max-w-4xl mx-auto px-4 sm:px-8 text-center mb-12 sm:mb-16">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-pearl mb-3 sm:mb-4 tracking-tight">
+            <h2 
+              id="testimonials-heading"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-pearl mb-3 sm:mb-4 tracking-tight"
+            >
               Trusted by thousands
             </h2>
             <p className="text-pearl/60 text-base sm:text-lg font-light">

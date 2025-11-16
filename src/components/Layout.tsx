@@ -18,12 +18,12 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <SkipLink />
-      <NavigationEnhanced />
+      <header role="banner">
+        <NavigationEnhanced />
+      </header>
       <main 
         id="main-content" 
         className={`flex-1 pt-20 ${className}`}
-        role="main"
-        aria-label="Main content"
       >
         {children}
       </main>
