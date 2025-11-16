@@ -1,6 +1,7 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cn } from '@/lib/utils';
+import { LoadingSpinner } from './loading-spinner';
 
 interface PageTransitionProps {
   children: ReactNode;
@@ -27,10 +28,7 @@ export const PageTransition = ({ children, className }: PageTransitionProps) => 
         )}
       >
         <div className="flex items-center justify-center h-full">
-          <div className="space-y-4 text-center">
-            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto"></div>
-            <p className="text-sm text-muted-foreground">Loading...</p>
-          </div>
+          <LoadingSpinner size="lg" label="Loading page..." />
         </div>
       </div>
 

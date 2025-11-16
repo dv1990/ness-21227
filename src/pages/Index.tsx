@@ -30,6 +30,9 @@ const BelowFoldSections = lazy(() => import("@/components/homeowner/BelowFoldSec
 const HomeownerConfigurator = lazy(() => import("@/components/homeowner/HomeownerConfigurator").then(m => ({
   default: m.HomeownerConfigurator
 })));
+
+// Import LoadingSpinner for consistent loading states
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 const Index = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [scrollY, setScrollY] = useState(0);
@@ -307,19 +310,23 @@ const Index = () => {
       </LazySection>
 
       {/* 5. BELOW FOLD CONTENT - Lazy Loaded */}
-      <Suspense fallback={<div className="py-32 flex items-center justify-center">
-          <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-        </div>}>
+      <Suspense fallback={
+        <div className="py-32 flex items-center justify-center">
+          <LoadingSpinner size="lg" label="Loading content..." />
+        </div>
+      }>
         <BelowFoldSections />
       </Suspense>
 
       {/* 6. CONFIGURATOR - Lazy Loaded */}
-      <Suspense fallback={<div className="py-32 flex items-center justify-center bg-muted/10">
+      <Suspense fallback={
+        <div className="py-32 flex items-center justify-center bg-muted/10">
           <div className="text-center space-y-4">
-            <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-sm text-muted-foreground">Loading configurator...</p>
+            <LoadingSpinner size="lg" label="Loading configurator..." />
+            <p className="text-sm text-muted-foreground">Preparing your system designer...</p>
           </div>
-        </div>}>
+        </div>
+      }>
         <HomeownerConfigurator />
       </Suspense>
     </Layout>;

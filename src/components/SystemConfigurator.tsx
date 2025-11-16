@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail } from "@/lib/email-service";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 
 interface SystemConfiguration {
   dailyLoad: number;
@@ -461,10 +462,10 @@ ${Object.entries(selectedAppliances)
                     className="w-full h-14 rounded-2xl text-base font-medium"
                   >
                     {isCalculating ? (
-                      <div className="flex items-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current mr-3"></div>
+                      <span className="flex items-center gap-2">
+                        <LoadingSpinner size="sm" label="Designing system..." />
                         Designing your system...
-                      </div>
+                      </span>
                     ) : (
                       'Generate My System Design'
                     )}
@@ -571,10 +572,10 @@ ${Object.entries(selectedAppliances)
                       disabled={isSendingEmail || !contactInfo.name || !contactInfo.email || !contactInfo.phone}
                     >
                       {isSendingEmail ? (
-                        <div className="flex items-center">
-                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current mr-3"></div>
+                        <span className="flex items-center gap-2">
+                          <LoadingSpinner size="sm" label="Sending..." />
                           Sending...
-                        </div>
+                        </span>
                       ) : (
                         'Send Proposal Request'
                       )}
