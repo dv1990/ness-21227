@@ -17,14 +17,14 @@ const Footer = () => {
             </p>
             <div className="space-y-3">
               <div className="flex items-center gap-3 text-background/70">
-                <Mail className="w-4 h-4" />
+                <Mail className="w-4 h-4" aria-hidden="true" />
                 <a href="mailto:contact@nunam.com" className="hover:text-background transition-colors">
                   contact@nunam.com
                 </a>
               </div>
               
               <div className="flex items-start gap-3 text-background/70">
-                <MapPin className="w-4 h-4 mt-1 flex-shrink-0" />
+                <MapPin className="w-4 h-4 mt-1 flex-shrink-0" aria-hidden="true" />
                 <span>
                   Nunam Technologies India Private Limited<br />
                   Plot no, 19 A, 3rd Cross, Veerasandra Industrial Area,<br />
@@ -133,17 +133,17 @@ const Footer = () => {
 
             {/* Social Media */}
             <div className="flex gap-4">
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="LinkedIn">
-                <Linkedin className="w-5 h-5" />
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on LinkedIn">
+                <Linkedin className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Twitter">
-                <Twitter className="w-5 h-5" />
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Twitter">
+                <Twitter className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Facebook">
-                <Facebook className="w-5 h-5" />
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Facebook">
+                <Facebook className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Instagram">
-                <Instagram className="w-5 h-5" />
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Instagram">
+                <Instagram className="w-5 h-5" aria-hidden="true" />
               </a>
             </div>
           </div>

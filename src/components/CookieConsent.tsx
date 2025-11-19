@@ -31,7 +31,7 @@ const CookieConsent = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-start gap-4 flex-1">
-            <Cookie className="w-6 h-6 flex-shrink-0 mt-1 text-primary" />
+            <Cookie className="w-6 h-6 flex-shrink-0 mt-1 text-primary" aria-hidden="true" />
             <div className="flex-1">
               <h3 className="text-lg font-semibold mb-2">We value your privacy</h3>
               <p className="text-sm text-background/80 leading-relaxed">

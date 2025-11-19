@@ -183,7 +183,7 @@ const Index = () => {
                 <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
                   <Suspense fallback={<div className="h-20" />}>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
                         <p className="font-medium text-base sm:text-lg">Powers your entire home</p>
                         <p className="text-sm sm:text-base text-pearl/60 font-light">From AC to refrigerator, run everything simultaneously</p>
@@ -197,7 +197,7 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
                         <p className="font-medium text-base sm:text-lg">Solar ready</p>
                         <p className="text-sm sm:text-base text-pearl/60 font-light">Seamless integration with any solar system</p>
@@ -211,7 +211,7 @@ const Index = () => {
                     <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto">
                       Design My System
                       <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
-                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
+                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
                       </Suspense>
                     </Button>
                   </Link>
@@ -253,21 +253,21 @@ const Index = () => {
                 <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
                   <Suspense fallback={<div className="h-20" />}>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
                         <p className="font-medium text-base sm:text-lg text-graphite">Scalable power</p>
                         <p className="text-sm sm:text-base text-graphite/60 font-light">45-200 kWh systems for commercial needs</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
                         <p className="font-medium text-base sm:text-lg text-graphite">Cut diesel costs</p>
                         <p className="text-sm sm:text-base text-graphite/60 font-light">Reduce dependency by 80%</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
                         <p className="font-medium text-base sm:text-lg text-graphite">Remote monitoring</p>
                         <p className="text-sm sm:text-base text-graphite/60 font-light">Track performance from anywhere</p>
