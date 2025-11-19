@@ -30,7 +30,7 @@ export const BelowFoldSections = memo(() => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                  <Shield className="w-8 h-8 text-primary" />
+                  <Shield className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl font-light mb-4">Silent Guardian</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -44,7 +44,7 @@ export const BelowFoldSections = memo(() => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                  <Zap className="w-8 h-8 text-primary" />
+                  <Zap className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl font-light mb-4">Instant Response</h3>
                 <p className="text-muted-foreground leading-relaxed">
@@ -58,7 +58,7 @@ export const BelowFoldSections = memo(() => {
               <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
-                  <Home className="w-8 h-8 text-primary" />
+                  <Home className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
                 <h3 className="text-2xl font-light mb-4">Whole Home Coverage</h3>
                 <p className="text-muted-foreground leading-relaxed">

@@ -28,8 +28,8 @@ const MobileMenu = ({ isOpen, setIsOpen, mainNavItems }: MobileMenuProps) => {
   return (
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
-        <Button variant="ghost" size="icon" className="hover:bg-muted/50">
-          <Menu className="w-5 h-5" />
+        <Button variant="ghost" size="icon" className="hover:bg-muted/50" aria-label="Open navigation menu">
+          <Menu className="w-5 h-5" aria-hidden="true" />
         </Button>
       </SheetTrigger>
       <SheetContent side="right" className="w-80 p-0 bg-background/95 backdrop-blur-xl">
@@ -53,13 +53,13 @@ const MobileMenu = ({ isOpen, setIsOpen, mainNavItems }: MobileMenuProps) => {
                   className="flex items-center justify-between p-3 rounded-xl text-sm transition-colors hover:bg-muted/50 group"
                 >
                   <div className="flex items-center space-x-3">
-                    <item.icon className="w-4 h-4" />
+                    <item.icon className="w-4 h-4" aria-hidden="true" />
                     <div>
                       <div className="font-medium">{item.label}</div>
                       <div className="text-xs text-muted-foreground">{item.description}</div>
                     </div>
                   </div>
-                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
                 </Link>
               ))}
             </div>
