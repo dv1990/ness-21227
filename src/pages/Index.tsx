@@ -16,9 +16,6 @@ import { testimonials } from "@/data/testimonials";
 const CheckCircle2 = lazy(() => import("lucide-react").then(m => ({
   default: m.CheckCircle2
 })));
-const ChevronDown = lazy(() => import("lucide-react").then(m => ({
-  default: m.ChevronDown
-})));
 const ArrowRight = lazy(() => import("lucide-react").then(m => ({
   default: m.ArrowRight
 })));
@@ -34,18 +31,9 @@ const HomeownerConfigurator = lazy(() => import("@/components/homeowner/Homeowne
 // Import LoadingSpinner for consistent loading states
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 const Index = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const nextSectionRef = useRef<HTMLElement>(null);
-
-  // Testimonial auto-rotation
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTestimonial(prev => (prev + 1) % testimonials.length);
-    }, 6000);
-    return () => clearInterval(timer);
-  }, []);
 
   // Smooth parallax scroll tracking with RAF
   useEffect(() => {
@@ -70,13 +58,6 @@ const Index = () => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
-
-  // Smooth scroll to next section
-  const scrollToNext = () => {
-    nextSectionRef.current?.scrollIntoView({
-      behavior: 'smooth'
-    });
-  };
   return <Layout>
       {/* 1. HERO SECTION */}
       <section 
@@ -109,17 +90,17 @@ const Index = () => {
               <span className="text-energy">Uninterrupted.</span>
             </h1>
             
-            {/* Subtext - Cut by 70%, one powerful line */}
-            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.6] tracking-[-0.015em] max-w-[750px] text-pearl/80 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
-              <span className="font-semibold text-zinc-50">NESS</span> - Your home battery that keeps your life running.
+            {/* Subtext - Whisper quiet */}
+            <p className={cn("font-sans text-xl sm:text-[24px] md:text-[28px] font-light leading-[1.7] tracking-[-0.015em] max-w-[750px] text-pearl/60 transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+              The home battery.
             </p>
 
-            {/* CTA - Benefit-focused, no subtext clutter */}
+            {/* CTA - Simple and inspiring */}
             <div className={cn("pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               <Link to="/residential" className="inline-block group">
-                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300">
+                <Button size="lg" className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 hover:shadow-2xl hover:shadow-energy/20">
                   <span className="flex items-center justify-center">
-                    Never Worry About Power Again
+                    Experience NESS
                     <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
                       <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                     </Suspense>
@@ -130,33 +111,23 @@ const Index = () => {
           </div>
         </div>
 
-        {/* Enhanced Scroll Indicator with interaction */}
-        <button onClick={scrollToNext} className={cn("absolute bottom-8 left-1/2 -translate-x-1/2 group cursor-pointer transition-all duration-700 ease-out hover:bottom-6", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4")} aria-label="Scroll to next section">
-          <div className="relative">
-            <div className="w-8 h-12 border-2 border-pearl/30 rounded-full flex items-start justify-center p-2 group-hover:border-energy transition-colors duration-300">
-              <div className="w-1.5 h-3 bg-pearl/50 rounded-full motion-safe:animate-bounce group-hover:bg-energy transition-colors duration-300" />
-            </div>
-            <Suspense fallback={<div className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5" />}>
-              <ChevronDown className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-5 h-5 text-pearl/30 group-hover:text-energy motion-safe:animate-bounce transition-colors duration-300" aria-hidden="true" />
-            </Suspense>
-          </div>
-        </button>
       </section>
 
-      {/* 2. ONE KEY DIFFERENTIATOR - Mobile Optimized */}
+      {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact */}
       <section 
         ref={nextSectionRef} 
-        className="py-16 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl scroll-mt-16"
+        className="py-32 sm:py-40 md:py-48 px-4 sm:px-6 bg-pearl scroll-mt-16"
         aria-labelledby="key-benefit-heading"
       >
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
           <h2 
             id="key-benefit-heading"
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-light text-graphite mb-4 sm:mb-6 md:mb-8 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-light text-graphite mb-8 tracking-tight leading-[1.1]"
           >
-            Lasts 10+ years.
+            One decision.<br />
+            Ten years.<br />
+            <span className="text-graphite/40">Zero regrets.</span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-graphite/60 font-light leading-relaxed px-4">While others need replacement every 5 years, NESS is engineered to endure. One investment. A decade of reliability. Zero maintenance.</p>
         </div>
       </section>
 
@@ -176,42 +147,39 @@ const Index = () => {
                 >
                   NESS Powerwall
                 </h2>
-                <p className="text-base sm:text-lg md:text-xl text-pearl/80 mb-6 sm:mb-8 leading-relaxed font-light">
-                  Elegant. Powerful. Silent. Everything your home needs, nothing it doesn't.
+                <p className="text-base sm:text-lg md:text-xl text-pearl/80 mb-8 sm:mb-12 leading-[1.7] font-light">
+                  Elegant. Powerful. Silent.
                 </p>
                 
-                <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
+                <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
                   <Suspense fallback={<div className="h-20" />}>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
-                        <p className="font-medium text-base sm:text-lg">Powers your entire home</p>
-                        <p className="text-sm sm:text-base text-pearl/60 font-light">From AC to refrigerator, run everything simultaneously</p>
+                        <p className="font-medium text-lg sm:text-xl">Everything. Everywhere.</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" />
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" />
                       <div>
-                        <p className="font-medium text-base sm:text-lg">Instant backup</p>
-                        <p className="text-sm sm:text-base text-pearl/60 font-light">10ms switchover—WiFi stays connected, work never stops</p>
+                        <p className="font-medium text-lg sm:text-xl">10ms switchover</p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
                       <div>
-                        <p className="font-medium text-base sm:text-lg">Solar ready</p>
-                        <p className="text-sm sm:text-base text-pearl/60 font-light">Seamless integration with any solar system</p>
+                        <p className="font-medium text-lg sm:text-xl">Works with solar</p>
                       </div>
                     </div>
                   </Suspense>
                 </div>
 
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <Link to="/residential" className="w-full sm:w-auto">
-                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto">
-                      Design My System
-                      <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
-                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
+                <div>
+                  <Link to="/residential">
+                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30">
+                      Experience NESS
+                      <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
+                        <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
                       </Suspense>
                     </Button>
                   </Link>
@@ -226,115 +194,26 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 3B. C&I PRODUCT SPOTLIGHT - NESS Pod - Mobile Optimized */}
-      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
-        <section 
-          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl"
-          aria-labelledby="commercial-heading"
-        >
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
-              <div className="relative order-2 md:order-1 mt-8 md:mt-0">
-                <WebPImage src={nessPodProduct} alt="NESS Pod - Commercial & Industrial battery backup system" className="w-full h-auto rounded-2xl" priority={false} />
-              </div>
 
-              <div className="order-1 md:order-2">
-                <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Business</p>
-                <h2 
-                  id="commercial-heading"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-graphite mb-4 sm:mb-6 tracking-tight"
-                >
-                  NESS Pod
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl text-graphite/70 mb-6 sm:mb-8 leading-relaxed font-light">
-                  When downtime isn't an option. Built for businesses that can't afford to stop.
-                </p>
-                
-                <div className="space-y-3 sm:space-y-4 mb-8 sm:mb-10">
-                  <Suspense fallback={<div className="h-20" />}>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
-                      <div>
-                        <p className="font-medium text-base sm:text-lg text-graphite">Scalable power</p>
-                        <p className="text-sm sm:text-base text-graphite/60 font-light">45-200 kWh systems for commercial needs</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
-                      <div>
-                        <p className="font-medium text-base sm:text-lg text-graphite">Cut diesel costs</p>
-                        <p className="text-sm sm:text-base text-graphite/60 font-light">Reduce dependency by 80%</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-3">
-                      <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
-                      <div>
-                        <p className="font-medium text-base sm:text-lg text-graphite">Remote monitoring</p>
-                        <p className="text-sm sm:text-base text-graphite/60 font-light">Track performance from anywhere</p>
-                      </div>
-                    </div>
-                  </Suspense>
-                </div>
-
-                <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
-                  <Link to="/commercial" className="w-full sm:w-auto">
-                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-6 sm:px-8 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 w-full sm:w-auto">
-                      Explore Commercial
-                      <Suspense fallback={<span className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />}>
-                        <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
-                      </Suspense>
-                    </Button>
-                  </Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </LazySection>
-
-      {/* 4. SOCIAL PROOF - Testimonials - Mobile Optimized */}
+      {/* 4. SOCIAL PROOF - One Powerful Story */}
       <LazySection>
         <section 
-          className="py-16 sm:py-24 md:py-32 bg-charcoal"
+          className="py-32 sm:py-40 md:py-48 bg-charcoal"
           aria-labelledby="testimonials-heading"
-          role="region"
         >
-          <div className="max-w-4xl mx-auto px-4 sm:px-8 text-center mb-12 sm:mb-16">
-            <h2 
-              id="testimonials-heading"
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light text-pearl mb-3 sm:mb-4 tracking-tight"
-            >
-              Trusted by thousands
-            </h2>
-            <p className="text-pearl/60 text-base sm:text-lg font-light">
-              across India
-            </p>
-          </div>
+          <div className="max-w-5xl mx-auto px-6 sm:px-8">
+            <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
+                {testimonials[0].initials}
+              </div>
 
-            <div className="max-w-5xl mx-auto px-4 sm:px-8">
-              <div className="relative min-h-[300px] sm:min-h-[350px] flex items-center justify-center">
-                {testimonials.map(testimonial => {
-              const testimonialIndex = testimonials.indexOf(testimonial);
-              return <div key={`testimonial-${testimonialIndex}`} className={cn("absolute inset-0 transition-all duration-1000 ease-in-out will-change-transform", currentTestimonial === testimonialIndex ? "opacity-100 translate-x-0" : testimonialIndex < currentTestimonial ? "opacity-0 -translate-x-full pointer-events-none" : "opacity-0 translate-x-full pointer-events-none")}>
-                  <div className="flex flex-col items-center text-center space-y-6 sm:space-y-8 px-4">
-                    <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-energy/10 flex items-center justify-center text-xl sm:text-2xl font-light text-pearl border-2 border-energy/30">
-                      {testimonial.initials}
-                    </div>
+              <blockquote className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl leading-[1.4] max-w-4xl">
+                {testimonials[0].quote}
+              </blockquote>
 
-                    <blockquote className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-light text-pearl leading-relaxed max-w-2xl">
-                      {testimonial.quote}
-                    </blockquote>
-
-                    <div className="pt-2 sm:pt-4">
-                      <p className="text-base sm:text-lg text-pearl font-medium">{testimonial.name}</p>
-                      <p className="text-xs sm:text-sm text-pearl/60 font-light">{testimonial.location}</p>
-                    </div>
-                    </div>
-                  </div>;
-            })}
-
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 flex gap-2 sm:gap-3">
-                  {testimonials.map((_, dotIndex) => <button key={`dot-${dotIndex}`} onClick={() => setCurrentTestimonial(dotIndex)} className={cn("w-2 h-2 rounded-full transition-all duration-500", currentTestimonial === dotIndex ? "w-6 sm:w-8 bg-energy" : "bg-pearl/30 hover:bg-pearl/50")} aria-label={`View testimonial ${dotIndex + 1}`} />)}
+              <div className="pt-4">
+                <p className="text-xl sm:text-2xl text-pearl font-medium mb-2">{testimonials[0].name}</p>
+                <p className="text-base sm:text-lg text-pearl/60 font-light">{testimonials[0].location}</p>
               </div>
             </div>
           </div>
