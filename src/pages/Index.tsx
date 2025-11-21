@@ -91,7 +91,7 @@ const Index = () => {
             </h1>
             
             {/* Subtext - Elegant whisper */}
-            <p className={cn("font-sans text-2xl sm:text-[28px] md:text-[32px] lg:text-[36px] font-extralight italic leading-[1.7] tracking-[0.02em] max-w-[750px] bg-gradient-to-r from-pearl via-pearl/90 to-pearl/70 bg-clip-text text-transparent transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
+            <p className={cn("font-playfair text-2xl sm:text-[28px] md:text-[32px] lg:text-[36px] font-extralight italic leading-[1.7] tracking-[0.02em] max-w-[750px] bg-gradient-to-r from-pearl via-pearl/90 to-pearl/70 bg-clip-text text-transparent transition-all duration-1000 ease-out delay-150", isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8")}>
               The home battery.
             </p>
 
