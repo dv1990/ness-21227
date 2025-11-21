@@ -194,8 +194,75 @@ const Index = () => {
         </section>
       </LazySection>
 
+      {/* 4. PRODUCT SPOTLIGHT - NESS Pod */}
+      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
+        <section 
+          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl text-graphite"
+          aria-labelledby="commercial-heading"
+        >
+          <div className="max-w-7xl mx-auto">
+            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
+              <div className="relative order-2 md:order-1">
+                <WebPImage 
+                  src={nessPodProduct} 
+                  alt="NESS Pod - Commercial battery backup system" 
+                  className="w-full h-auto rounded-2xl" 
+                  priority={false} 
+                />
+              </div>
 
-      {/* 4. SOCIAL PROOF - One Powerful Story */}
+              <div className="order-1 md:order-2">
+                <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Business</p>
+                <h2 
+                  id="commercial-heading"
+                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight"
+                >
+                  NESS Pod
+                </h2>
+                <p className="text-base sm:text-lg md:text-xl text-graphite/80 mb-8 sm:mb-12 leading-[1.7] font-light">
+                  Power your business. Uninterrupted.
+                </p>
+                
+                <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
+                  <Suspense fallback={<div className="h-20" />}>
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                      <div>
+                        <p className="font-medium text-lg sm:text-xl">Scalable capacity</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                      <div>
+                        <p className="font-medium text-lg sm:text-xl">Industrial-grade reliability</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                      <div>
+                        <p className="font-medium text-lg sm:text-xl">Reduce operating costs</p>
+                      </div>
+                    </div>
+                  </Suspense>
+                </div>
+
+                <div>
+                  <Link to="/commercial">
+                    <Button size="lg" className="bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30">
+                      Explore Solutions
+                      <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
+                        <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
+                      </Suspense>
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
+      {/* 5. SOCIAL PROOF - One Powerful Story */}
       <LazySection>
         <section 
           className="py-32 sm:py-40 md:py-48 bg-charcoal"
@@ -220,7 +287,7 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 5. BELOW FOLD CONTENT - Lazy Loaded */}
+      {/* 6. BELOW FOLD CONTENT - Lazy Loaded */}
       <Suspense fallback={
         <div className="py-32 flex items-center justify-center">
           <LoadingSpinner size="lg" label="Loading content..." />
@@ -229,7 +296,7 @@ const Index = () => {
         <BelowFoldSections />
       </Suspense>
 
-      {/* 6. CONFIGURATOR - Lazy Loaded */}
+      {/* 7. CONFIGURATOR - Lazy Loaded */}
       <Suspense fallback={
         <div className="py-32 flex items-center justify-center bg-muted/10">
           <div className="text-center space-y-4">
