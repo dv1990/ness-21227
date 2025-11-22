@@ -270,18 +270,19 @@ export default defineConfig(({ mode }) => ({
       mainFields: ['module', 'main'],
       conditions: ['import', 'module', 'default']
     },
-    include: [
+    // Exclude React from pre-bundling to prevent duplication
+    exclude: [
       'react',
       'react-dom',
       'react/jsx-runtime',
+      'three'
+    ],
+    include: [
       'react-router-dom',
       '@tanstack/react-query',
       '@radix-ui/react-slot',
       'framer-motion',
       'lucide-react'
-    ],
-    exclude: [
-      'three'
     ]
   }
 }));
