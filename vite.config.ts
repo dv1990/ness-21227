@@ -263,8 +263,9 @@ export default defineConfig(({ mode }) => ({
     include: [
       'react',
       'react-dom',
-      'react/jsx-runtime'
+      'react/jsx-runtime',
+      '@tanstack/react-query'
     ]
   },
-  cacheDir: '.vite-cache-v2' // Force clean cache
+  cacheDir: '.vite-cache-v3' // Force clean cache
 }));
