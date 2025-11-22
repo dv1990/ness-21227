@@ -260,7 +260,6 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    force: true, // Force re-optimization to clear stale cache
     include: [
       'react',
       'react-dom',
