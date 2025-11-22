@@ -113,9 +113,12 @@ const Index = () => {
             {/* Subtext - Elegant whisper */}
             <p
               className={cn(
-                "font-playfair text-2xl sm:text-[28px] md:text-[32px] lg:text-[36px] font-extralight italic leading-[1.7] tracking-[0.02em] max-w-[750px] bg-gradient-to-r from-pearl via-pearl/90 to-pearl/70 bg-clip-text text-transparent transition-all duration-1000 ease-out delay-150",
+                "font-display text-3xl sm:text-[36px] md:text-[42px] lg:text-[48px] font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl transition-all duration-1000 ease-out delay-150",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
+              style={{
+                textShadow: "0 2px 20px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2)",
+              }}
             >
               A battery that ends blackouts.
             </p>
