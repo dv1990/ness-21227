@@ -260,6 +260,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
+    force: true, // Force rebuild to clear corrupted cache
     include: [
       'react',
       'react-dom',
