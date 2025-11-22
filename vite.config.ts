@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    strictPort: false,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
@@ -202,9 +203,9 @@ export default defineConfig(({ mode }) => ({
         manualChunks: (id) => {
           // Vendor chunk for React ecosystem (core only)
           if (id.includes('node_modules')) {
-            // React core - minimal chunk
-            if (id.includes('react/') || id.includes('react-dom/') || id.includes('scheduler')) {
-              return 'react-core';
+            // React MUST be in a single chunk to prevent duplication
+            if (id.includes('react') || id.includes('scheduler')) {
+              return 'react-vendor';
             }
             // React Router - separate chunk
             if (id.includes('react-router')) {
