@@ -74,15 +74,14 @@ const PageLoadingFallback = () => (
 function App() {
   return (
     <ErrorBoundary>
-      <QueryClientProvider client={queryClient}>
-          <TooltipProvider>
-            <Toaster />
-            <Sonner />
-            <ScrollProgressBar />
-            <ServiceWorkerPrompt />
-            <Router future={routerFutureConfig}>
-              <Suspense fallback={<PageLoadingFallback />}>
-                <Routes>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <ScrollProgressBar />
+        <ServiceWorkerPrompt />
+        <Router future={routerFutureConfig}>
+          <Suspense fallback={<PageLoadingFallback />}>
+            <Routes>
           {/* Overview (Landing) */}
           <Route path="/" element={<Index />} />
           
@@ -141,7 +140,6 @@ function App() {
             </Suspense>
           </Router>
         </TooltipProvider>
-      </QueryClientProvider>
     </ErrorBoundary>
   );
 }
