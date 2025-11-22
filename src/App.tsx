@@ -19,7 +19,6 @@ const Index = lazy(() => import("./pages/Index"));
 
 // Main pages - Lazy loaded for better performance
 const CommercialEnhanced = lazy(() => import("./pages/CommercialEnhanced"));
-// const TechnologyEnhanced = lazy(() => import("./pages/TechnologyEnhanced"));
 const ContactEnhanced = lazy(() => import("./pages/ContactEnhanced"));
 
 // Product pages - Lazy loaded
@@ -72,7 +71,7 @@ const PageLoadingFallback = () => (
   </div>
 );
 
-const App = () => {
+function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
@@ -89,14 +88,12 @@ const App = () => {
           
           {/* Enhanced Product Routes */}
           <Route path="/commercial-enhanced" element={<CommercialEnhanced />} />
-          {/* <Route path="/technology-enhanced" element={<TechnologyEnhanced />} /> */}
           <Route path="/installers-enhanced" element={<InstallersEnhanced />} />
           
           {/* Product Routes */}
           <Route path="/homeowners" element={<ContactHomeowner />} />
           <Route path="/ci" element={<CommercialEnhanced />} />
           <Route path="/installers" element={<ContactInstaller />} />
-          {/* <Route path="/technology" element={<TechnologyEnhanced />} /> */}
           <Route path="/warranty" element={<TrueWarranty />} />
           <Route path="/find-installer" element={<FindInstaller />} />
           <Route path="/products/ness-ac-sync" element={<NessAcSync />} />
@@ -140,13 +137,13 @@ const App = () => {
           
           {/* 404 Catch-all */}
           <Route path="*" element={<NotFound />} />
-              </Routes>
+                </Routes>
             </Suspense>
           </Router>
         </TooltipProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );
-};
+}
 
 export default App;

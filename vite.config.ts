@@ -149,6 +149,9 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force single React resolution
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom')
     },
     dedupe: ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query']
   },
