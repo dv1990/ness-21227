@@ -264,8 +264,9 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react/jsx-runtime',
-      '@tanstack/react-query'
+      '@tanstack/react-query',
+      'react-router-dom',
+      '@radix-ui/react-slot'
     ]
-  },
-  cacheDir: '.vite-cache-v3' // Force clean cache
+  }
 }));
