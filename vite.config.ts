@@ -149,12 +149,9 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
-      // Force single React resolution
-      'react': path.resolve(__dirname, './node_modules/react'),
-      'react-dom': path.resolve(__dirname, './node_modules/react-dom')
+      "@": path.resolve(__dirname, "./src")
     },
-    dedupe: ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query']
+    dedupe: ['react', 'react-dom']
   },
   build: {
     target: 'esnext',
@@ -264,25 +261,11 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    force: true,
-    esbuildOptions: {
-      // Ensure single React instance
-      mainFields: ['module', 'main'],
-      conditions: ['import', 'module', 'default']
-    },
     include: [
       'react',
       'react-dom',
       'react/jsx-runtime',
-      'react-router-dom',
-      'framer-motion',
-      'lucide-react'
-    ],
-    // Exclude packages that might bundle React separately
-    exclude: [
-      '@tanstack/react-query',
-      '@radix-ui/react-slot',
-      'three'
+      '@tanstack/react-query'
     ]
   }
 }));
