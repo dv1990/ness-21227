@@ -10,18 +10,11 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    strictPort: false,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    },
-    fs: {
-      strict: false
     }
-  },
-  optimizeDeps: {
-    disabled: true // Disable pre-bundling to prevent React duplication
   },
   esbuild: {
     target: 'esnext',
@@ -265,5 +258,13 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name]-[hash].js',
       }
     },
-  }
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime'
+    ]
+  },
+  cacheDir: '.vite-cache-v2' // Force clean cache
 }));
