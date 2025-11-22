@@ -260,10 +260,16 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    force: true, // Force rebuild to clear corrupted cache
+    force: true,
+    esbuildOptions: {
+      // Ensure single React instance
+      mainFields: ['module', 'main'],
+      conditions: ['import', 'module', 'default']
+    },
     include: [
       'react',
       'react-dom',
+      'react/jsx-runtime',
       'react-router-dom',
       '@tanstack/react-query',
       '@radix-ui/react-slot',
