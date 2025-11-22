@@ -16,6 +16,12 @@ export default defineConfig(({ mode }) => ({
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     },
+    fs: {
+      strict: false
+    }
+  },
+  optimizeDeps: {
+    disabled: true // Disable pre-bundling to prevent React duplication
   },
   esbuild: {
     target: 'esnext',
@@ -259,13 +265,5 @@ export default defineConfig(({ mode }) => ({
         entryFileNames: 'assets/[name]-[hash].js',
       }
     },
-  },
-  optimizeDeps: {
-    include: [
-      'react',
-      'react-dom',
-      'react/jsx-runtime',
-      '@tanstack/react-query'
-    ]
   }
 }));
