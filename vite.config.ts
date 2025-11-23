@@ -262,9 +262,10 @@ export default defineConfig(({ mode }) => ({
     },
   },
   optimizeDeps: {
-    // Exclude React from pre-bundling to prevent duplication
-    exclude: ['react', 'react-dom', 'react/jsx-runtime'],
     include: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
       'react-router-dom',
       '@tanstack/react-query',
       '@radix-ui/react-slot',
@@ -273,7 +274,7 @@ export default defineConfig(({ mode }) => ({
       '@radix-ui/react-popover',
       '@radix-ui/react-toast'
     ],
-    // Force dedupe
+    // Force dedupe React and router to prevent hooks errors
     dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
   }
 }));
