@@ -1,7 +1,6 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { 
+import {
   ArrowRight, 
   Users, 
   Target, 
