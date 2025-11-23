@@ -8,13 +8,10 @@ import { VitePWA } from 'vite-plugin-pwa';
 export default defineConfig(({ mode }) => ({
   base: '/',  // Use root path for proper React Fast Refresh
   server: {
-    host: "::",
+    host: "localhost", // Use localhost for security. Change to "::" if network access needed
     port: 8080,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS',
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-    }
+    // CORS headers removed - not needed for local development
+    // If CORS is needed for specific use cases, configure with specific origins only
   },
   esbuild: {
     target: 'esnext',
