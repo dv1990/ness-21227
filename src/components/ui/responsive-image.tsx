@@ -46,10 +46,11 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   // Use original source directly
   const imageSrc = fallbackSrc || src;
 
-  // Generate srcsets for all formats
-  const avifSrcSet = srcSet || generateSrcSet(imageSrc, 'avif');
-  const webpSrcSet = srcSet || generateSrcSet(imageSrc, 'webp');
-  const jpegSrcSet = srcSet || generateSrcSet(imageSrc, 'jpeg');
+  // Generate srcsets for all formats - only if not external URL
+  const shouldGenerateSrcSet = !imageSrc.startsWith('http') && !imageSrc.endsWith('.svg');
+  const avifSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'avif') : '');
+  const webpSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'webp') : '');
+  const jpegSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'jpeg') : '');
   
   // Default sizes attribute optimized for hero images
   const responsiveSizes = sizes || 
@@ -115,11 +116,8 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
  * Supports AVIF, WebP, and JPEG formats with multiple responsive breakpoints
  */
 function generateSrcSet(src: string, format: 'avif' | 'webp' | 'jpeg' = 'jpeg'): string {
-  // Standard responsive breakpoints optimized for modern devices
-  const widths = [640, 750, 828, 1080, 1200, 1920, 2048];
-  
-  // For external URLs, return as-is
-  if (src.startsWith('http')) {
+  // For external URLs or SVGs, return empty
+  if (src.startsWith('http') || src.endsWith('.svg')) {
     return '';
   }
   
@@ -128,25 +126,28 @@ function generateSrcSet(src: string, format: 'avif' | 'webp' | 'jpeg' = 'jpeg'):
   if (lastDotIndex === -1) return '';
   
   const basePath = src.substring(0, lastDotIndex);
+  const originalExt = src.substring(lastDotIndex);
   
-  // Generate srcset based on format
-  const variants = widths.map(width => {
-    let path = basePath;
-    let ext = '';
-    
-    if (format === 'avif') {
-      path = basePath.replace('/assets/', '/assets-avif/');
-      ext = '.avif';
-    } else if (format === 'webp') {
-      path = basePath.replace('/assets/', '/assets-webp/');
-      ext = '.webp';
+  // For single image, generate WebP/JPEG source
+  let finalPath = basePath;
+  let ext = '';
+  
+  if (format === 'avif') {
+    finalPath = basePath.replace('/assets/', '/assets-avif/');
+    ext = '.avif';
+  } else if (format === 'webp') {
+    // Check if already in webp folder
+    if (basePath.includes('/assets-webp/')) {
+      finalPath = basePath;
     } else {
-      // JPEG - keep original path
-      ext = src.substring(lastDotIndex);
+      finalPath = basePath.replace('/assets/', '/assets-webp/');
     }
-    
-    return `${path}-${width}w${ext} ${width}w`;
-  });
+    ext = '.webp';
+  } else {
+    // JPEG - keep original path and extension
+    ext = originalExt;
+  }
   
-  return variants.join(', ');
+  // Return single source for now (responsive variants would need actual generated files)
+  return `${finalPath}${ext}`;
 }
