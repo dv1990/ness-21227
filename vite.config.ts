@@ -149,9 +149,10 @@ export default defineConfig(({ mode }) => ({
       // Force single React instance
       'react': path.resolve(__dirname, './node_modules/react'),
       'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime')
+      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime'),
+      'react-router-dom': path.resolve(__dirname, './node_modules/react-router-dom')
     },
-    dedupe: ['react', 'react-dom', 'react/jsx-runtime']
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
   },
   build: {
     target: 'esnext',
@@ -273,7 +274,7 @@ export default defineConfig(({ mode }) => ({
       '@radix-ui/react-popover',
       '@radix-ui/react-toast'
     ],
-    // Force dedupe React to prevent hooks errors
-    dedupe: ['react', 'react-dom', 'react/jsx-runtime']
+    // Force dedupe React and router to prevent hooks errors
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
   }
 }));
