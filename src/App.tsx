@@ -63,12 +63,12 @@ const PageLoadingFallback = () => (
 function App() {
   return (
     <ErrorBoundary>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <ScrollProgressBar />
-        <ServiceWorkerPrompt />
-        <Router future={routerFutureConfig}>
+      <Router future={routerFutureConfig}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <ScrollProgressBar />
+          <ServiceWorkerPrompt />
           <Suspense fallback={<PageLoadingFallback />}>
             <Routes>
           {/* Overview (Landing) */}
@@ -127,8 +127,8 @@ function App() {
           <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>
-          </Router>
         </TooltipProvider>
+      </Router>
     </ErrorBoundary>
   );
 }
