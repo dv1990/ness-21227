@@ -1,11 +1,10 @@
-import React, { useState, useEffect, memo, useMemo, useCallback } from "react";
+import { useState, useEffect, memo, useMemo, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Progress } from "@/components/ui/progress";
 import { 
-  Battery, Home, Zap, Sun, IndianRupee, 
+  Battery, Zap, Sun, 
   Leaf
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -85,7 +84,7 @@ const SystemConfigurator = () => {
     
     // Simulate calculation delay
     setTimeout(() => {
-      const { dailyLoad, peakLoad, backupHours, solarCapacity, roofArea } = config;
+      const { dailyLoad, peakLoad, backupHours, roofArea } = config;
       
       // Battery sizing (kWh needed for backup)
       const requiredBatteryCapacity = (dailyLoad * backupHours) / 24;

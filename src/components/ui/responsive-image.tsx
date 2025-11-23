@@ -55,10 +55,6 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   const responsiveSizes = sizes || 
     '(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 1920px';
 
-  // Generate format-specific src URLs
-  const avifSrc = getFormatSrc(imageSrc, 'avif');
-  const webpSrc = getFormatSrc(imageSrc, 'webp');
-
   return (
     <div 
       className={cn("relative overflow-hidden", className)}
@@ -113,26 +109,6 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
     </div>
   );
 };
-
-/**
- * Get format-specific image source
- */
-function getFormatSrc(src: string, format: 'avif' | 'webp' | 'jpeg'): string {
-  if (src.startsWith('http')) return src;
-  
-  const lastDotIndex = src.lastIndexOf('.');
-  if (lastDotIndex === -1) return src;
-  
-  const basePath = src.substring(0, lastDotIndex);
-  
-  if (format === 'avif') {
-    return `${basePath.replace('/assets/', '/assets-avif/')}.avif`;
-  } else if (format === 'webp') {
-    return `${basePath.replace('/assets/', '/assets-webp/')}.webp`;
-  }
-  
-  return src;
-}
 
 /**
  * Generate srcset variants from a base image URL

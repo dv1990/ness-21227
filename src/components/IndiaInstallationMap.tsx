@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MapPin, Zap } from "lucide-react";
+import { Zap } from "lucide-react";
 import indiaMapSvg from '@/assets/india-map.svg';
 
 interface Installation {

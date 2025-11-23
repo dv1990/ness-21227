@@ -3,12 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { 
   Menu, 
-  Home,
-  Building2,
-  Wrench,
-  LayoutGrid,
-  ArrowRight,
-  Shield
+  ArrowRight
 } from "lucide-react";
 
 import { LucideIcon } from 'lucide-react';

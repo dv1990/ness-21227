@@ -12,7 +12,6 @@ interface ContactFormProps {
 }
 
 const ContactForm = ({ type }: ContactFormProps) => {
-  const [formData, setFormData] = useState({});
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 

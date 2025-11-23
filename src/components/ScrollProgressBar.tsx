@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useThrottle } from '@/hooks/use-performance';
 
 export const ScrollProgressBar = () => {
   const [scrollProgress, setScrollProgress] = useState(0);

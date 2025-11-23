@@ -1,18 +1,13 @@
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { 
   ArrowRight, 
   Users, 
   Target, 
-  Award, 
   Globe,
-  Factory,
-  Lightbulb,
   Heart,
   Microscope,
-  Zap,
   Shield,
   Binary,
   FlaskConical,

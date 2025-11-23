@@ -2,11 +2,10 @@ import { useEffect, memo } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { WebPImage } from "@/components/ui/webp-image";
-import { Check, Shield, TrendingUp, BarChart3, Battery, Fuel } from "lucide-react";
+import { Check, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 // Import images
-import warrantyHero from "@/assets/warranty-hero-trust.jpg";
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
 
 const TrueWarranty = () => {

@@ -52,12 +52,10 @@ export const MagneticButton = ({
 // Apple-style play button with ripple effect
 export const PlayButton = ({ 
   onClick, 
-  label = "Watch the film",
-  size = "default"
+  label = "Watch the film"
 }: {
   onClick?: () => void;
   label?: string;
-  size?: "default" | "lg";
 }) => {
   const [ripples, setRipples] = useState<Array<{ id: number; x: number; y: number }>>([]);
 

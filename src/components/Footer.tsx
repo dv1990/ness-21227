@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
+import { Mail, MapPin, Linkedin, Twitter, Facebook, Instagram } from "lucide-react";
 const Footer = () => {
   return <footer 
       className="bg-foreground text-background border-t border-border/10"

@@ -6,18 +6,15 @@ import { useEffect } from 'react';
  */
 export const PreloadCriticalAssets = () => {
   useEffect(() => {
-    // Preconnect to external domains if needed
-    const preconnect = (href: string) => {
-      const link = document.createElement('link');
-      link.rel = 'preconnect';
-      link.href = href;
-      link.crossOrigin = 'anonymous';
-      document.head.appendChild(link);
-    };
-
     // Add preconnect hints if you have external resources
+    // const preconnect = (href: string) => {
+    //   const link = document.createElement('link');
+    //   link.rel = 'preconnect';
+    //   link.href = href;
+    //   link.crossOrigin = 'anonymous';
+    //   document.head.appendChild(link);
+    // };
     // preconnect('https://fonts.googleapis.com');
-    
   }, []);
 
   return null;

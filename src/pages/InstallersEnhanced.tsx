@@ -1,31 +1,22 @@
-import React, { useState, memo } from "react";
+import { memo } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { 
-  ArrowRight, Calculator, Award, Users, Wrench, BookOpen, Download, 
-  Sparkles, CheckCircle, Target, Clock, Play, Star, Quote, MapPin,
-  TrendingUp, Building2, Phone, Mail, Calendar, FileText, Zap,
-  ChevronRight, Upload, User, Shield, Trophy, Briefcase, Send
+  ArrowRight, Calculator, Award, Users,
+  CheckCircle, Star,
+  TrendingUp, Send
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import { cn } from "@/lib/utils";
-import { MagneticButton, PlayButton, FloatingCard, ProgressiveDisclosure, ParallaxContainer } from "@/components/EnhancedInteractions";
+import { MagneticButton, FloatingCard } from "@/components/EnhancedInteractions";
 import SystemConfigurator from "@/components/SystemConfigurator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import heroIndustrialInstallation from "@/assets/hero-industrial-installation.jpg";
-import heroResidentialInstallation from "@/assets/hero-residential-installation.jpg";
 import trainingWorkshop from "@/assets/training-workshop.jpg";
 import configuratorTool from "@/assets/configurator-tool.jpg";
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
 
 const InstallersEnhanced = () => {
   const { toast } = useToast();

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, Text, Box, Sphere, useTexture } from '@react-three/drei';
+import { OrbitControls, Text, Box } from '@react-three/drei';
 import { Mesh } from 'three';
 
 // Battery Cell Component
@@ -83,12 +83,11 @@ function BatteryPack({ packCount = 16 }: { packCount?: number }) {
 
 // System Architecture Component
 function SystemArchitecture() {
-  const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   
   return (
     <group>
       {/* Battery Pack */}
-      <group position={[-3, 0, 0]} onClick={() => setSelectedComponent('battery')}>
+      <group position={[-3, 0, 0]}>
         <Box args={[2, 1, 1]} castShadow>
           <meshStandardMaterial color="#4a9d5c" />
         </Box>
@@ -103,7 +102,7 @@ function SystemArchitecture() {
       </group>
 
       {/* Inverter */}
-      <group position={[0, 0, 0]} onClick={() => setSelectedComponent('inverter')}>
+      <group position={[0, 0, 0]}>
         <Box args={[1.5, 0.8, 0.6]} castShadow>
           <meshStandardMaterial color="#0066cc" />
         </Box>
@@ -118,7 +117,7 @@ function SystemArchitecture() {
       </group>
 
       {/* BMS */}
-      <group position={[3, 0, 0]} onClick={() => setSelectedComponent('bms')}>
+      <group position={[3, 0, 0]}>
         <Box args={[1, 0.6, 0.4]} castShadow>
           <meshStandardMaterial color="#ff6600" />
         </Box>
