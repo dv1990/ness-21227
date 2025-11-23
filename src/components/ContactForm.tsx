@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Checkbox } from "@/components/ui/checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { toast } from "sonner";
 
 interface ContactFormProps {
   type: "homeowner" | "distributor" | "installer";
@@ -15,15 +16,41 @@ const ContactForm = ({ type }: ContactFormProps) => {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    // TODO: Implement actual form submission logic
+    try {
+      const formData = new FormData(e.currentTarget);
+      const data = {
+        from_name: formData.get('name') as string || formData.get('company') as string,
+        from_email: formData.get('email') as string,
+        from_phone: formData.get('phone') as string || '',
+        message: formData.get('message') as string || '',
+        form_type: type.charAt(0).toUpperCase() + type.slice(1),
+        // Additional fields based on form type
+        ...Object.fromEntries(formData.entries())
+      };
+      
+      const { sendEmail } = await import('@/lib/email-service');
+      await sendEmail(data);
+      
+      toast.success("Message Sent Successfully!", {
+        description: "We'll contact you within 24 hours.",
+        duration: 5000,
+      });
+      
+      // Reset form
+      e.currentTarget.reset();
+      setConsent(false);
+    } catch (error) {
+      toast.error("Failed to Send", {
+        description: "Please try again or contact us directly.",
+        duration: 5000,
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const renderHomeownerFields = () => (
