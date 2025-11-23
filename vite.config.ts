@@ -261,9 +261,15 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react/jsx-runtime',
-      '@tanstack/react-query',
       'react-router-dom',
-      '@radix-ui/react-slot'
-    ]
+      '@tanstack/react-query',
+      '@radix-ui/react-slot',
+      '@radix-ui/react-tooltip',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-popover',
+      '@radix-ui/react-toast'
+    ],
+    // Force dedupe React to prevent hooks errors
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime']
   }
 }));
