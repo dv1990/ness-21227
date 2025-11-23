@@ -25,7 +25,6 @@ import { useToast } from "@/hooks/use-toast";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import nessPodInstall from "@/assets/ness-pod-installation-hero.webp";
 import configuratorTool from "@/assets/configurator-tool.jpg";
-import industrialFacility from "@/assets/industrial-solar-facility.jpg";
 
 const formSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
@@ -50,10 +49,6 @@ const ContactInstaller = () => {
   // Scroll reveal hooks for sections
   const empathy = useScrollReveal({ threshold: 0.2 });
   const solution = useScrollReveal({ threshold: 0.2 });
-  const benefits = useScrollReveal({ threshold: 0.15 });
-  const proof = useScrollReveal({ threshold: 0.3 });
-  const configurator = useScrollReveal({ threshold: 0.2 });
-  const belief = useScrollReveal({ threshold: 0.2 });
 
   // Parallax effect for hero
   useEffect(() => {

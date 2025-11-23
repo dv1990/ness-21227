@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { LazySection } from "@/components/ui/lazy-section";
 import { WebPImage } from "@/components/ui/webp-image";
-import { ResponsiveImage } from "@/components/ui/responsive-image";
 import { ProductSectionSkeleton } from "@/components/ui/product-section-skeleton";
 import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";

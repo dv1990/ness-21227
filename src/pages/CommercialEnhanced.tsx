@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, memo } from "react";
+import { useState, memo } from "react";
 import { z } from "zod";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
@@ -8,7 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, CheckCircle2, Factory, Hotel, Fuel, Zap, TrendingDown, Clock, Leaf, MapPin, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Factory, Hotel, Fuel, Zap, TrendingDown, Clock, Leaf, ChevronDown, Sparkles } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { sendEmail } from "@/lib/email-service";
@@ -45,7 +45,6 @@ const CommercialEnhanced = () => {
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [imageLoaded, setImageLoaded] = useState(false);
 
   return <Layout>
       <div className="min-h-screen bg-background">

@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import heroImage from '@/assets/hero-home-solar.webp';
 
 const NessFeatureGrid = () => {
-  const { ref, isIntersecting, isItemVisible } = useStaggeredIntersection(11, 80);
+  const { ref, isItemVisible } = useStaggeredIntersection(11, 80);
 
   return (
     <section className="py-32 bg-gradient-to-b from-background via-energy-light/30 to-background">

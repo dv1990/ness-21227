@@ -9,17 +9,12 @@ import {
   Home, 
   Zap, 
   Battery, 
-  Smartphone, 
   Car,
   Calculator,
   CheckCircle,
   AlertCircle,
   TrendingUp,
-  Shield,
-  Clock,
-  Building2,
-  ArrowRight,
-  Snowflake
+  Clock
 } from "lucide-react";
 
 interface ConfiguratorState {

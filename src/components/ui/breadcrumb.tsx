@@ -2,8 +2,7 @@ import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { 
   ChevronRight, 
-  MoreHorizontal, 
-  ChevronLeft 
+  MoreHorizontal
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";

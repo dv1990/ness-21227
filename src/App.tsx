@@ -1,11 +1,10 @@
-import React, { Suspense, lazy } from 'react';
+import { Suspense, lazy } from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ServiceWorkerPrompt } from "@/components/ServiceWorkerPrompt";
 
 // Router future flags for v7 compatibility
@@ -48,16 +47,6 @@ const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
 const TroubleshootingGuide = lazy(() => import("./pages/TroubleshootingGuide"));
 const Downloads = lazy(() => import("./pages/Downloads"));
 const NotFound = lazy(() => import("./pages/NotFound"));
-
-// Create QueryClient instance outside component to avoid re-creation
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1,
-    },
-  },
-});
 
 // Loading fallback component with skeleton
 const PageLoadingFallback = () => (

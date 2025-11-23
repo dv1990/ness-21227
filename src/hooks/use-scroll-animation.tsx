@@ -15,7 +15,7 @@ export const useScrollAnimation = (options?: any) => {
 };
 
 export const useStaggeredAnimation = (itemCount: number, delay: number = 100) => {
-  const { ref, isIntersecting, visibleIndices, isItemVisible } = useStaggeredIntersection(itemCount, delay);
+  const { ref, isIntersecting, visibleIndices } = useStaggeredIntersection(itemCount, delay);
   // Convert Set to array for backwards compatibility
   const visibleItems = Array.from(visibleIndices);
   return { elementRef: ref, visibleItems, isVisible: isIntersecting };
@@ -33,7 +33,6 @@ export const useParallaxScroll = (speed: number = 0.5) => {
       if (!ticking) {
         rafId.current = requestAnimationFrame(() => {
           if (elementRef.current) {
-            const rect = elementRef.current.getBoundingClientRect();
             const scrolled = window.pageYOffset;
             const rate = scrolled * -speed;
             setOffset(rate);

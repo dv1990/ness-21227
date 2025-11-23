@@ -1,6 +1,6 @@
 import Layout from "@/components/Layout";
 import { MagneticButton } from "@/components/EnhancedInteractions";
-import { Shield, Clock, Heart, ArrowRight, Award, CheckCircle2 } from "lucide-react";
+import { ArrowRight, Award, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { WebPImage } from "@/components/ui/webp-image";
 import { WhyNess } from "@/components/WhyNess";

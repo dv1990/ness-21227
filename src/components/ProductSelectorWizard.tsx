@@ -1,9 +1,8 @@
 import React, { useState, useEffect, memo } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { ArrowRight, ArrowLeft, Check, Home, Sun, Edit, Zap, Battery, TrendingUp } from 'lucide-react';
-import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { safeLocalStorage } from '@/lib/safe-storage';
 
