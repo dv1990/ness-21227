@@ -146,12 +146,8 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Force single React instance
-      'react': path.resolve(__dirname, './node_modules/react'),
-      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime'),
-      'react-router-dom': path.resolve(__dirname, './node_modules/react-router-dom')
     },
+    // Force single React instance - let Vite handle the resolution
     dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
   },
   build: {
