@@ -10,7 +10,7 @@ import { AnimatedCard } from "@/components/ui/animated-card";
 import { LiveTicker } from "@/components/ui/live-ticker";
 
 // Import images
-import batteryTechnology from "@/assets/battery-technology.jpg";
+import batteryTechnology from "@/assets-webp/battery-technology.webp";
 import rdLaboratory from "@/assets/rd-laboratory.jpg";
 import systemArchitecture from "@/assets/system-architecture.jpg";
 import nucuPcb from "@/assets/nucu-pcb-premium.webp";

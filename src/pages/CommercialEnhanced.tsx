@@ -15,10 +15,10 @@ import { sendEmail } from "@/lib/email-service";
 import nessCubeResort from "@/assets/ness-cube-resort.webp";
 import nessPodInstallation from "@/assets/ness-pod-installation-hero.webp";
 import manufacturingFacility from "@/assets/manufacturing-facility.jpg";
-import greenResort from "@/assets/green-resort.jpg";
-import dgReplacement from "@/assets/dg-replacement.jpg";
-import evCharging from "@/assets/ev-charging.jpg";
-import ciHeroPremium from "@/assets/ci-hero-premium.webp";
+import greenResort from "@/assets-webp/green-resort.webp";
+import dgReplacement from "@/assets-webp/dg-replacement.webp";
+import evCharging from "@/assets-webp/ev-charging.webp";
+import ciHeroPremium from "@/assets-webp/ci-hero-premium.webp";
 
 // Form validation schema
 const contactSchema = z.object({

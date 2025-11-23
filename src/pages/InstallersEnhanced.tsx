@@ -16,7 +16,7 @@ import { MagneticButton, FloatingCard } from "@/components/EnhancedInteractions"
 import SystemConfigurator from "@/components/SystemConfigurator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import trainingWorkshop from "@/assets/training-workshop.jpg";
-import configuratorTool from "@/assets/configurator-tool.jpg";
+import configuratorTool from "@/assets-webp/configurator-tool.webp";
 
 const InstallersEnhanced = () => {
   const { toast } = useToast();

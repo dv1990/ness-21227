@@ -24,7 +24,7 @@ import SystemConfigurator from "@/components/SystemConfigurator";
 import { useToast } from "@/hooks/use-toast";
 import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import nessPodInstall from "@/assets/ness-pod-installation-hero.webp";
-import configuratorTool from "@/assets/configurator-tool.jpg";
+import configuratorTool from "@/assets-webp/configurator-tool.webp";
 
 const formSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
