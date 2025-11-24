@@ -158,6 +158,7 @@ const TechnologyEnhanced = () => {
                 src={batteryTechnology}
                 alt="LiFePO4 cell testing"
                 className="w-full"
+                priority={false}
               />
             </div>
           </div>
@@ -169,6 +170,7 @@ const TechnologyEnhanced = () => {
                 src={rdLaboratory}
                 alt="Manufacturing process"
                 className="w-full"
+                priority={false}
               />
             </div>
 
@@ -242,6 +244,7 @@ const TechnologyEnhanced = () => {
                 src={systemArchitecture}
                 alt="System monitoring interface"
                 className="w-full"
+                priority={false}
               />
             </div>
           </div>
