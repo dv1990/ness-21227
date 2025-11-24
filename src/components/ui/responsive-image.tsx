@@ -128,26 +128,39 @@ function generateSrcSet(src: string, format: 'avif' | 'webp' | 'jpeg' = 'jpeg'):
   const basePath = src.substring(0, lastDotIndex);
   const originalExt = src.substring(lastDotIndex);
   
-  // For single image, generate WebP/JPEG source
-  let finalPath = basePath;
+  // Define responsive breakpoints
+  const widths = [640, 768, 1024, 1280, 1920];
+  
+  // Determine folder and extension based on format
+  let folderPath = basePath;
   let ext = '';
   
   if (format === 'avif') {
-    finalPath = basePath.replace('/assets/', '/assets-avif/');
+    folderPath = basePath.replace('/assets-webp/', '/assets-avif/').replace('/assets/', '/assets-avif/');
     ext = '.avif';
   } else if (format === 'webp') {
-    // Check if already in webp folder
-    if (basePath.includes('/assets-webp/')) {
-      finalPath = basePath;
-    } else {
-      finalPath = basePath.replace('/assets/', '/assets-webp/');
-    }
+    folderPath = basePath.includes('/assets-webp/') 
+      ? basePath 
+      : basePath.replace('/assets/', '/assets-webp/');
     ext = '.webp';
   } else {
     // JPEG - keep original path and extension
+    folderPath = basePath.replace('/assets-webp/', '/assets/').replace('/assets-avif/', '/assets/');
     ext = originalExt;
   }
   
-  // Return single source for now (responsive variants would need actual generated files)
-  return `${finalPath}${ext}`;
+  // Extract just the filename without path
+  const lastSlashIndex = folderPath.lastIndexOf('/');
+  const filename = lastSlashIndex !== -1 ? folderPath.substring(lastSlashIndex + 1) : folderPath;
+  const folder = lastSlashIndex !== -1 ? folderPath.substring(0, lastSlashIndex + 1) : '';
+  
+  // Generate srcset string with multiple widths
+  const srcsetEntries = widths.map(width => {
+    return `${folder}${filename}-${width}w${ext} ${width}w`;
+  });
+  
+  // Add original size as fallback
+  srcsetEntries.push(`${folderPath}${ext} 2048w`);
+  
+  return srcsetEntries.join(', ');
 }
