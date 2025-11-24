@@ -218,7 +218,7 @@ const CommercialEnhanced = () => {
                   <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-primary/5 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                   
                   <div className="relative aspect-[4/3] bg-card rounded-3xl overflow-hidden border border-border/50 shadow-2xl">
-                    <img src={manufacturingFacility} alt="Clean fabrication shop with NESS providing silent backup" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <img src={manufacturingFacility} alt="Clean fabrication shop with NESS providing silent backup" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
                   </div>
                 </div>
               </div>
@@ -233,7 +233,7 @@ const CommercialEnhanced = () => {
             <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
               
               <div className="aspect-[4/3] bg-card rounded-3xl overflow-hidden border border-border shadow-xl">
-                <img src={greenResort} alt="Luxury resort running on silent NESS power" className="w-full h-full object-cover" />
+                <img src={greenResort} alt="Luxury resort running on silent NESS power" className="w-full h-full object-cover" loading="lazy" />
               </div>
 
               <div className="space-y-6 sm:space-y-8">
@@ -345,7 +345,7 @@ const CommercialEnhanced = () => {
             </div>
 
             <div className="aspect-[21/9] bg-card rounded-3xl overflow-hidden border border-border shadow-xl">
-              <img src={dgReplacement} alt="Diesel generator replaced by NESS Cube" className="w-full h-full object-cover" />
+              <img src={dgReplacement} alt="Diesel generator replaced by NESS Cube" className="w-full h-full object-cover" loading="lazy" />
             </div>
 
             <div className="text-center mt-12">
@@ -419,7 +419,7 @@ const CommercialEnhanced = () => {
 
               <div className="order-first lg:order-last">
                 <div className="aspect-[4/3] bg-card rounded-3xl overflow-hidden border border-border shadow-xl">
-                  <img src={evCharging} alt="EV plaza operating smoothly with NESS-powered buffering" className="w-full h-full object-cover" />
+                  <img src={evCharging} alt="EV plaza operating smoothly with NESS-powered buffering" className="w-full h-full object-cover" loading="lazy" />
                 </div>
               </div>
 
@@ -443,7 +443,7 @@ const CommercialEnhanced = () => {
               {/* NESS POD */}
               <Card className="bg-card border-border shadow-xl overflow-hidden hover:shadow-2xl transition-shadow">
                 <div className="aspect-[4/3] bg-gradient-to-br from-blue-500/10 to-blue-500/5 overflow-hidden">
-                  <img src={nessPodInstallation} alt="NESS POD compact outdoor unit" className="w-full h-full object-contain p-8" />
+                  <img src={nessPodInstallation} alt="NESS POD compact outdoor unit" className="w-full h-full object-contain p-8" loading="lazy" />
                 </div>
                 <CardHeader>
                   <CardTitle className="text-3xl">NESS POD</CardTitle>
@@ -488,7 +488,7 @@ const CommercialEnhanced = () => {
               {/* NESS CUBE */}
               <Card className="bg-card border-border shadow-xl overflow-hidden hover:shadow-2xl transition-shadow">
                 <div className="aspect-[4/3] bg-gradient-to-br from-green-500/10 to-green-500/5 overflow-hidden">
-                  <img src={nessCubeResort} alt="NESS CUBE containerized solution" className="w-full h-full object-cover" />
+                  <img src={nessCubeResort} alt="NESS CUBE containerized solution" className="w-full h-full object-cover" loading="lazy" />
                 </div>
                 <CardHeader>
                   <CardTitle className="text-3xl">NESS CUBE</CardTitle>

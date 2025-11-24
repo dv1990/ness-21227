@@ -114,6 +114,7 @@ const TrueWarranty = () => {
                 src={nessPodProduct}
                 alt="NESS Pod Battery"
                 className="w-full"
+                priority={false}
               />
             </div>
           </div>
