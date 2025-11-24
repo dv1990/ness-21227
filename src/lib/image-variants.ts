@@ -35,12 +35,16 @@ export function generateHeroSrcSet(
   basePath: string, 
   format: 'avif' | 'webp' | 'jpeg' = 'webp'
 ): string {
-  const widths = [640, 750, 828, 1080, 1200, 1920];
+  const widths = [640, 768, 1024, 1280, 1920];
   const extension = format === 'avif' ? '.avif' : format === 'webp' ? '.webp' : '.jpg';
   const folder = format === 'avif' ? 'assets-avif' : format === 'webp' ? 'assets-webp' : 'assets';
   
+  // Extract base path without extension
+  const lastDotIndex = basePath.lastIndexOf('.');
+  const basePathNoExt = lastDotIndex !== -1 ? basePath.substring(0, lastDotIndex) : basePath;
+  
   // Replace assets folder if needed
-  const adjustedPath = basePath.replace(/assets(-webp|-avif)?/, folder);
+  const adjustedPath = basePathNoExt.replace(/assets(-webp|-avif)?/, folder);
   
   return widths
     .map(width => `${adjustedPath}-${width}w${extension} ${width}w`)
@@ -63,12 +67,16 @@ export function generateProductSrcSet(
   basePath: string, 
   format: 'avif' | 'webp' | 'jpeg' = 'webp'
 ): string {
-  const widths = [400, 640, 828, 1080, 1200];
+  const widths = [640, 768, 1024, 1280];
   const extension = format === 'avif' ? '.avif' : format === 'webp' ? '.webp' : '.jpg';
   const folder = format === 'avif' ? 'assets-avif' : format === 'webp' ? 'assets-webp' : 'assets';
   
+  // Extract base path without extension
+  const lastDotIndex = basePath.lastIndexOf('.');
+  const basePathNoExt = lastDotIndex !== -1 ? basePath.substring(0, lastDotIndex) : basePath;
+  
   // Replace assets folder if needed
-  const adjustedPath = basePath.replace(/assets(-webp|-avif)?/, folder);
+  const adjustedPath = basePathNoExt.replace(/assets(-webp|-avif)?/, folder);
   
   return widths
     .map(width => `${adjustedPath}-${width}w${extension} ${width}w`)
