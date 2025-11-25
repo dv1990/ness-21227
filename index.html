@@ -69,36 +69,21 @@
       crossorigin
     />
     
-    <!-- Optimized Fonts - Apple-style weights with font-display: swap -->
+    <!-- Apple-Inspired Typography - SF Pro fallback to Inter -->
+    <!-- Only load Inter 400 & 500 for minimal, clean typography -->
     <link 
       rel="preload" 
       as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap"
     />
     <link 
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" 
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" 
       rel="stylesheet"
       media="print" 
       onload="this.media='all'"
     />
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
-    </noscript>
-    
-    <!-- Playfair Display - Premium serif font for hero section -->
-    <link 
-      rel="preload" 
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,300&display=swap"
-    />
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,300&display=swap" 
-      rel="stylesheet"
-      media="print" 
-      onload="this.media='all'"
-    />
-    <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,300&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
     </noscript>
     
     <!-- Preload critical hero image for faster LCP -->
