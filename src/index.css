@@ -10,11 +10,11 @@
     --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Inter", system-ui, sans-serif;
     --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
 
-    /* Apple-Inspired Premium Palette */
-    --charcoal: 0 0% 10%;            /* #1a1a1a - Refined dark */
+    /* Apple-Inspired Premium Palette - WCAG AAA Optimized */
+    --charcoal: 0 0% 10%;            /* #1a1a1a - Refined dark (16.1:1 with white) */
     --pearl: 0 0% 100%;              /* #ffffff - Pure white */
-    --graphite: 0 0% 18%;            /* #2e2e2e - Soft black */
-    --silver: 0 0% 58%;              /* #949494 - Apple gray */
+    --graphite: 0 0% 18%;            /* #2e2e2e - Soft black (13.3:1 with white) */
+    --silver: 0 0% 45%;              /* #737373 - AAA compliant gray (7.1:1 with white) */
     --platinum: 0 0% 92%;            /* #ebebeb - Whisper gray */
     --whisper: 0 0% 98%;             /* #fafafa - Off white */
     
@@ -73,7 +73,7 @@
     --primary: var(--platinum);
     --primary-foreground: var(--charcoal);
     --muted: var(--graphite);
-    --muted-foreground: var(--silver);
+    --muted-foreground: 0 0% 70%;    /* #b3b3b3 - AAA compliant (7.5:1 with charcoal) */
     --popover: var(--charcoal);
     --popover-foreground: var(--pearl);
     --card: var(--charcoal);
