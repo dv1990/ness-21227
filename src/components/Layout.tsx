@@ -1,9 +1,12 @@
-import { ReactNode, lazy, Suspense } from "react";
+import { ReactNode, lazy, Suspense, useEffect } from "react";
 import NavigationEnhanced from "./NavigationEnhanced";
 import SkipLink from "./SkipLink";
 import { MobileStickyCTA } from "./MobileStickyCTA";
 import { PWAInstallPrompt } from "./PWAInstallPrompt";
 import { LoadingSpinner } from "./ui/loading-spinner";
+import { ScrollProgressBar } from "./ScrollProgressBar";
+import { CustomCursor } from "./ui/custom-cursor";
+import { initSmoothScroll, initMagneticScroll } from "@/lib/smooth-scroll";
 
 // Lazy load below-the-fold components to reduce initial CSS bundle
 const Footer = lazy(() => import("./Footer"));
@@ -15,8 +18,18 @@ interface LayoutProps {
 }
 
 const Layout = ({ children, className = "" }: LayoutProps) => {
+  // Initialize premium scroll behaviors
+  useEffect(() => {
+    initSmoothScroll();
+    initMagneticScroll();
+  }, []);
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
+      {/* Premium Features */}
+      <ScrollProgressBar />
+      <CustomCursor />
+      
       <SkipLink />
       <header role="banner">
         <NavigationEnhanced />
