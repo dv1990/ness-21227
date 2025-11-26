@@ -52,7 +52,7 @@ export const AnimatedCard = ({
     <Card
       ref={elementRef as any}
       className={cn(
-        'glass-card transition-all duration-700 ease-out',
+        'glass-card interactive transition-all duration-700 ease-out',
         animationClasses[animation],
         hoverClasses[hover],
         className
