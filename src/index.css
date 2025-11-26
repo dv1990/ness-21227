@@ -33,10 +33,19 @@
     --shadow-premium: 0 25px 50px -12px hsl(var(--charcoal) / 0.25);
     --shadow-energy: 0 20px 40px -15px hsl(var(--energy-core) / 0.4);
     --shadow-whisper: 0 10px 20px -5px hsl(var(--charcoal) / 0.1);
+    --shadow-elegant: 0 10px 30px -10px hsl(var(--charcoal) / 0.3);
+    --shadow-glow: 0 0 40px hsl(var(--energy-glow) / 0.4);
     
     /* Apple-style Motion */
     --ease-premium: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Premium Effects */
+    --noise-texture: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+    --glass-blur: blur(20px);
+    --glass-border: 1px solid hsl(var(--pearl) / 0.1);
 
     /* Semantic Design Tokens */
     --background: var(--pearl);
@@ -104,6 +113,27 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 400;
     letter-spacing: -0.01em;
+    
+    /* Custom cursor on desktop only */
+    cursor: none;
+  }
+  
+  /* Show default cursor on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    body {
+      cursor: auto;
+    }
+  }
+  
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+  }
+  
+  /* Smooth scroll sections */
+  section {
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
   }
   
   /* Performance: CSS Containment for isolated sections */
@@ -139,11 +169,14 @@
     perspective: 1000px;
   }
   
+  /* Headings - Generous spacing */
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-system);
     font-weight: 500;
     letter-spacing: -0.025em;
     line-height: 1.15;
+    margin: 0;
+    margin-bottom: 1.5em;
   }
   
   /* Apple-style Typography Refinements */
@@ -157,13 +190,88 @@
     line-height: 1.6;
     letter-spacing: -0.005em;
   }
+  
+  /* Section spacing - Premium generous white space */
+  section {
+    padding-top: clamp(4rem, 8vw, 8rem);
+    padding-bottom: clamp(4rem, 8vw, 8rem);
+  }
+  
+  section + section {
+    margin-top: clamp(2rem, 4vw, 4rem);
+  }
 }
 
 /* Premium Component Styles */
 @layer components {
+  /* Glassmorphism with texture */
   .glass-premium {
-    @apply bg-card/80 backdrop-blur-xl border border-border/20;
-    box-shadow: var(--shadow-whisper);
+    background: linear-gradient(
+      135deg,
+      hsl(var(--pearl) / 0.05),
+      hsl(var(--pearl) / 0.02)
+    );
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    box-shadow: var(--shadow-elegant);
+    position: relative;
+  }
+
+  .glass-premium::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--noise-texture);
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
+  }
+
+  /* Glassmorphism Card */
+  .glass-card {
+    background: linear-gradient(
+      135deg,
+      hsl(var(--pearl) / 0.08),
+      hsl(var(--pearl) / 0.03)
+    );
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    box-shadow: 
+      0 8px 32px 0 hsl(var(--charcoal) / 0.1),
+      inset 0 1px 0 0 hsl(var(--pearl) / 0.1);
+    position: relative;
+  }
+
+  .glass-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--noise-texture);
+    pointer-events: none;
+    opacity: 0.3;
+    border-radius: inherit;
+  }
+
+  /* Texture Overlay Utility */
+  .texture-overlay {
+    position: relative;
+  }
+
+  .texture-overlay::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--noise-texture);
+    pointer-events: none;
+    opacity: 0.05;
+    mix-blend-mode: overlay;
+  }
+  
+  /* Interactive element marker for custom cursor */
+  .interactive {
+    cursor: pointer;
   }
   
   .energy-glow {

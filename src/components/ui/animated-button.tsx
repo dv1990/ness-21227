@@ -49,7 +49,7 @@ export const AnimatedButton = ({
   return (
     <Button
       className={cn(
-        'relative overflow-hidden transition-all duration-300 ease-out',
+        'relative overflow-hidden transition-all duration-300 ease-out interactive',
         animationClasses[animation],
         className
       )}

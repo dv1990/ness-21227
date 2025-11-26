@@ -132,7 +132,7 @@ const Index = () => {
               <Link to="/residential" className="inline-block group">
                 <Button
                   size="lg"
-                  className="font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 hover:shadow-2xl hover:shadow-energy/20"
+                  className="interactive font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 hover:shadow-2xl hover:shadow-energy/20"
                 >
                   <span className="flex items-center justify-center">
                     Experience NESS
@@ -150,10 +150,10 @@ const Index = () => {
       {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact */}
       <section
         ref={nextSectionRef}
-        className="py-32 sm:py-40 md:py-48 px-4 sm:px-6 bg-pearl scroll-mt-16"
+        className="py-40 sm:py-48 md:py-56 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
         aria-labelledby="key-benefit-heading"
       >
-        <div className="max-w-5xl mx-auto text-center space-y-8">
+        <div className="max-w-5xl mx-auto text-center space-y-12">
           <h2
             id="key-benefit-heading"
             className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-light text-graphite mb-8 tracking-tight leading-[1.1]"
@@ -170,7 +170,7 @@ const Index = () => {
       {/* 3. PRODUCT SPOTLIGHT - NESS Powerwall - Mobile Optimized */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
         <section
-          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl"
+          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl texture-overlay"
           aria-labelledby="residential-heading"
         >
           <div className="max-w-7xl mx-auto">
@@ -220,7 +220,7 @@ const Index = () => {
                   <Link to="/residential">
                     <Button
                       size="lg"
-                      className="bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
+                      className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
                     >
                       Experience NESS
                       <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
@@ -247,7 +247,7 @@ const Index = () => {
       {/* 4. PRODUCT SPOTLIGHT - NESS Pod */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
         <section
-          className="py-12 sm:py-16 md:py-20 px-4 sm:px-6 bg-pearl text-graphite"
+          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl text-graphite texture-overlay"
           aria-labelledby="commercial-heading"
         >
           <div className="max-w-7xl mx-auto">
@@ -309,7 +309,7 @@ const Index = () => {
                   <Link to="/commercial">
                     <Button
                       size="lg"
-                      className="bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
+                      className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
                     >
                       Explore Solutions
                       <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
@@ -326,7 +326,7 @@ const Index = () => {
 
       {/* 5. SOCIAL PROOF - One Powerful Story */}
       <LazySection>
-        <section className="py-32 sm:py-40 md:py-48 bg-charcoal" aria-labelledby="testimonials-heading">
+        <section className="py-40 sm:py-48 md:py-56 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
           <div className="max-w-5xl mx-auto px-6 sm:px-8">
             <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
