@@ -34,9 +34,9 @@ export const CustomCursor = () => {
       const isInteractive = 
         target.tagName === 'A' || 
         target.tagName === 'BUTTON' ||
-        target.closest('a') ||
-        target.closest('button') ||
-        target.hasAttribute('role') && ['button', 'link'].includes(target.getAttribute('role') || '');
+        !!target.closest('a') ||
+        !!target.closest('button') ||
+        (target.hasAttribute('role') && ['button', 'link'].includes(target.getAttribute('role') || ''));
       
       setIsHovering(isInteractive);
     };

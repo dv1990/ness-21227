@@ -5,10 +5,10 @@
 
 export const initSmoothScroll = () => {
   // Smooth scroll behavior for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+  document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (this: HTMLAnchorElement, e: Event) {
       e.preventDefault();
-      const targetId = (this as HTMLAnchorElement).getAttribute('href');
+      const targetId = this.getAttribute('href');
       if (!targetId || targetId === '#') return;
 
       const targetElement = document.querySelector(targetId);
@@ -52,7 +52,7 @@ export const initMagneticScroll = () => {
 
     if (closestSection && closestDistance < window.innerHeight * 0.3) {
       isScrolling = true;
-      closestSection.scrollIntoView({
+      (closestSection as HTMLElement).scrollIntoView({
         behavior: 'smooth',
         block: 'center',
       });
