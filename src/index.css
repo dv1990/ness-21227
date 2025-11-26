@@ -101,7 +101,10 @@
 @layer base {
   * {
     @apply border-border;
+    box-sizing: border-box;
+    cursor: none; /* Hide default cursor for custom cursor */
   }
+  
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-body);
@@ -112,6 +115,15 @@
     -moz-osx-font-smoothing: grayscale;
     font-weight: 400;
     letter-spacing: -0.01em;
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+  }
+
+  /* Show default cursor on mobile/touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
   }
   
   /* Performance: CSS Containment for isolated sections */
