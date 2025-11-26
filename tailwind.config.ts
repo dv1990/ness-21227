@@ -97,6 +97,19 @@ export default {
         xl: "var(--radius-lg)",
         "2xl": "var(--radius-xl)",
       },
+      backdropBlur: {
+        'premium': '20px',
+        'strong': '40px',
+      },
+      boxShadow: {
+        'elegant': 'var(--shadow-elegant)',
+        'glow': 'var(--shadow-glow)',
+        'deep': 'var(--shadow-deep)',
+        'glass': 'var(--shadow-glass)',
+        'premium': 'var(--shadow-premium)',
+        'energy': 'var(--shadow-energy)',
+        'whisper': 'var(--shadow-whisper)',
+      },
       keyframes: {
         "accordion-down": {
           from: {
