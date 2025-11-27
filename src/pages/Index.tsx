@@ -68,7 +68,7 @@ const Index = () => {
   return (
     <Layout>
       {/* 1. HERO SECTION */}
-      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden" aria-labelledby="hero-heading">
+      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden -mt-20" aria-labelledby="hero-heading">
         {/* Full-screen Product Image Background */}
         <div className="absolute inset-0 w-full h-full">
           {/* Product Image - Static confidence */}
