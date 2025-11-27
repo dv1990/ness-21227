@@ -66,7 +66,7 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* 1. HERO SECTION */}
       <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden" aria-labelledby="hero-heading">
         {/* Full-screen Product Image Background */}
