@@ -26,7 +26,7 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
       </header>
       <main 
         id="main-content" 
-        className={`flex-1 pt-20 ${className}`}
+        className={`flex-1 ${className}`}
       >
         <PageTransition>
           {children}
