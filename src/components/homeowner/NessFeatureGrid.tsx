@@ -21,115 +21,137 @@ const NessFeatureGrid = () => {
           </p>
         </div>
 
-        {/* Grid Container */}
-        <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-7xl mx-auto">
+        {/* Asymmetric Grid Container with Overlapping Cards */}
+        <div ref={ref as any} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 max-w-7xl mx-auto">
           
-          {/* Hero Tile - Spans 2x2 on larger screens */}
-          <HeroTile isVisible={isItemVisible(0)} />
+          {/* Hero Tile - Spans larger area with offset */}
+          <div className="lg:col-span-5 lg:row-span-2">
+            <HeroTile isVisible={isItemVisible(0)} />
+          </div>
               
-          {/* Tile 1 - Max Output */}
-          <FeatureTile
-            icon={<Zap className="w-8 h-8" />}
-            title="Max. 10 kW AC Output"
-            subtitle="Hybrid"
-            description="Seamless power delivery"
-            isVisible={isItemVisible(1)}
-            iconColor="text-energy-bright"
-          />
+          {/* Tile 1 - Max Output - Offset up and overlapping */}
+          <div className="lg:col-span-3 lg:-mt-8 lg:z-10">
+            <FeatureTile
+              icon={<Zap className="w-8 h-8" />}
+              title="Max. 10 kW AC Output"
+              subtitle="Hybrid"
+              description="Seamless power delivery"
+              isVisible={isItemVisible(1)}
+              iconColor="text-energy-bright"
+            />
+          </div>
 
-          {/* Tile 2 - Savings */}
-          <FeatureTile
-            icon={<Gauge className="w-8 h-8" />}
-            title="Cut Bills by 40%"
-            subtitle="Smart Solar Usage"
-            description="Lower monthly costs"
-            isVisible={isItemVisible(2)}
-            iconColor="text-energy"
-          />
+          {/* Tile 2 - Savings - Offset down */}
+          <div className="lg:col-span-4 lg:mt-12">
+            <FeatureTile
+              icon={<Gauge className="w-8 h-8" />}
+              title="Cut Bills by 40%"
+              subtitle="Smart Solar Usage"
+              description="Lower monthly costs"
+              isVisible={isItemVisible(2)}
+              iconColor="text-energy"
+            />
+          </div>
 
-          {/* Tile 3 - Plug-and-Play */}
-          <FeatureTile
-            icon={<Zap className="w-8 h-8" />}
-            title="Plug-and-Play"
-            subtitle="Installation"
-            description="Ready in hours, not days"
-            isVisible={isItemVisible(3)}
-            iconColor="text-energy-bright"
-          />
+          {/* Tile 3 - Plug-and-Play - Standard position */}
+          <div className="lg:col-span-3">
+            <FeatureTile
+              icon={<Zap className="w-8 h-8" />}
+              title="Plug-and-Play"
+              subtitle="Installation"
+              description="Ready in hours, not days"
+              isVisible={isItemVisible(3)}
+              iconColor="text-energy-bright"
+            />
+          </div>
 
-          {/* Tile 4 - All-in-One */}
-          <FeatureTile
-            icon={<Battery className="w-8 h-8" />}
-            title="All-in-One Design"
-            subtitle="Integrated System"
-            description="BMS, modules, electronics"
-            isVisible={isItemVisible(4)}
-            iconColor="text-energy"
-          />
+          {/* Tile 4 - All-in-One - Overlapping slightly */}
+          <div className="lg:col-span-4 lg:-ml-4 lg:z-10">
+            <FeatureTile
+              icon={<Battery className="w-8 h-8" />}
+              title="All-in-One Design"
+              subtitle="Integrated System"
+              description="BMS, modules, electronics"
+              isVisible={isItemVisible(4)}
+              iconColor="text-energy"
+            />
+          </div>
 
-          {/* Tile 5 - Certification */}
-          <FeatureTile
-            icon={<Shield className="w-8 h-8" />}
-            title="IEC 62619 Certified"
-            subtitle="Global Standards"
-            description="Premium certification"
-            isVisible={isItemVisible(5)}
-            iconColor="text-energy-bright"
-            featured
-          />
+          {/* Tile 5 - Certification - Featured with offset */}
+          <div className="lg:col-span-3 lg:row-span-2 lg:mt-8">
+            <FeatureTile
+              icon={<Shield className="w-8 h-8" />}
+              title="IEC 62619 Certified"
+              subtitle="Global Standards"
+              description="Premium certification"
+              isVisible={isItemVisible(5)}
+              iconColor="text-energy-bright"
+              featured
+            />
+          </div>
 
-          {/* Tile 6 - Warranty */}
-          <FeatureTile
-            icon={<Award className="w-8 h-8" />}
-            title="10-Year Warranty"
-            subtitle="Peace of Mind"
-            description="Complete protection"
-            isVisible={isItemVisible(6)}
-            iconColor="text-energy"
-            featured
-          />
+          {/* Tile 6 - Warranty - Featured, offset up */}
+          <div className="lg:col-span-4 lg:-mt-6">
+            <FeatureTile
+              icon={<Award className="w-8 h-8" />}
+              title="10-Year Warranty"
+              subtitle="Peace of Mind"
+              description="Complete protection"
+              isVisible={isItemVisible(6)}
+              iconColor="text-energy"
+              featured
+            />
+          </div>
 
-          {/* Tile 7 - Outdoor Protection */}
-          <FeatureTile
-            icon={<Shield className="w-8 h-8" />}
-            title="IP55"
-            subtitle="Weather Resistant"
-            description="Built for outdoors"
-            highlight="Protected"
-            isVisible={isItemVisible(7)}
-            iconColor="text-energy-bright"
-          />
+          {/* Tile 7 - Outdoor Protection - Offset down */}
+          <div className="lg:col-span-3 lg:mt-8">
+            <FeatureTile
+              icon={<Shield className="w-8 h-8" />}
+              title="IP55"
+              subtitle="Weather Resistant"
+              description="Built for outdoors"
+              highlight="Protected"
+              isVisible={isItemVisible(7)}
+              iconColor="text-energy-bright"
+            />
+          </div>
 
-          {/* Tile 8 - Smart Meter */}
-          <FeatureTile
-            icon={<Gauge className="w-8 h-8" />}
-            title="Smart Meter"
-            subtitle="Compatible"
-            description="Real-time monitoring"
-            isVisible={isItemVisible(8)}
-            iconColor="text-energy"
-          />
+          {/* Tile 8 - Smart Meter - Overlapping */}
+          <div className="lg:col-span-2 lg:-ml-6 lg:z-10">
+            <FeatureTile
+              icon={<Gauge className="w-8 h-8" />}
+              title="Smart Meter"
+              subtitle="Compatible"
+              description="Real-time monitoring"
+              isVisible={isItemVisible(8)}
+              iconColor="text-energy"
+            />
+          </div>
 
-          {/* Tile 9 - Battery Life */}
-          <FeatureTile
-            icon={<Battery className="w-8 h-8" />}
-            title="6000-cycle LFP"
-            subtitle="Battery Life"
-            description="Long-lasting power"
-            highlight="Premium"
-            isVisible={isItemVisible(9)}
-            iconColor="text-energy-bright"
-          />
+          {/* Tile 9 - Battery Life - Standard */}
+          <div className="lg:col-span-4">
+            <FeatureTile
+              icon={<Battery className="w-8 h-8" />}
+              title="6000-cycle LFP"
+              subtitle="Battery Life"
+              description="Long-lasting power"
+              highlight="Premium"
+              isVisible={isItemVisible(9)}
+              iconColor="text-energy-bright"
+            />
+          </div>
 
-          {/* Tile 10 - Solar Input */}
-          <FeatureTile
-            icon={<Sun className="w-8 h-8" />}
-            title="15 kWp Solar Input"
-            subtitle="3 MPPT"
-            description="Maximum efficiency"
-            isVisible={isItemVisible(10)}
-            iconColor="text-energy"
-          />
+          {/* Tile 10 - Solar Input - Offset up, overlapping */}
+          <div className="lg:col-span-3 lg:-mt-12 lg:z-10">
+            <FeatureTile
+              icon={<Sun className="w-8 h-8" />}
+              title="15 kWp Solar Input"
+              subtitle="3 MPPT"
+              description="Maximum efficiency"
+              isVisible={isItemVisible(10)}
+              iconColor="text-energy"
+            />
+          </div>
 
         </div>
       </div>
@@ -216,7 +238,7 @@ const FeatureTile = memo(({
   return (
     <div 
       className={cn(
-        "rounded-2xl bg-gradient-to-br from-card via-card to-energy-light/5 border overflow-hidden",
+        "rounded-2xl bg-gradient-to-br from-card via-card to-energy-light/5 border overflow-hidden interactive h-full",
         "hover:shadow-xl hover:shadow-energy/20 transition-all duration-700",
         "hover:scale-105 hover:-translate-y-2 group cursor-default",
         "backdrop-blur-sm relative",
