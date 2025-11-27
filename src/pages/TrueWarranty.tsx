@@ -21,7 +21,7 @@ const TrueWarranty = () => {
   }, []);
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* 1) Hero - The Warranty. All of It. */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
         <div className="absolute inset-0 bg-gradient-to-br from-whisper via-background to-whisper"></div>

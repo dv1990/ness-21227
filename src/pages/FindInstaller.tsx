@@ -174,7 +174,7 @@ const FindInstaller = () => {
 
   if (step === "form") {
     return (
-      <Layout>
+      <Layout className="-mt-16">
         {/* Hero Section */}
         <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background Gradient */}

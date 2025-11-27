@@ -18,7 +18,7 @@ import { Link } from "react-router-dom";
 
 const About = () => {
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* Hero Section - Premium Deep Tech */}
       <section className="relative min-h-screen flex items-center bg-pearl overflow-hidden">
         

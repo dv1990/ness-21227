@@ -116,7 +116,7 @@ const ContactInstaller = () => {
   };
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       <div className="bg-background">
         {/* Hero Section - Full bleed with image and parallax */}
         <section 

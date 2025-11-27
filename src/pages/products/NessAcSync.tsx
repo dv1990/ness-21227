@@ -13,7 +13,7 @@ const NessAcSync = () => {
   };
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* 1. HERO - The Promise */}
       <section className="min-h-[80vh] sm:min-h-screen bg-charcoal text-pearl px-6 sm:px-8 relative overflow-hidden flex items-center justify-center py-12 sm:py-0">
         <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal"></div>

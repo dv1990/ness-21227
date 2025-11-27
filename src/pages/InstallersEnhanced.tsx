@@ -29,7 +29,7 @@ const InstallersEnhanced = () => {
   };
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* Hero - Business First */}
       <section className="relative min-h-[60vh] flex items-center bg-background">
         <div className="max-w-6xl mx-auto px-8 w-full">
