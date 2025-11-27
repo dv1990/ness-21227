@@ -73,7 +73,7 @@ const ContactEnhanced = () => {
   };
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* Hero */}
       <section className="relative py-32 bg-background">
         <div className="max-w-3xl mx-auto px-8 text-center">

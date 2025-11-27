@@ -46,7 +46,7 @@ const CommercialEnhanced = () => {
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  return <Layout>
+  return <Layout className="-mt-16">
       <div className="min-h-screen bg-background">
         
         {/* Hero Section - Full Page Image */}

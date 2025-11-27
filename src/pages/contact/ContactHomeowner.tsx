@@ -18,7 +18,7 @@ const ContactHomeowner = () => {
     }, 100);
   }, []);
 
-  return <Layout>
+  return <Layout className="-mt-16">
       {/* Full-Screen Hero Section */}
       <section className="relative min-h-[90vh] md:h-screen w-full overflow-hidden">
         {/* Background Image */}

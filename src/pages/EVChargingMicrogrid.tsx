@@ -18,7 +18,7 @@ const EVChargingMicrogrid = () => {
   }, [handleScroll]);
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* Minimal Sticky Nav */}
       <div className={cn(
         "fixed top-0 left-0 right-0 z-40 bg-background/90 backdrop-blur-xl border-b border-border/50 transition-all duration-700",

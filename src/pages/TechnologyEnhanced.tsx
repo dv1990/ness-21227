@@ -19,7 +19,7 @@ import NucuSection from "@/components/NucuSection";
 const TechnologyEnhanced = () => {
 
   return (
-    <Layout>
+    <Layout className="-mt-16">
       {/* Hero - Precision Engineering */}
       <section className="min-h-screen bg-background flex items-center">
         
