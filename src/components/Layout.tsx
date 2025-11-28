@@ -4,7 +4,6 @@ import SkipLink from "./SkipLink";
 import { MobileStickyCTA } from "./MobileStickyCTA";
 import { PWAInstallPrompt } from "./PWAInstallPrompt";
 import { LoadingSpinner } from "./ui/loading-spinner";
-import { CustomCursor } from "./ui/custom-cursor";
 import { PageTransition } from "./ui/page-transition";
 
 // Lazy load below-the-fold components to reduce initial CSS bundle
@@ -19,7 +18,6 @@ interface LayoutProps {
 const Layout = ({ children, className = "" }: LayoutProps) => {
   return (
     <div className="min-h-screen bg-background flex flex-col texture-overlay">
-      <CustomCursor />
       <SkipLink />
       <header role="banner">
         <NavigationEnhanced />
