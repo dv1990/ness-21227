@@ -123,18 +123,29 @@ class PerformanceMonitor {
       // Observer not supported
     }
 
-    // Get FCP and TTFB on load
+    // Observe FCP
+    try {
+      const fcpObserver = new PerformanceObserver((list) => {
+        const entries = list.getEntries();
+        const fcpEntry = entries.find(entry => entry.name === 'first-contentful-paint');
+        if (fcpEntry) {
+          this.metrics.fcp = fcpEntry.startTime;
+          this.checkBudget('FCP_THRESHOLD', fcpEntry.startTime);
+        }
+      });
+      fcpObserver.observe({ entryTypes: ['paint'] });
+    } catch (e) {
+      // Observer not supported
+    }
+
+    // Get TTFB on load
     if (typeof window !== 'undefined') {
       window.addEventListener('load', () => {
         const perfData = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming;
         if (perfData) {
-          const fcp = perfData.responseStart - perfData.fetchStart;
           const ttfb = perfData.responseStart - perfData.requestStart;
           
-          this.metrics.fcp = fcp;
           this.metrics.ttfb = ttfb;
-          
-          this.checkBudget('FCP_THRESHOLD', fcp);
           this.checkBudget('TTFB_THRESHOLD', ttfb);
         }
       });
