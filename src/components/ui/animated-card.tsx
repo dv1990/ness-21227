@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import { Card } from '@/components/ui/card';
-import { useScrollAnimation } from '@/hooks/use-scroll-animation';
+import { useIntersectionObserver } from '@/hooks/use-intersection-observer';
 import { cn } from '@/lib/utils';
 
 interface AnimatedCardProps {
@@ -21,22 +21,25 @@ export const AnimatedCard = ({
   onClick,
   ...props 
 }: AnimatedCardProps) => {
-  const { elementRef, isVisible } = useScrollAnimation();
+  const { ref, isIntersecting } = useIntersectionObserver({ 
+    triggerOnce: true,
+    threshold: 0.1
+  });
 
   const animationClasses = {
-    'fade-up': isVisible 
+    'fade-up': isIntersecting 
       ? 'opacity-100 translate-y-0' 
       : 'opacity-0 translate-y-8',
-    'fade-in': isVisible 
+    'fade-in': isIntersecting 
       ? 'opacity-100' 
       : 'opacity-0',
-    'scale-in': isVisible 
+    'scale-in': isIntersecting 
       ? 'opacity-100 scale-100' 
       : 'opacity-0 scale-95',
-    'slide-left': isVisible 
+    'slide-left': isIntersecting 
       ? 'opacity-100 translate-x-0' 
       : 'opacity-0 translate-x-8',
-    'slide-right': isVisible 
+    'slide-right': isIntersecting 
       ? 'opacity-100 translate-x-0' 
       : 'opacity-0 -translate-x-8'
   };
@@ -50,7 +53,7 @@ export const AnimatedCard = ({
 
   return (
     <Card
-      ref={elementRef as any}
+      ref={ref as any}
       className={cn(
         'glass-card interactive transition-all duration-700 ease-out',
         animationClasses[animation],
