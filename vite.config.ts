@@ -245,6 +245,19 @@ export default defineConfig(({ mode }) => ({
             // Everything else
             return 'vendor';
           }
+          
+          // Split page routes into separate chunks for optimal lazy loading
+          if (id.includes('src/pages/')) {
+            // Group related pages together
+            if (id.includes('contact/')) return 'pages-contact';
+            if (id.includes('company/')) return 'pages-company';
+            if (id.includes('products/')) return 'pages-products';
+            // Each major page gets its own chunk for granular loading
+            if (id.includes('CommercialEnhanced')) return 'page-commercial';
+            if (id.includes('InstallersEnhanced')) return 'page-installers';
+            if (id.includes('ContactHomeowner')) return 'page-homeowner';
+            if (id.includes('Index.tsx')) return 'page-home';
+          }
         },
         // Optimize chunk loading
         experimentalMinChunkSize: 20000,

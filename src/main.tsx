@@ -6,6 +6,7 @@ import "./styles/hero-optimized.css";
 import "./styles/accessibility.css";
 import { optimizeFontLoading, preconnectFonts } from "./lib/font-optimizer";
 import { deferNonCriticalCSS } from "./lib/critical-css";
+import { prefetchCriticalRoutes } from "./lib/route-prefetch";
 
 // Development-only error logging
 if (import.meta.env.DEV) {
@@ -27,6 +28,16 @@ if (document.readyState === 'complete') {
 } else {
   window.addEventListener('load', deferNonCriticalCSS);
 }
+
+// Prefetch critical routes after initial load
+window.addEventListener('load', () => {
+  // Use requestIdleCallback to avoid blocking main thread
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(() => prefetchCriticalRoutes(), { timeout: 2000 });
+  } else {
+    setTimeout(() => prefetchCriticalRoutes(), 2000);
+  }
+});
 
 const rootElement = document.getElementById("root");
 if (rootElement) {

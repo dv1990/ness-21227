@@ -53,22 +53,22 @@ export const usePrefetchOnHover = () => {
 
 /**
  * Prefetch critical routes after initial page load
+ * Called from main.tsx after window load event
  */
 export const prefetchCriticalRoutes = () => {
-  // Wait for initial load to complete
-  if (typeof window !== 'undefined' && 'requestIdleCallback' in window) {
-    requestIdleCallback(() => {
-      // Prefetch most visited routes
-      prefetchRoute('/commercial');
-      prefetchRoute('/homeowners');
-      prefetchRoute('/contact');
-    }, { timeout: 2000 });
-  } else {
-    // Fallback for browsers without requestIdleCallback
+  // Prefetch most visited routes in priority order
+  const criticalRoutes = [
+    '/commercial',
+    '/homeowners', 
+    '/contact',
+    '/installers',
+    '/warranty'
+  ];
+
+  // Stagger prefetching to avoid network congestion
+  criticalRoutes.forEach((route, index) => {
     setTimeout(() => {
-      prefetchRoute('/commercial');
-      prefetchRoute('/homeowners');
-      prefetchRoute('/contact');
-    }, 2000);
-  }
+      prefetchRoute(route);
+    }, index * 300); // 300ms between each prefetch
+  });
 };
