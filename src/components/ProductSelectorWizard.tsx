@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, memo, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
@@ -97,10 +97,11 @@ export const ProductSelectorWizard: React.FC = () => {
     }
   }, [homeSize]);
 
-  // Enhanced calculation with peak load and backup duration
-  const calculateRecommendation = (): { product: Product; peakLoad: number; dailyEnergy: number; alternatives?: Product[] } => {
-    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
-    
+  // Memoize all appliances array to prevent recreation on every render
+  const allAppliances = useMemo(() => [...COMMON_APPLIANCES, ...customAppliances], [customAppliances]);
+
+  // Enhanced calculation with peak load and backup duration - Memoized with useCallback
+  const calculateRecommendation = useCallback((): { product: Product; peakLoad: number; dailyEnergy: number; alternatives?: Product[] } => {
     // Calculate peak load (simultaneous usage)
     const peakLoad = selectedAppliances.reduce((sum, appId) => {
       const appliance = allAppliances.find(a => a.id === appId);
@@ -134,7 +135,7 @@ export const ProductSelectorWizard: React.FC = () => {
     }
 
     return { product: primaryProduct, peakLoad, dailyEnergy, alternatives };
-  };
+  }, [selectedAppliances, allAppliances, backupDuration]);
 
   const toggleAppliance = (appId: string) => {
     setSelectedAppliances(prev => 
@@ -242,13 +243,12 @@ export const ProductSelectorWizard: React.FC = () => {
     setValidationErrors({});
 
     try {
-      const totalWatts = selectedAppliances.reduce((sum, appId) => {
-        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
-        return sum + (appliance?.watts || 0);
-      }, 0);
+      // Use memoized totalWatts instead of recalculating
+      const formTotalWatts = totalWatts;
 
+      // Use memoized allAppliances instead of recreating
       const appliancesList = selectedAppliances.map(appId => {
-        const appliance = COMMON_APPLIANCES.find(a => a.id === appId);
+        const appliance = allAppliances.find(a => a.id === appId);
         return appliance ? `- ${appliance.name}: ${appliance.watts}W (${appliance.hours}h daily)` : '';
       }).filter(Boolean).join('\n');
 
@@ -266,7 +266,7 @@ CONFIGURATION:
 Selected Product: ${selectedProduct?.name} (${selectedProduct?.tier})
 Home Size: ${homeSize}
 Solar Panels: ${hasSolar}
-Total Power Requirement: ${totalWatts}W
+Total Power Requirement: ${formTotalWatts}W
 
 SELECTED APPLIANCES:
 ${appliancesList}
@@ -321,21 +321,30 @@ ${formData.message || 'No additional message'}
     }
   };
 
-  const getTotalWatts = () => {
-    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
+  // Memoize expensive calculations to prevent recalculation on every render
+  const totalWatts = useMemo(() => {
     return selectedAppliances.reduce((sum, appId) => {
       const appliance = allAppliances.find(a => a.id === appId);
       return sum + (appliance?.watts || 0);
     }, 0);
-  };
+  }, [selectedAppliances, allAppliances]);
 
-  const getTotalDailyEnergy = () => {
-    const allAppliances = [...COMMON_APPLIANCES, ...customAppliances];
+  const totalDailyEnergy = useMemo(() => {
     return selectedAppliances.reduce((sum, appId) => {
       const appliance = allAppliances.find(a => a.id === appId);
       return sum + ((appliance?.watts || 0) * (appliance?.hours || 0));
     }, 0) / 1000;
-  };
+  }, [selectedAppliances, allAppliances]);
+
+  // Memoize recommendation to prevent recalculation on every render
+  const recommendation = useMemo(() => {
+    if (selectedAppliances.length === 0) return null;
+    return calculateRecommendation();
+  }, [selectedAppliances.length, calculateRecommendation]);
+
+  // Wrapper functions for backwards compatibility
+  const getTotalWatts = useCallback(() => totalWatts, [totalWatts]);
+  const getTotalDailyEnergy = useCallback(() => totalDailyEnergy, [totalDailyEnergy]);
 
   return (
     <div className="w-full">
@@ -476,9 +485,7 @@ ${formData.message || 'No additional message'}
             />
 
             {/* Enhanced Recommendation with Alternatives */}
-            {selectedAppliances.length > 0 && (() => {
-              const recommendation = calculateRecommendation();
-              return (
+            {recommendation && (
                 <div className="space-y-4">
                   <div className="bg-gradient-to-br from-primary/10 via-primary/5 to-transparent rounded-xl p-6 md:p-8 border border-primary/20 space-y-6">
                     <div className="flex items-start gap-4">
@@ -533,8 +540,7 @@ ${formData.message || 'No additional message'}
                     </div>
                   )}
                 </div>
-              );
-            })()}
+            )}
           </Card>
 
           <div className="flex justify-between gap-4">

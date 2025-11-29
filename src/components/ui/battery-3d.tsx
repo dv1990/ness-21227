@@ -1,10 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useMemo, memo } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, Text, Box } from '@react-three/drei';
 import { Mesh } from 'three';
 
-// Battery Cell Component
-function BatteryCell({ position, active }: { position: [number, number, number]; active: boolean }) {
+// Battery Cell Component - Memoized to prevent unnecessary re-renders
+const BatteryCell = memo(({ position, active }: { position: [number, number, number]; active: boolean }) => {
   const mesh = useRef<Mesh>(null!);
   
   useFrame((state) => {
@@ -26,7 +26,9 @@ function BatteryCell({ position, active }: { position: [number, number, number];
       />
     </Box>
   );
-}
+});
+
+BatteryCell.displayName = 'BatteryCell';
 
 // Battery Pack Component
 function BatteryPack({ packCount = 16 }: { packCount?: number }) {
@@ -49,25 +51,27 @@ function BatteryPack({ packCount = 16 }: { packCount?: number }) {
     return () => clearInterval(interval);
   }, [packCount]);
 
-  const positions: Array<[number, number, number]> = [];
-  for (let i = 0; i < packCount; i++) {
-    const x = (i % 4) * 1 - 1.5;
-    const z = Math.floor(i / 4) * 1 - 1.5;
-    positions.push([x, 0, z]);
-  }
+  // Memoize positions array to prevent recreation on every render
+  const positions = useMemo(() => {
+    const pos: Array<[number, number, number]> = [];
+    for (let i = 0; i < packCount; i++) {
+      const x = (i % 4) * 1 - 1.5;
+      const z = Math.floor(i / 4) * 1 - 1.5;
+      pos.push([x, 0, z]);
+    }
+    return pos;
+  }, [packCount]);
 
   return (
     <group>
-      {positions.map((position) => {
-        const cellIndex = positions.indexOf(position);
-        return (
-          <BatteryCell
-            key={`battery-cell-${cellIndex}`}
-            position={position}
-            active={activeCells.has(cellIndex)}
-          />
-        );
-      })}
+      {/* Use index directly instead of indexOf for O(n) instead of O(n²) */}
+      {positions.map((position, cellIndex) => (
+        <BatteryCell
+          key={`battery-cell-${cellIndex}`}
+          position={position}
+          active={activeCells.has(cellIndex)}
+        />
+      ))}
       <Text
         position={[0, 2.5, 0]}
         fontSize={0.3}

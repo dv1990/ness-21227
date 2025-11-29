@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 export const CustomCursor = () => {
@@ -7,7 +7,15 @@ export const CustomCursor = () => {
   const [isClicking, setIsClicking] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  // Memoize touch device check to prevent recalculation on every render
+  const isTouchDevice = useMemo(() => {
+    return typeof window !== 'undefined' && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+  }, []);
+
   useEffect(() => {
+    // Early return for touch devices
+    if (isTouchDevice) return;
+
     let rafId: number;
     let targetX = -100;
     let targetY = -100;
@@ -73,10 +81,9 @@ export const CustomCursor = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseover', handleMouseEnter as any);
     };
-  }, []);
+  }, [isTouchDevice]);
 
   // Hide on mobile/touch devices
-  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
   if (isTouchDevice) return null;
 
   return (
