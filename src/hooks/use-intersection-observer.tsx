@@ -72,7 +72,7 @@ export const useIntersectionObserver = (
         observerRef.current.disconnect();
       }
     };
-  }, [threshold, rootMargin, triggerOnce, enabled, isIntersecting]);
+  }, [threshold, rootMargin, triggerOnce, enabled]);
 
   return { ref, isIntersecting };
 };

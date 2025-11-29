@@ -46,34 +46,31 @@ export const trackImageLoad = (src: string, loadTime: number) => {
   }
 };
 
-// Preload critical images with AVIF, WebP, and JPEG support
-export const preloadCriticalImages = (imageSrcs: string[]) => {
+// Preload critical images with optimal format detection
+export const preloadCriticalImages = async (imageSrcs: string[]) => {
   if (typeof window === 'undefined') return;
 
+  // Detect format support once
+  const supportsAVIF = await isAVIFSupported();
+  const supportsWebP = await isWebPSupported();
+
   imageSrcs.forEach(src => {
-    // Preload AVIF (best compression - 30-50% smaller than WebP)
-    const avifLink = document.createElement('link');
-    avifLink.rel = 'preload';
-    avifLink.as = 'image';
-    avifLink.href = getOptimizedImageSrc(src, 'avif');
-    avifLink.type = 'image/avif';
-    avifLink.fetchPriority = 'high';
-    document.head.appendChild(avifLink);
+    const link = document.createElement('link');
+    link.rel = 'preload';
+    link.as = 'image';
+    link.fetchPriority = 'high';
     
-    // Preload WebP (fallback)
-    const webpLink = document.createElement('link');
-    webpLink.rel = 'preload';
-    webpLink.as = 'image';
-    webpLink.href = getOptimizedImageSrc(src, 'webp');
-    webpLink.type = 'image/webp';
-    document.head.appendChild(webpLink);
+    if (supportsAVIF) {
+      link.href = getOptimizedImageSrc(src, 'avif');
+      link.type = 'image/avif';
+    } else if (supportsWebP) {
+      link.href = getOptimizedImageSrc(src, 'webp');
+      link.type = 'image/webp';
+    } else {
+      link.href = src;
+    }
     
-    // Preload JPEG (universal fallback)
-    const fallbackLink = document.createElement('link');
-    fallbackLink.rel = 'preload';
-    fallbackLink.as = 'image';
-    fallbackLink.href = src;
-    document.head.appendChild(fallbackLink);
+    document.head.appendChild(link);
   });
 };
 

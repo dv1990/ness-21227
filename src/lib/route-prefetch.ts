@@ -1,6 +1,30 @@
 // Route prefetching utilities for instant navigation
 const prefetchedRoutes = new Set<string>();
 
+// Route map for cleaner prefetching
+const routeMap: Record<string, () => Promise<any>> = {
+  '/commercial': () => import('../pages/CommercialEnhanced'),
+  '/commercial-enhanced': () => import('../pages/CommercialEnhanced'),
+  '/ci': () => import('../pages/CommercialEnhanced'),
+  '/contact': () => import('../pages/ContactEnhanced'),
+  '/contact-enhanced': () => import('../pages/ContactEnhanced'),
+  '/homeowners': () => import('../pages/contact/ContactHomeowner'),
+  '/residential': () => import('../pages/contact/ContactHomeowner'),
+  '/contact/homeowner': () => import('../pages/contact/ContactHomeowner'),
+  '/installers': () => import('../pages/InstallersEnhanced'),
+  '/installers-enhanced': () => import('../pages/InstallersEnhanced'),
+  '/warranty': () => import('../pages/TrueWarranty'),
+  '/products/ness-ac-sync': () => import('../pages/products/NessAcSync'),
+  '/ev-charging-microgrid': () => import('../pages/EVChargingMicrogrid'),
+  '/company/about': () => import('../pages/company/About'),
+  '/company/news': () => import('../pages/company/News'),
+  '/knowledge': () => import('../pages/KnowledgeHub'),
+  '/knowledge-hub': () => import('../pages/KnowledgeHub'),
+  '/downloads': () => import('../pages/Downloads'),
+  '/cookie-policy': () => import('../pages/CookiePolicy'),
+  '/find-installer': () => import('../pages/FindInstaller'),
+};
+
 /**
  * Prefetch a route chunk for instant navigation
  * @param route - Route path to prefetch
@@ -8,60 +32,10 @@ const prefetchedRoutes = new Set<string>();
 export const prefetchRoute = (route: string) => {
   if (prefetchedRoutes.has(route)) return;
   
-  // Mark as prefetched to avoid duplicates
-  prefetchedRoutes.add(route);
-  
-  // Import the route component in the background
-  switch (route) {
-    case '/commercial':
-    case '/commercial-enhanced':
-    case '/ci':
-      import('../pages/CommercialEnhanced');
-      break;
-    case '/contact':
-    case '/contact-enhanced':
-      import('../pages/ContactEnhanced');
-      break;
-    case '/homeowners':
-    case '/residential':
-    case '/contact/homeowner':
-      import('../pages/contact/ContactHomeowner');
-      break;
-    case '/installers':
-    case '/installers-enhanced':
-      import('../pages/InstallersEnhanced');
-      break;
-    case '/warranty':
-      import('../pages/TrueWarranty');
-      break;
-    case '/products/ness-ac-sync':
-      import('../pages/products/NessAcSync');
-      break;
-    case '/ev-charging-microgrid':
-      import('../pages/EVChargingMicrogrid');
-      break;
-    case '/company/about':
-      import('../pages/company/About');
-      break;
-    case '/company/news':
-      import('../pages/company/News');
-      break;
-    case '/knowledge':
-    case '/knowledge-hub':
-      import('../pages/KnowledgeHub');
-      break;
-    case '/downloads':
-      import('../pages/Downloads');
-      break;
-    case '/cookie-policy':
-      import('../pages/CookiePolicy');
-      break;
-    case '/find-installer':
-      import('../pages/FindInstaller');
-      break;
-    default:
-      // Don't prefetch unknown routes
-      break;
+  const loader = routeMap[route];
+  if (loader) {
+    prefetchedRoutes.add(route);
+    loader();
   }
 };
 
