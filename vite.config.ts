@@ -157,8 +157,8 @@ export default defineConfig(({ mode }) => ({
     cssMinify: 'esbuild',
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
-    // Enable CSS code splitting per component
-    assetsInlineLimit: 0, // Don't inline any assets
+    assetsInlineLimit: 4096, // Inline small assets < 4kb for fewer requests
+    reportCompressedSize: false, // Faster builds
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
@@ -180,6 +180,8 @@ export default defineConfig(({ mode }) => ({
         moduleSideEffects: false,
         propertyReadSideEffects: false,
         tryCatchDeoptimization: false,
+        preset: 'smallest',
+        manualPureFunctions: ['console.log', 'console.info', 'console.debug'],
       },
       output: {
         // Enhanced CSS minification
@@ -195,58 +197,52 @@ export default defineConfig(({ mode }) => ({
           return 'assets/[name]-[hash][extname]';
         },
         manualChunks: (id) => {
-          // Vendor chunk for React ecosystem (core only)
           if (id.includes('node_modules')) {
-            // React MUST be in a single chunk to prevent duplication
-            if (id.includes('react') || id.includes('scheduler')) {
+            // React core - must be single chunk
+            if (id.includes('react') && !id.includes('react-router') && !id.includes('react-dom')) {
               return 'react-vendor';
             }
-            // React Router - separate chunk
+            if (id.includes('react-dom') || id.includes('scheduler')) {
+              return 'react-vendor';
+            }
+            // Router - loaded on all pages
             if (id.includes('react-router')) {
               return 'router';
             }
-            // React Query - separate chunk (not always needed immediately)
-            if (id.includes('@tanstack/react-query')) {
-              return 'query';
-            }
-            // Framer Motion separate chunk (only loaded when needed)
-            if (id.includes('framer-motion')) {
-              return 'framer-motion';
-            }
-            // Three.js and 3D libs (only for lazy-loaded pages)
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'three-vendor';
-            }
-            // Split Radix UI by component groups for better tree-shaking
+            // Heavy dependencies - separate chunks
+            if (id.includes('framer-motion')) return 'framer';
+            if (id.includes('three') || id.includes('@react-three')) return 'three';
+            if (id.includes('recharts')) return 'charts';
+            if (id.includes('@tanstack/react-query')) return 'query';
+            
+            // UI library groups
             if (id.includes('@radix-ui')) {
-              // Dialog/Sheet components (often mobile-only)
               if (id.includes('dialog') || id.includes('sheet') || id.includes('alert-dialog')) {
-                return 'ui-dialog';
+                return 'ui-overlay';
               }
-              // Form components
-              if (id.includes('select') || id.includes('checkbox') || id.includes('radio') || id.includes('slider')) {
+              if (id.includes('select') || id.includes('checkbox') || id.includes('radio') || id.includes('slider') || id.includes('switch')) {
                 return 'ui-form';
               }
-              // Dropdown/Menu components
-              if (id.includes('dropdown') || id.includes('context-menu') || id.includes('menubar')) {
+              if (id.includes('dropdown') || id.includes('context-menu') || id.includes('menubar') || id.includes('navigation-menu')) {
                 return 'ui-menu';
               }
-              // Commonly used components (tooltip, slot, etc)
-              return 'ui-core';
+              return 'ui-base';
             }
-            // Lucide icons - separate chunk
-            if (id.includes('lucide-react')) {
-              return 'icons';
-            }
-            // Recharts (only for specific pages)
-            if (id.includes('recharts')) {
-              return 'charts';
-            }
-            // Form libraries (only for form pages)
+            
+            // Icons - frequently used
+            if (id.includes('lucide-react')) return 'icons';
+            
+            // Form validation
             if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) {
               return 'forms';
             }
-            // Other vendors - minimize this
+            
+            // Small utilities in main vendor
+            if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('class-variance-authority')) {
+              return 'vendor';
+            }
+            
+            // Everything else
             return 'vendor';
           }
         },

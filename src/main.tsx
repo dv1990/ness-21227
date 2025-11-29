@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import "./styles/hero-optimized.css";
 import "./styles/accessibility.css";
+import { optimizeFontLoading, preconnectFonts } from "./lib/font-optimizer";
+import { deferNonCriticalCSS } from "./lib/critical-css";
 
 // Development-only error logging
 if (import.meta.env.DEV) {
@@ -13,6 +15,17 @@ if (import.meta.env.DEV) {
   window.addEventListener('unhandledrejection', (e) => {
     console.error('Unhandled promise rejection:', e.reason);
   });
+}
+
+// Optimize font loading
+preconnectFonts();
+optimizeFontLoading();
+
+// Defer non-critical CSS
+if (document.readyState === 'complete') {
+  deferNonCriticalCSS();
+} else {
+  window.addEventListener('load', deferNonCriticalCSS);
 }
 
 const rootElement = document.getElementById("root");
