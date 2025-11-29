@@ -152,13 +152,24 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     target: 'esnext',
-    minify: 'esbuild',
+    minify: 'terser', // Switch to terser for better production compression
     cssCodeSplit: true,
     cssMinify: 'esbuild',
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
     assetsInlineLimit: 4096, // Inline small assets < 4kb for fewer requests
     reportCompressedSize: false, // Faster builds
+    terserOptions: {
+      compress: {
+        drop_console: true, // Remove console logs in production
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug'],
+        passes: 2 // Multiple passes for better compression
+      },
+      format: {
+        comments: false // Remove all comments
+      }
+    },
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
@@ -258,19 +269,21 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react/jsx-runtime',
+      'react-router-dom', // Include for better optimization
       '@tanstack/react-query',
       '@radix-ui/react-slot',
       '@radix-ui/react-tooltip',
       '@radix-ui/react-dialog',
       '@radix-ui/react-popover',
-      '@radix-ui/react-toast'
-    ],
-    exclude: [
-      'react-router-dom' // Exclude to prevent separate pre-bundling that breaks React context
+      '@radix-ui/react-toast',
+      'clsx',
+      'tailwind-merge'
     ],
     esbuildOptions: {
-      // Ensure React is treated as external during pre-bundling to maintain single instance
-      inject: [],
+      target: 'esnext',
+      // Optimize dependencies during pre-bundling
+      treeShaking: true,
+      minify: true
     }
   }
 }));
