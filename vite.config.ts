@@ -198,17 +198,17 @@ export default defineConfig(({ mode }) => ({
         },
         manualChunks: (id) => {
           if (id.includes('node_modules')) {
-            // React core - must be single chunk
-            if (id.includes('react') && !id.includes('react-router') && !id.includes('react-dom')) {
+            // CRITICAL: React, React-DOM, and scheduler MUST be in same chunk
+            // This prevents the "dispatcher.useRef" error from multiple React instances
+            if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
               return 'react-vendor';
             }
-            if (id.includes('react-dom') || id.includes('scheduler')) {
-              return 'react-vendor';
-            }
-            // Router - loaded on all pages
+            
+            // Router - separate chunk but depends on react-vendor
             if (id.includes('react-router')) {
               return 'router';
             }
+            
             // Heavy dependencies - separate chunks
             if (id.includes('framer-motion')) return 'framer';
             if (id.includes('three') || id.includes('@react-three')) return 'three';
