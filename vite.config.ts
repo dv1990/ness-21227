@@ -146,9 +146,13 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
+      // Force absolute paths to React to prevent duplicates
+      'react': path.resolve(__dirname, './node_modules/react'),
+      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime'),
     },
-    // Force single React instance - let Vite handle the resolution
-    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
+    // Critical: Dedupe React ecosystem to prevent hooks errors
+    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom', 'scheduler']
   },
   build: {
     target: 'esnext',
@@ -266,7 +270,6 @@ export default defineConfig(({ mode }) => ({
       '@radix-ui/react-popover',
       '@radix-ui/react-toast'
     ],
-    // Force dedupe React and router to prevent hooks errors
-    dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom']
+    force: true // Force re-bundle to clear cache
   }
 }));
