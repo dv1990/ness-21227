@@ -86,16 +86,6 @@
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
     </noscript>
     
-    <!-- Preload critical hero image for faster LCP -->
-    <link rel="preload" as="image" href="/src/assets/ness-hero-product.webp" type="image/webp" fetchpriority="high" />
-    
-    <!-- Critical Resource Preloading Strategy -->
-    <!-- Preload main entry point to enable immediate parallel resource discovery -->
-    <link rel="modulepreload" href="/src/main.tsx" crossorigin />
-    
-    <!-- Preconnect to optimize external resources -->
-    <link rel="dns-prefetch" href="https://dawn-whisper-quest.lovable.app" />
-    
     <!-- PWA Configuration -->
     <link rel="manifest" href="/manifest.json" />
     <meta name="theme-color" content="#22c55e" />
@@ -106,24 +96,20 @@
     
     <!-- SEO Optimization -->
     <title>NESS Energy Systems - Advanced Battery Storage Solutions</title>
-    <!-- Build v2 -->
     <meta name="description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
     <meta name="keywords" content="battery storage, energy systems, solar battery, home energy, commercial energy">
     <link rel="canonical" href="https://nessenergy.com" />
     
     <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/gpt-engineer-file-uploads/KSIxoxubZzXfmMeo56DzJXaGlU72/uploads/1761632125738-image-removebg-preview-42.png">
     <meta property="og:title" content="NESS Energy Systems - Advanced Battery Storage Solutions">
-  <meta name="twitter:title" content="NESS Energy Systems - Advanced Battery Storage Solutions">
-  <meta property="og:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
-  <meta name="twitter:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
-  <meta name="twitter:card" content="summary">
-  <meta property="og:type" content="website">
+    <meta name="twitter:title" content="NESS Energy Systems - Advanced Battery Storage Solutions">
+    <meta property="og:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
+    <meta name="twitter:description" content="Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
 </head>
   <body>
     <div id="root"></div>
-    
-    
-    <!-- Main application bundle with native ES module loading -->
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Vite will inject the script tag here automatically during build -->
   </body>
 </html>
