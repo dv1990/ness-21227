@@ -92,7 +92,7 @@ export const ProductComparison = () => {
           <Card 
             key={product.id}
             className={`group relative overflow-hidden transition-all duration-500 hover:shadow-2xl
-              ${product.highlight 
+              ${product.highlight
                 ? 'ring-2 ring-primary/30 shadow-xl' 
                 : 'border-border/50 hover:border-primary/50'
             }`}
