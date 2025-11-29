@@ -152,24 +152,13 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     target: 'esnext',
-    minify: 'terser', // Switch to terser for better production compression
+    minify: 'esbuild',
     cssCodeSplit: true,
     cssMinify: 'esbuild',
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
-    assetsInlineLimit: 4096, // Inline small assets < 4kb for fewer requests
-    reportCompressedSize: false, // Faster builds
-    terserOptions: {
-      compress: {
-        drop_console: true, // Remove console logs in production
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug'],
-        passes: 2 // Multiple passes for better compression
-      },
-      format: {
-        comments: false // Remove all comments
-      }
-    },
+    assetsInlineLimit: 4096,
+    reportCompressedSize: false,
     modulePreload: {
       polyfill: true,
       resolveDependencies: (filename, deps, { hostId, hostType }) => {
@@ -269,21 +258,12 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react/jsx-runtime',
-      'react-router-dom', // Include for better optimization
       '@tanstack/react-query',
       '@radix-ui/react-slot',
       '@radix-ui/react-tooltip',
       '@radix-ui/react-dialog',
       '@radix-ui/react-popover',
-      '@radix-ui/react-toast',
-      'clsx',
-      'tailwind-merge'
-    ],
-    esbuildOptions: {
-      target: 'esnext',
-      // Optimize dependencies during pre-bundling
-      treeShaking: true,
-      minify: true
-    }
+      '@radix-ui/react-toast'
+    ]
   }
 }));
