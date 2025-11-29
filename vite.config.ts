@@ -146,10 +146,6 @@ export default defineConfig(({ mode }) => ({
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
-      // Force absolute paths to React to prevent duplicates
-      'react': path.resolve(__dirname, './node_modules/react'),
-      'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
-      'react/jsx-runtime': path.resolve(__dirname, './node_modules/react/jsx-runtime'),
     },
     // Critical: Dedupe React ecosystem to prevent hooks errors
     dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom', 'scheduler']
@@ -262,7 +258,6 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react/jsx-runtime',
-      'react-router-dom',
       '@tanstack/react-query',
       '@radix-ui/react-slot',
       '@radix-ui/react-tooltip',
@@ -270,6 +265,12 @@ export default defineConfig(({ mode }) => ({
       '@radix-ui/react-popover',
       '@radix-ui/react-toast'
     ],
-    force: true // Force re-bundle to clear cache
+    exclude: [
+      'react-router-dom' // Exclude to prevent separate pre-bundling that breaks React context
+    ],
+    esbuildOptions: {
+      // Ensure React is treated as external during pre-bundling to maintain single instance
+      inject: [],
+    }
   }
 }));
