@@ -62,6 +62,13 @@ export const WizardProgress: React.FC<WizardProgressProps> = ({
           </span>
         ))}
       </div>
+      
+      {/* Completion Percentage */}
+      <div className="text-center mt-4">
+        <span className="text-xs text-muted-foreground">
+          {Math.round((currentStep / totalSteps) * 100)}% Complete
+        </span>
+      </div>
     </div>
   );
 };

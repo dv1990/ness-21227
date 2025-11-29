@@ -2,7 +2,7 @@ import React, { useState, useEffect, memo, useMemo, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
-import { ArrowRight, ArrowLeft, Check, Home, Sun, Edit, Zap, Battery, TrendingUp } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Check, CheckCircle, Home, Sun, Edit, Zap, Battery, TrendingUp } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { safeLocalStorage } from '@/lib/safe-storage';
 
@@ -31,6 +31,7 @@ export const ProductSelectorWizard: React.FC = () => {
   const [hasSolar, setHasSolar] = useState<string>('');
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [validationErrors, setValidationErrors] = useState<Record<string, string>>({});
   const [customAppliances, setCustomAppliances] = useState<Appliance[]>([]);
   const [backupDuration, setBackupDuration] = useState<number>(8);
@@ -287,14 +288,18 @@ ${formData.message || 'No additional message'}
         appliances: selectedAppliances.join(', '),
       });
 
+      // Show success state
+      setIsSuccess(true);
+      
       toast({
         title: "Quote Request Sent!",
         description: "We'll contact you within 24 hours with your personalized quote.",
       });
 
-      // Clear saved progress and reset form
+      // Clear saved progress and reset form after showing success
       safeLocalStorage.removeItem(STORAGE_KEY);
       setTimeout(() => {
+        setIsSuccess(false);
         setStep(1);
         setSelectedProduct(null);
         setSelectedAppliances([]);
@@ -304,7 +309,7 @@ ${formData.message || 'No additional message'}
         setCustomAppliances([]);
         setFormData({ name: '', phone: '', email: '', city: '', pincode: '', message: '' });
         setConsent(false);
-      }, 2000);
+      }, 5000); // Increased to 5 seconds to show success message
 
     } catch (error) {
       if (import.meta.env.DEV) {
@@ -563,10 +568,32 @@ ${formData.message || 'No additional message'}
       {/* Step 3: Contact Form */}
       {step === 3 && selectedProduct && (
         <div className="space-y-8 animate-fade-in max-w-3xl mx-auto">
-          <div className="text-center space-y-3">
-            <h2 className="text-3xl md:text-4xl font-light">Review & Submit</h2>
-            <p className="text-lg text-muted-foreground">Confirm your details to get a custom quote</p>
-          </div>
+          {isSuccess ? (
+            // Success State
+            <div className="text-center space-y-6 py-12">
+              <div className="flex justify-center">
+                <div className="w-20 h-20 rounded-full bg-primary/10 flex items-center justify-center animate-scale-in">
+                  <CheckCircle className="w-12 h-12 text-primary" aria-hidden="true" />
+                </div>
+              </div>
+              <div className="space-y-3">
+                <h2 className="text-3xl md:text-4xl font-light">Thank You!</h2>
+                <p className="text-lg text-muted-foreground max-w-xl mx-auto">
+                  Your quote request has been submitted successfully. We'll contact you within 24 hours with your personalized quote.
+                </p>
+              </div>
+              <div className="pt-4">
+                <p className="text-sm text-muted-foreground">
+                  You'll be redirected to the home page shortly...
+                </p>
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="text-center space-y-3">
+                <h2 className="text-3xl md:text-4xl font-light">Review & Submit</h2>
+                <p className="text-lg text-muted-foreground">Confirm your details to get a custom quote</p>
+              </div>
 
           {/* Editable Summary Cards */}
           <div className="grid md:grid-cols-2 gap-4 mb-6">
@@ -622,6 +649,8 @@ ${formData.message || 'No additional message'}
               Back to Configuration
             </Button>
           </div>
+            </>
+          )}
         </div>
       )}
     </div>
