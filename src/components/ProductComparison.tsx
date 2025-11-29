@@ -86,12 +86,15 @@ export const ProductComparison = () => {
         </p>
       </div>
 
-      {/* Product Cards */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 px-6 max-w-7xl mx-auto">
-        {products.map((product) => (
+      {/* Product Cards - Asymmetric Premium Layout */}
+      <div className="relative grid lg:grid-cols-12 gap-8 px-6 max-w-7xl mx-auto">
+        {products.map((product, index) => (
           <Card 
             key={product.id}
             className={`group relative overflow-hidden transition-all duration-500 hover:shadow-2xl interactive
+              ${index === 0 ? 'lg:col-span-4 lg:mt-12' : ''}
+              ${index === 1 ? 'lg:col-span-4 lg:-mt-8' : ''}
+              ${index === 2 ? 'lg:col-span-4 lg:scale-105 lg:z-10 lg:-ml-4' : ''}
               ${product.highlight 
                 ? 'ring-2 ring-primary/30 shadow-xl' 
                 : 'border-border/50 hover:border-primary/50'
