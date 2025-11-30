@@ -143,11 +143,11 @@ const Index = () => {
               </Link>
             </div>
           </div>
-        </div>
 
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-          <ChevronDown className="w-8 h-8 text-pearl/60" aria-hidden="true" />
+          {/* Scroll Indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-pearl/60" aria-hidden="true" />
+          </div>
         </div>
       </section>
 
