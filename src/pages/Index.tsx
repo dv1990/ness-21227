@@ -10,6 +10,7 @@ import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
 import { testimonials } from "@/data/testimonials";
+import { ChevronDown } from "lucide-react";
 
 // Lazy load icons to reduce initial bundle size
 const CheckCircle2 = lazy(() =>
@@ -143,6 +144,11 @@ const Index = () => {
             </div>
           </div>
         </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
+          <ChevronDown className="w-8 h-8 text-pearl/60" aria-hidden="true" />
+        </div>
       </section>
 
       {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact with clarity */}
@@ -199,12 +205,14 @@ const Index = () => {
                       />
                       <div>
                         <p className="font-medium text-lg sm:text-xl">Everything. Everywhere.</p>
+                        <p className="text-pearl/60 text-sm sm:text-base mt-1">Powers your entire home</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
                       <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" />
                       <div>
                         <p className="font-medium text-lg sm:text-xl">10ms switchover</p>
+                        <p className="text-pearl/60 text-sm sm:text-base mt-1">Instant backup (10ms response)</p>
                       </div>
                     </div>
                     <div className="flex items-start gap-4">
@@ -247,12 +255,36 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 4. PRODUCT SPOTLIGHT - NESS Pod */}
+      {/* 4. SOCIAL PROOF - One Powerful Story */}
+      <LazySection>
+        <section className="py-32 sm:py-40 md:py-48 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
+          <div className="max-w-5xl mx-auto px-6 sm:px-8">
+            <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
+                {testimonials[0].initials}
+              </div>
+
+              <blockquote className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl leading-[1.4] max-w-4xl">
+                {testimonials[0].quote}
+              </blockquote>
+
+              <div className="pt-4">
+                <p className="text-xl sm:text-2xl text-pearl font-medium mb-2">{testimonials[0].name}</p>
+                <p className="text-base sm:text-lg text-pearl/60 font-light">{testimonials[0].location}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
+      {/* 5. PRODUCT SPOTLIGHT - NESS Pod */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
         <section
-          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-pearl text-graphite texture-overlay"
+          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-pearl to-slate-100 text-graphite texture-overlay relative overflow-hidden"
           aria-labelledby="commercial-heading"
         >
+          {/* Subtle background pattern for differentiation */}
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} aria-hidden="true"></div>
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1">
@@ -321,28 +353,6 @@ const Index = () => {
                     </Button>
                   </Link>
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </LazySection>
-
-      {/* 5. SOCIAL PROOF - One Powerful Story */}
-      <LazySection>
-        <section className="py-40 sm:py-48 md:py-56 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
-          <div className="max-w-5xl mx-auto px-6 sm:px-8">
-            <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
-                {testimonials[0].initials}
-              </div>
-
-              <blockquote className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl leading-[1.4] max-w-4xl">
-                {testimonials[0].quote}
-              </blockquote>
-
-              <div className="pt-4">
-                <p className="text-xl sm:text-2xl text-pearl font-medium mb-2">{testimonials[0].name}</p>
-                <p className="text-base sm:text-lg text-pearl/60 font-light">{testimonials[0].location}</p>
               </div>
             </div>
           </div>
