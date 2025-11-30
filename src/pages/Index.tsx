@@ -35,8 +35,6 @@ const HomeownerConfigurator = lazy(() =>
   })),
 );
 
-// Import LoadingSpinner for consistent loading states
-import { LoadingSpinner } from "@/components/ui/loading-spinner";
 const Index = () => {
   const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
@@ -84,8 +82,8 @@ const Index = () => {
             />
           </div>
 
-          {/* Left-to-right gradient - product fully visible on right */}
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/85 via-charcoal/30 via-40% to-transparent" />
+          {/* Left-to-right gradient - mobile-optimized for better product visibility */}
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/40 via-45% to-transparent md:from-charcoal/85 md:via-charcoal/30 md:via-40%" />
         </div>
 
         {/* Text Content Overlaid - Simplified Jobs-style */}
@@ -96,11 +94,11 @@ const Index = () => {
           }}
         >
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline - Jobs-style: Massive spacing, minimal words */}
+            {/* Headline - Jobs-style: Optimized for mobile visibility */}
             <h1
               id="hero-heading"
               className={cn(
-                "font-display text-4xl sm:text-[56px] md:text-[72px] lg:text-[96px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out",
+                "font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
@@ -109,10 +107,10 @@ const Index = () => {
               <span className="text-energy">Uninterrupted.</span>
             </h1>
 
-            {/* Subtext - Elegant whisper */}
+            {/* Subtext - Elegant whisper, mobile-optimized */}
             <p
               className={cn(
-                "font-display text-3xl sm:text-[36px] md:text-[42px] lg:text-[48px] font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl transition-all duration-1000 ease-out delay-150",
+                "font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl transition-all duration-1000 ease-out delay-150",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
               style={{
@@ -132,7 +130,7 @@ const Index = () => {
               <Link to="/residential" className="inline-block group">
                 <Button
                   size="lg"
-                  className="interactive font-sans bg-energy hover:bg-energy-bright text-pearl font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 hover:shadow-2xl hover:shadow-energy/20"
+                  className="interactive font-sans bg-pearl hover:bg-white text-charcoal font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(255,255,255,0.3)] hover:scale-105"
                 >
                   <span className="flex items-center justify-center">
                     Experience NESS
@@ -147,16 +145,16 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact */}
+      {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact with clarity */}
       <section
         ref={nextSectionRef}
         className="py-40 sm:py-48 md:py-56 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
         aria-labelledby="key-benefit-heading"
       >
-        <div className="max-w-5xl mx-auto text-center space-y-12">
+        <div className="max-w-5xl mx-auto text-center space-y-8">
           <h2
             id="key-benefit-heading"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-light text-graphite mb-8 tracking-tight leading-[1.1]"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-graphite tracking-tight leading-[1.1]"
           >
             One decision.
             <br />
@@ -164,6 +162,11 @@ const Index = () => {
             <br />
             <span className="text-graphite/40">Zero regrets.</span>
           </h2>
+          <p className="text-xl sm:text-2xl md:text-3xl text-graphite/60 font-light max-w-3xl mx-auto leading-relaxed">
+            Every NESS system comes with a comprehensive 10-year warranty. 
+            <br className="hidden sm:block" />
+            One investment. A decade of peace of mind.
+          </p>
         </div>
       </section>
 
@@ -346,24 +349,49 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 6. BELOW FOLD CONTENT - Lazy Loaded */}
+      {/* 6. BELOW FOLD CONTENT - Lazy Loaded with skeleton */}
       <Suspense
         fallback={
-          <div className="py-32 flex items-center justify-center">
-            <LoadingSpinner size="lg" label="Loading content..." />
+          <div className="py-24 bg-pearl">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="space-y-4 mb-12 animate-pulse">
+                <div className="h-8 bg-graphite/10 rounded w-1/3 mx-auto"></div>
+                <div className="h-6 bg-graphite/10 rounded w-2/3 mx-auto"></div>
+              </div>
+              <div className="grid md:grid-cols-3 gap-8">
+                {[1, 2, 3].map((i) => (
+                  <div key={i} className="animate-pulse">
+                    <div className="h-64 bg-graphite/10 rounded-2xl mb-4"></div>
+                    <div className="h-6 bg-graphite/10 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-graphite/10 rounded w-full"></div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         }
       >
         <BelowFoldSections />
       </Suspense>
 
-      {/* 7. CONFIGURATOR - Lazy Loaded */}
+      {/* 7. CONFIGURATOR - Lazy Loaded with skeleton */}
       <Suspense
         fallback={
-          <div className="py-32 flex items-center justify-center bg-muted/10">
-            <div className="text-center space-y-4">
-              <LoadingSpinner size="lg" label="Loading configurator..." />
-              <p className="text-sm text-muted-foreground">Preparing your system designer...</p>
+          <div className="py-24 bg-background">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="space-y-4 mb-12 animate-pulse">
+                <div className="h-10 bg-muted rounded w-1/2 mx-auto"></div>
+                <div className="h-6 bg-muted rounded w-3/4 mx-auto"></div>
+              </div>
+              <div className="space-y-6">
+                <div className="h-32 bg-muted rounded-xl animate-pulse"></div>
+                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+                  {[1, 2, 3, 4, 5, 6].map((i) => (
+                    <div key={i} className="h-24 bg-muted rounded-lg animate-pulse"></div>
+                  ))}
+                </div>
+                <div className="h-48 bg-muted rounded-xl animate-pulse"></div>
+              </div>
             </div>
           </div>
         }
