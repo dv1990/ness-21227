@@ -10,6 +10,9 @@
     --font-system: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Inter", system-ui, sans-serif;
     --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Inter", system-ui, sans-serif;
 
+    /* RGB values for inline styles */
+    --background-rgb: 255, 255, 255;
+
     /* Apple-Inspired Premium Palette - WCAG AAA Optimized */
     --charcoal: 0 0% 10%;            /* #1a1a1a - Refined dark (16.1:1 with white) */
     --pearl: 0 0% 100%;              /* #ffffff - Pure white */
@@ -77,6 +80,9 @@
   }
 
   .dark {
+    /* RGB values for inline styles - dark mode */
+    --background-rgb: 26, 26, 26;
+    
     --background: var(--charcoal);
     --foreground: var(--pearl);
     --primary: var(--platinum);
