@@ -22,7 +22,7 @@ const NessFeatureGrid = () => {
         </div>
 
         {/* Asymmetric Grid Container with Overlapping Cards */}
-        <div ref={ref as any} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-6 lg:gap-8 max-w-7xl mx-auto">
+        <div ref={ref as any} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-5 max-w-7xl mx-auto">
           
           {/* Hero Tile - Spans larger area with offset */}
           <div className="lg:col-span-5 lg:row-span-2">
@@ -248,7 +248,7 @@ const FeatureTile = memo(({
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       )}
     >
-      <div className="relative p-8 lg:p-10">
+      <div className="relative p-6 lg:p-8">
         <div className="space-y-5">
           {/* Icon with glow effect */}
           <div className={cn(
