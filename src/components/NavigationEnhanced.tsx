@@ -144,8 +144,7 @@ const NavigationEnhanced = () => {
               </button>
               
               <div 
-                className="absolute top-full left-0 mt-3 w-72 bg-background/[0.98] backdrop-blur-3xl border border-border/50 rounded-3xl p-3 shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-10px_rgba(0,0,0,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-[100] [backdrop-filter:blur(40px)_saturate(180%)]"
-                style={{ background: 'rgba(var(--background-rgb, 255, 255, 255), 0.95)' }}
+                className="absolute top-full left-0 mt-3 w-72 bg-card backdrop-blur-3xl border border-border rounded-3xl p-3 shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-10px_rgba(0,0,0,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-[100]"
                 role="menu"
                 aria-label="Company submenu"
               >
@@ -156,15 +155,15 @@ const NavigationEnhanced = () => {
                     className={`
                       block p-4 rounded-2xl transition-all duration-200 group/item
                       focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2
-                      ${isActive(item.href) ? "text-primary bg-primary/15 shadow-sm" : "text-foreground/90 hover:text-foreground hover:bg-muted/80 hover:shadow-sm"}
+                      ${isActive(item.href) ? "text-primary bg-primary/15 shadow-sm" : "text-card-foreground hover:text-foreground hover:bg-muted hover:shadow-sm"}
                     `}
                     role="menuitem"
                     aria-label={`${item.label} - ${item.description}`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold text-sm mb-0.5 text-foreground">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.description}</div>
+                        <div className="font-semibold text-base mb-1 text-card-foreground">{item.label}</div>
+                        <div className="text-sm text-muted-foreground">{item.description}</div>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300" aria-hidden="true" />
                     </div>
@@ -191,8 +190,7 @@ const NavigationEnhanced = () => {
               </button>
               
               <div 
-                className="absolute top-full right-0 mt-3 w-72 bg-background/[0.98] backdrop-blur-3xl border border-border/50 rounded-3xl p-3 shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-10px_rgba(0,0,0,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-[100] [backdrop-filter:blur(40px)_saturate(180%)]"
-                style={{ background: 'rgba(var(--background-rgb, 255, 255, 255), 0.95)' }}
+                className="absolute top-full right-0 mt-3 w-72 bg-card backdrop-blur-3xl border border-border rounded-3xl p-3 shadow-[0_20px_70px_-10px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_-10px_rgba(0,0,0,0.6)] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-[100]"
                 role="menu"
                 aria-label="Support submenu"
               >
@@ -203,15 +201,15 @@ const NavigationEnhanced = () => {
                     className={`
                       block p-4 rounded-2xl transition-all duration-200 group/item
                       focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2
-                      ${isActive(item.href) ? "text-primary bg-primary/15 shadow-sm" : "text-foreground/90 hover:text-foreground hover:bg-muted/80 hover:shadow-sm"}
+                      ${isActive(item.href) ? "text-primary bg-primary/15 shadow-sm" : "text-card-foreground hover:text-foreground hover:bg-muted hover:shadow-sm"}
                     `}
                     role="menuitem"
                     aria-label={`${item.label} - ${item.description}`}
                   >
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-semibold text-sm mb-0.5 text-foreground">{item.label}</div>
-                        <div className="text-xs text-muted-foreground">{item.description}</div>
+                        <div className="font-semibold text-base mb-1 text-card-foreground">{item.label}</div>
+                        <div className="text-sm text-muted-foreground">{item.description}</div>
                       </div>
                       <ArrowRight className="w-4 h-4 text-muted-foreground opacity-0 -translate-x-2 group-hover/item:opacity-100 group-hover/item:translate-x-0 transition-all duration-300" aria-hidden="true" />
                     </div>
