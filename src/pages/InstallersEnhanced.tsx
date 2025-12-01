@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, lazy, Suspense } from "react";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,10 +13,15 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { MagneticButton, FloatingCard } from "@/components/EnhancedInteractions";
-import SystemConfigurator from "@/components/SystemConfigurator";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { LazySection } from "@/components/ui/lazy-section";
+import { InstallerPageSkeleton } from "@/components/installers/InstallerPageSkeleton";
+import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import trainingWorkshop from "@/assets/training-workshop.jpg";
 import configuratorTool from "@/assets-webp/configurator-tool.webp";
+
+// Lazy load heavy components
+const SystemConfigurator = lazy(() => import("@/components/SystemConfigurator"));
 
 const InstallersEnhanced = () => {
   const { toast } = useToast();
@@ -30,34 +35,37 @@ const InstallersEnhanced = () => {
 
   return (
     <Layout className="-mt-16">
-      {/* Hero - Business First */}
-      <section className="relative min-h-[60vh] flex items-center bg-background">
-        <div className="max-w-6xl mx-auto px-8 w-full">
-          <div className="max-w-3xl">
-            <h1 className="text-7xl md:text-8xl font-light text-foreground leading-tight mb-8 tracking-tight">
-              Certified
-              <br />
-              <span className="text-primary">Installer Program</span>
-            </h1>
-            
-            <p className="text-2xl text-muted-foreground mb-12 leading-relaxed">
-              Premium margins. Technical support. Certification training. 
-              Build a profitable clean energy business.
-            </p>
+      <Suspense fallback={<InstallerPageSkeleton />}>
+        {/* Hero - Business First */}
+        <section className="relative min-h-[60vh] flex items-center bg-background animate-fade-in">
+          <div className="max-w-6xl mx-auto px-8 w-full">
+            <div className="max-w-3xl">
+              <h1 className="text-7xl md:text-8xl font-light text-foreground leading-tight mb-8 tracking-tight">
+                Certified
+                <br />
+                <span className="text-primary">Installer Program</span>
+              </h1>
+              
+              <p className="text-2xl text-muted-foreground mb-12 leading-relaxed">
+                Premium margins. Technical support. Certification training. 
+                Build a profitable clean energy business.
+              </p>
 
-            <Button 
-              className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-lg rounded-full"
-              onClick={() => document.getElementById('program')?.scrollIntoView({ behavior: 'smooth' })}
-            >
-              View Program Details
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+              <Button 
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-lg rounded-full"
+                onClick={() => document.getElementById('program')?.scrollIntoView({ behavior: 'smooth' })}
+              >
+                View Program Details
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </Suspense>
 
       {/* Program Details */}
-      <section id="program" className="py-32 bg-muted/10">
+      <LazySection rootMargin="100px">
+        <section id="program" className="py-32 bg-muted/10 animate-fade-in">
         <div className="max-w-6xl mx-auto px-8">
           
           <div className="text-center mb-20">
@@ -153,10 +161,12 @@ const InstallersEnhanced = () => {
             </Card>
           </div>
         </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* Testimonial */}
-      <section className="py-32 bg-background">
+      <LazySection rootMargin="100px">
+        <section className="py-32 bg-background animate-fade-in">
         <div className="max-w-4xl mx-auto px-8">
           <Card className="border-border">
             <CardContent className="p-12">
@@ -202,10 +212,12 @@ const InstallersEnhanced = () => {
             </CardContent>
           </Card>
         </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* Application Form */}
-      <section id="apply" className="py-32 bg-muted/10">
+      <LazySection rootMargin="100px">
+        <section id="apply" className="py-32 bg-muted/10 animate-fade-in">
         <div className="max-w-2xl mx-auto px-8">
           
           <div className="text-center mb-12">
@@ -249,18 +261,21 @@ const InstallersEnhanced = () => {
             </CardContent>
           </Card>
         </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* The Vision - Visual Story */}
-      <section className="relative h-[60vh] overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src={trainingWorkshop}
-            alt="NESS partners building the future"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 to-transparent"></div>
-        </div>
+      <LazySection rootMargin="100px">
+        <section className="relative h-[60vh] overflow-hidden animate-fade-in">
+          <div className="absolute inset-0">
+            <img 
+              src={trainingWorkshop}
+              alt="NESS partners building the future"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 to-transparent"></div>
+          </div>
         
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-6xl mx-auto px-8 w-full">
@@ -276,10 +291,12 @@ const InstallersEnhanced = () => {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* Advanced Tools Showcase */}
-      <section className="py-32 bg-background">
+      <LazySection rootMargin="100px">
+        <section className="py-32 bg-background animate-fade-in">
         <div className="max-w-6xl mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
             
@@ -323,7 +340,13 @@ const InstallersEnhanced = () => {
                   </MagneticButton>
                 </DialogTrigger>
                 <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
-                  <SystemConfigurator />
+                  <Suspense fallback={
+                    <div className="min-h-[500px] flex items-center justify-center">
+                      <LoadingSpinner size="lg" label="Loading configurator..." />
+                    </div>
+                  }>
+                    <SystemConfigurator />
+                  </Suspense>
                 </DialogContent>
               </Dialog>
             </div>
@@ -333,14 +356,17 @@ const InstallersEnhanced = () => {
                 src={configuratorTool}
                 alt="System configurator tool"
                 className="w-full h-full object-cover"
+                loading="lazy"
               />
             </FloatingCard>
           </div>
         </div>
-      </section>
+        </section>
+      </LazySection>
 
       {/* Final Call to Action - Steve Jobs Style */}
-      <section className="py-32 bg-foreground text-background relative overflow-hidden">
+      <LazySection rootMargin="100px">
+        <section className="py-32 bg-foreground text-background relative overflow-hidden animate-fade-in">
         <div className="absolute inset-0">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-brand-glow/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
@@ -371,7 +397,8 @@ const InstallersEnhanced = () => {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </LazySection>
     </Layout>
   );
 };
