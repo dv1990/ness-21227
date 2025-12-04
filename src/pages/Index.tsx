@@ -151,27 +151,26 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 2. ONE KEY DIFFERENTIATOR - Emotional Impact with clarity */}
+      {/* 2. ONE KEY DIFFERENTIATOR - Steve Jobs-style emotional impact */}
       <section
         ref={nextSectionRef}
-        className="py-40 sm:py-48 md:py-56 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
+        className="py-48 sm:py-56 md:py-72 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
         aria-labelledby="key-benefit-heading"
       >
-        <div className="max-w-5xl mx-auto text-center space-y-8">
+        <div className="max-w-5xl mx-auto text-center space-y-16 sm:space-y-20">
           <h2
             id="key-benefit-heading"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-graphite tracking-tight leading-[1.1]"
+            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-extralight text-graphite tracking-[-0.03em] leading-[1.15] sm:leading-[1.2]"
           >
-            One decision.
-            <br />
-            Ten years.
-            <br />
-            <span className="text-graphite/40">Zero regrets.</span>
+            <span className="block">One decision.</span>
+            <span className="block mt-2 sm:mt-4">Ten years.</span>
+            <span className="block mt-2 sm:mt-4 text-energy">Zero regrets.</span>
           </h2>
-          <p className="text-xl sm:text-2xl md:text-3xl text-graphite/60 font-light max-w-3xl mx-auto leading-relaxed">
-            Every NESS system comes with a comprehensive 10-year warranty. 
-            <br className="hidden sm:block" />
-            One investment. A decade of peace of mind.
+          <p className="text-lg sm:text-xl md:text-2xl text-graphite/50 font-light max-w-2xl mx-auto leading-[1.8] tracking-wide">
+            Every NESS system comes with a comprehensive 10-year warranty.
+            <span className="block mt-4 text-graphite/70 font-normal">
+              One investment. A decade of peace of mind.
+            </span>
           </p>
         </div>
       </section>
