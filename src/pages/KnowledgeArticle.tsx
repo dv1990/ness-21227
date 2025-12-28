@@ -3,15 +3,15 @@ import Layout from "@/components/Layout";
 import { ArrowLeft, Clock, Calendar, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-// Import images
-import familyEnergyLifestyle from "@/assets/family-energy-lifestyle.webp";
-import batteryTechnology from "@/assets/battery-technology.webp";
-import greenFutureCity from "@/assets/green-future-city.webp";
-import nessPodProduct from "@/assets/ness-pod-product.png";
-import nessCubeProduct from "@/assets/ness-cube-product.png";
-import nessProProduct from "@/assets/ness-pro-product.png";
-import commercialComplex from "@/assets/commercial-complex.webp";
-import evCharging from "@/assets/ev-charging.webp";
+// Import images - using optimized WebP versions
+import familyEnergyLifestyle from "@/assets-webp/family-energy-lifestyle.webp";
+import batteryTechnology from "@/assets-webp/battery-technology.webp";
+import greenFutureCity from "@/assets-webp/green-future-city.webp";
+import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
+import nessCubeProduct from "@/assets-webp/ness-cube-product.webp";
+import nessProProduct from "@/assets-webp/ness-pro-product.webp";
+import commercialComplex from "@/assets-webp/commercial-complex.webp";
+import evCharging from "@/assets-webp/ev-charging.webp";
 
 // Article content data
 const articleContent: Record<string, {
