@@ -35,7 +35,7 @@ const KnowledgeHub = () => {
     {
       id: 'calculator',
       title: 'Savings Calculator',
-      hook: 'See your savings in 60 seconds.',
+      hook: 'See ₹2.4L+ in potential savings.',
       cta: 'Calculate now',
       link: '/knowledge/calculator',
       icon: Calculator,
@@ -79,9 +79,12 @@ const KnowledgeHub = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-20 bg-background overflow-hidden">
+      <section className="relative pt-32 pb-24 bg-background overflow-hidden">
         {/* Subtle background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-b from-pearl/50 to-background pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-pearl/50 via-whisper to-background pointer-events-none" />
+        
+        {/* Radial glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-energy/5 rounded-full blur-3xl pointer-events-none" />
         
         <div className="container mx-auto px-6 relative z-10">
           <div 
@@ -89,13 +92,13 @@ const KnowledgeHub = () => {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.2em] text-muted-foreground mb-4">
+            <p className="text-caption uppercase tracking-[0.25em] text-muted-foreground mb-6">
               Resources
             </p>
-            <h1 className="text-display-medium md:text-display-large font-light text-foreground mb-6 tracking-tight">
+            <h1 className="text-display-medium md:text-display-large font-medium text-foreground mb-8 tracking-tight">
               Knowledge Hub
             </h1>
-            <p className="text-body-large text-muted-foreground max-w-xl mx-auto">
+            <p className="text-body-large text-muted-foreground/80 max-w-xl mx-auto leading-relaxed">
               The answers you need. The confidence you deserve.
             </p>
           </div>
@@ -103,10 +106,10 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Home Users Section */}
-      <section ref={sectionRef} className="py-24 bg-pearl/30 relative overflow-hidden">
+      <section ref={sectionRef} className="py-32 bg-pearl/30 relative overflow-hidden">
         {/* Dot pattern overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.02] pointer-events-none"
+          className="absolute inset-0 opacity-[0.03] pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(circle, hsl(var(--foreground)) 1px, transparent 1px)',
             backgroundSize: '24px 24px'
@@ -115,65 +118,82 @@ const KnowledgeHub = () => {
         
         <div className="container mx-auto px-6 relative z-10">
           <div 
-            className={`mb-12 transition-all duration-700 delay-200 ${
+            className={`mb-16 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.2em] text-energy font-medium mb-2">
+            <p className="text-caption uppercase tracking-[0.25em] text-energy font-medium mb-3">
               For Homeowners
             </p>
-            <h2 className="text-title-large md:text-display-small font-light text-foreground">
+            <h2 className="text-title-large md:text-display-small font-medium text-foreground tracking-tight">
               Your energy journey starts here
             </h2>
           </div>
 
           {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {homeUserCards.map((card, index) => (
               <Link
                 key={card.id}
                 to={card.link}
-                className={`group relative overflow-hidden rounded-3xl transition-all duration-500 ease-out
+                className={`group relative overflow-hidden rounded-3xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                   ${card.featured ? 'md:col-span-1 md:row-span-2' : ''}
-                  ${card.accent ? 'bg-gradient-to-br from-energy/10 via-energy/5 to-transparent' : 'bg-background/80'}
-                  backdrop-blur-xl border border-border/50
-                  hover:scale-[1.02] hover:shadow-premium active:scale-[0.98]
-                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  ${card.accent 
+                    ? 'glass-card-accent' 
+                    : 'glass-card-light'}
+                  hover:-translate-y-2 hover:shadow-glass-hover active:scale-[0.98]
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                 `}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
+                style={{ transitionDelay: `${300 + index * 150}ms` }}
               >
-                <div className={`p-8 md:p-10 h-full flex flex-col ${card.featured ? 'min-h-[400px]' : 'min-h-[200px]'}`}>
+                {/* Specular highlight */}
+                <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
+                
+                {/* Content */}
+                <div className={`relative z-10 p-10 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[420px]' : 'min-h-[220px]'}`}>
                   {/* Icons */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className={`p-3 rounded-2xl ${card.accent ? 'bg-energy/20' : 'bg-muted/50'}`}>
-                      <card.icon className={`w-6 h-6 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className={`p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 ${
+                      card.accent 
+                        ? 'bg-energy/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]' 
+                        : 'bg-muted/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
+                    }`}>
+                      <card.icon className={`w-7 h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
                     </div>
                     {card.secondaryIcon && (
-                      <div className={`p-3 rounded-2xl ${card.accent ? 'bg-energy/20' : 'bg-muted/50'}`}>
-                        <card.secondaryIcon className={`w-6 h-6 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
+                      <div className={`p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 ${
+                        card.accent 
+                          ? 'bg-energy/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]' 
+                          : 'bg-muted/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
+                      }`}>
+                        <card.secondaryIcon className={`w-7 h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
                       </div>
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className={`font-medium text-foreground mb-3 ${card.featured ? 'text-title-large' : 'text-title'}`}>
+                    <h3 className={`font-medium text-foreground mb-4 tracking-tight ${card.featured ? 'text-display-medium' : 'text-title-large'}`}>
                       {card.title}
                     </h3>
-                    <p className="text-body text-muted-foreground">
+                    <p className="text-body-large text-muted-foreground/80 leading-relaxed">
                       {card.hook}
                     </p>
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-6 flex items-center gap-2 text-foreground font-medium">
-                    <span className={card.accent ? 'text-energy' : ''}>{card.cta}</span>
-                    <ArrowRight className={`w-4 h-4 transition-transform duration-300 group-hover:translate-x-1 ${card.accent ? 'text-energy' : ''}`} />
+                  <div className="mt-8 flex items-center gap-3">
+                    <span className={`font-semibold ${card.accent ? 'text-energy' : 'text-foreground'}`}>
+                      {card.cta}
+                    </span>
+                    <ArrowRight className={`w-5 h-5 transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-2 ${
+                      card.accent ? 'text-energy' : 'text-foreground'
+                    }`} />
                   </div>
-
-                  {/* Hover gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-energy/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </div>
+
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-energy/8 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </Link>
             ))}
           </div>
@@ -181,76 +201,93 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Installers Section - Dark Theme */}
-      <section className="py-24 bg-charcoal relative overflow-hidden">
+      <section className="py-32 bg-charcoal relative overflow-hidden">
         {/* Grid pattern overlay */}
         <div 
-          className="absolute inset-0 opacity-[0.03] pointer-events-none"
+          className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
             backgroundImage: 'radial-gradient(circle, hsl(var(--pearl)) 1px, transparent 1px)',
             backgroundSize: '32px 32px'
           }}
         />
         
+        {/* Subtle gradient */}
+        <div className="absolute inset-0 bg-gradient-to-br from-graphite/50 via-charcoal to-charcoal pointer-events-none" />
+        
         <div className="container mx-auto px-6 relative z-10">
           <div 
-            className={`mb-12 transition-all duration-700 delay-200 ${
+            className={`mb-16 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.2em] text-energy font-medium mb-2">
+            <p className="text-caption uppercase tracking-[0.25em] text-energy font-medium mb-3">
               For Professionals
             </p>
-            <h2 className="text-title-large md:text-display-small font-light text-pearl">
+            <h2 className="text-title-large md:text-display-small font-medium text-pearl tracking-tight">
               Install with confidence
             </h2>
           </div>
 
           {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {installerCards.map((card, index) => (
               <Link
                 key={card.id}
                 to={card.link}
-                className={`group relative overflow-hidden rounded-3xl transition-all duration-500 ease-out
+                className={`group relative overflow-hidden rounded-3xl transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                   ${card.featured ? 'md:col-span-1 md:row-span-2' : ''}
-                  bg-graphite/50 backdrop-blur-xl border border-pearl/10
-                  hover:scale-[1.02] hover:shadow-premium hover:border-energy/30 active:scale-[0.98]
-                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}
+                  ${card.split ? 'glass-card-split' : 'glass-card-dark'}
+                  hover:-translate-y-2 hover:shadow-glass-dark-hover hover:border-energy/40 active:scale-[0.98]
+                  ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}
                 `}
-                style={{ transitionDelay: `${300 + index * 100}ms` }}
+                style={{ transitionDelay: `${300 + index * 150}ms` }}
               >
-                <div className={`p-8 md:p-10 h-full flex flex-col ${card.featured ? 'min-h-[400px]' : 'min-h-[200px]'}`}>
+                {/* Specular highlight for dark cards */}
+                <div className="absolute inset-0 bg-gradient-to-br from-pearl/8 via-transparent to-transparent opacity-60 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                
+                {/* Split accent for Do's/Don'ts card */}
+                {card.split && (
+                  <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute left-0 top-0 bottom-0 w-1/2 bg-gradient-to-r from-energy/10 to-transparent" />
+                    <div className="absolute right-0 top-0 bottom-0 w-1/2 bg-gradient-to-l from-red-500/10 to-transparent" />
+                  </div>
+                )}
+                
+                {/* Content */}
+                <div className={`relative z-10 p-10 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[420px]' : 'min-h-[220px]'}`}>
                   {/* Icons */}
-                  <div className="flex items-center gap-3 mb-6">
-                    <div className="p-3 rounded-2xl bg-pearl/10">
-                      <card.icon className={`w-6 h-6 ${card.split ? 'text-energy' : 'text-pearl'}`} />
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="p-4 rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      <card.icon className={`w-7 h-7 ${card.split ? 'text-energy' : 'text-pearl'}`} />
                     </div>
                     {card.secondaryIcon && (
-                      <div className="p-3 rounded-2xl bg-pearl/10">
-                        <card.secondaryIcon className="w-6 h-6 text-red-400" />
+                      <div className="p-4 rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                        <card.secondaryIcon className="w-7 h-7 text-red-400" />
                       </div>
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className={`font-medium text-pearl mb-3 ${card.featured ? 'text-title-large' : 'text-title'}`}>
+                    <h3 className={`font-medium text-pearl mb-4 tracking-tight ${card.featured ? 'text-display-medium' : 'text-title-large'}`}>
                       {card.title}
                     </h3>
-                    <p className="text-body text-pearl/60">
+                    <p className="text-body-large text-pearl/60 leading-relaxed">
                       {card.hook}
                     </p>
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-6 flex items-center gap-2 text-pearl font-medium">
-                    <span className="group-hover:text-energy transition-colors duration-300">{card.cta}</span>
-                    <ArrowRight className="w-4 h-4 transition-all duration-300 group-hover:translate-x-1 group-hover:text-energy" />
+                  <div className="mt-8 flex items-center gap-3">
+                    <span className="font-semibold text-pearl group-hover:text-energy transition-colors duration-500">
+                      {card.cta}
+                    </span>
+                    <ArrowRight className="w-5 h-5 text-pearl transition-all duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] group-hover:translate-x-2 group-hover:text-energy" />
                   </div>
-
-                  {/* Hover glow effect */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-energy/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                 </div>
+
+                {/* Hover glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-energy/15 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               </Link>
             ))}
           </div>
@@ -258,23 +295,27 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-20 bg-background">
-        <div className="container mx-auto px-6">
+      <section className="py-24 bg-background relative overflow-hidden">
+        {/* Subtle radial glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-energy/3 rounded-full blur-3xl pointer-events-none" />
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div 
             className={`text-center transition-all duration-700 delay-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-body-large text-muted-foreground mb-6">
+            <p className="text-body-large text-muted-foreground/80 mb-8">
               Can't find what you're looking for?
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-foreground text-background rounded-full font-medium
-                hover:bg-foreground/90 transition-all duration-300 hover:scale-105 active:scale-95"
+              className="inline-flex items-center gap-3 px-10 py-5 bg-foreground text-background rounded-full font-semibold
+                transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
+                hover:bg-foreground/90 hover:scale-105 hover:shadow-glass-hover active:scale-95"
             >
               Contact Support
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-5 h-5 transition-transform duration-500 group-hover:translate-x-1" />
             </Link>
           </div>
         </div>

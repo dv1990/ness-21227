@@ -97,6 +97,13 @@ export default {
         xl: "var(--radius-lg)",
         "2xl": "var(--radius-xl)",
       },
+      boxShadow: {
+        'glass': '0 4px 24px -4px rgba(0, 0, 0, 0.08), 0 12px 48px -8px rgba(0, 0, 0, 0.05), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+        'glass-hover': '0 8px 32px -4px rgba(0, 0, 0, 0.12), 0 20px 60px -10px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.9)',
+        'glass-dark': '0 4px 24px -4px rgba(0, 0, 0, 0.3), 0 12px 48px -8px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.1)',
+        'glass-dark-hover': '0 8px 32px -4px rgba(0, 0, 0, 0.4), 0 20px 60px -10px rgba(0, 0, 0, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+        'lifted-lg': '0 12px 40px -8px rgba(0, 0, 0, 0.15), 0 6px 12px -3px rgba(0, 0, 0, 0.08)',
+      },
       keyframes: {
         "accordion-down": {
           from: {
