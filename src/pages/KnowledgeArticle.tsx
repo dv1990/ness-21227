@@ -1,6 +1,7 @@
+import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { ArrowLeft, Clock, Calendar, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator } from "lucide-react";
+import { ArrowLeft, Clock, Calendar, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator, Lightbulb, Fan, Wifi, Smartphone, Refrigerator, AirVent, Droplets, Car, Crown, Sparkles, Home, Building2, Gauge } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // Import images - using optimized WebP versions
@@ -239,6 +240,8 @@ function WhySolarBatteryContent() {
 
 // Product Guide Content
 function ProductGuideContent() {
+  const [activeStep, setActiveStep] = React.useState(1);
+  
   const products = [
     {
       name: "NESS Pod",
@@ -247,7 +250,8 @@ function ProductGuideContent() {
       bestFor: "1-2 BHK apartments, small families",
       features: ["Compact design", "Wall-mounted", "Perfect for essentials"],
       price: "₹2.5-4L",
-      color: "energy"
+      icon: Home,
+      recommended: false
     },
     {
       name: "NESS Cube",
@@ -256,7 +260,8 @@ function ProductGuideContent() {
       bestFor: "3-4 BHK homes, medium families",
       features: ["Whole-home backup", "EV charging ready", "Smart monitoring"],
       price: "₹4-7L",
-      color: "foreground"
+      icon: Sparkles,
+      recommended: true
     },
     {
       name: "NESS Pro",
@@ -265,14 +270,131 @@ function ProductGuideContent() {
       bestFor: "Villas, commercial, high usage",
       features: ["Scalable capacity", "Three-phase support", "Industrial grade"],
       price: "₹7-15L+",
-      color: "muted-foreground"
+      icon: Building2,
+      recommended: false
     }
   ];
 
+  const usageTiers = [
+    { 
+      range: "200-400", 
+      label: "Light User", 
+      icon: Lightbulb,
+      description: "Small apartments, basic appliances",
+      gradient: "from-emerald-500/20 to-emerald-600/5"
+    },
+    { 
+      range: "400-800", 
+      label: "Medium User", 
+      icon: Home,
+      description: "Family homes with AC usage",
+      gradient: "from-energy/20 to-energy/5"
+    },
+    { 
+      range: "800+", 
+      label: "Heavy User", 
+      icon: Building2,
+      description: "Large homes, multiple ACs, EV",
+      gradient: "from-orange-500/20 to-orange-600/5"
+    }
+  ];
+
+  const essentialAppliances = [
+    { name: "Lights", icon: Lightbulb, power: "50W" },
+    { name: "Fans", icon: Fan, power: "75W" },
+    { name: "WiFi", icon: Wifi, power: "15W" },
+    { name: "Phone", icon: Smartphone, power: "20W" },
+    { name: "Fridge", icon: Refrigerator, power: "150W" }
+  ];
+
+  const wholeHomeAppliances = [
+    { name: "All essentials", icon: CheckCircle, power: "310W" },
+    { name: "AC", icon: AirVent, power: "1.5kW" },
+    { name: "Water heater", icon: Droplets, power: "2kW" },
+    { name: "EV charger", icon: Car, power: "3.3kW" }
+  ];
+
+  const steps = [
+    { num: 1, title: "Usage", subtitle: "How much?" },
+    { num: 2, title: "Backup", subtitle: "What loads?" },
+    { num: 3, title: "Duration", subtitle: "How long?" }
+  ];
+
+  // Track scroll to update active step
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const sections = document.querySelectorAll('[data-step]');
+      sections.forEach((section) => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top <= 200 && rect.bottom >= 200) {
+          const step = parseInt(section.getAttribute('data-step') || '1');
+          setActiveStep(step);
+        }
+      });
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="space-y-12">
+    <div className="space-y-12 relative">
+      {/* Sticky Progress Indicator */}
+      <div className="sticky top-20 z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50 transition-all duration-300">
+        <div className="max-w-2xl mx-auto">
+          <div className="flex items-center justify-between">
+            {steps.map((step, i) => (
+              <React.Fragment key={step.num}>
+                <button
+                  onClick={() => {
+                    const section = document.querySelector(`[data-step="${step.num}"]`);
+                    section?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }}
+                  className={`flex items-center gap-3 transition-all duration-300 group ${
+                    activeStep >= step.num ? 'opacity-100' : 'opacity-50'
+                  }`}
+                >
+                  <div className={`
+                    relative w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm
+                    transition-all duration-500 
+                    ${activeStep === step.num 
+                      ? 'bg-gradient-to-br from-energy via-energy to-energy/80 text-charcoal shadow-lg shadow-energy/30 scale-110' 
+                      : activeStep > step.num 
+                        ? 'bg-energy/20 text-energy border-2 border-energy/50'
+                        : 'bg-muted text-muted-foreground'
+                    }
+                  `}>
+                    {activeStep > step.num ? (
+                      <CheckCircle className="w-5 h-5" />
+                    ) : (
+                      step.num
+                    )}
+                    {activeStep === step.num && (
+                      <span className="absolute -inset-1 rounded-full bg-energy/20 animate-ping" />
+                    )}
+                  </div>
+                  <div className="hidden sm:block text-left">
+                    <p className={`text-sm font-semibold transition-colors ${
+                      activeStep === step.num ? 'text-energy' : 'text-foreground'
+                    }`}>{step.title}</p>
+                    <p className="text-xs text-muted-foreground">{step.subtitle}</p>
+                  </div>
+                </button>
+                {i < steps.length - 1 && (
+                  <div className="flex-1 mx-2 sm:mx-4 h-0.5 bg-muted rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-gradient-to-r from-energy to-energy/60 transition-all duration-500"
+                      style={{ width: activeStep > step.num ? '100%' : '0%' }}
+                    />
+                  </div>
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
+      </div>
+
       {/* Intro */}
-      <section className="space-y-6">
+      <section className="space-y-6 pt-4">
         <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
           Choosing a solar + battery system shouldn't feel like solving a puzzle. <span className="text-energy">Let me simplify it for you.</span>
         </p>
@@ -282,110 +404,229 @@ function ProductGuideContent() {
         </p>
       </section>
 
-      {/* Step 1 */}
-      <section className="space-y-6">
+      {/* Step 1 - Premium Usage Tier Cards */}
+      <section className="space-y-6" data-step="1">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-energy rounded-full flex items-center justify-center text-charcoal font-bold text-xl">1</div>
+          <div className="relative">
+            <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 rotate-3 hover:rotate-0 transition-transform duration-300">
+              1
+            </div>
+            <Gauge className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+          </div>
           <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">How much electricity do you use?</h2>
         </div>
         
         <div className="glass-card-light rounded-2xl p-6 sm:p-8">
-          <p className="text-body-large text-muted-foreground mb-6">
+          <p className="text-body-large text-muted-foreground mb-8">
             Check your last 3 electricity bills. Find your average monthly consumption (in kWh or units).
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="bg-muted/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-foreground">200-400</p>
-              <p className="text-sm text-muted-foreground">units/month</p>
-              <p className="text-energy font-semibold mt-2">Light User</p>
-            </div>
-            <div className="bg-muted/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-foreground">400-800</p>
-              <p className="text-sm text-muted-foreground">units/month</p>
-              <p className="text-energy font-semibold mt-2">Medium User</p>
-            </div>
-            <div className="bg-muted/50 rounded-xl p-4 text-center">
-              <p className="text-2xl font-bold text-foreground">800+</p>
-              <p className="text-sm text-muted-foreground">units/month</p>
-              <p className="text-energy font-semibold mt-2">Heavy User</p>
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            {usageTiers.map((tier, i) => (
+              <div 
+                key={i}
+                className={`
+                  relative overflow-hidden rounded-2xl p-6 text-center
+                  bg-gradient-to-br ${tier.gradient}
+                  border border-border/50 hover:border-energy/50
+                  hover:-translate-y-1 hover:shadow-xl hover:shadow-energy/10
+                  transition-all duration-300 cursor-pointer group
+                `}
+              >
+                <div className="absolute top-3 right-3 w-10 h-10 bg-background/50 backdrop-blur rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                  <tier.icon className="w-5 h-5 text-energy" />
+                </div>
+                <p className="text-3xl font-bold text-foreground mb-1">{tier.range}</p>
+                <p className="text-sm text-muted-foreground mb-3">units/month</p>
+                <p className="text-energy font-semibold text-lg">{tier.label}</p>
+                <p className="text-xs text-muted-foreground mt-2">{tier.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Step 2 */}
-      <section className="space-y-6">
+      {/* Step 2 - Appliance Icons */}
+      <section className="space-y-6" data-step="2">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-energy rounded-full flex items-center justify-center text-charcoal font-bold text-xl">2</div>
+          <div className="relative">
+            <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 -rotate-3 hover:rotate-0 transition-transform duration-300">
+              2
+            </div>
+            <Battery className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+          </div>
           <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">What do you want to power during outages?</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="glass-card-light rounded-2xl p-6 space-y-4">
-            <h3 className="text-xl font-semibold text-foreground">Essential Backup</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> Lights & fans</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> WiFi router</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> Phone charging</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> Refrigerator</li>
-            </ul>
-            <p className="text-energy font-semibold">Need: 5-10 kWh</p>
+          {/* Essential Backup */}
+          <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-6 hover:shadow-xl transition-shadow group">
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold text-foreground">Essential Backup</h3>
+              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-medium">
+                Budget Friendly
+              </span>
+            </div>
+            <div className="grid grid-cols-5 gap-3">
+              {essentialAppliances.map((appliance, i) => (
+                <div 
+                  key={i}
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-muted/30 hover:bg-energy/10 transition-colors group/item cursor-default"
+                >
+                  <div className="w-10 h-10 bg-energy/10 group-hover/item:bg-energy/20 rounded-xl flex items-center justify-center transition-colors">
+                    <appliance.icon className="w-5 h-5 text-energy" />
+                  </div>
+                  <span className="text-xs text-muted-foreground text-center">{appliance.name}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center justify-between pt-4 border-t border-border/50">
+              <p className="text-muted-foreground text-sm">Total power draw</p>
+              <p className="text-energy font-bold text-lg">~310W</p>
+            </div>
+            <p className="text-energy font-semibold flex items-center gap-2">
+              <Battery className="w-4 h-4" />
+              Need: 5-10 kWh
+            </p>
           </div>
           
-          <div className="glass-card-light rounded-2xl p-6 space-y-4">
-            <h3 className="text-xl font-semibold text-foreground">Whole-Home Backup</h3>
-            <ul className="space-y-2 text-muted-foreground">
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> All essential loads</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> Air conditioners</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> Water heater</li>
-              <li className="flex items-center gap-2"><CheckCircle className="w-4 h-4 text-energy" /> EV charger</li>
-            </ul>
-            <p className="text-energy font-semibold">Need: 15-30+ kWh</p>
+          {/* Whole-Home Backup */}
+          <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-6 hover:shadow-xl transition-shadow group relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-energy/10 to-transparent rounded-bl-full" />
+            <div className="flex items-center justify-between relative">
+              <h3 className="text-xl font-semibold text-foreground">Whole-Home Backup</h3>
+              <span className="px-3 py-1 bg-energy/10 text-energy rounded-full text-xs font-medium flex items-center gap-1">
+                <Star className="w-3 h-3" /> Popular
+              </span>
+            </div>
+            <div className="grid grid-cols-4 gap-3">
+              {wholeHomeAppliances.map((appliance, i) => (
+                <div 
+                  key={i}
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-muted/30 hover:bg-energy/10 transition-colors group/item cursor-default"
+                >
+                  <div className="w-10 h-10 bg-energy/10 group-hover/item:bg-energy/20 rounded-xl flex items-center justify-center transition-colors">
+                    <appliance.icon className="w-5 h-5 text-energy" />
+                  </div>
+                  <span className="text-xs text-muted-foreground text-center leading-tight">{appliance.name}</span>
+                  <span className="text-[10px] text-energy font-medium">{appliance.power}</span>
+                </div>
+              ))}
+            </div>
+            <div className="flex items-center justify-between pt-4 border-t border-border/50">
+              <p className="text-muted-foreground text-sm">Peak power draw</p>
+              <p className="text-energy font-bold text-lg">~7kW</p>
+            </div>
+            <p className="text-energy font-semibold flex items-center gap-2">
+              <Zap className="w-4 h-4" />
+              Need: 15-30+ kWh
+            </p>
           </div>
         </div>
       </section>
 
       {/* Step 3 */}
-      <section className="space-y-6">
+      <section className="space-y-6" data-step="3">
         <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-energy rounded-full flex items-center justify-center text-charcoal font-bold text-xl">3</div>
+          <div className="relative">
+            <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 rotate-2 hover:rotate-0 transition-transform duration-300">
+              3
+            </div>
+            <Clock className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+          </div>
           <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">How long should backup last?</h2>
         </div>
         
-        <div className="glass-card-accent rounded-2xl p-6 sm:p-8">
-          <p className="text-body-large text-muted-foreground mb-4">
-            Simple math: If you need 5kW of power for 4 hours during an outage, you need <strong className="text-foreground">5 × 4 = 20 kWh</strong> of battery storage.
-          </p>
-          <p className="text-muted-foreground">
-            Pro tip: Most homes do fine with 4-6 hours of backup for essential loads. If you're in an area with frequent 
-            8+ hour outages, size up accordingly.
-          </p>
+        <div className="glass-card-accent rounded-2xl p-6 sm:p-8 relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-energy/5 to-transparent rounded-bl-full" />
+          <div className="relative space-y-6">
+            <div className="flex flex-wrap gap-4">
+              {[2, 4, 6, 8, 12].map((hours) => (
+                <div 
+                  key={hours}
+                  className="px-5 py-3 bg-muted/50 hover:bg-energy/10 border border-border hover:border-energy/50 rounded-xl cursor-pointer transition-all hover:scale-105"
+                >
+                  <span className="text-lg font-bold text-foreground">{hours}</span>
+                  <span className="text-sm text-muted-foreground ml-1">hours</span>
+                </div>
+              ))}
+            </div>
+            <div className="bg-background/50 rounded-xl p-4 border border-energy/20">
+              <p className="text-body-large text-foreground mb-2">
+                <strong>Simple math:</strong> If you need 5kW of power for 4 hours during an outage, you need <span className="text-energy font-bold">5 × 4 = 20 kWh</span> of battery storage.
+              </p>
+              <p className="text-muted-foreground text-sm">
+                💡 Pro tip: Most homes do fine with 4-6 hours of backup for essential loads. If you're in an area with frequent 
+                8+ hour outages, size up accordingly.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Product Comparison */}
+      {/* Product Comparison - Premium Cards with Recommended Badge */}
       <section className="space-y-8">
         <h2 className="text-2xl sm:text-3xl font-semibold text-foreground text-center">Our Products: At a Glance</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product, i) => (
-            <div key={i} className="glass-card-light rounded-3xl p-6 sm:p-8 space-y-6 hover:-translate-y-2 transition-transform duration-300">
-              <div className="aspect-square bg-gradient-to-br from-muted/50 to-muted/20 rounded-2xl flex items-center justify-center p-8">
-                <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain" />
+            <div 
+              key={i} 
+              className={`
+                relative glass-card-light rounded-3xl p-6 sm:p-8 space-y-6 
+                hover:-translate-y-3 transition-all duration-500 group
+                ${product.recommended 
+                  ? 'ring-2 ring-energy shadow-xl shadow-energy/20 scale-[1.02] md:scale-105' 
+                  : 'hover:shadow-xl'
+                }
+              `}
+            >
+              {/* Recommended Badge */}
+              {product.recommended && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <div className="flex items-center gap-1.5 px-4 py-2 bg-gradient-to-r from-energy via-energy to-energy/80 rounded-full shadow-lg shadow-energy/30">
+                    <Crown className="w-4 h-4 text-charcoal" />
+                    <span className="text-charcoal font-bold text-sm whitespace-nowrap">Most Popular</span>
+                  </div>
+                </div>
+              )}
+              
+              <div className={`
+                aspect-square bg-gradient-to-br rounded-2xl flex items-center justify-center p-8
+                ${product.recommended 
+                  ? 'from-energy/20 via-energy/10 to-muted/20' 
+                  : 'from-muted/50 to-muted/20'
+                }
+                group-hover:scale-[1.02] transition-transform duration-300
+              `}>
+                <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain drop-shadow-lg" loading="lazy" />
               </div>
+              
               <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-foreground">{product.name}</h3>
+                <div className="flex items-center gap-3">
+                  <div className={`
+                    w-10 h-10 rounded-xl flex items-center justify-center
+                    ${product.recommended ? 'bg-energy/20' : 'bg-muted'}
+                  `}>
+                    <product.icon className={`w-5 h-5 ${product.recommended ? 'text-energy' : 'text-muted-foreground'}`} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground">{product.name}</h3>
+                </div>
+                
                 <p className="text-energy font-semibold text-lg">{product.capacity}</p>
                 <p className="text-muted-foreground">{product.bestFor}</p>
+                
                 <ul className="space-y-2">
                   {product.features.map((f, j) => (
                     <li key={j} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CheckCircle className="w-4 h-4 text-energy flex-shrink-0" />
+                      <CheckCircle className={`w-4 h-4 flex-shrink-0 ${product.recommended ? 'text-energy' : 'text-muted-foreground'}`} />
                       {f}
                     </li>
                   ))}
                 </ul>
-                <p className="text-xl font-bold text-foreground">{product.price}</p>
+                
+                <div className="pt-4 border-t border-border/50">
+                  <p className="text-2xl font-bold text-foreground">{product.price}</p>
+                </div>
               </div>
             </div>
           ))}
@@ -393,15 +634,15 @@ function ProductGuideContent() {
       </section>
 
       {/* CTA */}
-      <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
+      <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6 bg-gradient-to-br from-energy/5 to-transparent">
         <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Still Not Sure?</h2>
         <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
           Our team can analyze your electricity bills and recommend the perfect system for your home.
         </p>
         <Link to="/contact">
-          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90">
+          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90 group">
             Get Free Consultation
-            <ArrowRight className="w-5 h-5 ml-2" />
+            <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
         </Link>
       </section>
