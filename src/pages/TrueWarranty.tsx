@@ -75,18 +75,18 @@ const TrueWarranty = () => {
             </div>
 
             {/* Proof */}
-            <div className="grid sm:grid-cols-3 gap-8 pt-8">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 pt-8">
               <div className="text-center space-y-2">
-                <div className="text-5xl font-light text-foreground">2</div>
-                <div className="text-sm text-muted-foreground">Batteries replaced.<br />No questions asked.</div>
+                <div className="text-3xl sm:text-5xl font-light text-foreground">2</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Batteries replaced.<br />No questions asked.</div>
               </div>
               <div className="text-center space-y-2">
-                <div className="text-5xl font-light text-foreground">48hrs</div>
-                <div className="text-sm text-muted-foreground">Average claim<br />processing time</div>
+                <div className="text-3xl sm:text-5xl font-light text-foreground">48hrs</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Average claim<br />processing time</div>
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-5xl font-light text-foreground">100%</div>
-                <div className="text-sm text-muted-foreground">Valid claims<br />honored</div>
+              <div className="text-center space-y-2 col-span-2 sm:col-span-1">
+                <div className="text-3xl sm:text-5xl font-light text-foreground">100%</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Valid claims<br />honored</div>
               </div>
             </div>
           </div>
@@ -246,18 +246,18 @@ const TrueWarranty = () => {
             </div>
 
             {/* Simple Stats */}
-            <div className="grid sm:grid-cols-3 gap-12 pt-12 max-w-3xl mx-auto">
-              <div className="text-center space-y-3">
-                <div className="text-4xl font-light text-foreground">4 Years</div>
-                <div className="text-sm text-muted-foreground">Testing before<br />market launch</div>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 pt-12 max-w-3xl mx-auto">
+              <div className="text-center space-y-2 sm:space-y-3">
+                <div className="text-2xl sm:text-4xl font-light text-foreground">4 Years</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Testing before<br />market launch</div>
               </div>
-              <div className="text-center space-y-3">
-                <div className="text-4xl font-light text-foreground">25,000+</div>
-                <div className="text-sm text-muted-foreground">Charge cycles<br />proven</div>
+              <div className="text-center space-y-2 sm:space-y-3">
+                <div className="text-2xl sm:text-4xl font-light text-foreground">25,000+</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Charge cycles<br />proven</div>
               </div>
-              <div className="text-center space-y-3">
-                <div className="text-4xl font-light text-foreground">45°C</div>
-                <div className="text-sm text-muted-foreground">Real Indian<br />summer testing</div>
+              <div className="text-center space-y-2 sm:space-y-3 col-span-2 sm:col-span-1">
+                <div className="text-2xl sm:text-4xl font-light text-foreground">45°C</div>
+                <div className="text-xs sm:text-sm text-muted-foreground">Real Indian<br />summer testing</div>
               </div>
             </div>
           </div>
@@ -278,15 +278,15 @@ const TrueWarranty = () => {
               </p>
             </div>
             
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 animate-fade-in">
-              <Button asChild className="bg-pearl text-charcoal hover:bg-pearl/90 px-12 py-6 text-base rounded-full transition-all duration-300 hover:scale-105 w-full sm:w-auto font-normal shadow-lg">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fade-in">
+              <Button asChild className="bg-pearl text-charcoal hover:bg-pearl/90 px-8 sm:px-12 py-6 text-base rounded-full transition-all duration-300 hover:scale-105 w-full sm:w-auto font-normal shadow-lg min-h-[48px]">
                 <Link to="/downloads">Download Warranty PDF</Link>
               </Button>
               
               <Button 
                 asChild
                 variant="outline" 
-                className="border border-pearl/40 bg-transparent text-pearl hover:bg-pearl/10 hover:border-pearl/60 px-12 py-6 text-base rounded-full transition-all duration-300 w-full sm:w-auto font-normal"
+                className="border border-pearl/40 bg-transparent text-pearl hover:bg-pearl/10 hover:border-pearl/60 px-8 sm:px-12 py-6 text-base rounded-full transition-all duration-300 w-full sm:w-auto font-normal min-h-[48px]"
               >
                 <Link to="/contact/homeowner">Ask Us Anything</Link>
               </Button>

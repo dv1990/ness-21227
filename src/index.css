@@ -452,3 +452,28 @@
     padding: 4px !important;
   }
 }
+
+/* Mobile-specific utilities */
+@layer utilities {
+  /* Touch target compliance - 48px minimum */
+  .touch-target {
+    min-height: 48px;
+    min-width: 48px;
+  }
+  
+  /* Safe area for bottom navigation on iOS */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Mobile-optimized glass effects (reduced blur for performance) */
+  @media (max-width: 640px) {
+    .glass-card-light,
+    .glass-card-accent,
+    .glass-card-dark,
+    .glass-card-split {
+      backdrop-filter: blur(12px) saturate(150%);
+      -webkit-backdrop-filter: blur(12px) saturate(150%);
+    }
+  }
+}

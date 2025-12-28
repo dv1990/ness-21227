@@ -181,8 +181,8 @@ const FindInstaller = () => {
           <div className="absolute inset-0 bg-gradient-to-br from-background via-muted/20 to-primary/5"></div>
           
           {/* Content */}
-          <div className="container mx-auto max-w-2xl px-8 py-32 relative z-10">
-            <div className="space-y-16">
+            <div className="container mx-auto max-w-2xl px-4 sm:px-8 py-20 sm:py-32 relative z-10">
+            <div className="space-y-10 sm:space-y-16">
               {/* Header */}
               <div className="text-center space-y-8">
                 <div className="space-y-4">
@@ -195,7 +195,7 @@ const FindInstaller = () => {
                   </Link>
                 </div>
                 
-                <h1 className="text-5xl md:text-6xl font-light text-foreground leading-tight tracking-[-0.02em]">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl font-light text-foreground leading-tight tracking-[-0.02em]">
                   Find your
                   <br />
                   <span className="font-medium">perfect installer</span>
@@ -233,6 +233,8 @@ const FindInstaller = () => {
                         <Input
                           id="phone"
                           type="tel"
+                          inputMode="tel"
+                          autoComplete="tel"
                           value={customerData.phone}
                           onChange={(e) => handleInputChange("phone", e.target.value)}
                           className="h-12 rounded-xl border-border/30 focus:border-primary"
@@ -247,6 +249,8 @@ const FindInstaller = () => {
                       <Input
                         id="email"
                         type="email"
+                        inputMode="email"
+                        autoComplete="email"
                         value={customerData.email}
                         onChange={(e) => handleInputChange("email", e.target.value)}
                         className="h-12 rounded-xl border-border/30 focus:border-primary"
@@ -260,6 +264,8 @@ const FindInstaller = () => {
                       <Input
                         id="pincode"
                         type="text"
+                        inputMode="numeric"
+                        autoComplete="postal-code"
                         value={customerData.pincode}
                         onChange={(e) => handleInputChange("pincode", e.target.value)}
                         className="h-12 rounded-xl border-border/30 focus:border-primary"
@@ -292,7 +298,7 @@ const FindInstaller = () => {
               </Card>
 
               {/* Trust Indicators */}
-              <div className="flex items-center justify-center space-x-12 opacity-60">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12 opacity-60">
                 <div className="flex items-center space-x-2">
                   <CheckCircle className="w-4 h-4 text-primary" />
                   <span className="text-sm text-muted-foreground">BIS Certified Partners</span>
@@ -312,23 +318,23 @@ const FindInstaller = () => {
   return (
     <Layout>
       {/* Results Section */}
-      <section className="py-32 px-8 min-h-screen">
+      <section className="py-20 sm:py-32 px-4 sm:px-8 min-h-screen">
         <div className="container mx-auto max-w-6xl">
-          <div className="space-y-12">
+          <div className="space-y-8 sm:space-y-12">
             {/* Header */}
-            <div className="text-center space-y-8">
+            <div className="text-center space-y-6 sm:space-y-8">
               <div className="space-y-4">
                 <Button 
                   variant="ghost" 
                   onClick={handleBackToForm}
-                  className="text-muted-foreground hover:text-foreground group"
+                  className="text-muted-foreground hover:text-foreground group min-h-[48px]"
                 >
                   <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
                   Back to Search
                 </Button>
               </div>
               
-              <h1 className="text-4xl md:text-5xl font-light text-foreground leading-tight tracking-[-0.02em]">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-foreground leading-tight tracking-[-0.02em]">
                 Installers near {customerData.pincode}
               </h1>
               
@@ -392,14 +398,14 @@ const FindInstaller = () => {
                               </div>
                             </div>
 
-                            <div className="flex items-center text-muted-foreground space-x-4">
+                          <div className="flex flex-wrap items-center text-muted-foreground gap-3 sm:gap-4">
                               <div className="flex items-center space-x-1">
                                 <MapPin className="w-4 h-4" />
                                 <span className="text-sm">{installer.distance} away</span>
                               </div>
                               <div className="flex items-center space-x-1">
                                 <Clock className="w-4 h-4" />
-                                <span className="text-sm">{installer.yearsOfExperience} years experience</span>
+                                <span className="text-sm">{installer.yearsOfExperience} yrs exp</span>
                               </div>
                               <div className="flex items-center space-x-1">
                                 <Users className="w-4 h-4" />
