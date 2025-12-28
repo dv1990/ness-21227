@@ -10,7 +10,7 @@ import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
 import { testimonials } from "@/data/testimonials";
-import { ChevronDown } from "lucide-react";
+
 
 // Lazy load icons to reduce initial bundle size
 const CheckCircle2 = lazy(() =>
@@ -144,10 +144,6 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Scroll Indicator */}
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce">
-            <ChevronDown className="w-8 h-8 text-pearl/60" aria-hidden="true" />
-          </div>
         </div>
       </section>
 
