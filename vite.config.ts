@@ -50,6 +50,8 @@ export default defineConfig(({ mode }) => ({
       },
       workbox: {
         globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,woff,woff2}'],
+        // Increase limit for large images (default is 2MB)
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
         // Clean up old caches automatically
         cleanupOutdatedCaches: true,
         clientsClaim: true,
