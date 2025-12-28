@@ -79,23 +79,23 @@ const KnowledgeHub = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 bg-background overflow-hidden">
+      <section className="relative pt-20 sm:pt-32 pb-16 sm:pb-24 bg-background overflow-hidden">
         {/* Subtle background gradient */}
         <div className="absolute inset-0 bg-gradient-to-b from-pearl/50 via-whisper to-background pointer-events-none" />
         
         {/* Radial glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-energy/5 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] sm:w-[800px] h-[200px] sm:h-[400px] bg-energy/5 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div 
             className={`max-w-3xl mx-auto text-center transition-all duration-1000 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.25em] text-muted-foreground mb-6">
+            <p className="text-caption uppercase tracking-[0.2em] sm:tracking-[0.25em] text-muted-foreground mb-4 sm:mb-6">
               Resources
             </p>
-            <h1 className="text-display-medium md:text-display-large font-medium text-foreground mb-8 tracking-tight">
+            <h1 className="text-3xl sm:text-display-medium md:text-display-large font-medium text-foreground mb-6 sm:mb-8 tracking-tight">
               Knowledge Hub
             </h1>
             <p className="text-body-large text-muted-foreground/80 max-w-xl mx-auto leading-relaxed">
@@ -106,7 +106,7 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Home Users Section */}
-      <section ref={sectionRef} className="py-32 bg-pearl/30 relative overflow-hidden">
+      <section ref={sectionRef} className="py-16 sm:py-24 md:py-32 bg-pearl/30 relative overflow-hidden">
         {/* Dot pattern overlay */}
         <div 
           className="absolute inset-0 opacity-[0.03] pointer-events-none"
@@ -116,22 +116,22 @@ const KnowledgeHub = () => {
           }}
         />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div 
-            className={`mb-16 transition-all duration-700 delay-200 ${
+            className={`mb-10 sm:mb-16 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.25em] text-energy font-medium mb-3">
+            <p className="text-caption uppercase tracking-[0.2em] sm:tracking-[0.25em] text-energy font-medium mb-2 sm:mb-3">
               For Homeowners
             </p>
-            <h2 className="text-title-large md:text-display-small font-medium text-foreground tracking-tight">
+            <h2 className="text-2xl sm:text-title-large md:text-display-small font-medium text-foreground tracking-tight">
               Your energy journey starts here
             </h2>
           </div>
 
           {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {homeUserCards.map((card, index) => (
               <Link
                 key={card.id}
@@ -150,39 +150,39 @@ const KnowledgeHub = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-500 pointer-events-none" />
                 
                 {/* Content */}
-                <div className={`relative z-10 p-10 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[420px]' : 'min-h-[220px]'}`}>
+                <div className={`relative z-10 p-6 sm:p-8 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[280px] sm:min-h-[320px] md:min-h-[420px]' : 'min-h-[200px] sm:min-h-[220px]'}`}>
                   {/* Icons */}
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className={`p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 ${
+                  <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                    <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-500 group-hover:scale-110 ${
                       card.accent 
                         ? 'bg-energy/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]' 
                         : 'bg-muted/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
                     }`}>
-                      <card.icon className={`w-7 h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
+                      <card.icon className={`w-5 h-5 sm:w-7 sm:h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
                     </div>
                     {card.secondaryIcon && (
-                      <div className={`p-4 rounded-2xl transition-all duration-500 group-hover:scale-110 ${
+                      <div className={`p-3 sm:p-4 rounded-xl sm:rounded-2xl transition-all duration-500 group-hover:scale-110 ${
                         card.accent 
                           ? 'bg-energy/20 shadow-[inset_0_1px_1px_rgba(255,255,255,0.3)]' 
                           : 'bg-muted/60 shadow-[inset_0_1px_1px_rgba(255,255,255,0.5)]'
                       }`}>
-                        <card.secondaryIcon className={`w-7 h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
+                        <card.secondaryIcon className={`w-5 h-5 sm:w-7 sm:h-7 ${card.accent ? 'text-energy' : 'text-foreground'}`} />
                       </div>
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className={`font-medium text-foreground mb-4 tracking-tight ${card.featured ? 'text-display-medium' : 'text-title-large'}`}>
+                    <h3 className={`font-medium text-foreground mb-3 sm:mb-4 tracking-tight ${card.featured ? 'text-xl sm:text-2xl md:text-display-medium' : 'text-lg sm:text-xl md:text-title-large'}`}>
                       {card.title}
                     </h3>
-                    <p className="text-body-large text-muted-foreground/80 leading-relaxed">
+                    <p className="text-sm sm:text-body-large text-muted-foreground/80 leading-relaxed">
                       {card.hook}
                     </p>
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-8 flex items-center gap-3">
+                  <div className="mt-6 sm:mt-8 flex items-center gap-2 sm:gap-3 min-h-[48px]">
                     <span className={`font-semibold ${card.accent ? 'text-energy' : 'text-foreground'}`}>
                       {card.cta}
                     </span>
@@ -201,7 +201,7 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Installers Section - Dark Theme */}
-      <section className="py-32 bg-charcoal relative overflow-hidden">
+      <section className="py-16 sm:py-24 md:py-32 bg-charcoal relative overflow-hidden">
         {/* Grid pattern overlay */}
         <div 
           className="absolute inset-0 opacity-[0.04] pointer-events-none"
@@ -214,22 +214,22 @@ const KnowledgeHub = () => {
         {/* Subtle gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-graphite/50 via-charcoal to-charcoal pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div 
-            className={`mb-16 transition-all duration-700 delay-200 ${
+            className={`mb-10 sm:mb-16 transition-all duration-700 delay-200 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-caption uppercase tracking-[0.25em] text-energy font-medium mb-3">
+            <p className="text-caption uppercase tracking-[0.2em] sm:tracking-[0.25em] text-energy font-medium mb-2 sm:mb-3">
               For Professionals
             </p>
-            <h2 className="text-title-large md:text-display-small font-medium text-pearl tracking-tight">
+            <h2 className="text-2xl sm:text-title-large md:text-display-small font-medium text-pearl tracking-tight">
               Install with confidence
             </h2>
           </div>
 
           {/* Bento Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
             {installerCards.map((card, index) => (
               <Link
                 key={card.id}
@@ -254,31 +254,31 @@ const KnowledgeHub = () => {
                 )}
                 
                 {/* Content */}
-                <div className={`relative z-10 p-10 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[420px]' : 'min-h-[220px]'}`}>
+                <div className={`relative z-10 p-6 sm:p-8 md:p-14 h-full flex flex-col ${card.featured ? 'min-h-[280px] sm:min-h-[320px] md:min-h-[420px]' : 'min-h-[200px] sm:min-h-[220px]'}`}>
                   {/* Icons */}
-                  <div className="flex items-center gap-4 mb-8">
-                    <div className="p-4 rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                      <card.icon className={`w-7 h-7 ${card.split ? 'text-energy' : 'text-pearl'}`} />
+                  <div className="flex items-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+                    <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      <card.icon className={`w-5 h-5 sm:w-7 sm:h-7 ${card.split ? 'text-energy' : 'text-pearl'}`} />
                     </div>
                     {card.secondaryIcon && (
-                      <div className="p-4 rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                        <card.secondaryIcon className="w-7 h-7 text-red-400" />
+                      <div className="p-3 sm:p-4 rounded-xl sm:rounded-2xl bg-pearl/10 transition-all duration-500 group-hover:scale-110 group-hover:bg-pearl/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                        <card.secondaryIcon className="w-5 h-5 sm:w-7 sm:h-7 text-red-400" />
                       </div>
                     )}
                   </div>
 
                   {/* Content */}
                   <div className="flex-1">
-                    <h3 className={`font-medium text-pearl mb-4 tracking-tight ${card.featured ? 'text-display-medium' : 'text-title-large'}`}>
+                    <h3 className={`font-medium text-pearl mb-3 sm:mb-4 tracking-tight ${card.featured ? 'text-xl sm:text-2xl md:text-display-medium' : 'text-lg sm:text-xl md:text-title-large'}`}>
                       {card.title}
                     </h3>
-                    <p className="text-body-large text-pearl/60 leading-relaxed">
+                    <p className="text-sm sm:text-body-large text-pearl/60 leading-relaxed">
                       {card.hook}
                     </p>
                   </div>
 
                   {/* CTA */}
-                  <div className="mt-8 flex items-center gap-3">
+                  <div className="mt-6 sm:mt-8 flex items-center gap-2 sm:gap-3 min-h-[48px]">
                     <span className="font-semibold text-pearl group-hover:text-energy transition-colors duration-500">
                       {card.cta}
                     </span>
@@ -295,22 +295,22 @@ const KnowledgeHub = () => {
       </section>
 
       {/* Contact CTA Section */}
-      <section className="py-24 bg-background relative overflow-hidden">
+      <section className="py-16 sm:py-24 bg-background relative overflow-hidden">
         {/* Subtle radial glow */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-energy/3 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[150px] sm:h-[300px] bg-energy/3 rounded-full blur-3xl pointer-events-none" />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
           <div 
             className={`text-center transition-all duration-700 delay-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
-            <p className="text-body-large text-muted-foreground/80 mb-8">
+            <p className="text-sm sm:text-body-large text-muted-foreground/80 mb-6 sm:mb-8">
               Can't find what you're looking for?
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-3 px-10 py-5 bg-foreground text-background rounded-full font-semibold
+              className="inline-flex items-center justify-center gap-2 sm:gap-3 px-8 sm:px-10 py-4 sm:py-5 bg-foreground text-background rounded-full font-semibold min-h-[48px]
                 transition-all duration-500 ease-[cubic-bezier(0.4,0,0.2,1)]
                 hover:bg-foreground/90 hover:scale-105 hover:shadow-glass-hover active:scale-95"
             >
