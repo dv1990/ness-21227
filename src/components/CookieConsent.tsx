@@ -10,7 +10,11 @@ const CookieConsent = () => {
   useEffect(() => {
     const consent = safeLocalStorage.getItem("cookie-consent");
     if (!consent) {
-      setShowBanner(true);
+      // Delay banner by 5 seconds for less intrusive experience
+      const timer = setTimeout(() => {
+        setShowBanner(true);
+      }, 5000);
+      return () => clearTimeout(timer);
     }
   }, []);
 
@@ -27,54 +31,47 @@ const CookieConsent = () => {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 bg-foreground text-background border-t border-border/10 shadow-2xl animate-slide-up">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div className="flex items-start gap-4 flex-1">
-            <Cookie className="w-6 h-6 flex-shrink-0 mt-1 text-primary" aria-hidden="true" />
-            <div className="flex-1">
-              <h3 className="text-lg font-semibold mb-2">We value your privacy</h3>
-              <p className="text-sm text-background/80 leading-relaxed">
-                We use cookies to enhance your browsing experience, analyze site traffic, and provide 
-                personalized content. By clicking "Accept All", you consent to our use of cookies. 
-                You can manage your preferences or learn more in our{" "}
-                <Link 
-                  to="/cookie-policy" 
-                  className="underline hover:text-primary transition-colors"
-                >
-                  Cookie Policy
-                </Link>.
-              </p>
-            </div>
-          </div>
-
-          <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
+    <div className="fixed bottom-4 left-4 z-50 max-w-sm p-4 bg-white/95 backdrop-blur-sm text-graphite rounded-xl border border-border/20 shadow-lg animate-slide-up">
+      <div className="flex items-start gap-3">
+        <Cookie className="w-5 h-5 flex-shrink-0 mt-0.5 text-energy" aria-hidden="true" />
+        <div className="flex-1 space-y-3">
+          <p className="text-sm text-graphite/80 leading-relaxed">
+            We use cookies to improve your experience.{" "}
+            <Link 
+              to="/cookie-policy" 
+              className="underline hover:text-energy transition-colors"
+            >
+              Learn more
+            </Link>
+          </p>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={handleAccept}
+              size="sm"
+              className="bg-graphite hover:bg-graphite/90 text-white text-xs px-3 h-8"
+            >
+              Accept
+            </Button>
             <Button
               onClick={handleDecline}
-              variant="outline"
-              className="bg-transparent border-background/20 text-background hover:bg-background/10 hover:text-background"
+              variant="ghost"
+              size="sm"
+              className="text-graphite/60 hover:text-graphite text-xs px-3 h-8"
             >
               Decline
             </Button>
-            <Button
-              onClick={handleAccept}
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
-            >
-              Accept All
-            </Button>
           </div>
-
-          <button
-            onClick={handleDecline}
-            className="absolute top-4 right-4 md:relative md:top-0 md:right-0 p-2 hover:bg-background/10 rounded-full transition-colors"
-            aria-label="Close cookie banner"
-          >
-            <X className="w-5 h-5" />
-          </button>
         </div>
+        <button
+          onClick={handleDecline}
+          className="p-1 hover:bg-graphite/5 rounded-full transition-colors"
+          aria-label="Close cookie banner"
+        >
+          <X className="w-4 h-4 text-graphite/40" />
+        </button>
       </div>
     </div>
   );
-};
+}
 
 export default CookieConsent;
