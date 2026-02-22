@@ -134,7 +134,7 @@
   
   /* Performance: CSS Containment for isolated sections */
   section {
-    contain: layout style paint;
+    contain: layout style;
   }
 
   /* Performance: will-change hints (use sparingly) */
@@ -187,14 +187,14 @@
     letter-spacing: -0.005em;
   }
   
-  /* Section spacing - Premium generous white space */
+  /* Section spacing - Controlled white space (override with !py-XX on individual sections) */
   section {
-    padding-top: clamp(4rem, 8vw, 8rem);
-    padding-bottom: clamp(4rem, 8vw, 8rem);
+    padding-top: clamp(3rem, 6vw, 6rem);
+    padding-bottom: clamp(3rem, 6vw, 6rem);
   }
   
   section + section {
-    margin-top: clamp(2rem, 4vw, 4rem);
+    margin-top: 0;
   }
 }
 
