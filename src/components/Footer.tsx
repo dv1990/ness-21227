@@ -1,38 +1,73 @@
 import { Link } from "react-router-dom";
-import { Mail, MapPin, Linkedin, Twitter, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Mail, MapPin, Linkedin, Twitter, Facebook, Instagram, ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+const FooterLinkColumn = ({ title, links }: { title: string; links: { to: string; label: string }[] }) => (
+  <div>
+    <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/40 mb-5 font-medium">{title}</h4>
+    <ul className="space-y-3">
+      {links.map(({ to, label }) => (
+        <li key={to}>
+          <Link to={to} className="text-pearl/60 hover:text-pearl transition-colors duration-200 text-body-small">
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
 
 const Footer = () => {
   return (
     <>
-      {/* Pre-Footer — Bold Closing Statement */}
-      <section 
-        className="!py-32 md:!py-40 !mt-0 bg-graphite text-pearl text-center relative overflow-hidden"
+      {/* Pre-Footer — Cinematic Closing Moment */}
+      <section
+        className="!py-36 md:!py-48 !mt-0 bg-charcoal relative overflow-hidden"
         aria-labelledby="closing-cta-heading"
       >
-        {/* Subtle radial glow */}
-        <div 
-          className="absolute inset-0 opacity-20" 
-          style={{ background: 'radial-gradient(ellipse at 50% 100%, hsl(151 100% 45% / 0.15), transparent 70%)' }}
+        {/* Layered ambient gradients */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 80% 50% at 50% 100%, hsl(151 100% 45% / 0.08), transparent),
+              radial-gradient(ellipse 60% 40% at 20% 80%, hsl(151 100% 45% / 0.04), transparent),
+              radial-gradient(ellipse 60% 40% at 80% 80%, hsl(151 100% 45% / 0.04), transparent)
+            `,
+          }}
           aria-hidden="true"
         />
-        <div className="relative z-10 max-w-4xl mx-auto px-6">
-          <h2 
+        {/* Top fade from content */}
+        <div
+          className="absolute top-0 left-0 right-0 h-32"
+          style={{ background: 'linear-gradient(to bottom, hsl(0 0% 7%), transparent)' }}
+          aria-hidden="true"
+        />
+
+        <div className="relative z-10 max-w-3xl mx-auto px-6 text-center">
+          {/* Eyebrow */}
+          <p className="text-caption uppercase tracking-[0.2em] text-energy/60 mb-6">
+            The future is uninterrupted
+          </p>
+
+          <h2
             id="closing-cta-heading"
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extralight tracking-[-0.03em] leading-[1.15] mb-8"
+            className="font-display text-display-large sm:text-display-xl text-pearl mb-6 leading-[0.95]"
           >
             Ready to end
             <br />
-            <span className="text-energy font-light">blackouts forever?</span>
+            <span className="text-energy">blackouts?</span>
           </h2>
-          <p className="text-lg md:text-xl text-pearl/50 font-light max-w-xl mx-auto mb-12 leading-relaxed">
-            Join 500+ Indian homes that never worry about power cuts again.
+
+          <p className="text-body-large text-pearl/40 font-light max-w-md mx-auto mb-14 leading-relaxed">
+            500+ Indian homes already have. Yours could be next.
           </p>
+
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link to="/contact">
               <Button
                 size="lg"
-                className="bg-pearl hover:bg-white text-charcoal font-semibold px-12 py-7 text-lg rounded-2xl transition-all duration-300 hover:scale-105 hover:shadow-[0_20px_60px_rgba(255,255,255,0.2)]"
+                className="bg-pearl hover:bg-white text-charcoal font-semibold px-14 py-7 text-lg rounded-full transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_0_80px_rgba(255,255,255,0.15)]"
               >
                 Get a Quote
                 <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
@@ -41,7 +76,7 @@ const Footer = () => {
             <Link to="/residential">
               <Button
                 size="lg"
-                className="border border-pearl/30 bg-transparent text-pearl hover:bg-pearl/10 px-10 py-7 text-lg rounded-2xl transition-all duration-300"
+                className="border border-pearl/20 bg-transparent text-pearl/70 hover:text-pearl hover:border-pearl/40 px-10 py-7 text-lg rounded-full transition-all duration-500"
               >
                 Explore Products
               </Button>
@@ -50,151 +85,114 @@ const Footer = () => {
         </div>
       </section>
 
-      {/* Sitemap Footer */}
-      <footer 
-        className="bg-foreground text-background border-t border-border/10"
+      {/* Sitemap Footer — Editorial, Dark */}
+      <footer
+        className="bg-charcoal border-t border-pearl/[0.06]"
         role="contentinfo"
         aria-label="Site footer"
       >
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-12 sm:py-16">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 sm:gap-10 lg:gap-12 mb-8 sm:mb-12">
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              <h3 className="text-2xl font-semibold mb-4">NESS</h3>
-              <p className="text-background/70 mb-6 leading-relaxed">
-                Premium energy storage solutions engineered for Indian conditions. 
-                Trusted by homes and businesses nationwide.
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 py-16 sm:py-20">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 mb-16">
+            {/* Brand Column */}
+            <div className="lg:col-span-4">
+              <Link to="/" className="inline-block mb-6">
+                <span className="text-title-large text-pearl font-semibold tracking-tight">NESS</span>
+                <span className="text-caption text-pearl/30 ml-2 font-light">by Nunam</span>
+              </Link>
+              <p className="text-body-small text-pearl/40 leading-relaxed mb-8 max-w-xs">
+                Premium energy storage engineered for Indian conditions. Zero blackouts. Zero compromises.
               </p>
               <div className="space-y-3">
-                <div className="flex items-center gap-3 text-background/70">
-                  <Mail className="w-4 h-4" aria-hidden="true" />
-                  <a href="mailto:contact@nunam.com" className="hover:text-background transition-colors">
-                    contact@nunam.com
-                  </a>
-                </div>
-                
-                <div className="flex items-start gap-3 text-background/70">
-                  <MapPin className="w-4 h-4 mt-1 flex-shrink-0" aria-hidden="true" />
-                  <span>
-                    Nunam Technologies India Private Limited<br />
-                    Plot no, 19 A, 3rd Cross, Veerasandra Industrial Area,<br />
-                    Electronic City - Phase 2, Bengaluru, Karnataka 560100
-                  </span>
-                </div>
+                <a href="mailto:contact@nunam.com" className="flex items-center gap-3 text-pearl/40 hover:text-pearl/70 transition-colors text-body-small group">
+                  <Mail className="w-4 h-4 group-hover:text-energy transition-colors" aria-hidden="true" />
+                  contact@nunam.com
+                </a>
+                <a href="tel:+918012345678" className="flex items-center gap-3 text-pearl/40 hover:text-pearl/70 transition-colors text-body-small group">
+                  <Phone className="w-4 h-4 group-hover:text-energy transition-colors" aria-hidden="true" />
+                  +91 80 1234 5678
+                </a>
               </div>
             </div>
 
-            {/* Products */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Products</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/residential" className="text-background/70 hover:text-background transition-colors">
-                    Home Solutions
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/commercial" className="text-background/70 hover:text-background transition-colors">
-                    Commercial Systems
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/warranty" className="text-background/70 hover:text-background transition-colors">
-                    Warranty
-                  </Link>
-                </li>
-              </ul>
+            {/* Link Columns */}
+            <div className="lg:col-span-2">
+              <FooterLinkColumn
+                title="Products"
+                links={[
+                  { to: "/residential", label: "Home Solutions" },
+                  { to: "/commercial", label: "Commercial" },
+                  { to: "/technology", label: "Technology" },
+                  { to: "/warranty", label: "Warranty" },
+                ]}
+              />
+            </div>
+            <div className="lg:col-span-2">
+              <FooterLinkColumn
+                title="Company"
+                links={[
+                  { to: "/about", label: "About" },
+                  { to: "/news", label: "News" },
+                  { to: "/hiring", label: "Careers" },
+                  { to: "/contact", label: "Contact" },
+                ]}
+              />
+            </div>
+            <div className="lg:col-span-2">
+              <FooterLinkColumn
+                title="Support"
+                links={[
+                  { to: "/find-installer", label: "Find Installer" },
+                  { to: "/installers", label: "For Installers" },
+                  { to: "/knowledge-hub", label: "Knowledge Hub" },
+                  { to: "/downloads", label: "Downloads" },
+                ]}
+              />
             </div>
 
-            {/* Company */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Company</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/about" className="text-background/70 hover:text-background transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/news" className="text-background/70 hover:text-background transition-colors">
-                    News
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/hiring" className="text-background/70 hover:text-background transition-colors">
-                    Careers
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/contact" className="text-background/70 hover:text-background transition-colors">
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Support */}
-            <div>
-              <h4 className="text-lg font-semibold mb-4">Support</h4>
-              <ul className="space-y-3">
-                <li>
-                  <Link to="/find-installer" className="text-background/70 hover:text-background transition-colors">
-                    Find Installer
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/installers" className="text-background/70 hover:text-background transition-colors">
-                    For Installers
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/knowledge-hub" className="text-background/70 hover:text-background transition-colors">
-                    Knowledge Hub
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/downloads" className="text-background/70 hover:text-background transition-colors">
-                    Downloads
-                  </Link>
-                </li>
-              </ul>
+            {/* Address */}
+            <div className="lg:col-span-2">
+              <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/40 mb-5 font-medium">Location</h4>
+              <div className="flex items-start gap-2 text-pearl/40 text-body-small leading-relaxed">
+                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
+                <span>
+                  Veerasandra Industrial Area,
+                  <br />Electronic City Phase 2,
+                  <br />Bengaluru 560100
+                </span>
+              </div>
             </div>
           </div>
 
           {/* Bottom Bar */}
-          <div className="pt-6 sm:pt-8 border-t border-background/10">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
-              {/* Legal Links */}
-              <div className="flex flex-wrap justify-center gap-3 sm:gap-4 md:gap-6 text-xs sm:text-sm text-background/60">
-                <Link to="/privacy" className="hover:text-background transition-colors">
-                  Privacy Policy
-                </Link>
-                <Link to="/terms" className="hover:text-background transition-colors">
-                  Terms of Service
-                </Link>
-                <Link to="/cookie-policy" className="hover:text-background transition-colors">
-                  Cookie Policy
-                </Link>
-                <Link to="/warranty" className="hover:text-background transition-colors">
-                  Warranty Terms
-                </Link>
-                <span>© 2025 NESS by Nunam. All rights reserved.</span>
+          <div className="pt-8 border-t border-pearl/[0.06]">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+              {/* Legal */}
+              <div className="flex flex-wrap justify-center gap-4 md:gap-6 text-caption text-pearl/30">
+                <Link to="/privacy" className="hover:text-pearl/60 transition-colors">Privacy</Link>
+                <Link to="/terms" className="hover:text-pearl/60 transition-colors">Terms</Link>
+                <Link to="/cookie-policy" className="hover:text-pearl/60 transition-colors">Cookies</Link>
+                <span>© 2025 NESS by Nunam</span>
               </div>
 
-              {/* Social Media */}
-              <div className="flex gap-4">
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on LinkedIn">
-                  <Linkedin className="w-5 h-5" aria-hidden="true" />
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Twitter">
-                  <Twitter className="w-5 h-5" aria-hidden="true" />
-                </a>
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Facebook">
-                  <Facebook className="w-5 h-5" aria-hidden="true" />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-background/10 hover:bg-background/20 flex items-center justify-center transition-colors" aria-label="Follow us on Instagram">
-                  <Instagram className="w-5 h-5" aria-hidden="true" />
-                </a>
+              {/* Social */}
+              <div className="flex gap-3">
+                {[
+                  { href: "https://linkedin.com", Icon: Linkedin, label: "LinkedIn" },
+                  { href: "https://twitter.com", Icon: Twitter, label: "Twitter" },
+                  { href: "https://instagram.com", Icon: Instagram, label: "Instagram" },
+                  { href: "https://facebook.com", Icon: Facebook, label: "Facebook" },
+                ].map(({ href, Icon, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-9 h-9 rounded-full border border-pearl/[0.08] hover:border-pearl/20 hover:bg-pearl/[0.04] flex items-center justify-center transition-all duration-300 text-pearl/30 hover:text-pearl/60"
+                    aria-label={`Follow us on ${label}`}
+                  >
+                    <Icon className="w-4 h-4" aria-hidden="true" />
+                  </a>
+                ))}
               </div>
             </div>
           </div>
@@ -203,4 +201,5 @@ const Footer = () => {
     </>
   );
 };
+
 export default Footer;
