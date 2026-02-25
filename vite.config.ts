@@ -20,8 +20,9 @@ export default defineConfig(({ mode }) => ({
     react(), 
     mode === "development" && componentTagger(),
     VitePWA({
-      registerType: 'prompt',
+      registerType: 'autoUpdate',
       injectRegister: 'auto',
+      selfDestroying: true,
       includeAssets: ['favicon.ico', 'robots.txt', 'placeholder.svg'],
       manifest: {
         name: 'NESS Energy Systems',
@@ -49,14 +50,14 @@ export default defineConfig(({ mode }) => ({
         ]
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,webp,jpg,woff,woff2}'],
+        globPatterns: ['**/*.{js,css,ico,png,svg,webp,jpg,woff,woff2}'],
         // Increase limit for large images (default is 2MB)
         maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
         // Clean up old caches automatically
         cleanupOutdatedCaches: true,
         clientsClaim: true,
         skipWaiting: true,
-        // Precache all route chunks for instant navigation
+        // Precache non-HTML assets only to avoid stale app shell issues
         runtimeCaching: [
           // API calls - Network first with fallback
           {
@@ -121,23 +122,8 @@ export default defineConfig(({ mode }) => ({
                 maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
               }
             }
-          },
-          // Same-origin navigation requests - Network first with cache fallback for offline
-          {
-            urlPattern: ({ request }) => request.mode === 'navigate',
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'pages-cache',
-              expiration: {
-                maxEntries: 50,
-                maxAgeSeconds: 60 * 60 * 24 * 7 // 7 days
-              },
-              networkTimeoutSeconds: 3
-            }
           }
-        ],
-        navigateFallback: '/index.html',
-        navigateFallbackDenylist: [/^\/api/, /^\/admin/]
+        ]
       },
       devOptions: {
         enabled: false, // Disable in dev to avoid conflicts
