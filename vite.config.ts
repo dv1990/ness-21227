@@ -1,5 +1,5 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react-swc";
+import react from "@vitejs/plugin-react";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from 'vite-plugin-pwa';
@@ -163,19 +163,6 @@ export default defineConfig(({ mode }) => ({
     reportCompressedSize: false,
     modulePreload: {
       polyfill: true,
-      resolveDependencies: (filename, deps, { hostId, hostType }) => {
-        // Preload ALL dependencies immediately to enable parallel loading
-        // This breaks the HTML → JS → CSS chain into HTML → (JS + CSS) parallel
-        const filteredDeps = deps.filter(dep => {
-          // Include both JS and CSS files
-          const isJS = dep.endsWith('.js') || dep.endsWith('.jsx') || dep.endsWith('.ts') || dep.endsWith('.tsx');
-          const isCSS = dep.endsWith('.css');
-          return isJS || isCSS;
-        });
-        
-        // Return all deps to ensure parallel discovery
-        return filteredDeps;
-      }
     },
     rollupOptions: {
       treeshake: {
