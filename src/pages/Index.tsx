@@ -9,20 +9,8 @@ import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
+import { CheckCircle2, ArrowRight } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
-
-
-// Lazy load icons to reduce initial bundle size
-const CheckCircle2 = lazy(() =>
-  import("lucide-react").then((m) => ({
-    default: m.CheckCircle2,
-  })),
-);
-const ArrowRight = lazy(() =>
-  import("lucide-react").then((m) => ({
-    default: m.ArrowRight,
-  })),
-);
 
 // Lazy load heavy components to reduce initial bundle
 const BelowFoldSections = lazy(() =>
@@ -37,69 +25,42 @@ const HomeownerConfigurator = lazy(() =>
 );
 
 const Index = () => {
-  const [scrollY, setScrollY] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const nextSectionRef = useRef<HTMLElement>(null);
-
-  // Smooth parallax scroll tracking with RAF
-  useEffect(() => {
-    let ticking = false;
-    const handleScroll = () => {
-      if (!ticking && window.scrollY < 800) {
-        window.requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-    window.addEventListener("scroll", handleScroll, {
-      passive: true,
-    });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Entrance animation
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <Layout className="-mt-16">
-      {/* 1. HERO SECTION */}
-      <section className="relative min-h-[600px] sm:min-h-screen w-full overflow-hidden" aria-labelledby="hero-heading">
+      {/* 1. HERO SECTION — No parallax, no text shadows, reduced overlay */}
+      <section className="relative min-h-[100svh] w-full overflow-hidden" aria-labelledby="hero-heading">
         {/* Full-screen Product Image Background */}
         <div className="absolute inset-0 w-full h-full">
-          {/* Product Image - Static confidence */}
-          <div className="absolute inset-0 w-full h-full">
-            <img
-              src={nessHeroProduct}
-              alt="NESS home battery — reliable backup power for modern Indian homes"
-              className="w-full h-full object-cover object-center"
-              loading="eager"
-              width={1920}
-              height={1080}
-              fetchPriority="high"
-            />
-          </div>
-
-          {/* Left-to-right gradient - mobile-optimized for better product visibility */}
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/90 via-charcoal/40 via-45% to-transparent md:from-charcoal/85 md:via-charcoal/30 md:via-40%" />
+          <img
+            src={nessHeroProduct}
+            alt="NESS home battery — reliable backup power for modern Indian homes"
+            className="w-full h-full object-cover object-center"
+            loading="eager"
+            width={1920}
+            height={1080}
+            fetchPriority="high"
+          />
+          {/* Reduced overlay — let the product breathe */}
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 via-40% to-transparent" />
         </div>
 
-        {/* Text Content Overlaid - Simplified Jobs-style */}
-        <div
-          className="relative z-10 min-h-[600px] sm:h-screen flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform"
-          style={{
-            transform: `translate3d(0, ${scrollY * 0.15}px, 0)`,
-          }}
-        >
+        {/* Text Content — static, confident, no parallax */}
+        <div className="relative z-10 min-h-[100svh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0">
           <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline - Jobs-style: Optimized for mobile visibility */}
+            {/* Headline */}
             <h1
               id="hero-heading"
               className={cn(
-                "font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-bold leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out",
+                "font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-light leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
@@ -108,20 +69,17 @@ const Index = () => {
               <span className="text-energy">Uninterrupted.</span>
             </h1>
 
-            {/* Subtext - Elegant whisper, mobile-optimized */}
+            {/* Sub-copy — elevates, doesn't remind of pain */}
             <p
               className={cn(
-                "font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl transition-all duration-1000 ease-out delay-150",
+                "font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl/90 transition-all duration-1000 ease-out delay-150",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
-              style={{
-                textShadow: "0 2px 20px rgba(0, 0, 0, 0.3), 0 1px 4px rgba(0, 0, 0, 0.2)",
-              }}
             >
-              A battery that ends blackouts.
+              The home battery. Reimagined.
             </p>
 
-            {/* CTA - Simple and inspiring */}
+            {/* CTA — standardized rounded-full, clear action */}
             <div
               className={cn(
                 "pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300",
@@ -131,32 +89,29 @@ const Index = () => {
               <Link to="/residential" className="inline-block group">
                 <Button
                   size="lg"
-                  className="interactive font-sans bg-pearl hover:bg-white text-charcoal font-semibold px-12 sm:px-16 py-6 sm:py-8 text-lg sm:text-xl rounded-2xl transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(255,255,255,0.3)] hover:scale-105"
+                  className="interactive font-sans bg-pearl hover:bg-white text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(255,255,255,0.3)]"
                 >
                   <span className="flex items-center justify-center">
-                    Experience NESS
-                    <Suspense fallback={<span className="ml-3 w-5 h-5 sm:w-6 sm:h-6" />}>
-                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                    </Suspense>
+                    Explore NESS
+                    <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                   </span>
                 </Button>
               </Link>
             </div>
           </div>
-
         </div>
       </section>
 
-      {/* 2. ONE KEY DIFFERENTIATOR - Steve Jobs-style emotional impact */}
+      {/* 2. ONE KEY DIFFERENTIATOR — consistent font-light weight, tighter mobile spacing */}
       <section
         ref={nextSectionRef}
-        className="py-48 sm:py-56 md:py-72 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
+        className="py-24 md:py-32 lg:py-48 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
         aria-labelledby="key-benefit-heading"
       >
-        <div className="max-w-5xl mx-auto text-center space-y-16 sm:space-y-20">
+        <div className="max-w-5xl mx-auto text-center space-y-12 sm:space-y-16">
           <h2
             id="key-benefit-heading"
-            className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[6.5rem] font-extralight text-graphite tracking-[-0.03em] leading-[1.15] sm:leading-[1.2]"
+            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-graphite tracking-[-0.03em] leading-[1.15] sm:leading-[1.2]"
           >
             <span className="block">One decision.</span>
             <span className="block mt-2 sm:mt-4">Ten years.</span>
@@ -171,7 +126,7 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 3. PRODUCT SPOTLIGHT - NESS Powerwall - Mobile Optimized */}
+      {/* 3. PRODUCT SPOTLIGHT — NESS Powerwall */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
         <section
           className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl texture-overlay"
@@ -192,34 +147,32 @@ const Index = () => {
                 </p>
 
                 <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
-                  <Suspense fallback={<div className="h-20" />}>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2
-                        className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">Everything. Everywhere.</p>
-                        <p className="text-pearl/60 text-sm sm:text-base mt-1">Powers your entire home</p>
-                      </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">Everything. Everywhere.</p>
+                      <p className="text-pearl/60 text-sm sm:text-base mt-1">Powers your entire home</p>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">10ms switchover</p>
-                        <p className="text-pearl/60 text-sm sm:text-base mt-1">Instant backup (10ms response)</p>
-                      </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">10ms switchover</p>
+                      <p className="text-pearl/60 text-sm sm:text-base mt-1">Instant backup (10ms response)</p>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2
-                        className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">Works with solar</p>
-                      </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">Works with solar</p>
                     </div>
-                  </Suspense>
+                  </div>
                 </div>
 
                 <div>
@@ -228,10 +181,8 @@ const Index = () => {
                       size="lg"
                       className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
                     >
-                      Experience NESS
-                      <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
-                        <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
-                      </Suspense>
+                      Explore NESS
+                      <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
                     </Button>
                   </Link>
                 </div>
@@ -250,9 +201,9 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 4. SOCIAL PROOF - One Powerful Story */}
+      {/* 4. SOCIAL PROOF — One Powerful Story */}
       <LazySection>
-        <section className="py-32 sm:py-40 md:py-48 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
+        <section className="py-24 sm:py-32 md:py-40 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
           <div className="max-w-5xl mx-auto px-6 sm:px-8">
             <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
@@ -272,14 +223,13 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 5. PRODUCT SPOTLIGHT - NESS Pod */}
+      {/* 5. PRODUCT SPOTLIGHT — NESS Pod */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
         <section
           className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-pearl to-slate-100 text-graphite texture-overlay relative overflow-hidden"
           aria-labelledby="commercial-heading"
         >
-          {/* Subtle background pattern for differentiation */}
-          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} aria-hidden="true"></div>
+          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} aria-hidden="true" />
           <div className="max-w-7xl mx-auto">
             <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
               <div className="relative order-2 md:order-1">
@@ -304,35 +254,33 @@ const Index = () => {
                 </p>
 
                 <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
-                  <Suspense fallback={<div className="h-20" />}>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2
-                        className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">Scalable capacity</p>
-                      </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">Scalable capacity</p>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2
-                        className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">Industrial-grade reliability</p>
-                      </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">Industrial-grade reliability</p>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <CheckCircle2
-                        className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                        aria-hidden="true"
-                      />
-                      <div>
-                        <p className="font-medium text-lg sm:text-xl">Reduce operating costs</p>
-                      </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <CheckCircle2
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-medium text-lg sm:text-xl">Reduce operating costs</p>
                     </div>
-                  </Suspense>
+                  </div>
                 </div>
 
                 <div>
@@ -342,9 +290,7 @@ const Index = () => {
                       className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
                     >
                       Explore Solutions
-                      <Suspense fallback={<span className="ml-2 w-5 h-5" />}>
-                        <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
-                      </Suspense>
+                      <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
                     </Button>
                   </Link>
                 </div>
@@ -354,21 +300,21 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 6. BELOW FOLD CONTENT - Lazy Loaded with skeleton */}
+      {/* 6. BELOW FOLD CONTENT */}
       <Suspense
         fallback={
           <div className="py-24 bg-pearl">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="space-y-4 mb-12 animate-pulse">
-                <div className="h-8 bg-graphite/10 rounded w-1/3 mx-auto"></div>
-                <div className="h-6 bg-graphite/10 rounded w-2/3 mx-auto"></div>
+                <div className="h-8 bg-graphite/10 rounded w-1/3 mx-auto" />
+                <div className="h-6 bg-graphite/10 rounded w-2/3 mx-auto" />
               </div>
               <div className="grid md:grid-cols-3 gap-8">
                 {[1, 2, 3].map((i) => (
                   <div key={i} className="animate-pulse">
-                    <div className="h-64 bg-graphite/10 rounded-2xl mb-4"></div>
-                    <div className="h-6 bg-graphite/10 rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-graphite/10 rounded w-full"></div>
+                    <div className="h-64 bg-graphite/10 rounded-2xl mb-4" />
+                    <div className="h-6 bg-graphite/10 rounded w-3/4 mb-2" />
+                    <div className="h-4 bg-graphite/10 rounded w-full" />
                   </div>
                 ))}
               </div>
@@ -379,23 +325,23 @@ const Index = () => {
         <BelowFoldSections />
       </Suspense>
 
-      {/* 7. CONFIGURATOR - Lazy Loaded with skeleton */}
+      {/* 7. CONFIGURATOR */}
       <Suspense
         fallback={
           <div className="py-24 bg-background">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="space-y-4 mb-12 animate-pulse">
-                <div className="h-10 bg-muted rounded w-1/2 mx-auto"></div>
-                <div className="h-6 bg-muted rounded w-3/4 mx-auto"></div>
+                <div className="h-10 bg-muted rounded w-1/2 mx-auto" />
+                <div className="h-6 bg-muted rounded w-3/4 mx-auto" />
               </div>
               <div className="space-y-6">
-                <div className="h-32 bg-muted rounded-xl animate-pulse"></div>
+                <div className="h-32 bg-muted rounded-xl animate-pulse" />
                 <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
                   {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-24 bg-muted rounded-lg animate-pulse"></div>
+                    <div key={i} className="h-24 bg-muted rounded-lg animate-pulse" />
                   ))}
                 </div>
-                <div className="h-48 bg-muted rounded-xl animate-pulse"></div>
+                <div className="h-48 bg-muted rounded-xl animate-pulse" />
               </div>
             </div>
           </div>
