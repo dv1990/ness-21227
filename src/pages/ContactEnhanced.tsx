@@ -75,23 +75,23 @@ const ContactEnhanced = () => {
   return (
     <Layout className="-mt-16">
       {/* Hero */}
-      <section className="relative py-32 bg-background">
-        <div className="max-w-3xl mx-auto px-8 text-center">
-          <h1 className="text-6xl md:text-7xl font-light text-foreground leading-tight mb-8">
+      <section className="relative pt-24 pb-8 sm:py-32 bg-background">
+        <div className="max-w-3xl mx-auto px-6 sm:px-8 text-center">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl font-light text-foreground leading-tight mb-4 sm:mb-8">
             Get in touch
           </h1>
-          
-          <p className="text-xl text-muted-foreground mb-12">
+
+          <p className="text-lg sm:text-xl text-muted-foreground mb-6 sm:mb-12">
             Request specifications, schedule site visit, or ask technical questions.
           </p>
         </div>
       </section>
 
       {/* Contact Form */}
-      <section className="py-16 bg-background">
-        <div className="max-w-2xl mx-auto px-8">
+      <section className="py-8 sm:py-16 bg-background">
+        <div className="max-w-2xl mx-auto px-4 sm:px-8">
           <Card className="border-border">
-            <CardContent className="p-12">
+            <CardContent className="p-6 sm:p-12">
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
