@@ -24,112 +24,27 @@ export default defineConfig(({ mode }) => ({
       injectRegister: 'auto',
       selfDestroying: false,
       includeAssets: ['favicon.ico', 'robots.txt', 'placeholder.svg'],
-      manifest: {
-        name: 'NESS Energy Systems',
-        short_name: 'NESS',
-        description: 'Advanced battery energy storage systems for residential and commercial applications',
-        theme_color: '#22c55e',
-        background_color: '#0a0a0a',
-        display: 'standalone',
-        orientation: 'portrait-primary',
-        start_url: '/',
-        scope: '/',
-        icons: [
-          {
-            src: '/placeholder.svg',
-            sizes: '192x192',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-          },
-          {
-            src: '/placeholder.svg',
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-          }
-        ]
-      },
       workbox: {
-        globPatterns: ['**/*.{js,css,ico,png,svg,webp,jpg,woff,woff2}'],
-        // Increase limit for large images (default is 2MB)
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
-        // Clean up old caches automatically
+        // Do NOT cache index.html — always fetch from network
+        navigateFallback: null,
         cleanupOutdatedCaches: true,
-        clientsClaim: true,
-        skipWaiting: true,
-        // Precache non-HTML assets only to avoid stale app shell issues
+        // Only precache JS/CSS assets, never HTML
+        globPatterns: ['**/*.{js,css,woff2}'],
         runtimeCaching: [
-          // API calls - Network first with fallback
           {
-            urlPattern: /^https:\/\/.*\/api\/.*/i,
-            handler: 'NetworkFirst',
-            options: {
-              cacheName: 'api-cache',
-              expiration: {
-                maxEntries: 30,
-                maxAgeSeconds: 60 * 5 // 5 minutes
-              },
-              networkTimeoutSeconds: 10
-            }
-          },
-          // Google Fonts stylesheets
-          {
-            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-            handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'google-fonts-stylesheets',
-              expiration: {
-                maxEntries: 20,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              }
-            }
-          },
-          // Google Fonts webfonts
-          {
-            urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
             handler: 'CacheFirst',
-            options: {
-              cacheName: 'google-fonts-webfonts',
-              expiration: {
-                maxEntries: 30,
-                maxAgeSeconds: 60 * 60 * 24 * 365 // 1 year
-              },
-              cacheableResponse: {
-                statuses: [0, 200]
-              }
-            }
+            options: { cacheName: 'google-fonts', expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 } },
           },
-          // Images - Cache first for performance
           {
             urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/i,
-            handler: 'CacheFirst',
-            options: {
-              cacheName: 'images-cache',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 60 // 60 days
-              }
-            }
-          },
-          // JS/CSS - Stale while revalidate for instant load + updates
-          {
-            urlPattern: /\.(?:js|css)$/i,
             handler: 'StaleWhileRevalidate',
-            options: {
-              cacheName: 'static-resources',
-              expiration: {
-                maxEntries: 100,
-                maxAgeSeconds: 60 * 60 * 24 * 30 // 30 days
-              }
-            }
-          }
-        ]
+            options: { cacheName: 'images', expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 30 } },
+          },
+        ],
       },
-      devOptions: {
-        enabled: false, // Disable in dev to avoid conflicts
-        type: 'module'
-      }
-    })
+      manifest: false, // Use existing public/manifest.json
+    }),
   ].filter(Boolean),
   resolve: {
     alias: {

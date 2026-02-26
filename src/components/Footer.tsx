@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 
 const FooterLinkColumn = ({ title, links }: { title: string; links: { to: string; label: string }[] }) => (
   <div>
-    <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/40 mb-5 font-medium">{title}</h4>
+    <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/50 mb-5 font-medium">{title}</h4>
     <ul className="space-y-3">
       {links.map(({ to, label }) => (
         <li key={to}>
@@ -59,7 +59,7 @@ const Footer = () => {
             <span className="text-energy">blackouts?</span>
           </h2>
 
-          <p className="text-body-large text-pearl/40 font-light max-w-md mx-auto mb-14 leading-relaxed">
+          <p className="text-body-large text-pearl/60 font-light max-w-md mx-auto mb-14 leading-relaxed">
             500+ Indian homes already have. Yours could be next.
           </p>
 
@@ -67,7 +67,7 @@ const Footer = () => {
             <Link to="/contact">
               <Button
                 size="lg"
-                className="bg-pearl hover:bg-white text-charcoal font-semibold px-14 py-7 text-lg rounded-full transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_0_80px_rgba(255,255,255,0.15)]"
+                className="bg-pearl hover:bg-white text-charcoal font-semibold px-12 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-[0_0_80px_rgba(255,255,255,0.15)]"
               >
                 Get a Quote
                 <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
@@ -76,7 +76,7 @@ const Footer = () => {
             <Link to="/residential">
               <Button
                 size="lg"
-                className="border border-pearl/20 bg-transparent text-pearl/70 hover:text-pearl hover:border-pearl/40 px-10 py-7 text-lg rounded-full transition-all duration-500"
+                className="border border-pearl/20 bg-transparent text-pearl/70 hover:text-pearl hover:border-pearl/40 px-10 py-6 text-lg rounded-full transition-all duration-300"
               >
                 Explore Products
               </Button>
@@ -99,15 +99,15 @@ const Footer = () => {
                 <span className="text-title-large text-pearl font-semibold tracking-tight">NESS</span>
                 <span className="text-caption text-pearl/30 ml-2 font-light">by Nunam</span>
               </Link>
-              <p className="text-body-small text-pearl/40 leading-relaxed mb-8 max-w-xs">
+              <p className="text-body-small text-pearl/60 leading-relaxed mb-8 max-w-xs">
                 Premium energy storage engineered for Indian conditions. Zero blackouts. Zero compromises.
               </p>
               <div className="space-y-3">
-                <a href="mailto:contact@nunam.com" className="flex items-center gap-3 text-pearl/40 hover:text-pearl/70 transition-colors text-body-small group">
+                <a href="mailto:contact@nunam.com" className="flex items-center gap-3 text-pearl/60 hover:text-pearl/80 transition-colors text-body-small group">
                   <Mail className="w-4 h-4 group-hover:text-energy transition-colors" aria-hidden="true" />
                   contact@nunam.com
                 </a>
-                <a href="tel:+918012345678" className="flex items-center gap-3 text-pearl/40 hover:text-pearl/70 transition-colors text-body-small group">
+                <a href="tel:+918012345678" className="flex items-center gap-3 text-pearl/60 hover:text-pearl/80 transition-colors text-body-small group">
                   <Phone className="w-4 h-4 group-hover:text-energy transition-colors" aria-hidden="true" />
                   +91 80 1234 5678
                 </a>
@@ -151,8 +151,8 @@ const Footer = () => {
 
             {/* Address */}
             <div className="lg:col-span-2">
-              <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/40 mb-5 font-medium">Location</h4>
-              <div className="flex items-start gap-2 text-pearl/40 text-body-small leading-relaxed">
+              <h4 className="text-caption uppercase tracking-[0.15em] text-pearl/50 mb-5 font-medium">Location</h4>
+              <div className="flex items-start gap-2 text-pearl/60 text-body-small leading-relaxed">
                 <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0" aria-hidden="true" />
                 <span>
                   Veerasandra Industrial Area,
@@ -171,7 +171,7 @@ const Footer = () => {
                 <Link to="/privacy" className="hover:text-pearl/60 transition-colors">Privacy</Link>
                 <Link to="/terms" className="hover:text-pearl/60 transition-colors">Terms</Link>
                 <Link to="/cookie-policy" className="hover:text-pearl/60 transition-colors">Cookies</Link>
-                <span>© 2025 NESS by Nunam</span>
+                <span>© {new Date().getFullYear()} NESS by Nunam</span>
               </div>
 
               {/* Social */}

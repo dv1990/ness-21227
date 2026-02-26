@@ -46,24 +46,6 @@ export const extractCriticalCSS = () => {
  * Defer non-critical CSS loading
  */
 export const deferNonCriticalCSS = () => {
-  if (typeof window === 'undefined') return;
-
-  const links = document.querySelectorAll('link[rel="stylesheet"]');
-  
-  links.forEach((link) => {
-    const href = link.getAttribute('href');
-    
-    // Skip critical CSS
-    if (href?.includes('critical') || href?.includes('index')) return;
-    
-    // Change to preload with low priority
-    link.setAttribute('rel', 'preload');
-    link.setAttribute('as', 'style');
-    link.setAttribute('fetchpriority', 'low');
-    
-    // Apply after load
-    link.addEventListener('load', function(this: HTMLLinkElement) {
-      this.setAttribute('rel', 'stylesheet');
-    });
-  });
+  // No-op: CSS deferral was breaking production builds by converting
+  // Vite-injected stylesheet links to preload, causing blank pages.
 };

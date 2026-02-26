@@ -5,15 +5,15 @@ export const BelowFoldSections = memo(() => {
   return (
     <>
       {/* Why NESS - Refined Trust Section */}
-      <section 
+      <section
         className="!py-24 md:!py-32 !mt-0 bg-gradient-to-b from-background to-muted/10"
         aria-labelledby="benefits-heading"
       >
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-16">
-            <h2 
+            <h2
               id="benefits-heading"
-              className="text-4xl md:text-5xl font-extralight mb-6 tracking-tight"
+              className="text-4xl md:text-5xl font-light mb-6 tracking-tight"
             >
               Why Homeowners Choose NESS
             </h2>
@@ -21,11 +21,11 @@ export const BelowFoldSections = memo(() => {
               Clean energy is the new luxury. Here's what makes NESS different.
             </p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-4 md:gap-5">
             {/* Silent Guardian */}
-            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card hover:bg-card/80 transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card transition-all duration-300 hover:shadow-lifted-lg hover:border-border">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Shield className="w-8 h-8 text-primary" aria-hidden="true" />
@@ -38,8 +38,8 @@ export const BelowFoldSections = memo(() => {
             </div>
 
             {/* Instant Response */}
-            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card hover:bg-card/80 transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card transition-all duration-300 hover:shadow-lifted-lg hover:border-border">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Zap className="w-8 h-8 text-primary" aria-hidden="true" />
@@ -52,8 +52,8 @@ export const BelowFoldSections = memo(() => {
             </div>
 
             {/* Whole Home Coverage */}
-            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card hover:bg-card/80 transition-all duration-500 hover:scale-105 hover:shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            <div className="group relative p-6 rounded-2xl border border-border/50 bg-card transition-all duration-300 hover:shadow-lifted-lg hover:border-border">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative z-10">
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Home className="w-8 h-8 text-primary" aria-hidden="true" />
@@ -72,16 +72,16 @@ export const BelowFoldSections = memo(() => {
       <section className="!py-24 md:!py-32 !mt-0 bg-charcoal text-pearl" aria-labelledby="social-proof-heading">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-16">
-            <h2 
+            <h2
               id="social-proof-heading"
-              className="text-3xl md:text-5xl font-extralight mb-4 tracking-tight text-pearl"
+              className="text-3xl md:text-5xl font-light mb-4 tracking-tight text-pearl"
             >
               Trusted by discerning homeowners
             </h2>
-            <p className="text-lg text-pearl/50 font-light">Across India</p>
+            <p className="text-lg text-pearl/60 font-light">Across India</p>
           </div>
 
-          {/* Stats Row - Premium treatment */}
+          {/* Stats Row */}
           <div className="grid md:grid-cols-3 gap-0 mb-20 border border-pearl/10 rounded-2xl overflow-hidden">
             {/* Star Rating */}
             <div className="text-center p-10 border-b md:border-b-0 md:border-r border-pearl/10">
@@ -90,8 +90,8 @@ export const BelowFoldSections = memo(() => {
                   <Star key={`rating-star-${i}`} className="w-5 h-5 fill-energy text-energy" />
                 ))}
               </div>
-              <div className="text-5xl font-extralight mb-2 text-pearl tracking-tight">4.9</div>
-              <div className="text-sm text-pearl/40 uppercase tracking-widest">Customer Rating</div>
+              <div className="text-5xl font-light mb-2 text-pearl tracking-tight">4.9</div>
+              <div className="text-sm text-pearl/50 uppercase tracking-widest">Customer Rating</div>
             </div>
 
             {/* BIS Certification */}
@@ -100,18 +100,18 @@ export const BelowFoldSections = memo(() => {
                 <CheckCircle className="w-6 h-6 text-energy" />
               </div>
               <div className="text-2xl font-light mb-2 text-pearl">BIS Certified</div>
-              <div className="text-sm text-pearl/40 uppercase tracking-widest">Government Approved</div>
+              <div className="text-sm text-pearl/50 uppercase tracking-widest">Government Approved</div>
             </div>
 
             {/* Homes Protected */}
             <div className="text-center p-10">
-              <div className="text-5xl font-extralight mb-2 text-pearl tracking-tight">500<span className="text-energy">+</span></div>
-              <div className="text-sm text-pearl/40 uppercase tracking-widest mb-1">Homes Protected</div>
-              <div className="text-xs text-pearl/25">Since 2020</div>
+              <div className="text-5xl font-light mb-2 text-pearl tracking-tight">500<span className="text-energy">+</span></div>
+              <div className="text-sm text-pearl/50 uppercase tracking-widest mb-1">Homes Protected</div>
+              <div className="text-xs text-pearl/30">Since 2020</div>
             </div>
           </div>
 
-          {/* Customer Testimonials - Two-column elevated layout */}
+          {/* Customer Testimonials */}
           <div className="grid md:grid-cols-2 gap-6">
             {/* Testimonial 1 */}
             <div className="relative p-10 rounded-2xl border border-pearl/10 bg-pearl/[0.03]">
@@ -125,7 +125,7 @@ export const BelowFoldSections = memo(() => {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-pearl">Rajesh Malhotra</p>
-                  <p className="text-xs text-pearl/40">Villa Owner · Bangalore · 18 months</p>
+                  <p className="text-xs text-pearl/50">Villa Owner · Bangalore · 18 months</p>
                 </div>
               </div>
             </div>
@@ -142,7 +142,7 @@ export const BelowFoldSections = memo(() => {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-pearl">Dr. Mohan Krishna</p>
-                  <p className="text-xs text-pearl/40">Homeowner · Bengaluru · Off-grid since 2022</p>
+                  <p className="text-xs text-pearl/50">Homeowner · Bengaluru · Off-grid since 2022</p>
                 </div>
               </div>
             </div>
