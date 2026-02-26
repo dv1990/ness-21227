@@ -1,12 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { 
-  Menu, 
-  ArrowRight
-} from "lucide-react";
-
-import { LucideIcon } from 'lucide-react';
+import { Menu, ArrowRight } from "lucide-react";
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -14,7 +9,6 @@ interface MobileMenuProps {
   mainNavItems: Array<{
     label: string;
     href: string;
-    icon: LucideIcon;
     description: string;
   }>;
 }
@@ -47,12 +41,9 @@ const MobileMenu = ({ isOpen, setIsOpen, mainNavItems }: MobileMenuProps) => {
                   onClick={() => setIsOpen(false)}
                   className="flex items-center justify-between p-3 rounded-xl text-sm transition-colors hover:bg-muted/50 group"
                 >
-                  <div className="flex items-center space-x-3">
-                    <item.icon className="w-4 h-4" aria-hidden="true" />
-                    <div>
-                      <div className="font-medium">{item.label}</div>
-                      <div className="text-xs text-muted-foreground">{item.description}</div>
-                    </div>
+                  <div>
+                    <div className="font-medium">{item.label}</div>
+                    <div className="text-xs text-muted-foreground">{item.description}</div>
                   </div>
                   <ArrowRight className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" aria-hidden="true" />
                 </Link>
@@ -62,8 +53,8 @@ const MobileMenu = ({ isOpen, setIsOpen, mainNavItems }: MobileMenuProps) => {
 
           <div className="p-6 border-t border-border/20">
             <Link to="/contact/homeowner" onClick={() => setIsOpen(false)}>
-              <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl font-medium">
-                Get Quote
+              <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-full font-medium">
+                Get a Quote
               </Button>
             </Link>
           </div>
