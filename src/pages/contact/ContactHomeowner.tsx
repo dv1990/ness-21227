@@ -41,19 +41,20 @@ const ContactHomeowner = () => {
           <div className="container mx-auto px-6 lg:px-12">
             <div className="max-w-3xl space-y-8">
               <div className="inline-block px-4 py-2 bg-primary/10 rounded-full backdrop-blur-sm border border-primary/20">
-                <span className="text-sm font-medium text-primary">Premium Home Energy</span>
+                <span className="text-sm font-medium text-primary">Intelligent Home Energy</span>
               </div>
-              
+
               <div className="space-y-6">
                 <h1 className="text-6xl md:text-7xl lg:text-8xl font-extralight tracking-tight leading-[0.9] text-foreground">
-                  Your life doesn't<br />
-                  <span className="text-primary font-light">pause</span><br />
-                  when the power does
+                  Energy that<br />
+                  <span className="text-primary font-light">thinks</span> ahead.<br />
+                  So you never have to.
                 </h1>
-                
+
                 <p className="text-2xl md:text-3xl text-muted-foreground font-light leading-relaxed max-w-2xl">
                   The new luxury isn't a louder generator.<br />
-                  It's silence.
+                  It's a silent system that learns your rhythm{' '}
+                  <br className="hidden sm:block" />and never asks for attention.
                 </p>
               </div>
 
@@ -75,7 +76,7 @@ const ContactHomeowner = () => {
                   className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-6 text-lg rounded-full shadow-2xl hover:shadow-primary/50 transition-all duration-300"
                   aria-label="Start the product selection process to find your perfect NESS system"
                 >
-                  Find Your Perfect System
+                  Discover Your System
                   <ArrowRight className="ml-2 w-5 h-5" />
                 </Button>
               </div>

@@ -15,10 +15,10 @@ export const BelowFoldSections = memo(() => {
               id="benefits-heading"
               className="text-4xl md:text-5xl font-light mb-6 tracking-tight"
             >
-              Why Homeowners Choose NESS
+              The NESS Difference
             </h2>
             <p className="text-xl text-muted-foreground font-light max-w-2xl mx-auto leading-relaxed">
-              Clean energy is the new luxury. Here's what makes NESS different.
+              Premium engineering meets everyday reliability.
             </p>
           </div>
 
@@ -30,9 +30,9 @@ export const BelowFoldSections = memo(() => {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Shield className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl font-light mb-4">Silent Guardian</h3>
+                <h3 className="text-2xl font-light mb-4">Zero Noise. Zero Emissions.</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Your neighbors won't know you have backup power. Zero noise. Zero emissions. Pure peace.
+                  No rumble. No fumes. No neighbors knowing. Seamless power that works in absolute silence, while your generator collects dust.
                 </p>
               </div>
             </div>
@@ -44,9 +44,9 @@ export const BelowFoldSections = memo(() => {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Zap className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl font-light mb-4">Instant Response</h3>
+                <h3 className="text-2xl font-light mb-4">10ms Switchover</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Switches in 10 milliseconds. Your Wi-Fi doesn't drop. Your calls stay connected. Life continues.
+                  Your lights don't flicker. Your call doesn't drop. Your work doesn't vanish. NESS responds 200x faster than you can blink.
                 </p>
               </div>
             </div>
@@ -58,9 +58,9 @@ export const BelowFoldSections = memo(() => {
                 <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors duration-300">
                   <Home className="w-8 h-8 text-primary" aria-hidden="true" />
                 </div>
-                <h3 className="text-2xl font-light mb-4">Whole Home Coverage</h3>
+                <h3 className="text-2xl font-light mb-4">Whole Home. Not Half Measures.</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Run everything—AC, refrigerator, Wi-Fi—for 24+ hours. Not just "essentials." Everything.
+                  Run your AC, refrigerator, Wi-Fi, and entertainment — all at once, all night. Not just "essentials." Everything that makes your home, home.
                 </p>
               </div>
             </div>
@@ -76,9 +76,9 @@ export const BelowFoldSections = memo(() => {
               id="social-proof-heading"
               className="text-3xl md:text-5xl font-light mb-4 tracking-tight text-pearl"
             >
-              Trusted by discerning homeowners
+              Trusted by 500+ Indian families
             </h2>
-            <p className="text-lg text-pearl/60 font-light">Across India</p>
+            <p className="text-lg text-pearl/60 font-light">From Bangalore to Chennai</p>
           </div>
 
           {/* Stats Row */}
@@ -130,19 +130,19 @@ export const BelowFoldSections = memo(() => {
               </div>
             </div>
 
-            {/* Testimonial 2 */}
+            {/* Testimonial 2 — Standalone Battery customer */}
             <div className="relative p-10 rounded-2xl border border-pearl/10 bg-pearl/[0.03]">
               <Quote className="w-8 h-8 text-energy/30 mb-6" aria-hidden="true" />
               <blockquote className="text-lg md:text-xl text-pearl/90 leading-relaxed mb-8 font-light">
-                "Two years. Not one reset. Not one worry. The grid is just backup now — NESS is our primary power."
+                "We had solar panels sitting idle during outages. Added a NESS battery in two hours. Now our solar actually works when we need it most."
               </blockquote>
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center text-sm font-medium text-energy">
-                  MK
+                  PV
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-pearl">Dr. Mohan Krishna</p>
-                  <p className="text-xs text-pearl/50">Homeowner · Bengaluru · Off-grid since 2022</p>
+                  <p className="text-sm font-medium text-pearl">Priya Venkatesh</p>
+                  <p className="text-xs text-pearl/50">Homeowner · Chennai · Standalone Battery owner</p>
                 </div>
               </div>
             </div>

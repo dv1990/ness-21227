@@ -121,18 +121,18 @@ export const ProductSelectorWizard: React.FC = () => {
     // Consider both daily energy and backup duration
     const requiredCapacity = Math.max(dailyEnergy, backupEnergy);
 
+    const aio = PRODUCTS.find(p => p.id === 'aio-series')!;
+    const standalone = PRODUCTS.find(p => p.id === 'standalone-battery')!;
+
     let primaryProduct: Product;
     let alternatives: Product[] = [];
 
-    if (requiredCapacity < 6) {
-      primaryProduct = PRODUCTS[0];
-      alternatives = [PRODUCTS[1]];
-    } else if (requiredCapacity < 12) {
-      primaryProduct = PRODUCTS[1];
-      alternatives = [PRODUCTS[0], PRODUCTS[2]];
+    if (requiredCapacity < 12) {
+      primaryProduct = aio;
+      alternatives = [standalone];
     } else {
-      primaryProduct = PRODUCTS[2];
-      alternatives = [PRODUCTS[1]];
+      primaryProduct = standalone;
+      alternatives = [aio];
     }
 
     return { product: primaryProduct, peakLoad, dailyEnergy, alternatives };
