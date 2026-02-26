@@ -19,7 +19,30 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(), 
     mode === "development" && componentTagger(),
-    // PWA disabled - was causing blank page via cached stale index.html
+    VitePWA({
+      registerType: 'autoUpdate',
+      injectRegister: 'auto',
+      workbox: {
+        // Do NOT cache index.html — always fetch from network
+        navigateFallback: null,
+        cleanupOutdatedCaches: true,
+        // Only precache JS/CSS assets, never HTML
+        globPatterns: ['**/*.{js,css,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: { cacheName: 'google-fonts', expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 } },
+          },
+          {
+            urlPattern: /\.(?:png|jpg|jpeg|svg|gif|webp|avif)$/i,
+            handler: 'StaleWhileRevalidate',
+            options: { cacheName: 'images', expiration: { maxEntries: 60, maxAgeSeconds: 60 * 60 * 24 * 30 } },
+          },
+        ],
+      },
+      manifest: false, // Use existing public/manifest.json
+    }),
   ].filter(Boolean),
   resolve: {
     alias: {
