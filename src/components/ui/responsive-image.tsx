@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { cn } from '@/lib/utils';
 
 interface ResponsiveImageProps extends Omit<React.ImgHTMLAttributes<HTMLImageElement>, 'srcSet'> {
@@ -46,11 +46,20 @@ export const ResponsiveImage: React.FC<ResponsiveImageProps> = ({
   // Use original source directly
   const imageSrc = fallbackSrc || src;
 
-  // Generate srcsets for all formats - only if not external URL
+  // Generate srcsets for all formats - only if not external URL (memoized to avoid recalculation on re-render)
   const shouldGenerateSrcSet = !imageSrc.startsWith('http') && !imageSrc.endsWith('.svg');
-  const avifSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'avif') : '');
-  const webpSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'webp') : '');
-  const jpegSrcSet = srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'jpeg') : '');
+  const avifSrcSet = useMemo(
+    () => srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'avif') : ''),
+    [srcSet, shouldGenerateSrcSet, imageSrc]
+  );
+  const webpSrcSet = useMemo(
+    () => srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'webp') : ''),
+    [srcSet, shouldGenerateSrcSet, imageSrc]
+  );
+  const jpegSrcSet = useMemo(
+    () => srcSet || (shouldGenerateSrcSet ? generateSrcSet(imageSrc, 'jpeg') : ''),
+    [srcSet, shouldGenerateSrcSet, imageSrc]
+  );
   
   // Default sizes attribute optimized for hero images
   const responsiveSizes = sizes || 

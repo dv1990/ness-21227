@@ -5,6 +5,8 @@ import { Mesh } from 'three';
 
 // Battery Cell Component - Memoized to prevent unnecessary re-renders
 const BatteryCell = memo(({ position, active }: { position: [number, number, number]; active: boolean }) => {
+  // null! is the standard React Three Fiber pattern — useFrame requires a non-null ref,
+  // but the ref is always assigned by the time useFrame runs.
   const mesh = useRef<Mesh>(null!);
   
   useFrame((state) => {

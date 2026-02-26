@@ -22,7 +22,7 @@ const NessFeatureGrid = () => {
         </div>
 
         {/* Uniform Aligned Grid */}
-        <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
+        <div ref={ref as React.RefObject<HTMLDivElement>} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
           
           {/* Hero Tile - Spans 2 cols + 2 rows on lg */}
           <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">

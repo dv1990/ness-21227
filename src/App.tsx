@@ -78,6 +78,7 @@ function App() {
           
           {/* Product Routes */}
           <Route path="/homeowners" element={<ContactHomeowner />} />
+          {/* /ci is a legacy shorthand alias for /commercial — kept for backward compatibility */}
           <Route path="/ci" element={<CommercialEnhanced />} />
           <Route path="/installers" element={<ContactInstaller />} />
           <Route path="/warranty" element={<TrueWarranty />} />

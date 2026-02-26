@@ -301,14 +301,14 @@ ${Object.entries(selectedAppliances)
                     <div className="space-y-3">
                       <Label className="text-base font-medium">What type of system do you need?</Label>
                       <div className="grid gap-3">
-                        {[
-                          { value: 'hybrid', label: 'Complete Independence', desc: 'Grid + Solar + Battery' },
-                          { value: 'off-grid', label: 'Full Independence', desc: 'Solar + Battery Only' },
-                          { value: 'grid-tie', label: 'Solar Savings', desc: 'Solar + Grid' }
-                        ].map((option) => (
+                        {([
+                          { value: 'hybrid' as const, label: 'Complete Independence', desc: 'Grid + Solar + Battery' },
+                          { value: 'off-grid' as const, label: 'Full Independence', desc: 'Solar + Battery Only' },
+                          { value: 'grid-tie' as const, label: 'Solar Savings', desc: 'Solar + Grid' }
+                        ]).map((option) => (
                           <button
                             key={option.value}
-                            onClick={() => setConfig(prev => ({...prev, systemType: option.value as any}))}
+                            onClick={() => setConfig(prev => ({...prev, systemType: option.value}))}
                             className={`p-4 rounded-2xl border-2 transition-all text-left ${
                               config.systemType === option.value
                                 ? 'border-primary bg-primary/5'

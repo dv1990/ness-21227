@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
 import { toast } from "sonner";
+import { CheckCircle2 } from "lucide-react";
 
 interface ContactFormProps {
   type: "homeowner" | "distributor" | "installer";
@@ -15,31 +16,30 @@ interface ContactFormProps {
 const ContactForm = ({ type }: ContactFormProps) => {
   const [consent, setConsent] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const formData = new FormData(e.currentTarget);
       const data = {
-        from_name: formData.get('name') as string || formData.get('company') as string,
-        from_email: formData.get('email') as string,
-        from_phone: formData.get('phone') as string || '',
-        message: formData.get('message') as string || '',
+        from_name: String(formData.get('name') || formData.get('company') || ''),
+        from_email: String(formData.get('email') || ''),
+        from_phone: String(formData.get('phone') || ''),
+        message: String(formData.get('message') || ''),
         form_type: type.charAt(0).toUpperCase() + type.slice(1),
         // Additional fields based on form type
         ...Object.fromEntries(formData.entries())
       };
-      
+
       const { sendEmail } = await import('@/lib/email-service');
       await sendEmail(data);
-      
-      toast.success("Message Sent Successfully!", {
-        description: "We'll contact you within 24 hours.",
-        duration: 5000,
-      });
-      
+
+      // Show inline success state
+      setIsSuccess(true);
+
       // Reset form
       e.currentTarget.reset();
       setConsent(false);
@@ -135,6 +135,7 @@ const ContactForm = ({ type }: ContactFormProps) => {
             <SelectItem value="unknown">Not sure</SelectItem>
           </SelectContent>
         </Select>
+        <p className="text-xs text-muted-foreground mt-1.5">Not sure? No problem — we'll help you figure it out.</p>
       </div>
       <div>
         <Label htmlFor="contact-pref">Preferred Contact Method</Label>
@@ -257,64 +258,91 @@ const ContactForm = ({ type }: ContactFormProps) => {
     }
   };
 
+  // Success celebration state
+  if (isSuccess) {
+    return (
+      <div className="rounded-3xl bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 backdrop-blur-sm p-8 sm:p-12 text-center space-y-6 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]">
+        <div className="w-16 h-16 rounded-full bg-energy/10 flex items-center justify-center mx-auto">
+          <CheckCircle2 className="w-8 h-8 text-energy" />
+        </div>
+        <div className="space-y-3">
+          <h3 className="text-2xl sm:text-3xl font-light tracking-tight">We're on it.</h3>
+          <p className="text-muted-foreground text-base sm:text-lg font-light max-w-md mx-auto">
+            Expect a call from our energy advisor within 24 hours. Your journey to uninterrupted power starts now.
+          </p>
+        </div>
+        <Button
+          variant="outline"
+          className="rounded-full px-8"
+          onClick={() => setIsSuccess(false)}
+        >
+          Send another message
+        </Button>
+      </div>
+    );
+  }
+
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {getFields()}
-      
-      <div>
-        <Label htmlFor="message">Message (Optional)</Label>
-        <Textarea 
-          id="message" 
-          name="message"
-          placeholder="Tell us more about your requirements..." 
-          rows={4}
-          aria-label="Additional message or requirements"
-        />
-      </div>
+    <div className="rounded-3xl bg-gradient-to-br from-card via-card to-primary/5 border border-border/50 backdrop-blur-sm p-6 sm:p-8 md:p-10 shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)]">
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {getFields()}
 
-      <div className="flex items-start space-x-3">
-        <Checkbox
-          id="consent"
-          checked={consent}
-          onCheckedChange={(checked) => setConsent(checked as boolean)}
-          required
-          aria-required="true"
-          aria-describedby="consent-description"
-        />
-        <Label htmlFor="consent" className="text-sm leading-relaxed">
-          <span id="consent-description">
-            I consent to NESS Energy contacting me about their products and services. 
-            I understand my data will be processed according to their{" "}
-            <a 
-              href="/privacy" 
-              className="text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
-            >
-              privacy policy
-            </a>.
-          </span>
-        </Label>
-      </div>
+        <div>
+          <Label htmlFor="message">Message (Optional)</Label>
+          <Textarea
+            id="message"
+            name="message"
+            placeholder="Tell us more about your requirements..."
+            rows={4}
+            aria-label="Additional message or requirements"
+          />
+          <p className="text-xs text-muted-foreground mt-1.5">Anything that helps us understand your needs better.</p>
+        </div>
 
-      <Button 
-        type="submit" 
-        className="btn-primary btn-large w-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2" 
-        disabled={!consent || isSubmitting}
-        aria-label="Submit contact form"
-      >
-        {isSubmitting ? (
-          <span className="flex items-center gap-2">
-            <LoadingSpinner size="sm" label="Submitting..." />
-            Submitting...
-          </span>
-        ) : (
-          'Send Message'
-        )}
-      </Button>
+        <div className="flex items-start space-x-3">
+          <Checkbox
+            id="consent"
+            checked={consent}
+            onCheckedChange={(checked) => setConsent(checked as boolean)}
+            required
+            aria-required="true"
+            aria-describedby="consent-description"
+          />
+          <Label htmlFor="consent" className="text-sm leading-relaxed">
+            <span id="consent-description">
+              I consent to NESS Energy contacting me about their products and services.
+              I understand my data will be processed according to their{" "}
+              <a
+                href="/privacy"
+                className="text-primary underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded"
+              >
+                privacy policy
+              </a>.
+            </span>
+          </Label>
+        </div>
 
-      <p className="text-xs text-muted-foreground text-center">
-        Protected by hCaptcha. By submitting, you agree to our terms of service.
-      </p>
-    </form>
+        <Button
+          type="submit"
+          className="btn-primary btn-large w-full rounded-full focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-ring focus-visible:ring-offset-2"
+          disabled={!consent || isSubmitting}
+          aria-label="Submit contact form"
+        >
+          {isSubmitting ? (
+            <span className="flex items-center gap-2">
+              <LoadingSpinner size="sm" label="Submitting..." />
+              Submitting...
+            </span>
+          ) : (
+            'Send Message'
+          )}
+        </Button>
+
+        <p className="text-xs text-muted-foreground text-center">
+          Protected by hCaptcha. By submitting, you agree to our terms of service.
+        </p>
+      </form>
+    </div>
   );
 };
 

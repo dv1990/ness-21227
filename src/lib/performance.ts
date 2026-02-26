@@ -94,10 +94,12 @@ class PerformanceMonitor {
     try {
       const fidObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
-        entries.forEach((entry: PerformanceEntry & { processingStart?: number; startTime?: number }) => {
-          const fid = entry.processingStart! - entry.startTime!;
-          this.metrics.fid = fid;
-          this.checkBudget('FID_THRESHOLD', fid);
+        entries.forEach((entry: PerformanceEntry & { processingStart?: number }) => {
+          if (entry.processingStart != null && entry.startTime != null) {
+            const fid = entry.processingStart - entry.startTime;
+            this.metrics.fid = fid;
+            this.checkBudget('FID_THRESHOLD', fid);
+          }
         });
       });
       fidObserver.observe({ entryTypes: ['first-input'] });
@@ -110,8 +112,8 @@ class PerformanceMonitor {
       let clsValue = 0;
       const clsObserver = new PerformanceObserver((list) => {
         const entries = list.getEntries();
-        entries.forEach((entry: PerformanceEntry & { value?: number }) => {
-          if (!(entry as any).hadRecentInput) {
+        entries.forEach((entry: PerformanceEntry & { value?: number; hadRecentInput?: boolean }) => {
+          if (!entry.hadRecentInput) {
             clsValue += entry.value || 0;
             this.metrics.cls = clsValue;
             this.checkBudget('CLS_THRESHOLD', clsValue);
