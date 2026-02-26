@@ -31,7 +31,7 @@ const CookieConsent = () => {
   if (!showBanner) return null;
 
   return (
-    <div className="fixed bottom-4 left-4 z-50 max-w-sm p-4 bg-white/95 backdrop-blur-sm text-graphite rounded-xl border border-border/20 shadow-lg animate-slide-up">
+    <div className="fixed bottom-20 md:bottom-4 left-4 right-4 md:right-auto z-50 max-w-sm p-4 bg-white/95 backdrop-blur-sm text-graphite rounded-xl border border-border/20 shadow-lg animate-slide-up">
       <div className="flex items-start gap-3">
         <Cookie className="w-5 h-5 flex-shrink-0 mt-0.5 text-energy" aria-hidden="true" />
         <div className="flex-1 space-y-3">

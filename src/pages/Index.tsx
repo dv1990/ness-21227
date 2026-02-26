@@ -100,8 +100,7 @@ const Index = () => {
               <Link to="/contact/homeowner" className="inline-block group">
                 <Button
                   size="lg"
-                  variant="outline"
-                  className="interactive font-sans border-pearl/40 hover:border-pearl text-pearl hover:bg-pearl/10 font-medium px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
+                  className="interactive font-sans bg-transparent border border-pearl/40 hover:border-pearl text-pearl hover:bg-pearl/10 font-medium px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
                 >
                   Talk to an Expert
                 </Button>
