@@ -1,14 +1,18 @@
 import { ReactNode, lazy, Suspense } from "react";
 import NavigationEnhanced from "./NavigationEnhanced";
 import SkipLink from "./SkipLink";
-import { MobileStickyCTA } from "./MobileStickyCTA";
-import { PWAInstallPrompt } from "./PWAInstallPrompt";
 import { LoadingSpinner } from "./ui/loading-spinner";
 import { PageTransition } from "./ui/page-transition";
 
-// Lazy load below-the-fold components to reduce initial CSS bundle
+// Lazy load below-the-fold and deferred components to reduce initial bundle
 const Footer = lazy(() => import("./Footer"));
 const CookieConsent = lazy(() => import("./CookieConsent"));
+const MobileStickyCTA = lazy(() =>
+  import("./MobileStickyCTA").then(m => ({ default: m.MobileStickyCTA }))
+);
+const PWAInstallPrompt = lazy(() =>
+  import("./PWAInstallPrompt").then(m => ({ default: m.PWAInstallPrompt }))
+);
 
 interface LayoutProps {
   children: ReactNode;
@@ -22,8 +26,8 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
       <header role="banner">
         <NavigationEnhanced />
       </header>
-      <main 
-        id="main-content" 
+      <main
+        id="main-content"
         className={`flex-1 pt-16 ${className}`}
       >
         <PageTransition>
@@ -40,8 +44,12 @@ const Layout = ({ children, className = "" }: LayoutProps) => {
       <Suspense fallback={null}>
         <CookieConsent />
       </Suspense>
-      <MobileStickyCTA phoneNumber="+918012345678" label="Call Us Now" />
-      <PWAInstallPrompt />
+      <Suspense fallback={null}>
+        <MobileStickyCTA phoneNumber="+918012345678" label="Call Us Now" />
+      </Suspense>
+      <Suspense fallback={null}>
+        <PWAInstallPrompt />
+      </Suspense>
     </div>
   );
 };
