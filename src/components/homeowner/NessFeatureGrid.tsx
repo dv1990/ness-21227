@@ -21,136 +21,52 @@ const NessFeatureGrid = () => {
           </p>
         </div>
 
-        {/* Asymmetric Grid Container with Overlapping Cards */}
-        <div ref={ref as any} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-5 max-w-7xl mx-auto">
+        {/* Uniform Aligned Grid */}
+        <div ref={ref as any} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
           
-          {/* Hero Tile - Spans larger area with offset */}
-          <div className="lg:col-span-5 lg:row-span-2">
+          {/* Hero Tile - Spans 2 cols + 2 rows on lg */}
+          <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">
             <HeroTile isVisible={isItemVisible(0)} />
           </div>
               
-          {/* Tile 1 - Max Output - Offset up and overlapping */}
-          <div className="lg:col-span-3 lg:-mt-8 lg:z-10">
-            <FeatureTile
-              icon={<Zap className="w-8 h-8" />}
-              title="Max. 10 kW AC Output"
-              subtitle="Hybrid"
-              description="Seamless power delivery"
-              isVisible={isItemVisible(1)}
-              iconColor="text-energy-bright"
-            />
+          <div>
+            <FeatureTile icon={<Zap className="w-8 h-8" />} title="Max. 10 kW AC Output" subtitle="Hybrid" description="Seamless power delivery" isVisible={isItemVisible(1)} iconColor="text-energy-bright" />
           </div>
 
-          {/* Tile 2 - Savings - Offset down */}
-          <div className="lg:col-span-4 lg:mt-12">
-            <FeatureTile
-              icon={<Gauge className="w-8 h-8" />}
-              title="Cut Bills by 40%"
-              subtitle="Smart Solar Usage"
-              description="Lower monthly costs"
-              isVisible={isItemVisible(2)}
-              iconColor="text-energy"
-            />
+          <div>
+            <FeatureTile icon={<Gauge className="w-8 h-8" />} title="Cut Bills by 40%" subtitle="Smart Solar Usage" description="Lower monthly costs" isVisible={isItemVisible(2)} iconColor="text-energy" />
           </div>
 
-          {/* Tile 3 - Plug-and-Play - Standard position */}
-          <div className="lg:col-span-3">
-            <FeatureTile
-              icon={<Zap className="w-8 h-8" />}
-              title="Plug-and-Play"
-              subtitle="Installation"
-              description="Ready in hours, not days"
-              isVisible={isItemVisible(3)}
-              iconColor="text-energy-bright"
-            />
+          <div>
+            <FeatureTile icon={<Zap className="w-8 h-8" />} title="Plug-and-Play" subtitle="Installation" description="Ready in hours, not days" isVisible={isItemVisible(3)} iconColor="text-energy-bright" />
           </div>
 
-          {/* Tile 4 - All-in-One - Overlapping slightly */}
-          <div className="lg:col-span-4 lg:-ml-4 lg:z-10">
-            <FeatureTile
-              icon={<Battery className="w-8 h-8" />}
-              title="All-in-One Design"
-              subtitle="Integrated System"
-              description="BMS, modules, electronics"
-              isVisible={isItemVisible(4)}
-              iconColor="text-energy"
-            />
+          <div>
+            <FeatureTile icon={<Battery className="w-8 h-8" />} title="All-in-One Design" subtitle="Integrated System" description="BMS, modules, electronics" isVisible={isItemVisible(4)} iconColor="text-energy" />
           </div>
 
-          {/* Tile 5 - Certification - Featured with offset */}
-          <div className="lg:col-span-3 lg:row-span-2 lg:mt-8">
-            <FeatureTile
-              icon={<Shield className="w-8 h-8" />}
-              title="IEC 62619 Certified"
-              subtitle="Global Standards"
-              description="Premium certification"
-              isVisible={isItemVisible(5)}
-              iconColor="text-energy-bright"
-              featured
-            />
+          <div>
+            <FeatureTile icon={<Shield className="w-8 h-8" />} title="IEC 62619 Certified" subtitle="Global Standards" description="Premium certification" isVisible={isItemVisible(5)} iconColor="text-energy-bright" featured />
           </div>
 
-          {/* Tile 6 - Warranty - Featured, offset up */}
-          <div className="lg:col-span-4 lg:-mt-6">
-            <FeatureTile
-              icon={<Award className="w-8 h-8" />}
-              title="10-Year Warranty"
-              subtitle="Peace of Mind"
-              description="Complete protection"
-              isVisible={isItemVisible(6)}
-              iconColor="text-energy"
-              featured
-            />
+          <div>
+            <FeatureTile icon={<Award className="w-8 h-8" />} title="10-Year Warranty" subtitle="Peace of Mind" description="Complete protection" isVisible={isItemVisible(6)} iconColor="text-energy" featured />
           </div>
 
-          {/* Tile 7 - Outdoor Protection - Offset down */}
-          <div className="lg:col-span-3 lg:mt-8">
-            <FeatureTile
-              icon={<Shield className="w-8 h-8" />}
-              title="IP55"
-              subtitle="Weather Resistant"
-              description="Built for outdoors"
-              highlight="Protected"
-              isVisible={isItemVisible(7)}
-              iconColor="text-energy-bright"
-            />
+          <div>
+            <FeatureTile icon={<Shield className="w-8 h-8" />} title="IP55" subtitle="Weather Resistant" description="Built for outdoors" highlight="Protected" isVisible={isItemVisible(7)} iconColor="text-energy-bright" />
           </div>
 
-          {/* Tile 8 - Smart Meter - Overlapping */}
-          <div className="lg:col-span-2 lg:-ml-6 lg:z-10">
-            <FeatureTile
-              icon={<Gauge className="w-8 h-8" />}
-              title="Smart Meter"
-              subtitle="Compatible"
-              description="Real-time monitoring"
-              isVisible={isItemVisible(8)}
-              iconColor="text-energy"
-            />
+          <div>
+            <FeatureTile icon={<Gauge className="w-8 h-8" />} title="Smart Meter" subtitle="Compatible" description="Real-time monitoring" isVisible={isItemVisible(8)} iconColor="text-energy" />
           </div>
 
-          {/* Tile 9 - Battery Life - Standard */}
-          <div className="lg:col-span-4">
-            <FeatureTile
-              icon={<Battery className="w-8 h-8" />}
-              title="6000-cycle LFP"
-              subtitle="Battery Life"
-              description="Long-lasting power"
-              highlight="Premium"
-              isVisible={isItemVisible(9)}
-              iconColor="text-energy-bright"
-            />
+          <div>
+            <FeatureTile icon={<Battery className="w-8 h-8" />} title="6000-cycle LFP" subtitle="Battery Life" description="Long-lasting power" highlight="Premium" isVisible={isItemVisible(9)} iconColor="text-energy-bright" />
           </div>
 
-          {/* Tile 10 - Solar Input - Offset up, overlapping */}
-          <div className="lg:col-span-3 lg:-mt-12 lg:z-10">
-            <FeatureTile
-              icon={<Sun className="w-8 h-8" />}
-              title="15 kWp Solar Input"
-              subtitle="3 MPPT"
-              description="Maximum efficiency"
-              isVisible={isItemVisible(10)}
-              iconColor="text-energy"
-            />
+          <div>
+            <FeatureTile icon={<Sun className="w-8 h-8" />} title="15 kWp Solar Input" subtitle="3 MPPT" description="Maximum efficiency" isVisible={isItemVisible(10)} iconColor="text-energy" />
           </div>
 
         </div>
@@ -159,26 +75,24 @@ const NessFeatureGrid = () => {
   );
 };
 
-// Hero Tile Component - loads immediately for optimal LCP
+// Hero Tile Component
 const HeroTile = memo(({ isVisible }: { isVisible: boolean }) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
   return (
     <div 
       className={cn(
-        "md:col-span-2 md:row-span-2 rounded-3xl overflow-hidden border border-energy/20 relative group hover:border-energy/40 transition-all duration-700",
+        "rounded-3xl overflow-hidden border border-energy/20 relative group hover:border-energy/40 transition-all duration-700 h-full",
         "hover:shadow-2xl hover:shadow-energy/20 hover:scale-[1.02]",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
       style={{ transitionDelay: '0ms' }}
     >
-      <div className="aspect-square md:aspect-auto md:h-full relative">
-        {/* Loading skeleton */}
+      <div className="aspect-square md:aspect-auto md:h-full relative min-h-[400px]">
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-muted via-muted/50 to-muted/20 animate-pulse" />
         )}
         
-        {/* Hero image - loads immediately */}
         <img 
           src={heroImage} 
           alt="Modern home with solar panels and NESS battery system" 
@@ -190,7 +104,6 @@ const HeroTile = memo(({ isVisible }: { isVisible: boolean }) => {
           fetchPriority="high"
         />
         
-        {/* Dark gradient overlay for text contrast */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/50 to-transparent" />
         
         <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
@@ -226,14 +139,8 @@ interface FeatureTileProps {
 }
 
 const FeatureTile = memo(({ 
-  icon, 
-  title, 
-  subtitle, 
-  description, 
-  highlight, 
-  isVisible, 
-  iconColor = "text-energy",
-  featured = false 
+  icon, title, subtitle, description, highlight, isVisible, 
+  iconColor = "text-energy", featured = false 
 }: FeatureTileProps) => {
   return (
     <div 
@@ -250,7 +157,6 @@ const FeatureTile = memo(({
     >
       <div className="relative p-6 lg:p-8">
         <div className="space-y-5">
-          {/* Icon with glow effect */}
           <div className={cn(
             "relative inline-block transition-all duration-500",
             iconColor,
@@ -258,7 +164,6 @@ const FeatureTile = memo(({
             featured && "drop-shadow-[0_0_8px_hsl(var(--energy))]"
           )}>
             {icon}
-            {/* Glow effect on hover */}
             <div className={cn(
               "absolute inset-0 blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-500",
               iconColor
@@ -267,7 +172,6 @@ const FeatureTile = memo(({
             </div>
           </div>
           
-          {/* Content */}
           <div className="space-y-3">
             {highlight && (
               <Badge variant="default" className="bg-energy/20 text-energy-bright border-energy/40 hover:bg-energy/30">
@@ -290,7 +194,6 @@ const FeatureTile = memo(({
         </div>
       </div>
       
-      {/* Subtle gradient border effect on hover */}
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-energy/10 via-transparent to-energy-bright/10 rounded-2xl" />
       </div>
