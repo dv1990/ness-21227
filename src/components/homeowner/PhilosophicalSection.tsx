@@ -24,9 +24,10 @@ export const PhilosophicalSection = memo(() => {
               headingVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
           >
-            Your child's exam. Your work deadline.
+            Your child's exam. Your midnight deadline.{' '}
+            The movie your family waited all week for.
             <br />
-            <span className="text-muted-foreground/70">None of it stops.</span>
+            <span className="text-muted-foreground/70">None of it should depend on the grid.</span>
           </h2>
           
           <p 
@@ -36,9 +37,9 @@ export const PhilosophicalSection = memo(() => {
               textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}
           >
-            Life's most important moments happen at home.
+            The grid was designed for a different era.
             <br />
-            <span className="text-foreground/90">Your energy system should be invisible, reliable, and effortlessly elegant.</span>
+            <span className="text-foreground/90">Your home deserves energy that thinks ahead, responds instantly, and never asks for attention.</span>
           </p>
         </div>
 
@@ -58,19 +59,19 @@ export const PhilosophicalSection = memo(() => {
           />
           <StatItem 
             value="10ms" 
-            label="Switch Response"
+            label="Switchover Time"
             delay={100}
             visible={statsVisible}
           />
           <StatItem 
             value="500+" 
-            label="Homes Protected"
+            label="Indian Homes Powered"
             delay={200}
             visible={statsVisible}
           />
           <StatItem 
-            value="15 years" 
-            label="Warranty"
+            value="15 yr"
+            label="Warranty Coverage"
             delay={300}
             visible={statsVisible}
           />

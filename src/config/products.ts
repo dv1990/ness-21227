@@ -5,47 +5,44 @@ import nessCubeImage from '@/assets/ness-cube-product.png';
 import { Wind, Coffee, Tv, Wifi, Fan, Lightbulb } from 'lucide-react';
 
 /**
- * Product catalog configuration
+ * Product catalog — 2-product architecture
  */
 export const PRODUCTS: Product[] = [
   {
-    id: 'ups',
-    name: 'NESS UPS',
-    tier: 'Grid Backup',
-    image: nessPodImage,
-    capacity: '5 kWh',
-    backupTime: '12 hours',
-    price: '₹89,999',
-    idealFor: 'Backup from grid outage',
-    features: ['Instant power during blackouts', 'No solar required', 'Simple plug-and-play']
-  },
-  {
-    id: 'oneaio',
-    name: 'NESS AIO',
-    tier: 'All-In-One Solar Solution',
+    id: 'aio-series',
+    name: 'NESS AIO Series',
+    tier: 'Integrated Energy System',
     image: nessCubeImage,
-    capacity: '5-20 kWh',
-    backupTime: '24-48 hours',
-    price: '₹1,39,999',
-    idealFor: 'Complete solar + storage solution in one elegant unit',
+    capacity: '5–20 kWh',
+    backupTime: '24–48 hours',
+    price: 'From ₹1,39,999',
+    idealFor: 'Homes ready for complete energy independence',
     features: [
-      'Built-in solar inverter (no separate equipment needed)',
-      'Battery storage + grid backup in single system', 
-      'Reduces electricity bills by up to 80%',
-      'Plug-and-play installation, future-ready design'
+      'Solar inverter + battery in one seamless unit',
+      'Intelligent energy manager learns your rhythm',
+      'Expandable from 5 kWh to 20 kWh as you grow',
+      'Plug-and-play: installed in hours, not days',
+      '10ms switchover — your Wi-Fi never drops'
     ],
-    description: 'An All-In-One (AIO) system combines three essential components in a single unit: solar inverter, battery storage, and grid backup. This eliminates the complexity of multiple devices, reduces installation costs, and ensures all components work seamlessly together.'
+    description: 'One elegant system. Solar inverter, battery, and intelligent energy management — working in harmony. No extra boxes, no wiring mess. Just silent, reliable power that grows with your family.'
   },
   {
-    id: 'brick',
-    name: 'NESS AC Brick',
-    tier: 'Retrofit Solution',
+    id: 'standalone-battery',
+    name: 'NESS Standalone Battery',
+    tier: 'Modular Battery Module',
     image: nessProImage,
-    capacity: '5-80 kWh',
+    capacity: '5–80 kWh',
     backupTime: 'Customizable',
-    price: '₹1,89,999',
-    idealFor: 'For existing on-grid installations',
-    features: ['Works with your current system', 'AC-coupled design', 'Easy to expand']
+    price: 'From ₹89,999',
+    idealFor: 'Homes with existing inverters needing modular storage',
+    features: [
+      'Pure LFP battery module — no inverter included',
+      'Pairs with Victron, Solis, Studer, Deye & more',
+      'Modular & stackable up to 80 kWh',
+      '6000-cycle longevity — 15+ year lifespan',
+      'AC-coupled retrofit: no rewiring required'
+    ],
+    description: "Your inverter's missing piece. Pure modular storage that pairs with any system. Start with one module, stack as your needs grow."
   }
 ];
 

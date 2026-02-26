@@ -1,89 +1,165 @@
 import { memo, useState } from 'react';
-import { Battery, Zap, Shield, Sun, Gauge, Award } from 'lucide-react';
+import { Battery, Zap, Shield, Sun, Gauge, Award, Cpu, TrendingUp, Plug } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useStaggeredIntersection } from '@/hooks/use-intersection-observer';
 import { Badge } from '@/components/ui/badge';
 import heroImage from '@/assets/hero-home-solar.webp';
+import nessProProduct from '@/assets-webp/ness-pro-product.webp';
 
 const NessFeatureGrid = () => {
-  const { ref, isItemVisible } = useStaggeredIntersection(11, 80);
+  // Zone A (AIO): 1 hero + 5 tiles = 6
+  // Zone B (Standalone): 1 hero + 4 tiles = 5
+  // Zone C (Shared): 3 tiles
+  // Total: 14
+  const { ref, isItemVisible } = useStaggeredIntersection(14, 80);
 
   return (
-    <section className="py-32 bg-gradient-to-b from-background via-energy-light/30 to-background">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section className="py-32 bg-gradient-to-b from-background to-background">
+      <div ref={ref as React.RefObject<HTMLDivElement>} className="container mx-auto px-6 lg:px-12">
+
         {/* Section Header */}
-        <div className="text-center mb-16 space-y-4">
+        <div className="text-center mb-20 space-y-4">
           <h2 className="text-4xl lg:text-5xl font-light tracking-tight text-foreground">
-            Built for <span className="text-energy-bright font-semibold">Performance</span>
+            Engineered for <span className="text-energy-bright font-semibold">Independence</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Every detail engineered for reliability, efficiency, and peace of mind
+            Two systems. Each designed to make energy invisible.
           </p>
         </div>
 
-        {/* Uniform Aligned Grid */}
-        <div ref={ref as React.RefObject<HTMLDivElement>} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
-          
-          {/* Hero Tile - Spans 2 cols + 2 rows on lg */}
-          <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">
-            <HeroTile isVisible={isItemVisible(0)} />
-          </div>
-              
-          <div>
-            <FeatureTile icon={<Zap className="w-8 h-8" />} title="Max. 10 kW AC Output" subtitle="Hybrid" description="Seamless power delivery" isVisible={isItemVisible(1)} iconColor="text-energy-bright" />
-          </div>
+        {/* ─── ZONE A: AIO Series — warm amber tones ─── */}
+        <div className="rounded-[2rem] bg-gradient-to-b from-amber-50/30 via-amber-50/10 to-transparent dark:from-amber-950/20 dark:via-amber-950/5 dark:to-transparent p-6 lg:p-10 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
+            {/* AIO Hero Tile */}
+            <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">
+              <HeroTile
+                isVisible={isItemVisible(0)}
+                image={heroImage}
+                badge="NESS AIO Series"
+                headline="All-in-one."
+                headlineAccent="Zero compromise."
+                subtext="Solar inverter, battery, and intelligence — in one elegant unit that learns your rhythm"
+                accentColor="amber"
+              />
+            </div>
 
-          <div>
-            <FeatureTile icon={<Gauge className="w-8 h-8" />} title="Cut Bills by 40%" subtitle="Smart Solar Usage" description="Lower monthly costs" isVisible={isItemVisible(2)} iconColor="text-energy" />
+            <div>
+              <FeatureTile icon={<Zap className="w-8 h-8" />} title="10 kW AC Output" subtitle="Whole-Home Power" description="Run everything — AC, fridge, entertainment — simultaneously" isVisible={isItemVisible(1)} iconColor="text-amber-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Sun className="w-8 h-8" />} title="Built-in Solar Inverter" subtitle="15 kWp · 3 MPPT" description="Maximum harvest. No extra boxes." isVisible={isItemVisible(2)} iconColor="text-amber-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Cpu className="w-8 h-8" />} title="Intelligent Energy Manager" subtitle="Learns Your Rhythm" description="Optimizes storage, usage, and export — automatically" isVisible={isItemVisible(3)} iconColor="text-amber-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<TrendingUp className="w-8 h-8" />} title="Expandable to 20 kWh" subtitle="Future-Ready" description="Start with what you need. Grow when your family does." isVisible={isItemVisible(4)} iconColor="text-amber-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Zap className="w-8 h-8" />} title="Same-Day Installation" subtitle="Plug-and-Play" description="Not days. Not weeks. Hours." isVisible={isItemVisible(5)} iconColor="text-amber-500" />
+            </div>
           </div>
-
-          <div>
-            <FeatureTile icon={<Zap className="w-8 h-8" />} title="Plug-and-Play" subtitle="Installation" description="Ready in hours, not days" isVisible={isItemVisible(3)} iconColor="text-energy-bright" />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Battery className="w-8 h-8" />} title="All-in-One Design" subtitle="Integrated System" description="BMS, modules, electronics" isVisible={isItemVisible(4)} iconColor="text-energy" />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Shield className="w-8 h-8" />} title="IEC 62619 Certified" subtitle="Global Standards" description="Premium certification" isVisible={isItemVisible(5)} iconColor="text-energy-bright" featured />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Award className="w-8 h-8" />} title="10-Year Warranty" subtitle="Peace of Mind" description="Complete protection" isVisible={isItemVisible(6)} iconColor="text-energy" featured />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Shield className="w-8 h-8" />} title="IP55" subtitle="Weather Resistant" description="Built for outdoors" highlight="Protected" isVisible={isItemVisible(7)} iconColor="text-energy-bright" />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Gauge className="w-8 h-8" />} title="Smart Meter" subtitle="Compatible" description="Real-time monitoring" isVisible={isItemVisible(8)} iconColor="text-energy" />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Battery className="w-8 h-8" />} title="6000-cycle LFP" subtitle="Battery Life" description="Long-lasting power" highlight="Premium" isVisible={isItemVisible(9)} iconColor="text-energy-bright" />
-          </div>
-
-          <div>
-            <FeatureTile icon={<Sun className="w-8 h-8" />} title="15 kWp Solar Input" subtitle="3 MPPT" description="Maximum efficiency" isVisible={isItemVisible(10)} iconColor="text-energy" />
-          </div>
-
         </div>
+
+        {/* ─── Transition line ─── */}
+        <div className="text-center py-12 lg:py-16">
+          <p className="text-xl md:text-2xl text-muted-foreground/60 font-light italic">
+            Already have an inverter? There's a NESS for that too.
+          </p>
+        </div>
+
+        {/* ─── ZONE B: Standalone Battery — cool blue tones ─── */}
+        <div className="rounded-[2rem] bg-gradient-to-b from-blue-50/30 via-blue-50/10 to-transparent dark:from-blue-950/20 dark:via-blue-950/5 dark:to-transparent p-6 lg:p-10 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 max-w-7xl mx-auto">
+            {/* Standalone Hero Tile */}
+            <div className="md:col-span-2 lg:col-span-2 lg:row-span-2">
+              <HeroTile
+                isVisible={isItemVisible(6)}
+                image={nessProProduct}
+                badge="NESS Standalone Battery"
+                headline="Your inverter's"
+                headlineAccent="missing piece."
+                subtext="Pure LFP modules that pair with any inverter. Stack one. Stack twenty."
+                accentColor="blue"
+              />
+            </div>
+
+            <div>
+              <FeatureTile icon={<Battery className="w-8 h-8" />} title="5 to 80 kWh" subtitle="Scale Without Limits" description="One module or twenty — your call" isVisible={isItemVisible(7)} iconColor="text-blue-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Plug className="w-8 h-8" />} title="Universal Compatibility" subtitle="Victron · Solis · Studer · Deye" description="Pairs with every major inverter ecosystem" isVisible={isItemVisible(8)} iconColor="text-blue-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Battery className="w-8 h-8" />} title="6000-Cycle LFP" subtitle="15+ Year Lifespan" description="Premium chemistry. Premium longevity." highlight="Premium" isVisible={isItemVisible(9)} iconColor="text-blue-500" />
+            </div>
+            <div>
+              <FeatureTile icon={<Shield className="w-8 h-8" />} title="AC-Coupled Retrofit" subtitle="No Rewiring Required" description="Add to your existing system in under 3 hours" isVisible={isItemVisible(10)} iconColor="text-blue-500" />
+            </div>
+          </div>
+        </div>
+
+        {/* ─── ZONE C: Shared Confidence ─── */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-7xl mx-auto mt-12">
+          <div>
+            <FeatureTile icon={<Shield className="w-8 h-8" />} title="IP55 Weather Resistant" subtitle="Built for Indian Conditions" description="Engineered to perform outdoors, year-round" highlight="Protected" isVisible={isItemVisible(11)} iconColor="text-energy-bright" featured />
+          </div>
+          <div>
+            <FeatureTile icon={<Award className="w-8 h-8" />} title="IEC 62619 + BIS Certified" subtitle="Global Safety, Local Approval" description="Premium international certification" isVisible={isItemVisible(12)} iconColor="text-energy" featured />
+          </div>
+          <div>
+            <FeatureTile icon={<Shield className="w-8 h-8" />} title="10-Year Warranty" subtitle="Complete Peace of Mind" description="Protection that lasts as long as your system" isVisible={isItemVisible(13)} iconColor="text-energy-bright" featured />
+          </div>
+        </div>
+
       </div>
     </section>
   );
 };
 
-// Hero Tile Component
-const HeroTile = memo(({ isVisible }: { isVisible: boolean }) => {
+// Hero Tile Component — supports warm/cool accent variants
+interface HeroTileProps {
+  isVisible: boolean;
+  image: string;
+  badge: string;
+  headline: string;
+  headlineAccent: string;
+  subtext: string;
+  accentColor?: 'amber' | 'blue' | 'energy';
+}
+
+const HeroTile = memo(({ isVisible, image, badge, headline, headlineAccent, subtext, accentColor = 'energy' }: HeroTileProps) => {
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  const accentClasses = {
+    amber: {
+      border: 'border-amber-500/20 hover:border-amber-500/40',
+      shadow: 'hover:shadow-amber-500/20',
+      badgeBg: 'bg-amber-500/30 border-amber-500/50 shadow-amber-500/30',
+      accentText: 'text-amber-400 font-semibold',
+    },
+    blue: {
+      border: 'border-blue-500/20 hover:border-blue-500/40',
+      shadow: 'hover:shadow-blue-500/20',
+      badgeBg: 'bg-blue-500/30 border-blue-500/50 shadow-blue-500/30',
+      accentText: 'text-blue-400 font-semibold',
+    },
+    energy: {
+      border: 'border-energy/20 hover:border-energy/40',
+      shadow: 'hover:shadow-energy/20',
+      badgeBg: 'bg-energy/30 border-energy/50 shadow-energy/30',
+      accentText: 'text-energy-bright font-semibold',
+    },
+  };
+
+  const accent = accentClasses[accentColor];
+
   return (
-    <div 
+    <div
       className={cn(
-        "rounded-3xl overflow-hidden border border-energy/20 relative group hover:border-energy/40 transition-all duration-700 h-full",
-        "hover:shadow-2xl hover:shadow-energy/20 hover:scale-[1.02]",
+        "rounded-3xl overflow-hidden border relative group transition-all duration-700 h-full",
+        accent.border,
+        `hover:shadow-2xl ${accent.shadow} hover:scale-[1.02]`,
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       )}
       style={{ transitionDelay: '0ms' }}
@@ -92,10 +168,10 @@ const HeroTile = memo(({ isVisible }: { isVisible: boolean }) => {
         {!imageLoaded && (
           <div className="absolute inset-0 bg-gradient-to-br from-muted via-muted/50 to-muted/20 animate-pulse" />
         )}
-        
-        <img 
-          src={heroImage} 
-          alt="Modern home with solar panels and NESS battery system" 
+
+        <img
+          src={image}
+          alt={badge}
           className={cn(
             "absolute inset-0 w-full h-full object-cover transition-opacity duration-700",
             imageLoaded ? "opacity-100" : "opacity-0"
@@ -103,20 +179,20 @@ const HeroTile = memo(({ isVisible }: { isVisible: boolean }) => {
           onLoad={() => setImageLoaded(true)}
           fetchPriority="high"
         />
-        
+
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/90 via-charcoal/50 to-transparent" />
-        
+
         <div className="relative h-full flex flex-col justify-end p-8 lg:p-12">
           <div className="space-y-4">
-            <div className="inline-block px-4 py-2 bg-energy/30 rounded-full border border-energy/50 shadow-xl shadow-energy/30 backdrop-blur-sm">
-              <span className="text-sm font-semibold text-pearl">NESS Hybrid System</span>
+            <div className={cn("inline-block px-4 py-2 rounded-full border shadow-xl backdrop-blur-sm", accent.badgeBg)}>
+              <span className="text-sm font-semibold text-pearl">{badge}</span>
             </div>
             <h3 className="text-3xl sm:text-4xl lg:text-5xl font-light tracking-tight text-pearl leading-tight" style={{ textShadow: '0 4px 12px rgba(0, 0, 0, 0.8), 0 2px 4px rgba(0, 0, 0, 0.6)' }}>
-              Your home.<br/>
-              <span className="text-energy-bright font-semibold">Powered differently.</span>
+              {headline}<br/>
+              <span className={accent.accentText}>{headlineAccent}</span>
             </h3>
             <p className="text-lg text-pearl font-light max-w-md" style={{ textShadow: '0 2px 8px rgba(0, 0, 0, 0.7), 0 1px 3px rgba(0, 0, 0, 0.5)' }}>
-              Premium solar battery system designed for modern architectural homes
+              {subtext}
             </p>
           </div>
         </div>
@@ -138,19 +214,19 @@ interface FeatureTileProps {
   featured?: boolean;
 }
 
-const FeatureTile = memo(({ 
-  icon, title, subtitle, description, highlight, isVisible, 
-  iconColor = "text-energy", featured = false 
+const FeatureTile = memo(({
+  icon, title, subtitle, description, highlight, isVisible,
+  iconColor = "text-energy", featured = false
 }: FeatureTileProps) => {
   return (
-    <div 
+    <div
       className={cn(
         "rounded-2xl bg-gradient-to-br from-card via-card to-energy-light/5 border overflow-hidden interactive h-full",
         "hover:shadow-xl hover:shadow-energy/20 transition-all duration-700",
         "hover:scale-105 hover:-translate-y-2 group cursor-default",
         "backdrop-blur-sm relative",
-        featured 
-          ? "border-energy/40 ring-2 ring-energy/20" 
+        featured
+          ? "border-energy/40 ring-2 ring-energy/20"
           : "border-border/50 hover:border-energy/30",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
       )}
@@ -171,7 +247,7 @@ const FeatureTile = memo(({
               {icon}
             </div>
           </div>
-          
+
           <div className="space-y-3">
             {highlight && (
               <Badge variant="default" className="bg-energy/20 text-energy-bright border-energy/40 hover:bg-energy/30">
@@ -193,7 +269,7 @@ const FeatureTile = memo(({
           </div>
         </div>
       </div>
-      
+
       <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-energy/10 via-transparent to-energy-bright/10 rounded-2xl" />
       </div>
