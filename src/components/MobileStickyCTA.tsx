@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { Phone, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -7,26 +7,48 @@ interface MobileStickyCTAProps {
   label?: string;
 }
 
-export const MobileStickyCTA = ({ 
+export const MobileStickyCTA = ({
   phoneNumber = '+918012345678',
   label = 'Call Us Now'
 }: MobileStickyCTAProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const rafRef = useRef<number>(0);
+  const lastScrollY = useRef(0);
+
+  const handleScroll = useCallback(() => {
+    // Skip if dismissed or already have a pending rAF
+    if (isDismissed) return;
+
+    // Throttle via requestAnimationFrame — fires at most once per frame
+    if (rafRef.current) return;
+    rafRef.current = requestAnimationFrame(() => {
+      const scrollY = window.scrollY;
+      // Only update state if the visibility threshold actually changed
+      const shouldShow = scrollY > 300;
+      const wasShowing = lastScrollY.current > 300;
+
+      if (shouldShow !== wasShowing) {
+        setIsVisible(shouldShow);
+      }
+      lastScrollY.current = scrollY;
+      rafRef.current = 0;
+    });
+  }, [isDismissed]);
 
   useEffect(() => {
-    // Show CTA after scrolling 300px
-    const handleScroll = () => {
-      if (!isDismissed && window.scrollY > 300) {
-        setIsVisible(true);
-      } else if (window.scrollY <= 300) {
-        setIsVisible(false);
+    // Only attach scroll listener on mobile viewports
+    const mql = window.matchMedia('(max-width: 767px)');
+    if (!mql.matches) return;
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
       }
     };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [isDismissed]);
+  }, [handleScroll]);
 
   if (isDismissed) return null;
 
