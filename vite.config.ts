@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => ({
     // If CORS is needed for specific use cases, configure with specific origins only
   },
   esbuild: {
-    target: 'esnext',
+    target: 'es2020',
   },
   plugins: [
     react(),
@@ -139,7 +139,7 @@ export default defineConfig(({ mode }) => ({
     dedupe: ['react', 'react-dom', 'react/jsx-runtime', 'react-router-dom', 'scheduler']
   },
   build: {
-    target: 'esnext',
+    target: 'es2020',
     minify: 'esbuild',
     cssCodeSplit: true,
     cssMinify: 'esbuild',
@@ -174,64 +174,37 @@ export default defineConfig(({ mode }) => ({
             if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/scheduler/')) {
               return 'react-vendor';
             }
-            
-            // Router - separate chunk but depends on react-vendor
+
+            // Router - separate chunk
             if (id.includes('react-router')) {
               return 'router';
             }
-            
-            // Heavy dependencies - separate chunks
+
+            // Heavy dependencies - separate chunks for lazy loading
             if (id.includes('framer-motion')) return 'framer';
             if (id.includes('three') || id.includes('@react-three')) return 'three';
             if (id.includes('recharts')) return 'charts';
-            if (id.includes('@tanstack/react-query')) return 'query';
-            
-            // UI library groups
-            if (id.includes('@radix-ui')) {
-              if (id.includes('dialog') || id.includes('sheet') || id.includes('alert-dialog')) {
-                return 'ui-overlay';
-              }
-              if (id.includes('select') || id.includes('checkbox') || id.includes('radio') || id.includes('slider') || id.includes('switch')) {
-                return 'ui-form';
-              }
-              if (id.includes('dropdown') || id.includes('context-menu') || id.includes('menubar') || id.includes('navigation-menu')) {
-                return 'ui-menu';
-              }
-              return 'ui-base';
-            }
-            
-            // Icons - frequently used
+
+            // Icons - large bundle, separate chunk
             if (id.includes('lucide-react')) return 'icons';
-            
+
             // Form validation
             if (id.includes('react-hook-form') || id.includes('zod') || id.includes('@hookform')) {
               return 'forms';
             }
-            
-            // Small utilities in main vendor
-            if (id.includes('clsx') || id.includes('tailwind-merge') || id.includes('class-variance-authority')) {
-              return 'vendor';
-            }
-            
-            // Everything else
-            return 'vendor';
           }
-          
+
           // Split page routes into separate chunks for optimal lazy loading
           if (id.includes('src/pages/')) {
-            // Group related pages together
             if (id.includes('contact/')) return 'pages-contact';
             if (id.includes('company/')) return 'pages-company';
             if (id.includes('products/')) return 'pages-products';
-            // Each major page gets its own chunk for granular loading
             if (id.includes('CommercialEnhanced')) return 'page-commercial';
             if (id.includes('InstallersEnhanced')) return 'page-installers';
             if (id.includes('ContactHomeowner')) return 'page-homeowner';
             if (id.includes('Index.tsx')) return 'page-home';
           }
         },
-        // Optimize chunk loading
-        experimentalMinChunkSize: 20000,
         chunkFileNames: 'assets/[name]-[hash].js',
         entryFileNames: 'assets/[name]-[hash].js',
       }
