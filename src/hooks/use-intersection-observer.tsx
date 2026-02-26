@@ -16,8 +16,9 @@ interface UseIntersectionObserverOptions {
 /**
  * Primary hook for intersection detection
  * Replaces: use-in-view, use-scroll-reveal, use-scroll-animation
+ * Generic type parameter allows type-safe ref assignment to specific element types
  */
-export const useIntersectionObserver = (
+export const useIntersectionObserver = <T extends HTMLElement = HTMLElement>(
   options: UseIntersectionObserverOptions = {}
 ) => {
   const {
@@ -31,7 +32,7 @@ export const useIntersectionObserver = (
   // Support both 'triggerOnce' and 'once' for backwards compatibility
   const triggerOnce = triggerOnceOption ?? once ?? true;
 
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<T>(null);
   const [isIntersecting, setIsIntersecting] = useState(false);
   const observerRef = useRef<IntersectionObserver | null>(null);
 

@@ -22,7 +22,7 @@ const NessFeatureGrid = () => {
         </div>
 
         {/* Asymmetric Grid Container with Overlapping Cards */}
-        <div ref={ref as any} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-5 max-w-7xl mx-auto">
+        <div ref={ref as React.RefObject<HTMLDivElement>} className="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-4 lg:gap-5 max-w-7xl mx-auto">
           
           {/* Hero Tile - Spans larger area with offset */}
           <div className="lg:col-span-5 lg:row-span-2">

@@ -80,6 +80,7 @@ const NavigationEnhanced = () => {
   const location = useLocation();
 
   const products = useAccessibleDropdown();
+  const whyNess = useAccessibleDropdown();
   const support = useAccessibleDropdown();
 
   // Scroll detection for nav bar styling
@@ -110,6 +111,15 @@ const NavigationEnhanced = () => {
     [],
   );
 
+  const whyNessItems = useMemo(
+    () => [
+      { label: "Our Technology", href: "/homeowners", description: "How NESS systems work" },
+      { label: "10-Year Warranty", href: "/warranty", description: "Industry-leading coverage" },
+      { label: "About NESS", href: "/company/about", description: "Our mission and team" },
+    ],
+    [],
+  );
+
   const supportItems = useMemo(
     () => [
       { label: "Knowledge Hub", href: "/knowledge", description: "Learn about energy storage" },
@@ -125,7 +135,8 @@ const NavigationEnhanced = () => {
     () => [
       { label: "Homeowners", href: "/homeowners", description: "Premium home battery backup" },
       { label: "Commercial", href: "/ci", description: "Commercial & industrial solutions" },
-      { label: "Why NESS", href: "/warranty", description: "Warranty, about, and technology" },
+      { label: "10-Year Warranty", href: "/warranty", description: "Industry-leading coverage" },
+      { label: "About NESS", href: "/company/about", description: "Our mission and team" },
       { label: "Knowledge Hub", href: "/knowledge", description: "Learn about energy storage" },
       { label: "For Installers", href: "/installers", description: "Partner with NESS" },
       { label: "Support", href: "/support/troubleshooting", description: "Get help with your system" },
@@ -236,24 +247,29 @@ const NavigationEnhanced = () => {
               {renderDropdown(products, productItems)}
             </div>
 
-            {/* Why NESS — single link */}
-            <Link
-              to="/warranty"
-              onMouseEnter={() => prefetchRoute("/warranty")}
-              className={`
-                px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ease-out
-                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
-                ${
-                  isActiveSection(["/warranty", "/company"])
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
-                }
-              `}
-              role="menuitem"
-              aria-current={isActiveSection(["/warranty", "/company"]) ? "page" : undefined}
-            >
-              Why NESS
-            </Link>
+            {/* Why NESS dropdown */}
+            <div className="relative">
+              <button
+                {...whyNess.triggerProps}
+                className={`
+                  px-5 py-2 rounded-full text-sm font-medium flex items-center gap-1.5 transition-all duration-300 ease-out
+                  focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring
+                  ${
+                    isActiveSection(["/warranty", "/company"])
+                      ? "text-primary bg-primary/10"
+                      : "text-muted-foreground hover:text-foreground hover:bg-muted/60"
+                  }
+                `}
+                aria-label="Why NESS menu"
+              >
+                <span>Why NESS</span>
+                <ChevronDown
+                  className={`w-3.5 h-3.5 transition-transform duration-300 ${whyNess.isOpen ? "rotate-180" : ""}`}
+                  aria-hidden="true"
+                />
+              </button>
+              {renderDropdown(whyNess, whyNessItems)}
+            </div>
 
             {/* Support dropdown */}
             <div className="relative">

@@ -21,7 +21,7 @@ export const AnimatedCard = ({
   onClick,
   ...props 
 }: AnimatedCardProps) => {
-  const { ref, isIntersecting } = useIntersectionObserver({ 
+  const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     triggerOnce: true,
     threshold: 0.1
   });
@@ -53,7 +53,7 @@ export const AnimatedCard = ({
 
   return (
     <Card
-      ref={ref as any}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className={cn(
         'glass-card interactive transition-all duration-700 ease-out',
         animationClasses[animation],

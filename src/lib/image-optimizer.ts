@@ -88,12 +88,13 @@ export const createLazyLoadObserver = (callback: (entries: IntersectionObserverE
 export const getOptimalQuality = (): number => {
   if (typeof window === 'undefined') return 80;
 
-  const connection = (navigator as any).connection;
-  if (connection) {
-    if (connection.effectiveType === 'slow-2g' || connection.effectiveType === '2g') {
+  // Network Information API (not in all browsers, hence the type narrowing)
+  const nav = navigator as Navigator & { connection?: { effectiveType?: string } };
+  if (nav.connection) {
+    if (nav.connection.effectiveType === 'slow-2g' || nav.connection.effectiveType === '2g') {
       return 60;
     }
-    if (connection.effectiveType === '3g') {
+    if (nav.connection.effectiveType === '3g') {
       return 70;
     }
   }

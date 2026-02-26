@@ -47,7 +47,8 @@ interface Installer {
   distance: string;
 }
 
-// Mock installer data based on pincode
+// MOCK DATA — Replace with real API integration before production launch.
+// All installer details, review URLs, and ratings below are placeholder values.
 const mockInstallers: Record<string, Installer[]> = {
   "110001": [
     {

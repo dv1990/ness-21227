@@ -41,9 +41,9 @@ export const CustomCursor = () => {
       setIsVisible(true);
     };
 
-    const handleMouseEnter = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
-      const isInteractive = target.closest('a, button, [role="button"], input, textarea, select, .interactive');
+    const handleMouseEnter: EventListener = (e: Event) => {
+      const target = (e as MouseEvent).target as HTMLElement | null;
+      const isInteractive = target?.closest('a, button, [role="button"], input, textarea, select, .interactive');
       setIsHovering(!!isInteractive);
     };
 
@@ -64,22 +64,22 @@ export const CustomCursor = () => {
 
     // Add event listeners
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseenter', handleMouseEnter as any, { passive: true });
+    window.addEventListener('mouseenter', handleMouseEnter, { passive: true });
     window.addEventListener('mouseleave', handleMouseLeave, { passive: true });
     window.addEventListener('mousedown', handleMouseDown, { passive: true });
     window.addEventListener('mouseup', handleMouseUp, { passive: true });
-    
+
     // Track hover on interactive elements
-    document.addEventListener('mouseover', handleMouseEnter as any, { passive: true });
+    document.addEventListener('mouseover', handleMouseEnter, { passive: true });
 
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseenter', handleMouseEnter as any);
+      window.removeEventListener('mouseenter', handleMouseEnter);
       window.removeEventListener('mouseleave', handleMouseLeave);
       window.removeEventListener('mousedown', handleMouseDown);
       window.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseover', handleMouseEnter as any);
+      document.removeEventListener('mouseover', handleMouseEnter);
     };
   }, [isTouchDevice]);
 

@@ -24,7 +24,7 @@ const About = () => {
         
         {/* Background Image Placeholder */}
         <div className="absolute inset-0 bg-gradient-to-br from-charcoal/5 to-transparent">
-          {/* TODO: Add hero image - "Warm family moment in a sunlit home, soft natural lighting, mother and child reading together near a window, peaceful morning atmosphere, NESS battery subtly visible in background, ultra-realistic photography, emotional warmth" */}
+          {/* Placeholder: hero image — warm family moment in sunlit home with NESS battery */}
         </div>
         
         {/* Subtle tech pattern overlay */}
@@ -103,7 +103,7 @@ const About = () => {
             <AnimatedCard hover="lift" className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
               {/* Image Placeholder */}
               <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* TODO: Add image - "Peaceful Indian home interior, morning sunlight through windows, mother doing morning prayers with small puja, child visible in background with tablet for online class, warm and serene atmosphere, NESS battery subtly integrated into home setting, lifestyle photography" */}
+                {/* Placeholder: peaceful Indian home interior with NESS battery integrated */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Heart className="w-16 h-16 text-charcoal/10" />
                 </div>
@@ -128,7 +128,7 @@ const About = () => {
             <AnimatedCard hover="lift" delay={100} className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
               {/* Image Placeholder */}
               <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* TODO: Add image - "Professional installer team working on rooftop solar installation, focused and confident, modern Indian commercial building, clean professional environment, teamwork and expertise visible, natural lighting, documentary-style photography" */}
+                {/* Placeholder: installer team on rooftop solar installation */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Users className="w-16 h-16 text-charcoal/10" />
                 </div>
@@ -153,7 +153,7 @@ const About = () => {
             <AnimatedCard hover="lift" delay={200} className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
               {/* Image Placeholder */}
               <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* TODO: Add image - "Lush green landscape with solar panels, sustainable energy concept, clean sky, pristine nature, bird's eye view of solar farm integrated harmoniously with greenery, hopeful and fresh aesthetic, environmental photography" */}
+                {/* Placeholder: green landscape with solar panels */}
                 <div className="absolute inset-0 flex items-center justify-center">
                   <Globe className="w-16 h-16 text-charcoal/10" />
                 </div>
@@ -182,7 +182,7 @@ const About = () => {
         
         {/* Background Image Placeholder */}
         <div className="absolute inset-0 opacity-10">
-          {/* TODO: Add background image - "Modern R&D laboratory in Bangalore, scientists working with advanced battery cells, clean-room environment, high-tech equipment, precision instruments, documentary photography, professional lighting, wide-angle view" */}
+          {/* Placeholder: R&D laboratory background — Bangalore facility */}
         </div>
         
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
@@ -358,7 +358,7 @@ const About = () => {
 
           {/* Image Placeholder for Real Installation */}
           <div className="mt-20 md:mt-28 aspect-[21/9] bg-gradient-to-br from-charcoal/5 to-charcoal/10 rounded-3xl overflow-hidden relative">
-            {/* TODO: Add image - "Wide panoramic shot of multiple Indian homes with NESS installations, diverse residential settings (urban apartments, suburban homes), solar panels visible on rooftops, golden hour lighting, lifestyle and documentary photography blend, showing real families and real installations" */}
+            {/* Placeholder: panoramic shot of Indian homes with NESS installations */}
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-center space-y-4 p-8">
                 <p className="text-2xl md:text-3xl lg:text-4xl text-charcoal/30 font-light italic leading-[1.6] max-w-3xl">
@@ -471,7 +471,7 @@ const About = () => {
         
         {/* Background Image Placeholder */}
         <div className="absolute inset-0 opacity-10">
-          {/* TODO: Add background image - "Community of diverse people - installers, families, engineers - working together on sustainable energy projects, collaborative atmosphere, warm golden lighting, people from different backgrounds united by clean energy mission, inspirational and inclusive mood, documentary photography" */}
+          {/* Placeholder: community background — installers, families, engineers united by clean energy */}
         </div>
         
         <div className="max-w-5xl mx-auto px-6 md:px-12 text-center relative z-10">

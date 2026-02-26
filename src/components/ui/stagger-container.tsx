@@ -15,7 +15,7 @@ export const StaggerContainer = ({
   className,
   animation = 'fade-up'
 }: StaggerContainerProps) => {
-  const { ref, isIntersecting } = useIntersectionObserver({
+  const { ref, isIntersecting } = useIntersectionObserver<HTMLDivElement>({
     threshold: 0.1,
     triggerOnce: true,
   });
@@ -35,7 +35,7 @@ export const StaggerContainer = ({
   const childArray = Children.toArray(children);
 
   return (
-    <div ref={ref as any} className={className}>
+    <div ref={ref} className={className}>
       {childArray.map((child, index) => {
         if (!child || typeof child !== 'object') {
           return child;

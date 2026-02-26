@@ -9,7 +9,7 @@ import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2, ArrowRight, Star, Shield, MapPin } from "lucide-react";
 import { testimonials } from "@/data/testimonials";
 
 // Lazy load heavy components to reduce initial bundle
@@ -79,10 +79,10 @@ const Index = () => {
               The home battery. Reimagined.
             </p>
 
-            {/* CTA — standardized rounded-full, clear action */}
+            {/* Dual CTAs — capture different intent stages */}
             <div
               className={cn(
-                "pt-4 sm:pt-6 transition-all duration-1000 ease-out delay-300",
+                "pt-4 sm:pt-6 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-300",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
@@ -97,6 +97,45 @@ const Index = () => {
                   </span>
                 </Button>
               </Link>
+              <Link to="/contact/homeowner" className="inline-block group">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="interactive font-sans border-pearl/40 hover:border-pearl text-pearl hover:bg-pearl/10 font-medium px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
+                >
+                  Talk to an Expert
+                </Button>
+              </Link>
+            </div>
+
+            {/* Product context — subtle identification */}
+            <p
+              className={cn(
+                "text-pearl/40 text-xs sm:text-sm font-light tracking-widest uppercase mt-8 transition-all duration-1000 ease-out delay-500",
+                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+              )}
+            >
+              The NESS Powerwall — Home Battery System
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* TRUST BAR — compact social proof between hero and content */}
+      <section className="py-6 sm:py-8 bg-charcoal border-t border-pearl/5" aria-label="Trust indicators">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 text-pearl/50 text-xs sm:text-sm font-light tracking-wide">
+            <div className="flex items-center gap-2">
+              <Star className="w-4 h-4 text-energy fill-energy" aria-hidden="true" />
+              <span>4.9/5 from 500+ homes</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Shield className="w-4 h-4 text-energy" aria-hidden="true" />
+              <span>IEC 62619 Certified</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-energy" aria-hidden="true" />
+              <span>Engineered for India</span>
             </div>
           </div>
         </div>
@@ -201,11 +240,17 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 4. SOCIAL PROOF — One Powerful Story */}
+      {/* 4. SOCIAL PROOF — Customer Stories */}
       <LazySection>
         <section className="py-24 sm:py-32 md:py-40 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
-          <div className="max-w-5xl mx-auto px-6 sm:px-8">
-            <div className="flex flex-col items-center text-center space-y-12 sm:space-y-16">
+          <div className="max-w-6xl mx-auto px-6 sm:px-8">
+            {/* Section header */}
+            <p className="text-energy text-xs sm:text-sm uppercase tracking-widest text-center mb-16 sm:mb-20">
+              From our customers
+            </p>
+
+            {/* Featured testimonial — hero-sized */}
+            <div className="flex flex-col items-center text-center space-y-10 sm:space-y-12 mb-20 sm:mb-24">
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
                 {testimonials[0].initials}
               </div>
@@ -214,10 +259,33 @@ const Index = () => {
                 {testimonials[0].quote}
               </blockquote>
 
-              <div className="pt-4">
+              <div className="pt-2">
                 <p className="text-xl sm:text-2xl text-pearl font-medium mb-2">{testimonials[0].name}</p>
                 <p className="text-base sm:text-lg text-pearl/60 font-light">{testimonials[0].location}</p>
               </div>
+            </div>
+
+            {/* Supporting testimonials — staggered grid */}
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+              {testimonials.slice(1).map((t) => (
+                <div
+                  key={t.name}
+                  className="bg-pearl/[0.03] border border-pearl/10 rounded-2xl p-8 sm:p-10 space-y-6 hover:bg-pearl/[0.06] transition-colors duration-300"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-energy/10 flex items-center justify-center text-base font-light text-pearl border border-energy/20">
+                      {t.initials}
+                    </div>
+                    <div>
+                      <p className="text-pearl font-medium">{t.name}</p>
+                      <p className="text-pearl/50 text-sm font-light">{t.location}</p>
+                    </div>
+                  </div>
+                  <blockquote className="text-lg sm:text-xl text-pearl/80 font-light leading-relaxed">
+                    "{t.quote}"
+                  </blockquote>
+                </div>
+              ))}
             </div>
           </div>
         </section>

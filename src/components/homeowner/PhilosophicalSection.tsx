@@ -4,9 +4,9 @@ import { cn } from '@/lib/utils';
 import { AmbientParticles } from '@/components/ui/ambient-particles';
 
 export const PhilosophicalSection = memo(() => {
-  const { ref: headingRef, isIntersecting: headingVisible } = useIntersectionObserver({ threshold: 0.3 });
-  const { ref: textRef, isIntersecting: textVisible } = useIntersectionObserver({ threshold: 0.3 });
-  const { ref: statsRef, isIntersecting: statsVisible } = useIntersectionObserver({ threshold: 0.2 });
+  const { ref: headingRef, isIntersecting: headingVisible } = useIntersectionObserver<HTMLHeadingElement>({ threshold: 0.3 });
+  const { ref: textRef, isIntersecting: textVisible } = useIntersectionObserver<HTMLParagraphElement>({ threshold: 0.3 });
+  const { ref: statsRef, isIntersecting: statsVisible } = useIntersectionObserver<HTMLDivElement>({ threshold: 0.2 });
 
   return (
     <section className="relative py-20 md:py-28 bg-gradient-to-b from-background via-muted/10 to-background overflow-hidden">
@@ -18,7 +18,7 @@ export const PhilosophicalSection = memo(() => {
         {/* Emotional Opening */}
         <div className="text-center mb-20 space-y-10">
           <h2 
-            ref={headingRef as any}
+            ref={headingRef}
             className={cn(
               "text-3xl md:text-5xl lg:text-6xl font-extralight leading-[1.2] tracking-tight transition-all duration-1000",
               headingVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -30,7 +30,7 @@ export const PhilosophicalSection = memo(() => {
           </h2>
           
           <p 
-            ref={textRef as any}
+            ref={textRef}
             className={cn(
               "text-lg md:text-2xl text-foreground/60 font-light leading-relaxed max-w-3xl mx-auto transition-all duration-1000 delay-200",
               textVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
@@ -44,7 +44,7 @@ export const PhilosophicalSection = memo(() => {
 
         {/* Stats - Clean, Spacious, Elegant */}
         <div 
-          ref={statsRef as any}
+          ref={statsRef}
           className={cn(
             "grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 transition-all duration-1000 delay-400",
             statsVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
