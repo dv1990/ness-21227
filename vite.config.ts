@@ -17,12 +17,12 @@ export default defineConfig(({ mode }) => ({
     target: 'esnext',
   },
   plugins: [
-    react(), 
+    react(),
     mode === "development" && componentTagger(),
     VitePWA({
       registerType: 'autoUpdate',
       injectRegister: 'auto',
-      selfDestroying: true,
+      selfDestroying: false,
       includeAssets: ['favicon.ico', 'robots.txt', 'placeholder.svg'],
       manifest: {
         name: 'NESS Energy Systems',
