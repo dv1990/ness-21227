@@ -32,7 +32,7 @@ const TrueWarranty = lazy(() => import("./pages/TrueWarranty"));
 const CookiePolicy = lazy(() => import("./pages/CookiePolicy"));
 
 // Legacy components - lazy loaded
-const Hiring = lazy(() => import("./pages/Hiring"));
+const Careers = lazy(() => import("./pages/Hiring"));
 const FindInstaller = lazy(() => import("./pages/FindInstaller"));
 const About = lazy(() => import("./pages/company/About"));
 const News = lazy(() => import("./pages/company/News"));
@@ -115,7 +115,8 @@ function App() {
           {/* Legacy redirects for existing routes */}
           <Route path="/residential" element={<ContactHomeowner />} />
           <Route path="/commercial" element={<CommercialEnhanced />} />
-          <Route path="/hiring" element={<Hiring />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/hiring" element={<Careers />} />
           <Route path="/knowledge-hub" element={<KnowledgeHub />} />
           <Route path="/contact/homeowner" element={<ContactHomeowner />} />
           <Route path="/contact/distributor" element={<ContactDistributor />} />

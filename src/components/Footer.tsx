@@ -132,7 +132,7 @@ const Footer = () => {
                 links={[
                   { to: "/about", label: "About" },
                   { to: "/news", label: "News" },
-                  { to: "/hiring", label: "Careers" },
+                  { to: "/careers", label: "Careers" },
                   { to: "/contact", label: "Contact" },
                 ]}
               />
