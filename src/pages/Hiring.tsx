@@ -145,22 +145,22 @@ const CULTURE_CARDS = [
   {
     icon: Rocket,
     title: "You'll ship in your first week.",
-    body: "Not a metaphor. We're small enough that your code, your circuit design, your supply chain decision goes live fast. If that scares you, we're not a fit. If it excites you, keep reading.",
+    body: "Not a metaphor. Your code, your circuit, your decision — live in production before your onboarding paperwork clears. Terrified? Wrong place. Thrilled? Keep reading.",
   },
   {
     icon: Microscope,
     title: "We argue about millivolts.",
-    body: "We have engineers who will debate cell chemistry for three hours. 12 quality checks on every unit. If you think that sounds exhausting, this isn't your place. If it sounds like heaven, you'll love it here.",
+    body: "Three-hour debates about cell chemistry. 12 quality checks on every unit. We've rejected entire production batches over a 2% deviation. Exhausting? Absolutely. That's the point.",
   },
   {
     icon: Shuffle,
-    title: "Nobody has a normal career path.",
-    body: "Our firmware lead built racing drones. Our supply chain manager was a chef. We hire for obsession and taste, not pedigree. Your resume is the least interesting thing about you.",
+    title: "Nobody here has a normal resume.",
+    body: "Our firmware lead built racing drones. Supply chain manager? Former chef. We hire for obsession, not pedigree. Show us what you've built at 2am when nobody asked you to.",
   },
   {
     icon: Heart,
-    title: "We build for the midnight deadline.",
-    body: "The child's exam. The movie night your family waited all week for. The ICU ventilator. Technology should disappear into the background of life. We make sure it does.",
+    title: "We build for the midnight moment.",
+    body: "The child's exam at 11pm. The ICU ventilator at 3am. The wedding reception that can't go dark. Our product disappears into the background of life — until the grid fails. Then it's everything.",
   },
 ];
 
@@ -168,17 +168,17 @@ const BENEFITS = [
   {
     icon: IndianRupee,
     title: "Top-of-market pay + equity.",
-    body: "We're early. You're early. Let's build wealth together.",
+    body: "We're early. You're early. Build wealth, not just a salary.",
   },
   {
     icon: ShieldCheck,
     title: "Health from day one.",
-    body: "Comprehensive coverage for you and your family. No waiting periods. No fine print.",
+    body: "Full family coverage. No waiting periods. No fine print. No exceptions.",
   },
   {
     icon: BookOpen,
     title: "Annual learning budget.",
-    body: "Courses, conferences, books. Your growth is not a cost center — it's an investment.",
+    body: "Conferences, courses, books — whatever makes you dangerous. Your growth isn't a cost center.",
   },
   {
     icon: Zap,
@@ -265,16 +265,14 @@ const Careers = () => {
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
-                50 engineers trying to make
+                We declared war
                 <br />
-                blackouts <span className="font-light italic">extinct</span> in India.
-                <br />
-                <span className="text-charcoal/40">We're not done yet.</span>
+                on <span className="font-light italic">blackouts.</span>
               </h1>
 
               <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.6] max-w-3xl mx-auto px-4">
-                NESS builds intelligent energy storage that protects families, powers businesses, and
-                runs in silence. Every unit we ship means one more home that never goes dark again.
+                50 engineers. One obsession. 300 million Indian homes
+                deserve power that never fails. We're building the machine that delivers it.
               </p>
             </div>
 
@@ -335,15 +333,22 @@ const Careers = () => {
         />
         <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
           <div className="space-y-12 md:space-y-16">
-            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-[1.5] text-pearl/90 italic text-center">
-              "Last monsoon, a hospital in Tamil Nadu lost power for 6 hours. The backup generator
-              failed. We think about that family every single day."
+            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-[1.5] text-pearl/90 text-center">
+              A hospital in Tamil Nadu.
+              <br className="hidden md:block" />
+              Six hours without power. The backup generator{" "}
+              <span className="italic">failed.</span>
+              <br className="hidden md:block" />
+              A ventilator went silent.
             </p>
 
-            <p className="text-lg md:text-xl text-pearl/60 font-light leading-[1.7] max-w-3xl mx-auto text-center">
-              India has 300 million homes. Most rely on a grid that wasn't built for this century and
-              diesel generators that poison the air. We're building what replaces both: silent,
-              intelligent battery systems that just work.
+            <p className="text-xl md:text-2xl text-pearl/60 font-medium leading-[1.7] max-w-3xl mx-auto text-center">
+              That's not a statistic. That's why we don't sleep well.
+            </p>
+
+            <p className="text-lg md:text-xl text-pearl/40 font-light leading-[1.7] max-w-3xl mx-auto text-center">
+              The grid wasn't built for this century. Diesel generators poison the air.
+              We're building what replaces both.
             </p>
 
             {/* Impact metrics */}
@@ -419,10 +424,10 @@ const Careers = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
-              A day at NESS
+              Inside the machine.
             </h2>
             <p className="text-lg text-charcoal/60 font-light">
-              Bangalore R&D center. Where deep tech meets relentless iteration.
+              Bangalore R&D. No stock photos. No staged smiles. This is what it actually looks like.
             </p>
           </div>
 
@@ -455,15 +460,14 @@ const Careers = () => {
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-20 space-y-8">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight leading-[1.1]">
-              The deal we make
+              What you get.
               <br />
-              with our people.
+              What we expect.
             </h2>
             <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.7] max-w-3xl mx-auto">
-              We'll never ask you to sacrifice your health, your family, or your growth for a
-              deadline. In return, we ask you to care about every unit that leaves this building like
-              your family's power depends on it.{" "}
-              <span className="text-charcoal/80 italic">Because someone's does.</span>
+              Top-of-market pay. Full health cover from day one. A learning budget that actually exists.
+              In return? Ship like someone's power depends on it.{" "}
+              <span className="text-charcoal font-medium italic">Because it does.</span>
             </p>
           </div>
 
@@ -493,10 +497,10 @@ const Careers = () => {
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 md:mb-20 space-y-4">
             <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
-              No surprises. No trick questions.
+              Four conversations. Zero games.
             </h2>
             <p className="text-lg text-charcoal/60 font-light">
-              We respect your time. Here's exactly what to expect.
+              No whiteboard riddles. No six-round marathons. Here's the entire process.
             </p>
           </div>
 
@@ -533,10 +537,10 @@ const Careers = () => {
         <div className="max-w-4xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight">
-              Ready to build what's next?
+              Pick your fight.
             </h2>
             <p className="text-lg text-charcoal/60 font-light">
-              Current openings at our Bangalore headquarters.
+              Open roles at Bangalore HQ. Every one of them matters.
             </p>
           </div>
 
@@ -658,9 +662,8 @@ const Careers = () => {
             <span className="text-energy italic">Good.</span>
           </h2>
           <p className="text-lg md:text-xl text-pearl/60 font-light leading-[1.7] max-w-2xl mx-auto">
-            We've never hired someone who didn't surprise us. If you don't see your role, tell us
-            what you'd build if you had a team and six months. That's a more interesting application
-            than any resume.
+            Don't see your role? Tell us what you'd build with a team and six months.
+            That's a more interesting application than any resume we've ever read.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a href="mailto:careers@nunam.com?subject=I%20have%20an%20idea">
