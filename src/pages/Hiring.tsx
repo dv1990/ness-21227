@@ -19,8 +19,8 @@ import {
   Briefcase,
   ChevronDown,
   ArrowRight,
-  ExternalLink,
-} from "lucide-react";
+  ExternalLink } from
+"lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { AnimatedCard } from "@/components/ui/animated-card";
 
@@ -43,187 +43,187 @@ interface JobRole {
 const DEPARTMENTS = ["All", "Engineering", "Product", "Operations", "Sales"] as const;
 
 const ROLES: JobRole[] = [
-  {
-    id: "embedded-firmware",
-    title: "Embedded Firmware Engineer",
-    department: "Engineering",
-    location: "Bangalore",
-    type: "Full-time",
-    description:
-      "Design and implement firmware for our BMS and energy management systems. You'll work at the intersection of power electronics and embedded software, writing code that protects real families.",
-    requirements: [
-      "3+ years with C/C++ on ARM Cortex-M microcontrollers",
-      "Experience with CAN, SPI, I2C, UART protocols",
-      "Battery management system or power electronics background",
-      "Comfortable reading schematics and working with hardware teams",
-      "Bonus: RTOS experience (FreeRTOS, Zephyr)",
-    ],
-  },
-  {
-    id: "power-electronics",
-    title: "Power Electronics Engineer",
-    department: "Engineering",
-    location: "Bangalore",
-    type: "Full-time",
-    description:
-      "Design inverter topologies and charging circuits for our AIO Series. From schematic to production — you own the full stack.",
-    requirements: [
-      "4+ years designing DC-DC converters, inverters, or chargers",
-      "Proficiency with SPICE simulation and PCB layout review",
-      "Experience with magnetics design and thermal management",
-      "Understanding of safety standards (IEC 62619, UL)",
-      "Bonus: GaN or SiC device experience",
-    ],
-  },
-  {
-    id: "full-stack",
-    title: "Full Stack Developer",
-    department: "Engineering",
-    location: "Bangalore",
-    type: "Full-time",
-    description:
-      "Build the monitoring dashboard and configurator tools that homeowners and installers use every day. React, TypeScript, real-time data. Code that people depend on.",
-    requirements: [
-      "3+ years with React/TypeScript and Node.js",
-      "Experience with real-time data (WebSockets, MQTT, or similar)",
-      "Database design (PostgreSQL, TimescaleDB, or InfluxDB)",
-      "Understanding of CI/CD and cloud deployment (AWS/GCP)",
-      "Bonus: IoT or energy domain experience",
-    ],
-  },
-  {
-    id: "product-manager",
-    title: "Product Manager — Home Energy",
-    department: "Product",
-    location: "Bangalore",
-    type: "Full-time",
-    description:
-      "Own the homeowner product experience end-to-end. From configurator UX to installer onboarding. Talk to customers weekly. Ship monthly.",
-    requirements: [
-      "3+ years in product management for hardware or IoT products",
-      "Strong user research and data analysis skills",
-      "Experience working cross-functionally with engineering and design",
-      "Comfort with technical concepts (APIs, firmware, hardware)",
-      "Bonus: Energy or clean-tech industry experience",
-    ],
-  },
-  {
-    id: "supply-chain",
-    title: "Supply Chain Manager",
-    department: "Operations",
-    location: "Bangalore",
-    type: "Full-time",
-    description:
-      "Source cells, manage vendors, optimize logistics across India. You'll build the supply chain for a product that didn't exist 3 years ago.",
-    requirements: [
-      "5+ years in supply chain or procurement (electronics/batteries preferred)",
-      "Vendor negotiation and relationship management",
-      "Experience with inventory planning and demand forecasting",
-      "Knowledge of import/export regulations for lithium-ion products",
-      "Bonus: ERP system implementation experience",
-    ],
-  },
-  {
-    id: "sales-south",
-    title: "Regional Sales Manager — South India",
-    department: "Sales",
-    location: "Bangalore / Chennai",
-    type: "Full-time",
-    description:
-      "Build relationships with EPCs, installers, and channel partners across Karnataka, Tamil Nadu, and Kerala. Consultative selling for a product that sells itself once people see it.",
-    requirements: [
-      "4+ years in B2B sales (solar, energy, or building materials preferred)",
-      "Established network of EPC contractors or electrical distributors in South India",
-      "Consultative selling approach — this isn't transactional",
-      "Willingness to travel 40-50% across the region",
-      "Bonus: Solar or energy storage sales experience",
-    ],
-  },
-];
+{
+  id: "embedded-firmware",
+  title: "Embedded Firmware Engineer",
+  department: "Engineering",
+  location: "Bangalore",
+  type: "Full-time",
+  description:
+  "Design and implement firmware for our BMS and energy management systems. You'll work at the intersection of power electronics and embedded software, writing code that protects real families.",
+  requirements: [
+  "3+ years with C/C++ on ARM Cortex-M microcontrollers",
+  "Experience with CAN, SPI, I2C, UART protocols",
+  "Battery management system or power electronics background",
+  "Comfortable reading schematics and working with hardware teams",
+  "Bonus: RTOS experience (FreeRTOS, Zephyr)"]
+
+},
+{
+  id: "power-electronics",
+  title: "Power Electronics Engineer",
+  department: "Engineering",
+  location: "Bangalore",
+  type: "Full-time",
+  description:
+  "Design inverter topologies and charging circuits for our AIO Series. From schematic to production — you own the full stack.",
+  requirements: [
+  "4+ years designing DC-DC converters, inverters, or chargers",
+  "Proficiency with SPICE simulation and PCB layout review",
+  "Experience with magnetics design and thermal management",
+  "Understanding of safety standards (IEC 62619, UL)",
+  "Bonus: GaN or SiC device experience"]
+
+},
+{
+  id: "full-stack",
+  title: "Full Stack Developer",
+  department: "Engineering",
+  location: "Bangalore",
+  type: "Full-time",
+  description:
+  "Build the monitoring dashboard and configurator tools that homeowners and installers use every day. React, TypeScript, real-time data. Code that people depend on.",
+  requirements: [
+  "3+ years with React/TypeScript and Node.js",
+  "Experience with real-time data (WebSockets, MQTT, or similar)",
+  "Database design (PostgreSQL, TimescaleDB, or InfluxDB)",
+  "Understanding of CI/CD and cloud deployment (AWS/GCP)",
+  "Bonus: IoT or energy domain experience"]
+
+},
+{
+  id: "product-manager",
+  title: "Product Manager — Home Energy",
+  department: "Product",
+  location: "Bangalore",
+  type: "Full-time",
+  description:
+  "Own the homeowner product experience end-to-end. From configurator UX to installer onboarding. Talk to customers weekly. Ship monthly.",
+  requirements: [
+  "3+ years in product management for hardware or IoT products",
+  "Strong user research and data analysis skills",
+  "Experience working cross-functionally with engineering and design",
+  "Comfort with technical concepts (APIs, firmware, hardware)",
+  "Bonus: Energy or clean-tech industry experience"]
+
+},
+{
+  id: "supply-chain",
+  title: "Supply Chain Manager",
+  department: "Operations",
+  location: "Bangalore",
+  type: "Full-time",
+  description:
+  "Source cells, manage vendors, optimize logistics across India. You'll build the supply chain for a product that didn't exist 3 years ago.",
+  requirements: [
+  "5+ years in supply chain or procurement (electronics/batteries preferred)",
+  "Vendor negotiation and relationship management",
+  "Experience with inventory planning and demand forecasting",
+  "Knowledge of import/export regulations for lithium-ion products",
+  "Bonus: ERP system implementation experience"]
+
+},
+{
+  id: "sales-south",
+  title: "Regional Sales Manager — South India",
+  department: "Sales",
+  location: "Bangalore / Chennai",
+  type: "Full-time",
+  description:
+  "Build relationships with EPCs, installers, and channel partners across Karnataka, Tamil Nadu, and Kerala. Consultative selling for a product that sells itself once people see it.",
+  requirements: [
+  "4+ years in B2B sales (solar, energy, or building materials preferred)",
+  "Established network of EPC contractors or electrical distributors in South India",
+  "Consultative selling approach — this isn't transactional",
+  "Willingness to travel 40-50% across the region",
+  "Bonus: Solar or energy storage sales experience"]
+
+}];
+
 
 const CULTURE_CARDS = [
-  {
-    icon: Rocket,
-    title: "You'll ship in your first week.",
-    body: "Not a metaphor. We're small enough that your code, your circuit design, your supply chain decision goes live fast. If that scares you, we're not a fit. If it excites you, keep reading.",
-  },
-  {
-    icon: Microscope,
-    title: "We argue about millivolts.",
-    body: "We have engineers who will debate cell chemistry for three hours. 12 quality checks on every unit. If you think that sounds exhausting, this isn't your place. If it sounds like heaven, you'll love it here.",
-  },
-  {
-    icon: Shuffle,
-    title: "Nobody has a normal career path.",
-    body: "Our firmware lead built racing drones. Our supply chain manager was a chef. We hire for obsession and taste, not pedigree. Your resume is the least interesting thing about you.",
-  },
-  {
-    icon: Heart,
-    title: "We build for the midnight deadline.",
-    body: "The child's exam. The movie night your family waited all week for. The ICU ventilator. Technology should disappear into the background of life. We make sure it does.",
-  },
-];
+{
+  icon: Rocket,
+  title: "You'll ship in your first week.",
+  body: "Not a metaphor. We're small enough that your code, your circuit design, your supply chain decision goes live fast. If that scares you, we're not a fit. If it excites you, keep reading."
+},
+{
+  icon: Microscope,
+  title: "We argue about millivolts.",
+  body: "We have engineers who will debate cell chemistry for three hours. 12 quality checks on every unit. If you think that sounds exhausting, this isn't your place. If it sounds like heaven, you'll love it here."
+},
+{
+  icon: Shuffle,
+  title: "Nobody has a normal career path.",
+  body: "Our firmware lead built racing drones. Our supply chain manager was a chef. We hire for obsession and taste, not pedigree. Your resume is the least interesting thing about you."
+},
+{
+  icon: Heart,
+  title: "We build for the midnight deadline.",
+  body: "The child's exam. The movie night your family waited all week for. The ICU ventilator. Technology should disappear into the background of life. We make sure it does."
+}];
+
 
 const BENEFITS = [
-  {
-    icon: IndianRupee,
-    title: "Top-of-market pay + equity.",
-    body: "We're early. You're early. Let's build wealth together.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Health from day one.",
-    body: "Comprehensive coverage for you and your family. No waiting periods. No fine print.",
-  },
-  {
-    icon: BookOpen,
-    title: "Annual learning budget.",
-    body: "Courses, conferences, books. Your growth is not a cost center — it's an investment.",
-  },
-  {
-    icon: Zap,
-    title: "NESS for your home.",
-    body: "Employee discount on our products. Practice what we preach.",
-  },
-];
+{
+  icon: IndianRupee,
+  title: "Top-of-market pay + equity.",
+  body: "We're early. You're early. Let's build wealth together."
+},
+{
+  icon: ShieldCheck,
+  title: "Health from day one.",
+  body: "Comprehensive coverage for you and your family. No waiting periods. No fine print."
+},
+{
+  icon: BookOpen,
+  title: "Annual learning budget.",
+  body: "Courses, conferences, books. Your growth is not a cost center — it's an investment."
+},
+{
+  icon: Zap,
+  title: "NESS for your home.",
+  body: "Employee discount on our products. Practice what we preach."
+}];
+
 
 const HIRING_STEPS = [
-  {
-    icon: Send,
-    title: "Apply",
-    body: "Your resume + a line about what excites you. No cover letter required.",
-  },
-  {
-    icon: MessageSquare,
-    title: "Intro Chat",
-    body: "30-min call. We'll tell you about us. You tell us what you're looking for. Honest.",
-  },
-  {
-    icon: Code2,
-    title: "Build Something",
-    body: "A real problem from our stack. Take-home or live — your choice. No whiteboard puzzles.",
-  },
-  {
-    icon: Users,
-    title: "Meet the Team",
-    body: "Lunch with the people you'd work with. Ask us anything. This goes both ways.",
-  },
-];
+{
+  icon: Send,
+  title: "Apply",
+  body: "Your resume + a line about what excites you. No cover letter required."
+},
+{
+  icon: MessageSquare,
+  title: "Intro Chat",
+  body: "30-min call. We'll tell you about us. You tell us what you're looking for. Honest."
+},
+{
+  icon: Code2,
+  title: "Build Something",
+  body: "A real problem from our stack. Take-home or live — your choice. No whiteboard puzzles."
+},
+{
+  icon: Users,
+  title: "Meet the Team",
+  body: "Lunch with the people you'd work with. Ask us anything. This goes both ways."
+}];
+
 
 const LIFE_IMAGES = [
-  {
-    src: manufacturingImg,
-    caption: "2am Friday — the team that cracked the 10ms switchover bug",
-  },
-  {
-    src: trainingImg,
-    caption: "Rooftop lunch debates that accidentally become the product roadmap",
-  },
-  {
-    src: batteryImg,
-    caption: "Testing in 45\u00B0C Rajasthan heat. Because Indian conditions aren't lab conditions.",
-  },
-];
+{
+  src: manufacturingImg,
+  caption: "2am Friday — the team that cracked the 10ms switchover bug"
+},
+{
+  src: trainingImg,
+  caption: "Rooftop lunch debates that accidentally become the product roadmap"
+},
+{
+  src: batteryImg,
+  caption: "Testing in 45\u00B0C Rajasthan heat. Because Indian conditions aren't lab conditions."
+}];
+
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
@@ -232,9 +232,9 @@ const Careers = () => {
   const [expandedRole, setExpandedRole] = useState<string | null>(null);
 
   const filteredRoles =
-    activeDepartment === "All"
-      ? ROLES
-      : ROLES.filter((r) => r.department === activeDepartment);
+  activeDepartment === "All" ?
+  ROLES :
+  ROLES.filter((r) => r.department === activeDepartment);
 
   const scrollToRoles = () => {
     document.getElementById("open-roles")?.scrollIntoView({ behavior: "smooth" });
@@ -250,9 +250,9 @@ const Careers = () => {
             className="absolute inset-0"
             style={{
               backgroundImage: "radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)",
-              backgroundSize: "32px 32px",
-            }}
-          />
+              backgroundSize: "32px 32px"
+            }} />
+
         </div>
 
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10 w-full">
@@ -264,9 +264,9 @@ const Careers = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
-                50 engineers trying to make
-                <br />
+              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">15 engineers trying to make
+blackouts extinct in India.
+We're not done yet.<br />
                 blackouts <span className="font-light italic">extinct</span> in India.
                 <br />
                 <span className="text-charcoal/40">We're not done yet.</span>
@@ -303,8 +303,8 @@ const Careers = () => {
               <Button
                 size="lg"
                 onClick={scrollToRoles}
-                className="bg-charcoal text-pearl hover:bg-charcoal/90 text-base px-8 py-6 rounded-full"
-              >
+                className="bg-charcoal text-pearl hover:bg-charcoal/90 text-base px-8 py-6 rounded-full">
+
                 See Open Roles
                 <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
@@ -312,8 +312,8 @@ const Careers = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-charcoal/20 text-charcoal hover:bg-charcoal/5 text-base px-8 py-6 rounded-full w-full sm:w-auto"
-                >
+                  className="border-charcoal/20 text-charcoal hover:bg-charcoal/5 text-base px-8 py-6 rounded-full w-full sm:w-auto">
+
                   Our Story
                 </Button>
               </Link>
@@ -330,9 +330,9 @@ const Careers = () => {
             background: `
               radial-gradient(ellipse 80% 50% at 50% 100%, hsl(151 100% 45% / 0.08), transparent),
               radial-gradient(ellipse 60% 40% at 20% 80%, hsl(151 100% 45% / 0.04), transparent)
-            `,
-          }}
-        />
+            `
+          }} />
+
         <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
           <div className="space-y-12 md:space-y-16">
             <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-[1.5] text-pearl/90 italic text-center">
@@ -392,13 +392,13 @@ const Careers = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {CULTURE_CARDS.map((card, i) => (
-              <AnimatedCard
-                key={card.title}
-                hover="lift"
-                delay={i * 100}
-                className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden"
-              >
+            {CULTURE_CARDS.map((card, i) =>
+            <AnimatedCard
+              key={card.title}
+              hover="lift"
+              delay={i * 100}
+              className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden">
+
                 <div className="p-8 md:p-10 space-y-5">
                   <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
                     <card.icon className="w-6 h-6 text-charcoal" />
@@ -409,7 +409,7 @@ const Careers = () => {
                   <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">{card.body}</p>
                 </div>
               </AnimatedCard>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -427,17 +427,17 @@ const Careers = () => {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {LIFE_IMAGES.map((img, i) => (
-              <div
-                key={i}
-                className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-default"
-              >
+            {LIFE_IMAGES.map((img, i) =>
+            <div
+              key={i}
+              className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-default">
+
                 <img
-                  src={img.src}
-                  alt={img.caption}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
+                src={img.src}
+                alt={img.caption}
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+
                 <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
                   <p className="text-sm md:text-base text-pearl/90 font-light leading-snug">
@@ -445,7 +445,7 @@ const Careers = () => {
                   </p>
                 </div>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -468,13 +468,13 @@ const Careers = () => {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            {BENEFITS.map((b, i) => (
-              <AnimatedCard
-                key={b.title}
-                hover="lift"
-                delay={i * 80}
-                className="bg-whisper border border-platinum/30 rounded-2xl overflow-hidden"
-              >
+            {BENEFITS.map((b, i) =>
+            <AnimatedCard
+              key={b.title}
+              hover="lift"
+              delay={i * 80}
+              className="bg-whisper border border-platinum/30 rounded-2xl overflow-hidden">
+
                 <div className="p-8 md:p-10 space-y-4">
                   <div className="w-12 h-12 rounded-full bg-pearl flex items-center justify-center">
                     <b.icon className="w-6 h-6 text-charcoal" />
@@ -483,7 +483,7 @@ const Careers = () => {
                   <p className="text-base text-charcoal/60 leading-relaxed">{b.body}</p>
                 </div>
               </AnimatedCard>
-            ))}
+            )}
           </div>
         </div>
       </section>
@@ -507,8 +507,8 @@ const Careers = () => {
             <div className="md:hidden absolute top-0 bottom-0 left-6 w-px border-l-2 border-dashed border-charcoal/15" />
 
             <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-4">
-              {HIRING_STEPS.map((step, i) => (
-                <div key={step.title} className="flex md:flex-col items-start md:items-center gap-5 md:gap-4 md:flex-1 relative">
+              {HIRING_STEPS.map((step, i) =>
+              <div key={step.title} className="flex md:flex-col items-start md:items-center gap-5 md:gap-4 md:flex-1 relative">
                   <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-pearl border-2 border-charcoal/10 flex items-center justify-center shrink-0 relative z-10">
                     <step.icon className="w-5 h-5 md:w-7 md:h-7 text-charcoal/70" />
                   </div>
@@ -522,7 +522,7 @@ const Careers = () => {
                     </p>
                   </div>
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
@@ -542,19 +542,19 @@ const Careers = () => {
 
           {/* Department filter pills */}
           <div className="flex flex-wrap gap-3 justify-center mb-10">
-            {DEPARTMENTS.map((dept) => (
-              <button
-                key={dept}
-                onClick={() => setActiveDepartment(dept)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                  activeDepartment === dept
-                    ? "bg-charcoal text-pearl shadow-md"
-                    : "bg-whisper text-charcoal/60 hover:bg-platinum hover:text-charcoal"
-                }`}
-              >
+            {DEPARTMENTS.map((dept) =>
+            <button
+              key={dept}
+              onClick={() => setActiveDepartment(dept)}
+              className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+              activeDepartment === dept ?
+              "bg-charcoal text-pearl shadow-md" :
+              "bg-whisper text-charcoal/60 hover:bg-platinum hover:text-charcoal"}`
+              }>
+
                 {dept}
               </button>
-            ))}
+            )}
           </div>
 
           {/* Role cards */}
@@ -564,12 +564,12 @@ const Careers = () => {
               return (
                 <div
                   key={role.id}
-                  className="bg-whisper border border-platinum/40 rounded-xl overflow-hidden transition-all duration-300"
-                >
+                  className="bg-whisper border border-platinum/40 rounded-xl overflow-hidden transition-all duration-300">
+
                   <button
                     onClick={() => setExpandedRole(isExpanded ? null : role.id)}
-                    className="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between gap-4 text-left hover:bg-platinum/30 transition-colors"
-                  >
+                    className="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between gap-4 text-left hover:bg-platinum/30 transition-colors">
+
                     <div className="flex-1 min-w-0">
                       <h3 className="text-lg md:text-xl font-light text-charcoal truncate">
                         {role.title}
@@ -590,13 +590,13 @@ const Careers = () => {
                     </div>
                     <ChevronDown
                       className={`w-5 h-5 text-charcoal/40 shrink-0 transition-transform duration-300 ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
-                    />
+                      isExpanded ? "rotate-180" : ""}`
+                      } />
+
                   </button>
 
-                  {isExpanded && (
-                    <div className="px-6 pb-6 md:px-8 md:pb-8 space-y-5 border-t border-platinum/30 pt-5">
+                  {isExpanded &&
+                  <div className="px-6 pb-6 md:px-8 md:pb-8 space-y-5 border-t border-platinum/30 pt-5">
                       <p className="text-base text-charcoal/70 leading-relaxed">
                         {role.description}
                       </p>
@@ -605,37 +605,37 @@ const Careers = () => {
                           What we're looking for
                         </h4>
                         <ul className="space-y-2">
-                          {role.requirements.map((req, i) => (
-                            <li
-                              key={i}
-                              className="text-sm text-charcoal/60 leading-relaxed flex items-start gap-2"
-                            >
+                          {role.requirements.map((req, i) =>
+                        <li
+                          key={i}
+                          className="text-sm text-charcoal/60 leading-relaxed flex items-start gap-2">
+
                               <span className="w-1.5 h-1.5 bg-energy rounded-full mt-2 shrink-0" />
                               {req}
                             </li>
-                          ))}
+                        )}
                         </ul>
                       </div>
                       <a
-                        href={`mailto:careers@nunam.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
-                        className="inline-block"
-                      >
+                      href={`mailto:careers@nunam.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
+                      className="inline-block">
+
                         <Button className="bg-charcoal text-pearl hover:bg-charcoal/90 rounded-full px-8">
                           Apply Now
                           <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
                       </a>
                     </div>
-                  )}
-                </div>
-              );
+                  }
+                </div>);
+
             })}
 
-            {filteredRoles.length === 0 && (
-              <div className="text-center py-12 text-charcoal/40">
+            {filteredRoles.length === 0 &&
+            <div className="text-center py-12 text-charcoal/40">
                 No openings in this department right now. Check back soon or send an open application below.
               </div>
-            )}
+            }
           </div>
         </div>
       </section>
@@ -648,9 +648,9 @@ const Careers = () => {
             background: `
               radial-gradient(ellipse 80% 50% at 50% 100%, hsl(151 100% 45% / 0.06), transparent),
               radial-gradient(ellipse 60% 40% at 80% 80%, hsl(151 100% 45% / 0.03), transparent)
-            `,
-          }}
-        />
+            `
+          }} />
+
         <div className="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center space-y-8">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight leading-[1.1] tracking-tight">
             Don't fit a box?
@@ -666,8 +666,8 @@ const Careers = () => {
             <a href="mailto:careers@nunam.com?subject=I%20have%20an%20idea">
               <Button
                 size="lg"
-                className="bg-energy text-charcoal hover:bg-energy-bright font-medium text-base px-8 py-6 rounded-full w-full sm:w-auto"
-              >
+                className="bg-energy text-charcoal hover:bg-energy-bright font-medium text-base px-8 py-6 rounded-full w-full sm:w-auto">
+
                 Tell Us Your Idea
                 <Send className="ml-2 w-4 h-4" />
               </Button>
@@ -675,13 +675,13 @@ const Careers = () => {
             <a
               href="https://www.linkedin.com/company/nunam"
               target="_blank"
-              rel="noopener noreferrer"
-            >
+              rel="noopener noreferrer">
+
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-transparent border-pearl/20 text-pearl hover:bg-pearl/10 text-base px-8 py-6 rounded-full w-full sm:w-auto"
-              >
+                className="bg-transparent border-pearl/20 text-pearl hover:bg-pearl/10 text-base px-8 py-6 rounded-full w-full sm:w-auto">
+
                 Find us on LinkedIn
                 <ExternalLink className="ml-2 w-4 h-4" />
               </Button>
@@ -689,8 +689,8 @@ const Careers = () => {
           </div>
         </div>
       </section>
-    </Layout>
-  );
+    </Layout>);
+
 };
 
 export default Careers;
