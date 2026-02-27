@@ -50,7 +50,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore",
     type: "Full-time",
     description:
-      "Design and implement firmware for our BMS and energy management systems. You'll work at the intersection of power electronics and embedded software, writing code that protects real families.",
+      "You own every line of firmware between the battery and the family it protects. BMS logic, energy management, failsafe routines — when your code runs, it's the last line of defense. No review committee will save you. Your standards will.",
     requirements: [
       "3+ years with C/C++ on ARM Cortex-M microcontrollers",
       "Experience with CAN, SPI, I2C, UART protocols",
@@ -66,7 +66,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore",
     type: "Full-time",
     description:
-      "Design inverter topologies and charging circuits for our AIO Series. From schematic to production — you own the full stack.",
+      "Inverter topologies. Charging circuits. Thermal management. From first schematic to the unit that ships — it's yours. If it fails in a Rajasthan summer, that's on you. If it runs flawlessly for 10 years, that's on you too.",
     requirements: [
       "4+ years designing DC-DC converters, inverters, or chargers",
       "Proficiency with SPICE simulation and PCB layout review",
@@ -82,7 +82,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore",
     type: "Full-time",
     description:
-      "Build the monitoring dashboard and configurator tools that homeowners and installers use every day. React, TypeScript, real-time data. Code that people depend on.",
+      "The dashboard a homeowner checks at 2am during a storm. The configurator an installer uses on a rooftop in Chennai. You own every pixel and every millisecond of response time. Real-time data, real consequences.",
     requirements: [
       "3+ years with React/TypeScript and Node.js",
       "Experience with real-time data (WebSockets, MQTT, or similar)",
@@ -98,7 +98,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore",
     type: "Full-time",
     description:
-      "Own the homeowner product experience end-to-end. From configurator UX to installer onboarding. Talk to customers weekly. Ship monthly.",
+      "The entire homeowner experience is your territory — from first click to first blackout survived. You talk to customers weekly, ship monthly, and own the outcome. No one will tell you what to prioritize. That's your job.",
     requirements: [
       "3+ years in product management for hardware or IoT products",
       "Strong user research and data analysis skills",
@@ -114,7 +114,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore",
     type: "Full-time",
     description:
-      "Source cells, manage vendors, optimize logistics across India. You'll build the supply chain for a product that didn't exist 3 years ago.",
+      "Every cell, every vendor, every shipment across India — that's your supply chain to build from scratch. When a production run is late, you don't escalate. You fix it. The product didn't exist 3 years ago. Neither did this role.",
     requirements: [
       "5+ years in supply chain or procurement (electronics/batteries preferred)",
       "Vendor negotiation and relationship management",
@@ -130,7 +130,7 @@ const ROLES: JobRole[] = [
     location: "Bangalore / Chennai",
     type: "Full-time",
     description:
-      "Build relationships with EPCs, installers, and channel partners across Karnataka, Tamil Nadu, and Kerala. Consultative selling for a product that sells itself once people see it.",
+      "South India is your territory — Karnataka, Tamil Nadu, Kerala. Every EPC relationship, every installer partnership, every channel decision is yours to make. You don't wait for leads. You build a market.",
     requirements: [
       "4+ years in B2B sales (solar, energy, or building materials preferred)",
       "Established network of EPC contractors or electrical distributors in South India",
@@ -144,69 +144,69 @@ const ROLES: JobRole[] = [
 const CULTURE_CARDS = [
   {
     icon: Rocket,
-    title: "You'll ship in your first week.",
-    body: "Not a metaphor. Your code, your circuit, your decision — live in production before your onboarding paperwork clears. Terrified? Wrong place. Thrilled? Keep reading.",
+    title: "You own it from day one.",
+    body: "First week: real code in production. Real circuits on the bench. No shadowing period. No training wheels. You either own your output or you don't belong here.",
   },
   {
     icon: Microscope,
-    title: "We argue about millivolts.",
-    body: "Three-hour debates about cell chemistry. 12 quality checks on every unit. We've rejected entire production batches over a 2% deviation. Exhausting? Absolutely. That's the point.",
+    title: "Your name is on every unit.",
+    body: "12 quality checks. Every single unit. We've scrapped entire batches over a 2% deviation — and the engineer who caught it made the call alone. No committee. If your standard is 'good enough,' you'll hate it here.",
   },
   {
     icon: Shuffle,
-    title: "Nobody here has a normal resume.",
-    body: "Our firmware lead built racing drones. Supply chain manager? Former chef. We hire for obsession, not pedigree. Show us what you've built at 2am when nobody asked you to.",
+    title: "Nobody will hand you a playbook.",
+    body: "Our firmware lead built racing drones. Supply chain manager was a chef. We don't hire résumés — we hire people who've solved problems nobody assigned them. Figure-it-out is the only job description.",
   },
   {
     icon: Heart,
-    title: "We build for the midnight moment.",
-    body: "The child's exam at 11pm. The ICU ventilator at 3am. The wedding reception that can't go dark. Our product disappears into the background of life — until the grid fails. Then it's everything.",
+    title: "You answer to the family at 3am.",
+    body: "Not a manager. Not a sprint review. The child studying for exams. The ICU ventilator. The wedding that can't go dark. Every shortcut you take, someone's power depends on. Own that weight or don't apply.",
   },
 ];
 
 const BENEFITS = [
   {
     icon: IndianRupee,
-    title: "Top-of-market pay + equity.",
-    body: "We're early. You're early. Build wealth, not just a salary.",
+    title: "Equity. Not a bonus — a stake.",
+    body: "Owners get ownership. We're early, the upside is real, and your work compounds. Build wealth alongside the company you're building.",
   },
   {
     icon: ShieldCheck,
-    title: "Health from day one.",
-    body: "Full family coverage. No waiting periods. No fine print. No exceptions.",
+    title: "Your family is covered. Period.",
+    body: "Full health coverage from day one. No waiting periods. No fine print. We don't ask you to sacrifice your family for a deadline — ever.",
   },
   {
     icon: BookOpen,
-    title: "Annual learning budget.",
-    body: "Conferences, courses, books — whatever makes you dangerous. Your growth isn't a cost center.",
+    title: "Get dangerous. We'll fund it.",
+    body: "Annual budget for courses, conferences, books — whatever makes you harder to replace. Your growth is the company's growth.",
   },
   {
     icon: Zap,
-    title: "NESS for your home.",
-    body: "Employee discount on our products. Practice what we preach.",
+    title: "Run NESS in your own home.",
+    body: "Employee pricing on our products. If you're going to own the problem, you should own the solution too.",
   },
 ];
 
 const HIRING_STEPS = [
   {
     icon: Send,
-    title: "Apply",
-    body: "Your resume + a line about what excites you. No cover letter required.",
+    title: "Show Up",
+    body: "Resume + one line: what would you own here? That tells us more than any cover letter.",
   },
   {
     icon: MessageSquare,
-    title: "Intro Chat",
-    body: "30-min call. We'll tell you about us. You tell us what you're looking for. Honest.",
+    title: "Real Talk",
+    body: "30 minutes. No scripts. We'll be honest about what's hard. You be honest about what you want.",
   },
   {
     icon: Code2,
-    title: "Build Something",
-    body: "A real problem from our stack. Take-home or live — your choice. No whiteboard puzzles.",
+    title: "Prove It",
+    body: "A real problem from our stack. Take-home or live — your call. We judge ownership, not trivia.",
   },
   {
     icon: Users,
-    title: "Meet the Team",
-    body: "Lunch with the people you'd work with. Ask us anything. This goes both ways.",
+    title: "Meet Your Team",
+    body: "Lunch with the people you'd work beside. Grill us. If we're not right for you, we want to know too.",
   },
 ];
 
@@ -265,14 +265,14 @@ const Careers = () => {
               </div>
 
               <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
-                We declared war
+                Blackouts end here.
                 <br />
-                on <span className="font-light italic">blackouts.</span>
+                <span className="text-charcoal/40">Own it or scroll past.</span>
               </h1>
 
               <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.6] max-w-3xl mx-auto px-4">
-                50 engineers. One obsession. 300 million Indian homes
-                deserve power that never fails. We're building the machine that delivers it.
+                No committees. No spectators. 50 engineers who each own a piece of the problem — from
+                lab bench to living room. If you need permission to act, this isn't your place.
               </p>
             </div>
 
@@ -343,12 +343,13 @@ const Careers = () => {
             </p>
 
             <p className="text-xl md:text-2xl text-pearl/60 font-medium leading-[1.7] max-w-3xl mx-auto text-center">
-              That's not a statistic. That's why we don't sleep well.
+              That's not a statistic. That's the problem you'd own.
             </p>
 
             <p className="text-lg md:text-xl text-pearl/40 font-light leading-[1.7] max-w-3xl mx-auto text-center">
-              The grid wasn't built for this century. Diesel generators poison the air.
-              We're building what replaces both.
+              300 million homes on a failing grid. Diesel generators poisoning the air.
+              Nobody's coming to fix this. So we are. The question is whether you're the kind
+              of person who reads that and feels <span className="text-pearl/70 italic">responsible.</span>
             </p>
 
             {/* Impact metrics */}
@@ -387,12 +388,12 @@ const Careers = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 md:mb-24 space-y-6 md:space-y-8">
             <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
-              What nobody tells you
+              Extreme ownership.
               <br />
-              about working here.
+              Not a slogan.
             </h2>
             <p className="text-lg md:text-xl text-charcoal/60 font-light max-w-2xl mx-auto">
-              No corporate platitudes. Here's what it's actually like.
+              Here's what ownership looks like when nobody's watching.
             </p>
           </div>
 
@@ -460,14 +461,13 @@ const Careers = () => {
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-20 space-y-8">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight leading-[1.1]">
-              What you get.
-              <br />
-              What we expect.
+              Owners get<br />
+              <span className="text-charcoal/40">owner terms.</span>
             </h2>
             <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.7] max-w-3xl mx-auto">
-              Top-of-market pay. Full health cover from day one. A learning budget that actually exists.
-              In return? Ship like someone's power depends on it.{" "}
-              <span className="text-charcoal font-medium italic">Because it does.</span>
+              We'll never ask you to sacrifice your health, your family, or your sanity for a deadline.
+              In return, you treat every unit that leaves this building like your family's power depends on it.{" "}
+              <span className="text-charcoal font-medium italic">Because someone's does.</span>
             </p>
           </div>
 
@@ -497,10 +497,10 @@ const Careers = () => {
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 md:mb-20 space-y-4">
             <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
-              Four conversations. Zero games.
+              Four steps. No theatre.
             </h2>
             <p className="text-lg text-charcoal/60 font-light">
-              No whiteboard riddles. No six-round marathons. Here's the entire process.
+              We respect your time the same way we expect you to respect ours. Here's the entire process.
             </p>
           </div>
 
@@ -537,10 +537,10 @@ const Careers = () => {
         <div className="max-w-4xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-16 space-y-4">
             <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight">
-              Pick your fight.
+              Problems that need owners.
             </h2>
             <p className="text-lg text-charcoal/60 font-light">
-              Open roles at Bangalore HQ. Every one of them matters.
+              These aren't job titles. They're territories. Pick one and make it yours.
             </p>
           </div>
 
@@ -657,13 +657,13 @@ const Careers = () => {
         />
         <div className="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center space-y-8">
           <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight leading-[1.1] tracking-tight">
-            Don't fit a box?
+            No role listed?
             <br />
-            <span className="text-energy italic">Good.</span>
+            <span className="text-energy italic">Create one.</span>
           </h2>
           <p className="text-lg md:text-xl text-pearl/60 font-light leading-[1.7] max-w-2xl mx-auto">
-            Don't see your role? Tell us what you'd build with a team and six months.
-            That's a more interesting application than any resume we've ever read.
+            The best people who ever joined us weren't applying for a position — they were
+            claiming a problem. Tell us what you'd own, how you'd fix it, and why it can't wait.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
             <a href="mailto:careers@nunam.com?subject=I%20have%20an%20idea">
@@ -671,7 +671,7 @@ const Careers = () => {
                 size="lg"
                 className="bg-energy text-charcoal hover:bg-energy-bright font-medium text-base px-8 py-6 rounded-full w-full sm:w-auto"
               >
-                Tell Us Your Idea
+                Claim Your Problem
                 <Send className="ml-2 w-4 h-4" />
               </Button>
             </a>
