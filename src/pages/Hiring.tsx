@@ -282,7 +282,7 @@ We're not done yet.<br />
             <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-xl mx-auto pt-4 md:pt-8">
               <div className="space-y-3">
                 <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
-                  <AnimatedCounter value={50} duration={1800} suffix="+" />
+                  <AnimatedCounter value={15} duration={1800} suffix="+" />
                 </div>
                 <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
                   Team Members
