@@ -9,26 +9,36 @@ import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
-import { CheckCircle2, ArrowRight, Star, Shield, MapPin } from "lucide-react";
+import { ArrowRight, Star, Shield, MapPin, Zap, Home, Quote } from "lucide-react";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { AnimatedCounter } from "@/components/ui/animated-counter";
+import { LiveTicker } from "@/components/ui/live-ticker";
 import { testimonials } from "@/data/testimonials";
 
-// Lazy load heavy components to reduce initial bundle
-const BelowFoldSections = lazy(() =>
-  import("@/components/homeowner/BelowFoldSections").then((m) => ({
-    default: m.BelowFoldSections,
-  })),
-);
+// Lazy load heavy below-fold content
 const HomeownerConfigurator = lazy(() =>
   import("@/components/homeowner/HomeownerConfigurator").then((m) => ({
     default: m.HomeownerConfigurator,
   })),
 );
 
+/* ─────────────────────────────────────────────
+   INTERSTITIAL — provocative one-liner between sections
+   ───────────────────────────────────────────── */
+const Interstitial = memo(function Interstitial({ text }: { text: string }) {
+  return (
+    <div className="py-16 sm:py-20 md:py-28 bg-charcoal relative overflow-hidden">
+      <GradientOrbField variant="warm" />
+      <p className="relative z-10 text-center font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-pearl/30 italic tracking-tight max-w-4xl mx-auto px-6">
+        {text}
+      </p>
+    </div>
+  );
+});
+
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const nextSectionRef = useRef<HTMLElement>(null);
 
-  // Entrance animation
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
@@ -36,9 +46,13 @@ const Index = () => {
 
   return (
     <Layout className="-mt-16">
-      {/* 1. HERO SECTION — No parallax, no text shadows, reduced overlay */}
+
+      {/* ════════════════════════════════════════════
+          SECTION 1 — THE HERO
+          Dark canvas. Product image. Provocative headline.
+          ════════════════════════════════════════════ */}
       <section className="relative min-h-[100svh] w-full overflow-hidden" aria-labelledby="hero-heading">
-        {/* Full-screen Product Image Background */}
+        {/* Full-screen product background */}
         <div className="absolute inset-0 w-full h-full">
           <img
             src={nessHeroProduct}
@@ -49,50 +63,57 @@ const Index = () => {
             height={1080}
             fetchPriority="high"
           />
-          {/* Reduced overlay — let the product breathe */}
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 via-40% to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 via-40% to-charcoal/20" />
+          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
         </div>
 
-        {/* Text Content — static, confident, no parallax */}
+        {/* Ambient orbs behind text */}
+        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <GradientOrbField variant="warm" />
+        </div>
+
+        {/* Hero content */}
         <div className="relative z-10 min-h-[100svh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0">
-          <div className="space-y-10 sm:space-y-14 md:space-y-16 max-w-3xl w-full">
-            {/* Headline */}
+          <div className="space-y-8 sm:space-y-12 md:space-y-14 max-w-3xl w-full">
+
+            {/* Headline — Outfit 700, provocative */}
             <h1
               id="hero-heading"
               className={cn(
-                "font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[88px] font-light leading-[1.1] sm:leading-[1.15] tracking-[-0.02em] text-pearl transition-all duration-1000 ease-out",
+                "font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[0.95] tracking-[-0.03em] text-pearl transition-all duration-1000 ease-out",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
-              Life.
+              The grid
               <br />
-              <span className="text-energy">Uninterrupted.</span>
+              <span className="text-gradient-energy">ends here.</span>
             </h1>
 
-            {/* Sub-copy — elevates, doesn't remind of pain */}
+            {/* Sub-headline — Outfit 300, elaboration */}
             <p
               className={cn(
-                "font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light leading-[1.35] tracking-[-0.015em] max-w-[850px] text-pearl/90 transition-all duration-1000 ease-out delay-150",
+                "font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-[1.35] tracking-[-0.015em] max-w-[700px] text-pearl/50 transition-all duration-1000 ease-out delay-200",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
-              The home battery. Reimagined.
+              10 milliseconds between you and darkness.
+              <span className="block mt-1 text-pearl/70">We own those 10 milliseconds.</span>
             </p>
 
-            {/* Dual CTAs — capture different intent stages */}
+            {/* CTAs */}
             <div
               className={cn(
-                "pt-4 sm:pt-6 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-300",
+                "pt-2 sm:pt-4 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-400",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
               <Link to="/residential" className="inline-block group">
                 <Button
                   size="lg"
-                  className="interactive font-sans bg-pearl hover:bg-white text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(255,255,255,0.3)]"
+                  className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
                 >
                   <span className="flex items-center justify-center">
-                    Explore NESS
+                    Enter NESS
                     <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                   </span>
                 </Button>
@@ -100,30 +121,32 @@ const Index = () => {
               <Link to="/contact/homeowner" className="inline-block group">
                 <Button
                   size="lg"
-                  className="interactive font-sans bg-transparent border border-pearl/40 hover:border-pearl text-pearl hover:bg-pearl/10 font-medium px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
+                  className="interactive font-display bg-transparent border border-pearl/30 hover:border-pearl/60 text-pearl hover:bg-pearl/10 font-light px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
                 >
                   Talk to an Expert
                 </Button>
               </Link>
             </div>
 
-            {/* Product context — subtle identification */}
+            {/* Product identifier */}
             <p
               className={cn(
-                "text-pearl/40 text-xs sm:text-sm font-light tracking-widest uppercase mt-8 transition-all duration-1000 ease-out delay-500",
+                "text-pearl/25 text-xs sm:text-sm font-light tracking-[0.2em] uppercase mt-6 transition-all duration-1000 ease-out delay-500",
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
               )}
             >
-              The NESS Powerwall — Home Battery System
+              NESS Powerwall — Home Battery System
             </p>
           </div>
         </div>
       </section>
 
-      {/* TRUST BAR — compact social proof between hero and content */}
-      <section className="py-6 sm:py-8 bg-charcoal border-t border-pearl/5" aria-label="Trust indicators">
+      {/* ────────────────────────────────────
+          TRUST BAR — Elevated Indian identity
+          ──────────────────────────────────── */}
+      <section className="py-5 sm:py-6 bg-charcoal border-t border-pearl/5" aria-label="Trust indicators">
         <div className="max-w-5xl mx-auto px-4 sm:px-6">
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 text-pearl/50 text-xs sm:text-sm font-light tracking-wide">
+          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-10 md:gap-14 text-pearl/40 text-xs sm:text-sm font-light tracking-wide">
             <div className="flex items-center gap-2">
               <Star className="w-4 h-4 text-energy fill-energy" aria-hidden="true" />
               <span>4.9/5 from 500+ homes</span>
@@ -134,90 +157,106 @@ const Index = () => {
             </div>
             <div className="flex items-center gap-2">
               <MapPin className="w-4 h-4 text-energy" aria-hidden="true" />
-              <span>Engineered for India</span>
+              <span>Bangalore Deep Tech · Est. 2020</span>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 2. ONE KEY DIFFERENTIATOR — consistent font-light weight, tighter mobile spacing */}
+      {/* ════════════════════════════════════════════
+          SECTION 2 — THE PROCLAMATION
+          "One box on your wall."
+          ════════════════════════════════════════════ */}
       <section
-        ref={nextSectionRef}
-        className="py-24 md:py-32 lg:py-48 px-4 sm:px-6 bg-pearl scroll-mt-16 texture-overlay"
-        aria-labelledby="key-benefit-heading"
+        className="relative py-28 md:py-40 lg:py-52 px-4 sm:px-6 bg-charcoal overflow-hidden"
+        aria-labelledby="proclamation-heading"
       >
-        <div className="max-w-5xl mx-auto text-center space-y-12 sm:space-y-16">
+        <GradientOrbField variant="standard" />
+
+        <div className="relative z-10 max-w-5xl mx-auto text-center space-y-10 sm:space-y-14">
           <h2
-            id="key-benefit-heading"
-            className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-graphite tracking-[-0.03em] leading-[1.15] sm:leading-[1.2]"
+            id="proclamation-heading"
+            className="font-display tracking-[-0.03em] leading-[1.05]"
           >
-            <span className="block">One decision.</span>
-            <span className="block mt-2 sm:mt-4">Ten years.</span>
-            <span className="block mt-2 sm:mt-4 text-energy">Zero regrets.</span>
+            <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-pearl">
+              One box on your wall.
+            </span>
+            <span className="block mt-3 sm:mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl/35">
+              Ten years of never thinking about power again.
+            </span>
           </h2>
-          <p className="text-lg sm:text-xl md:text-2xl text-graphite/50 font-light max-w-2xl mx-auto leading-[1.8] tracking-wide">
-            Every NESS system comes with a comprehensive 10-year warranty.
-            <span className="block mt-4 text-graphite/70 font-normal">
-              One investment. A decade of peace of mind.
+
+          <p className="text-base sm:text-lg md:text-xl text-pearl/40 font-light max-w-2xl mx-auto leading-[1.8]">
+            Every NESS system ships with a comprehensive 10-year full replacement warranty.
+            <span className="block mt-3 text-pearl/55 font-normal">
+              One investment. A decade of certainty.
             </span>
           </p>
         </div>
       </section>
 
-      {/* 3. PRODUCT SPOTLIGHT — NESS Powerwall */}
+      {/* ── Interstitial ── */}
+      <Interstitial text="While the grid sleeps, we don't." />
+
+      {/* ════════════════════════════════════════════
+          SECTION 3 — POWERWALL AS SCULPTURE
+          Product floating on dark. Green underglow.
+          ════════════════════════════════════════════ */}
       <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
         <section
-          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-b from-graphite to-graphite/90 text-pearl texture-overlay"
+          className="relative py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-charcoal overflow-hidden"
           aria-labelledby="residential-heading"
         >
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
-              <div>
-                <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Homeowners</p>
-                <h2
-                  id="residential-heading"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight"
-                >
-                  NESS Powerwall
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl text-pearl/80 mb-8 sm:mb-12 leading-[1.7] font-light">
-                  Elegant. Powerful. Silent.
+          <GradientOrbField variant="warm" />
+
+          <div className="relative z-10 max-w-7xl mx-auto">
+            {/* Section headline */}
+            <div className="text-center mb-16 sm:mb-20 md:mb-28">
+              <p className="text-energy text-xs sm:text-sm uppercase tracking-[0.2em] mb-4 animate-energy-pulse">For Homeowners</p>
+              <h2
+                id="residential-heading"
+                className="font-display tracking-[-0.03em] leading-[1.05]"
+              >
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl">
+                  Your home.
+                </span>
+                <span className="block mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-energy">
+                  Unbreakable.
+                </span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+              {/* Features */}
+              <div className="space-y-8 sm:space-y-10">
+                <p className="text-lg sm:text-xl md:text-2xl text-pearl/60 font-light leading-[1.7] max-w-lg">
+                  Elegant. Powerful. Silent. The NESS Powerwall replaces your generator
+                  with something your home deserves.
                 </p>
 
-                <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">Everything. Everywhere.</p>
-                      <p className="text-pearl/60 text-sm sm:text-base mt-1">Powers your entire home</p>
+                <div className="space-y-5 sm:space-y-6">
+                  {[
+                    { title: "Everything. Everywhere.", desc: "Powers your entire home — AC, fridge, Wi-Fi, lights. All of it." },
+                    { title: "10ms switchover", desc: "200× faster than you can blink. Your lights never flicker." },
+                    { title: "Works with solar", desc: "Store sun. Use sun. Stop paying the grid." },
+                  ].map((f) => (
+                    <div key={f.title} className="flex items-start gap-4 group">
+                      <div className="w-8 h-8 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-energy/20 transition-colors">
+                        <Zap className="w-4 h-4 text-energy" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="font-display font-semibold text-lg sm:text-xl text-pearl">{f.title}</p>
+                        <p className="text-pearl/50 text-sm sm:text-base mt-1 font-light">{f.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2 className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1" aria-hidden="true" />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">10ms switchover</p>
-                      <p className="text-pearl/60 text-sm sm:text-base mt-1">Instant backup (10ms response)</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">Works with solar</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                <div>
+                <div className="pt-4">
                   <Link to="/residential">
                     <Button
                       size="lg"
-                      className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
+                      className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 text-lg rounded-full transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
                     >
                       Explore NESS
                       <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
@@ -226,63 +265,80 @@ const Index = () => {
                 </div>
               </div>
 
+              {/* Product — floating with glow */}
               <div className="relative mt-8 md:mt-0">
-                <WebPImage
-                  src={nessProProduct}
-                  alt="NESS Powerwall - Premium home battery backup system"
-                  className="w-full h-auto rounded-2xl"
-                  priority={false}
-                />
+                <div className="relative">
+                  <WebPImage
+                    src={nessProProduct}
+                    alt="NESS Powerwall — Premium home battery backup system"
+                    className="w-full h-auto rounded-2xl product-glow"
+                    priority={false}
+                  />
+                  {/* Energy reflection underneath */}
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-24 product-reflection rounded-full" />
+                </div>
               </div>
             </div>
           </div>
         </section>
       </LazySection>
 
-      {/* 4. SOCIAL PROOF — Customer Stories */}
+      {/* ── Interstitial ── */}
+      <Interstitial text="Your neighbors' lights went out. Yours didn't." />
+
+      {/* ════════════════════════════════════════════
+          SECTION 4 — THE MOVEMENT — Social Proof
+          Light breather. Cinematic testimonial. City marquee.
+          ════════════════════════════════════════════ */}
       <LazySection>
-        <section className="py-24 sm:py-32 md:py-40 bg-charcoal texture-overlay" aria-labelledby="testimonials-heading">
+        <section className="relative py-24 sm:py-32 md:py-40 section-bleed-from-light overflow-hidden" aria-labelledby="social-proof-heading">
           <div className="max-w-6xl mx-auto px-6 sm:px-8">
-            {/* Section header */}
-            <p className="text-energy text-xs sm:text-sm uppercase tracking-widest text-center mb-16 sm:mb-20">
-              From our customers
-            </p>
+            {/* Live counter */}
+            <div className="text-center mb-16 sm:mb-24">
+              <LiveTicker
+                label="Indian homes protected right now"
+                startValue={500}
+                incrementRate={0.001}
+                suffix="+"
+                className="mb-6"
+              />
+            </div>
 
-            {/* Featured testimonial — hero-sized */}
-            <div className="flex flex-col items-center text-center space-y-10 sm:space-y-12 mb-20 sm:mb-24">
-              <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-energy/10 flex items-center justify-center text-2xl sm:text-3xl font-light text-pearl border-2 border-energy/30">
-                {testimonials[0].initials}
-              </div>
-
-              <blockquote className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl leading-[1.4] max-w-4xl">
-                {testimonials[0].quote}
+            {/* Featured testimonial — cinematic, no card */}
+            <div className="flex flex-col items-center text-center space-y-8 sm:space-y-10 mb-16 sm:mb-20">
+              <Quote className="w-10 h-10 text-energy/20" aria-hidden="true" />
+              <blockquote className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-[2.75rem] font-light text-graphite/80 leading-[1.4] max-w-4xl">
+                "{testimonials[0].quote}"
               </blockquote>
-
               <div className="pt-2">
-                <p className="text-xl sm:text-2xl text-pearl font-medium mb-2">{testimonials[0].name}</p>
-                <p className="text-base sm:text-lg text-pearl/60 font-light">{testimonials[0].location}</p>
+                <p className="text-lg sm:text-xl text-graphite font-medium">{testimonials[0].name}</p>
+                <p className="text-sm sm:text-base text-graphite/50 font-light mt-1">{testimonials[0].location}</p>
               </div>
             </div>
 
-            {/* Supporting testimonials — staggered grid */}
-            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-              {testimonials.slice(1).map((t) => (
-                <div
-                  key={t.name}
-                  className="bg-pearl/[0.03] border border-pearl/10 rounded-2xl p-8 sm:p-10 space-y-6 hover:bg-pearl/[0.06] transition-colors duration-300"
-                >
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-full bg-energy/10 flex items-center justify-center text-base font-light text-pearl border border-energy/20">
-                      {t.initials}
-                    </div>
-                    <div>
-                      <p className="text-pearl font-medium">{t.name}</p>
-                      <p className="text-pearl/50 text-sm font-light">{t.location}</p>
-                    </div>
-                  </div>
-                  <blockquote className="text-lg sm:text-xl text-pearl/80 font-light leading-relaxed">
-                    "{t.quote}"
-                  </blockquote>
+            {/* City presence marquee */}
+            <div className="relative overflow-hidden py-6 border-t border-b border-graphite/10">
+              <div className="animate-marquee whitespace-nowrap flex gap-8">
+                {["Bangalore", "Chennai", "Mumbai", "Hyderabad", "Delhi", "Pune", "Kochi", "Gurgaon", "Jaipur", "Ahmedabad",
+                  "Bangalore", "Chennai", "Mumbai", "Hyderabad", "Delhi", "Pune", "Kochi", "Gurgaon", "Jaipur", "Ahmedabad"].map((city, i) => (
+                  <span key={`${city}-${i}`} className="text-sm uppercase tracking-[0.3em] text-graphite/20 font-light">
+                    {city}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            {/* Glass trust badges */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 mt-12 sm:mt-16">
+              {[
+                { label: "IEC 62619", sub: "Certified" },
+                { label: "BIS", sub: "Certified" },
+                { label: "4.9★", sub: "500+ homes" },
+                { label: "10 Year", sub: "Full Warranty" },
+              ].map((badge) => (
+                <div key={badge.label} className="text-center py-5 sm:py-6 px-4 rounded-xl border border-graphite/10 bg-pearl/80 backdrop-blur-sm">
+                  <p className="font-display font-semibold text-lg sm:text-xl text-graphite">{badge.label}</p>
+                  <p className="text-xs sm:text-sm text-graphite/50 font-light mt-1 uppercase tracking-wide">{badge.sub}</p>
                 </div>
               ))}
             </div>
@@ -290,71 +346,78 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 5. PRODUCT SPOTLIGHT — NESS Pod */}
-      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton />}>
+      {/* ════════════════════════════════════════════
+          SECTION 5 — NESS POD AS SCULPTURE
+          Commercial product. Dark canvas. Scale without limits.
+          ════════════════════════════════════════════ */}
+      <LazySection rootMargin="400px" fallback={<ProductSectionSkeleton isDark />}>
         <section
-          className="py-20 sm:py-24 md:py-32 px-4 sm:px-6 bg-gradient-to-br from-slate-50 via-pearl to-slate-100 text-graphite texture-overlay relative overflow-hidden"
+          className="relative py-24 sm:py-32 md:py-40 px-4 sm:px-6 bg-charcoal overflow-hidden"
           aria-labelledby="commercial-heading"
         >
-          <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)', backgroundSize: '32px 32px' }} aria-hidden="true" />
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-8 sm:gap-12 md:gap-16 items-center">
-              <div className="relative order-2 md:order-1">
-                <WebPImage
-                  src={nessPodProduct}
-                  alt="NESS Pod - Commercial battery backup system"
-                  className="w-full h-auto rounded-2xl"
-                  priority={false}
-                />
+          <GradientOrbField variant="standard" />
+
+          <div className="relative z-10 max-w-7xl mx-auto">
+            {/* Section headline */}
+            <div className="text-center mb-16 sm:mb-20 md:mb-28">
+              <p className="text-energy text-xs sm:text-sm uppercase tracking-[0.2em] mb-4 animate-energy-pulse">For Business</p>
+              <h2
+                id="commercial-heading"
+                className="font-display tracking-[-0.03em] leading-[1.05]"
+              >
+                <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl">
+                  Scale without
+                </span>
+                <span className="block mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-energy">
+                  limits.
+                </span>
+              </h2>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+              {/* Product — floating with glow */}
+              <div className="relative">
+                <div className="relative">
+                  <WebPImage
+                    src={nessPodProduct}
+                    alt="NESS Pod — Commercial battery backup system"
+                    className="w-full h-auto rounded-2xl product-glow"
+                    priority={false}
+                  />
+                  <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-24 product-reflection rounded-full" />
+                </div>
               </div>
 
-              <div className="order-1 md:order-2">
-                <p className="text-energy text-xs sm:text-sm uppercase tracking-widest mb-3 sm:mb-4">For Business</p>
-                <h2
-                  id="commercial-heading"
-                  className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light mb-4 sm:mb-6 tracking-tight"
-                >
-                  NESS Pod
-                </h2>
-                <p className="text-base sm:text-lg md:text-xl text-graphite/80 mb-8 sm:mb-12 leading-[1.7] font-light">
-                  Power your business. Uninterrupted.
+              {/* Features */}
+              <div className="space-y-8 sm:space-y-10">
+                <p className="text-lg sm:text-xl md:text-2xl text-pearl/60 font-light leading-[1.7] max-w-lg">
+                  Industrial-grade reliability meets modular scalability.
+                  The NESS Pod powers businesses that can't afford a single second of downtime.
                 </p>
 
-                <div className="space-y-4 sm:space-y-6 mb-10 sm:mb-14">
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">Scalable capacity</p>
+                <div className="space-y-5 sm:space-y-6">
+                  {[
+                    { title: "Scalable capacity", desc: "Stack units to match any demand. Grow without rewiring." },
+                    { title: "Industrial-grade reliability", desc: "Built for 45°C heat, monsoon humidity, and voltage chaos." },
+                    { title: "Reduce operating costs", desc: "Cut diesel dependency. Cut bills. Cut carbon." },
+                  ].map((f) => (
+                    <div key={f.title} className="flex items-start gap-4 group">
+                      <div className="w-8 h-8 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-energy/20 transition-colors">
+                        <Zap className="w-4 h-4 text-energy" aria-hidden="true" />
+                      </div>
+                      <div>
+                        <p className="font-display font-semibold text-lg sm:text-xl text-pearl">{f.title}</p>
+                        <p className="text-pearl/50 text-sm sm:text-base mt-1 font-light">{f.desc}</p>
+                      </div>
                     </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">Industrial-grade reliability</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-4">
-                    <CheckCircle2
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-energy flex-shrink-0 mt-1"
-                      aria-hidden="true"
-                    />
-                    <div>
-                      <p className="font-medium text-lg sm:text-xl">Reduce operating costs</p>
-                    </div>
-                  </div>
+                  ))}
                 </div>
 
-                <div>
+                <div className="pt-4">
                   <Link to="/commercial">
                     <Button
                       size="lg"
-                      className="interactive bg-energy hover:bg-energy-bright text-pearl px-10 sm:px-12 py-6 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 hover:shadow-2xl hover:shadow-energy/30"
+                      className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 text-lg rounded-full transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
                     >
                       Explore Solutions
                       <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
@@ -367,48 +430,198 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* 6. BELOW FOLD CONTENT */}
-      <Suspense
-        fallback={
-          <div className="py-24 bg-pearl">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="space-y-4 mb-12 animate-pulse">
-                <div className="h-8 bg-graphite/10 rounded w-1/3 mx-auto" />
-                <div className="h-6 bg-graphite/10 rounded w-2/3 mx-auto" />
-              </div>
-              <div className="grid md:grid-cols-3 gap-8">
-                {[1, 2, 3].map((i) => (
-                  <div key={i} className="animate-pulse">
-                    <div className="h-64 bg-graphite/10 rounded-2xl mb-4" />
-                    <div className="h-6 bg-graphite/10 rounded w-3/4 mb-2" />
-                    <div className="h-4 bg-graphite/10 rounded w-full" />
+      {/* ════════════════════════════════════════════
+          SECTION 6 — THE DIFFERENCE
+          Why NESS — refined trust features on dark canvas
+          ════════════════════════════════════════════ */}
+      <LazySection>
+        <section
+          className="relative py-24 md:py-32 lg:py-40 bg-graphite overflow-hidden"
+          aria-labelledby="benefits-heading"
+        >
+          <GradientOrbField variant="warm" />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-6">
+            <div className="text-center mb-16 sm:mb-20">
+              <h2
+                id="benefits-heading"
+                className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl tracking-[-0.03em] leading-[1.05]"
+              >
+                The NESS <span className="text-gradient-energy">Difference</span>
+              </h2>
+              <p className="text-lg sm:text-xl text-pearl/40 font-light max-w-2xl mx-auto mt-6 leading-relaxed">
+                Premium engineering meets everyday reliability.
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-4 md:gap-5">
+              {[
+                {
+                  icon: Shield,
+                  title: "Zero Noise. Zero Emissions.",
+                  desc: "No rumble. No fumes. No neighbors knowing. Seamless power in absolute silence, while your generator collects dust.",
+                },
+                {
+                  icon: Zap,
+                  title: "10ms Switchover",
+                  desc: "Your lights don't flicker. Your call doesn't drop. Your work doesn't vanish. NESS responds 200× faster than you can blink.",
+                },
+                {
+                  icon: Home,
+                  title: "Whole Home. Not Half Measures.",
+                  desc: "Run your AC, refrigerator, Wi-Fi, and entertainment — all at once, all night. Not just essentials. Everything.",
+                },
+              ].map((card) => (
+                <div
+                  key={card.title}
+                  className="group relative p-7 sm:p-8 rounded-2xl border border-pearl/10 bg-pearl/[0.03] transition-all duration-300 hover:bg-pearl/[0.06] hover:border-pearl/20"
+                >
+                  <div className="w-14 h-14 bg-energy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-energy/20 transition-colors duration-300">
+                    <card.icon className="w-7 h-7 text-energy" aria-hidden="true" />
                   </div>
-                ))}
-              </div>
+                  <h3 className="font-display text-xl sm:text-2xl font-semibold text-pearl mb-3">{card.title}</h3>
+                  <p className="text-pearl/50 leading-relaxed font-light text-sm sm:text-base">{card.desc}</p>
+                </div>
+              ))}
             </div>
           </div>
-        }
-      >
-        <BelowFoldSections />
-      </Suspense>
+        </section>
+      </LazySection>
 
-      {/* 7. CONFIGURATOR */}
+      {/* ════════════════════════════════════════════
+          SECTION 7 — THE DECLARATION — Stats
+          Oversized numbers. Indian resilience story.
+          ════════════════════════════════════════════ */}
+      <LazySection>
+        <section className="relative py-24 sm:py-32 md:py-40 bg-charcoal overflow-hidden" aria-label="Key statistics">
+          <GradientOrbField variant="intense" />
+
+          <div className="relative z-10 max-w-6xl mx-auto px-6">
+            <div className="grid md:grid-cols-3 gap-8 sm:gap-12 text-center">
+              {[
+                { value: 10, suffix: "ms", label: "Grid-to-battery switchover", desc: "Faster than you can blink" },
+                { value: 45, suffix: "°C", label: "Tested operating temperature", desc: "Engineered for Indian summers" },
+                { value: 10, suffix: " yr", label: "Full replacement warranty", desc: "A decade of certainty" },
+              ].map((stat) => (
+                <div key={stat.label} className="space-y-4">
+                  <div className="text-energy">
+                    <AnimatedCounter
+                      value={stat.value}
+                      suffix={stat.suffix}
+                      className="font-display text-[clamp(4rem,12vw,8rem)] font-bold leading-none tracking-tight"
+                    />
+                  </div>
+                  <p className="text-sm uppercase tracking-[0.2em] text-pearl/40 font-light">{stat.label}</p>
+                  <p className="text-pearl/25 text-xs sm:text-sm font-light">{stat.desc}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
+      {/* ── Interstitial ── */}
+      <Interstitial text="Bangalore-built. Tested in conditions Silicon Valley can't imagine." />
+
+      {/* ════════════════════════════════════════════
+          SECTION 8 — CUSTOMER STORIES
+          Supporting testimonials on dark canvas
+          ════════════════════════════════════════════ */}
+      <LazySection>
+        <section className="py-24 sm:py-32 md:py-40 bg-charcoal" aria-labelledby="testimonials-heading">
+          <div className="max-w-6xl mx-auto px-6 sm:px-8">
+            <p
+              id="testimonials-heading"
+              className="text-energy text-xs sm:text-sm uppercase tracking-[0.2em] text-center mb-16 sm:mb-20"
+            >
+              Voices from 500+ homes
+            </p>
+
+            <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
+              {[
+                {
+                  quote: "What made me choose NESS was the silence. My generator used to wake the neighborhood. Now, nobody even knows when the power goes out.",
+                  name: "Rajesh Malhotra",
+                  location: "Villa Owner · Bangalore · 18 months",
+                  initials: "RM",
+                },
+                {
+                  quote: "We had solar panels sitting idle during outages. Added a NESS battery in two hours. Now our solar actually works when we need it most.",
+                  name: "Priya Venkatesh",
+                  location: "Homeowner · Chennai · Standalone Battery",
+                  initials: "PV",
+                },
+              ].map((t) => (
+                <div
+                  key={t.name}
+                  className="relative p-8 sm:p-10 rounded-2xl border border-pearl/10 bg-pearl/[0.03] hover:bg-pearl/[0.06] transition-colors duration-300"
+                >
+                  <Quote className="w-8 h-8 text-energy/20 mb-6" aria-hidden="true" />
+                  <blockquote className="text-lg sm:text-xl text-pearl/80 leading-relaxed mb-8 font-light">
+                    "{t.quote}"
+                  </blockquote>
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center text-sm font-medium text-energy">
+                      {t.initials}
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-pearl">{t.name}</p>
+                      <p className="text-xs text-pearl/40 font-light">{t.location}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </LazySection>
+
+      {/* ════════════════════════════════════════════
+          SECTION 9 — THE INVITATION — Final CTA
+          Intense energy-green glow. "See what's next."
+          ════════════════════════════════════════════ */}
+      <section className="relative py-28 sm:py-36 md:py-44 bg-charcoal overflow-hidden" aria-label="Call to action">
+        <GradientOrbField variant="intense" />
+
+        <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-10 sm:space-y-12">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl tracking-[-0.03em] leading-[1.05]">
+            See what's <span className="text-gradient-energy">next.</span>
+          </h2>
+          <p className="text-lg sm:text-xl md:text-2xl text-pearl/40 font-light max-w-2xl mx-auto leading-relaxed">
+            The future of home energy is already installed in 500+ Indian homes.
+            <span className="block mt-2 text-pearl/55">Yours could be next.</span>
+          </p>
+
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <Link to="/residential">
+              <Button
+                size="lg"
+                className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-14 py-5 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 shadow-[0_20px_60px_rgba(0,230,118,0.25)] hover:shadow-[0_25px_80px_rgba(0,230,118,0.4)] hover:scale-105 active:scale-95"
+              >
+                Enter NESS
+                <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
+              </Button>
+            </Link>
+            <Link to="/contact/homeowner">
+              <Button
+                size="lg"
+                className="interactive font-display bg-transparent border border-pearl/20 hover:border-pearl/40 text-pearl hover:bg-pearl/5 font-light px-8 sm:px-12 py-5 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300"
+              >
+                Talk to an Expert
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONFIGURATOR (lazy loaded) ── */}
       <Suspense
         fallback={
-          <div className="py-24 bg-background">
+          <div className="py-24 bg-charcoal">
             <div className="max-w-7xl mx-auto px-4 sm:px-6">
               <div className="space-y-4 mb-12 animate-pulse">
-                <div className="h-10 bg-muted rounded w-1/2 mx-auto" />
-                <div className="h-6 bg-muted rounded w-3/4 mx-auto" />
-              </div>
-              <div className="space-y-6">
-                <div className="h-32 bg-muted rounded-xl animate-pulse" />
-                <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-                  {[1, 2, 3, 4, 5, 6].map((i) => (
-                    <div key={i} className="h-24 bg-muted rounded-lg animate-pulse" />
-                  ))}
-                </div>
-                <div className="h-48 bg-muted rounded-xl animate-pulse" />
+                <div className="h-10 bg-pearl/10 rounded w-1/2 mx-auto" />
+                <div className="h-6 bg-pearl/10 rounded w-3/4 mx-auto" />
               </div>
             </div>
           </div>
@@ -419,4 +632,5 @@ const Index = () => {
     </Layout>
   );
 };
+
 export default memo(Index);
