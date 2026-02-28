@@ -56,7 +56,7 @@ const Index = () => {
         <div className="absolute inset-0 w-full h-full">
           <img
             src={nessHeroProduct}
-            alt="NESS home battery — reliable backup power for modern Indian homes"
+            alt="NESS home battery — clean energy storage for modern Indian homes"
             className="w-full h-full object-cover object-center"
             loading="eager"
             width={1920}
@@ -84,9 +84,9 @@ const Index = () => {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
-              The grid
+              Power without
               <br />
-              <span className="text-gradient-energy">ends here.</span>
+              <span className="text-gradient-energy">permission.</span>
             </h1>
 
             {/* Sub-headline — Outfit 300, elaboration */}
@@ -96,8 +96,8 @@ const Index = () => {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
               )}
             >
-              10 milliseconds between you and darkness.
-              <span className="block mt-1 text-pearl/70">We own those 10 milliseconds.</span>
+              Your roof collects it. Your wall stores it.
+              <span className="block mt-1 text-pearl/70">The grid becomes optional.</span>
             </p>
 
             {/* CTAs */}
@@ -113,7 +113,7 @@ const Index = () => {
                   className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
                 >
                   <span className="flex items-center justify-center">
-                    Enter NESS
+                    Own Your Energy
                     <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
                   </span>
                 </Button>
@@ -135,7 +135,7 @@ const Index = () => {
                 isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
               )}
             >
-              NESS Powerwall — Home Battery System
+              NESS — Clean Energy Storage
             </p>
           </div>
         </div>
@@ -179,24 +179,24 @@ const Index = () => {
             className="font-display tracking-[-0.03em] leading-[1.05]"
           >
             <span className="block text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold text-pearl">
-              One box on your wall.
+              One box. Sun in.
             </span>
             <span className="block mt-3 sm:mt-5 text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light text-pearl/35">
-              Ten years of never thinking about power again.
+              Freedom out.
             </span>
           </h2>
 
           <p className="text-base sm:text-lg md:text-xl text-pearl/40 font-light max-w-2xl mx-auto leading-[1.8]">
-            Every NESS system ships with a comprehensive 10-year full replacement warranty.
+            Your home already generates power. Now it keeps it.
             <span className="block mt-3 text-pearl/55 font-normal">
-              One investment. A decade of certainty.
+              Store solar. Use it tonight. Stop paying the grid.
             </span>
           </p>
         </div>
       </section>
 
       {/* ── Interstitial ── */}
-      <Interstitial text="While the grid sleeps, we don't." />
+      <Interstitial text="The cleanest power plant in India fits on your wall." />
 
       {/* ════════════════════════════════════════════
           SECTION 3 — POWERWALL AS SCULPTURE
@@ -221,7 +221,7 @@ const Index = () => {
                   Your home.
                 </span>
                 <span className="block mt-2 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-gradient-energy">
-                  Unbreakable.
+                  Self-powered.
                 </span>
               </h2>
             </div>
@@ -230,15 +230,15 @@ const Index = () => {
               {/* Features */}
               <div className="space-y-8 sm:space-y-10">
                 <p className="text-lg sm:text-xl md:text-2xl text-pearl/60 font-light leading-[1.7] max-w-lg">
-                  Elegant. Powerful. Silent. The NESS Powerwall replaces your generator
-                  with something your home deserves.
+                  Store solar energy. Power your home day and night. Silent, elegant,
+                  and completely independent from the grid.
                 </p>
 
                 <div className="space-y-5 sm:space-y-6">
                   {[
-                    { title: "Everything. Everywhere.", desc: "Powers your entire home — AC, fridge, Wi-Fi, lights. All of it." },
-                    { title: "10ms switchover", desc: "200× faster than you can blink. Your lights never flicker." },
-                    { title: "Works with solar", desc: "Store sun. Use sun. Stop paying the grid." },
+                    { title: "Store the sun", desc: "Capture solar energy during the day. Use it at night. Your roof becomes a power station." },
+                    { title: "Whole-home power", desc: "AC, fridge, Wi-Fi, lights — everything runs. Not just essentials. Everything." },
+                    { title: "10ms switchover", desc: "Grid drops? You won't notice. 200× faster than a blink." },
                   ].map((f) => (
                     <div key={f.title} className="flex items-start gap-4 group">
                       <div className="w-8 h-8 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-energy/20 transition-colors">
@@ -258,7 +258,7 @@ const Index = () => {
                       size="lg"
                       className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 text-lg rounded-full transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
                     >
-                      Explore NESS
+                      Own Your Energy
                       <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
                     </Button>
                   </Link>
@@ -270,7 +270,7 @@ const Index = () => {
                 <div className="relative">
                   <WebPImage
                     src={nessProProduct}
-                    alt="NESS Powerwall — Premium home battery backup system"
+                    alt="NESS Powerwall — Clean energy storage for your home"
                     className="w-full h-auto rounded-2xl product-glow"
                     priority={false}
                   />
@@ -284,7 +284,7 @@ const Index = () => {
       </LazySection>
 
       {/* ── Interstitial ── */}
-      <Interstitial text="Your neighbors' lights went out. Yours didn't." />
+      <Interstitial text="500 Indian homes already run on sunlight." />
 
       {/* ════════════════════════════════════════════
           SECTION 4 — THE MOVEMENT — Social Proof
@@ -296,7 +296,7 @@ const Index = () => {
             {/* Live counter */}
             <div className="text-center mb-16 sm:mb-24">
               <LiveTicker
-                label="Indian homes protected right now"
+                label="Indian homes powered by clean energy"
                 startValue={500}
                 incrementRate={0.001}
                 suffix="+"
@@ -380,7 +380,7 @@ const Index = () => {
                 <div className="relative">
                   <WebPImage
                     src={nessPodProduct}
-                    alt="NESS Pod — Commercial battery backup system"
+                    alt="NESS Pod — Commercial clean energy storage system"
                     className="w-full h-auto rounded-2xl product-glow"
                     priority={false}
                   />
@@ -391,15 +391,15 @@ const Index = () => {
               {/* Features */}
               <div className="space-y-8 sm:space-y-10">
                 <p className="text-lg sm:text-xl md:text-2xl text-pearl/60 font-light leading-[1.7] max-w-lg">
-                  Industrial-grade reliability meets modular scalability.
-                  The NESS Pod powers businesses that can't afford a single second of downtime.
+                  Clean energy storage at commercial scale. The NESS Pod helps businesses
+                  cut carbon, cut costs, and never depend on diesel again.
                 </p>
 
                 <div className="space-y-5 sm:space-y-6">
                   {[
+                    { title: "Zero diesel. Zero emissions.", desc: "Replace generators with stored solar. Clean power, 24/7." },
                     { title: "Scalable capacity", desc: "Stack units to match any demand. Grow without rewiring." },
-                    { title: "Industrial-grade reliability", desc: "Built for 45°C heat, monsoon humidity, and voltage chaos." },
-                    { title: "Reduce operating costs", desc: "Cut diesel dependency. Cut bills. Cut carbon." },
+                    { title: "Built for Indian conditions", desc: "Tested at 45°C heat, monsoon humidity, and voltage chaos." },
                   ].map((f) => (
                     <div key={f.title} className="flex items-start gap-4 group">
                       <div className="w-8 h-8 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-energy/20 transition-colors">
@@ -450,7 +450,7 @@ const Index = () => {
                 The NESS <span className="text-gradient-energy">Difference</span>
               </h2>
               <p className="text-lg sm:text-xl text-pearl/40 font-light max-w-2xl mx-auto mt-6 leading-relaxed">
-                Premium engineering meets everyday reliability.
+                Clean energy engineering meets everyday independence.
               </p>
             </div>
 
@@ -458,18 +458,18 @@ const Index = () => {
               {[
                 {
                   icon: Shield,
-                  title: "Zero Noise. Zero Emissions.",
-                  desc: "No rumble. No fumes. No neighbors knowing. Seamless power in absolute silence, while your generator collects dust.",
+                  title: "Clean. Silent. Zero Emissions.",
+                  desc: "No diesel. No fumes. No noise. Just stored sunlight powering your home in absolute silence.",
                 },
                 {
                   icon: Zap,
-                  title: "10ms Switchover",
-                  desc: "Your lights don't flicker. Your call doesn't drop. Your work doesn't vanish. NESS responds 200× faster than you can blink.",
+                  title: "Solar That Works at Night",
+                  desc: "Your panels generate during the day. NESS stores it. Use clean energy 24/7 — even when the sun's down.",
                 },
                 {
                   icon: Home,
                   title: "Whole Home. Not Half Measures.",
-                  desc: "Run your AC, refrigerator, Wi-Fi, and entertainment — all at once, all night. Not just essentials. Everything.",
+                  desc: "AC, refrigerator, Wi-Fi, entertainment — all at once, all night on clean energy. Not just essentials. Everything.",
                 },
               ].map((card) => (
                 <div
@@ -499,9 +499,9 @@ const Index = () => {
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <div className="grid md:grid-cols-3 gap-8 sm:gap-12 text-center">
               {[
-                { value: 10, suffix: "ms", label: "Grid-to-battery switchover", desc: "Faster than you can blink" },
+                { value: 100, suffix: "%", label: "Solar compatible", desc: "Store every watt your panels generate" },
                 { value: 45, suffix: "°C", label: "Tested operating temperature", desc: "Engineered for Indian summers" },
-                { value: 10, suffix: " yr", label: "Full replacement warranty", desc: "A decade of certainty" },
+                { value: 10, suffix: " yr", label: "Full replacement warranty", desc: "A decade of clean, free energy" },
               ].map((stat) => (
                 <div key={stat.label} className="space-y-4">
                   <div className="text-energy">
