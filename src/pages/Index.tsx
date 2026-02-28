@@ -143,6 +143,20 @@ const HERO_STEPS = [
   },
 ] as const;
 
+/* ─────────────────────────────────────────────
+   INTERSTITIAL — provocative one-liner between sections
+   ───────────────────────────────────────────── */
+const Interstitial = memo(function Interstitial({ text }: { text: string }) {
+  return (
+    <div className="py-16 sm:py-20 md:py-28 bg-charcoal relative overflow-hidden">
+      <GradientOrbField variant="warm" />
+      <p className="relative z-10 text-center font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light text-pearl/30 italic tracking-tight max-w-4xl mx-auto px-6">
+        {text}
+      </p>
+    </div>
+  );
+});
+
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile();
