@@ -23,7 +23,7 @@ export default {
     extend: {
       fontFamily: {
         sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Segoe UI', 'Inter', 'system-ui', 'sans-serif'],
-        display: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'Segoe UI', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Outfit', '-apple-system', 'BlinkMacSystemFont', 'SF Pro Display', 'system-ui', 'sans-serif'],
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
@@ -180,6 +180,20 @@ export default {
             opacity: "0"
           }
         },
+        "orb-drift": {
+          "0%": { transform: "translate(0, 0) scale(1)" },
+          "33%": { transform: "translate(100px, -50px) scale(1.1)" },
+          "66%": { transform: "translate(-50px, 80px) scale(0.9)" },
+          "100%": { transform: "translate(30px, -30px) scale(1.05)" },
+        },
+        "energy-pulse": {
+          "0%, 100%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+        },
+        "marquee": {
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
@@ -190,6 +204,9 @@ export default {
         "slide-up": "slide-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards",
         "premium-float": "premium-float 6s ease-in-out infinite",
         "slide-down": "slide-down 2s ease-in-out infinite",
+        "orb-drift": "orb-drift 20s ease-in-out infinite alternate",
+        "energy-pulse": "energy-pulse 4s ease-in-out infinite",
+        "marquee": "marquee 30s linear infinite",
       },
     },
   },

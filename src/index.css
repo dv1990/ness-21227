@@ -244,7 +244,46 @@
   }
   
   .text-gradient-energy {
-    @apply bg-gradient-to-r from-energy to-energy-bright bg-clip-text text-transparent;
+    background: linear-gradient(135deg, #00E676 0%, #00f080 50%, #00ff99 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Product Glow — energy underglow for floating product images */
+  .product-glow {
+    filter: drop-shadow(0 40px 80px hsl(151 100% 45% / 0.3))
+            drop-shadow(0 20px 40px hsl(151 100% 45% / 0.15));
+  }
+
+  .product-reflection {
+    background: radial-gradient(ellipse 60% 20% at 50% 100%,
+      hsl(151 100% 45% / 0.12), transparent);
+  }
+
+  /* Section gradient bleeds — dissolving transitions */
+  .section-bleed-dark {
+    background: linear-gradient(to bottom,
+      hsl(var(--charcoal)) 0%,
+      hsl(var(--charcoal)) calc(100% - 200px),
+      hsl(var(--graphite)) 100%
+    );
+  }
+
+  .section-bleed-to-light {
+    background: linear-gradient(to bottom,
+      hsl(var(--charcoal)) 0%,
+      hsl(var(--charcoal)) calc(100% - 300px),
+      hsl(var(--whisper)) 100%
+    );
+  }
+
+  .section-bleed-from-light {
+    background: linear-gradient(to bottom,
+      hsl(var(--whisper)) 0%,
+      hsl(var(--whisper)) calc(100% - 300px),
+      hsl(var(--charcoal)) 100%
+    );
   }
   
   .btn-premium {
@@ -254,14 +293,14 @@
   }
   
   .text-display {
-    font-family: var(--font-system);
-    font-weight: 500;
+    font-family: 'Outfit', var(--font-system);
+    font-weight: 700;
     letter-spacing: -0.03em;
   }
-  
+
   .text-premium {
-    font-family: var(--font-system);
-    font-weight: 500;
+    font-family: 'Outfit', var(--font-system);
+    font-weight: 300;
     letter-spacing: -0.025em;
     line-height: 1.15;
   }

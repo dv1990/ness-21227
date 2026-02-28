@@ -168,7 +168,7 @@ export const Parallax: React.FC<ParallaxProps> = ({
 
 // Smooth reveal on scroll with stagger
 interface StaggerRevealProps {
-  children: React.ReactNode[];
+  children: React.ReactNode;
   stagger?: number;
   className?: string;
 }
@@ -178,9 +178,10 @@ export const StaggerReveal: React.FC<StaggerRevealProps> = ({
   stagger = 100,
   className = ''
 }) => {
+  const items = React.Children.toArray(children);
   return (
     <div className={className}>
-      {children.map((child, childIndex) => (
+      {items.map((child, childIndex) => (
         <SmoothFade
           key={`smooth-fade-${childIndex}`}
           delay={childIndex * stagger}
