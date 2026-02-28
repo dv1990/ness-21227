@@ -16,6 +16,8 @@ import { LiveTicker } from "@/components/ui/live-ticker";
 import { testimonials } from "@/data/testimonials";
 import { SmoothFade, StaggerReveal } from "@/components/ui/smooth-animations";
 import { useIntersectionObserver } from "@/hooks/use-intersection-observer";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // Lazy load heavy below-fold content
 const HomeownerConfigurator = lazy(() =>
@@ -117,110 +119,176 @@ const Interstitial = memo(function Interstitial({ text }: { text: string }) {
 
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const isMobile = useIsMobile();
+  const heroRef = useRef<HTMLDivElement>(null);
+  const scrollProgress = useScrollProgress(heroRef, { disabled: isMobile });
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
+  // Scroll-driven transform values (desktop only)
+  // Phase 1 (0-0.5): Text fades up, product overlays lighten
+  // Phase 2 (0.5-1.0): Product scales subtly, label appears
+  const textOpacity = isMobile ? 1 : Math.max(0, 1 - scrollProgress * 2.5);
+  const textTranslateY = isMobile ? 0 : scrollProgress * -80;
+  const overlayOpacity = isMobile ? 1 : Math.max(0.15, 1 - scrollProgress * 1.2);
+  const productScale = isMobile ? 1 : 1 + scrollProgress * 0.06;
+  const labelOpacity = isMobile ? 1 : Math.min(1, Math.max(0, (scrollProgress - 0.4) * 3));
+
   return (
     <Layout className="-mt-16">
 
       {/* ════════════════════════════════════════════
-          SECTION 1 — THE HERO
-          Dark canvas. Product image. Provocative headline.
+          SECTION 1 — THE HERO (Scroll-Linked)
+          Desktop: 180vh runway with sticky 100vh viewport.
+          Text fades up → product reveals as you scroll.
+          Mobile: Static 100vh hero (no scroll-link).
           ════════════════════════════════════════════ */}
-      <section className="relative min-h-[100svh] w-full overflow-hidden" aria-labelledby="hero-heading">
-        {/* Full-screen product background */}
-        <div className="absolute inset-0 w-full h-full">
-          <img
-            src={nessHeroProduct}
-            alt="NESS home battery — clean energy storage for modern Indian homes"
-            className="w-full h-full object-cover object-center"
-            loading="eager"
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 via-40% to-charcoal/20" />
-          <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent" />
-        </div>
-
-        {/* Ambient orbs behind text */}
-        <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <GradientOrbField variant="warm" />
-        </div>
-
-        {/* Hero content */}
-        <div className="relative z-10 min-h-[100svh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0">
-          <div className="space-y-8 sm:space-y-12 md:space-y-14 max-w-3xl w-full">
-
-            {/* Headline — Outfit 700, provocative */}
-            <h1
-              id="hero-heading"
-              className={cn(
-                "font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[0.95] tracking-[-0.03em] text-pearl transition-all duration-1000 ease-out",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-              )}
-            >
-              Power without
-              <br />
-              <span className="text-gradient-energy">permission.</span>
-            </h1>
-
-            {/* Sub-headline — Outfit 300, elaboration */}
-            <p
-              className={cn(
-                "font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-[1.35] tracking-[-0.015em] max-w-[700px] text-pearl/50 transition-all duration-1000 ease-out delay-200",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-              )}
-            >
-              Your roof collects it. Your wall stores it.
-              <span className="block mt-1 text-pearl/70">The grid becomes optional.</span>
-            </p>
-
-            {/* CTAs */}
+      <div
+        ref={heroRef}
+        className={cn(
+          "relative w-full bg-charcoal",
+          isMobile ? "min-h-[100svh]" : "h-[180vh]",
+        )}
+      >
+        <section
+          className={cn(
+            "relative w-full overflow-hidden",
+            isMobile ? "min-h-[100svh]" : "sticky top-0 h-[100vh]",
+          )}
+          aria-labelledby="hero-heading"
+        >
+          {/* Full-screen product background — scales on scroll */}
+          <div className="absolute inset-0 w-full h-full">
+            <img
+              src={nessHeroProduct}
+              alt="NESS home battery — clean energy storage for modern Indian homes"
+              className="w-full h-full object-cover object-center will-change-transform"
+              loading="eager"
+              width={1920}
+              height={1080}
+              fetchPriority="high"
+              style={{
+                transform: `scale(${productScale})`,
+                transformOrigin: "center center",
+              }}
+            />
+            {/* Overlays fade out on scroll to reveal product */}
             <div
-              className={cn(
-                "pt-2 sm:pt-4 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-400",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-              )}
-            >
-              <MagneticWrapper>
-                <Link to="/residential" className="inline-block group">
+              className="absolute inset-0 bg-gradient-to-r from-charcoal/80 via-charcoal/50 via-40% to-charcoal/20 will-change-[opacity]"
+              style={{ opacity: overlayOpacity }}
+            />
+            <div
+              className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent will-change-[opacity]"
+              style={{ opacity: overlayOpacity }}
+            />
+          </div>
+
+          {/* Ambient orbs behind text */}
+          <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <GradientOrbField variant="warm" />
+          </div>
+
+          {/* Hero content — fades up on scroll */}
+          <div
+            className="relative z-10 min-h-[100svh] md:min-h-[100vh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform"
+            style={
+              isMobile
+                ? undefined
+                : {
+                    transform: `translateY(${textTranslateY}px)`,
+                    opacity: textOpacity,
+                  }
+            }
+          >
+            <div className="space-y-8 sm:space-y-12 md:space-y-14 max-w-3xl w-full">
+
+              {/* Headline — Outfit 700, provocative */}
+              <h1
+                id="hero-heading"
+                className={cn(
+                  "font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[0.95] tracking-[-0.03em] text-pearl transition-all duration-1000 ease-out",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+                )}
+              >
+                Power without
+                <br />
+                <span className="text-gradient-energy">permission.</span>
+              </h1>
+
+              {/* Sub-headline — Outfit 300, elaboration */}
+              <p
+                className={cn(
+                  "font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-[1.35] tracking-[-0.015em] max-w-[700px] text-pearl/50 transition-all duration-1000 ease-out delay-200",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+                )}
+              >
+                Your roof collects it. Your wall stores it.
+                <span className="block mt-1 text-pearl/70">The grid becomes optional.</span>
+              </p>
+
+              {/* CTAs */}
+              <div
+                className={cn(
+                  "pt-2 sm:pt-4 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-400",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+                )}
+              >
+                <MagneticWrapper>
+                  <Link to="/residential" className="inline-block group">
+                    <Button
+                      size="lg"
+                      className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
+                    >
+                      <span className="flex items-center justify-center">
+                        Own Your Energy
+                        <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                      </span>
+                    </Button>
+                  </Link>
+                </MagneticWrapper>
+                <Link to="/contact/homeowner" className="inline-block group">
                   <Button
                     size="lg"
-                    className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
+                    className="interactive font-display bg-transparent border border-pearl/30 hover:border-pearl/60 text-pearl hover:bg-pearl/10 font-light px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
                   >
-                    <span className="flex items-center justify-center">
-                      Own Your Energy
-                      <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                    </span>
+                    Talk to an Expert
                   </Button>
                 </Link>
-              </MagneticWrapper>
-              <Link to="/contact/homeowner" className="inline-block group">
-                <Button
-                  size="lg"
-                  className="interactive font-display bg-transparent border border-pearl/30 hover:border-pearl/60 text-pearl hover:bg-pearl/10 font-light px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
-                >
-                  Talk to an Expert
-                </Button>
-              </Link>
-            </div>
+              </div>
 
-            {/* Product identifier */}
-            <p
-              className={cn(
-                "text-pearl/25 text-xs sm:text-sm font-light tracking-[0.2em] uppercase mt-6 transition-all duration-1000 ease-out delay-500",
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-              )}
-            >
-              NESS — Clean Energy Storage
-            </p>
+              {/* Product identifier — fades in later on scroll */}
+              <p
+                className={cn(
+                  "text-pearl/25 text-xs sm:text-sm font-light tracking-[0.2em] uppercase mt-6 transition-all duration-1000 ease-out delay-500",
+                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
+                )}
+                style={
+                  isMobile
+                    ? undefined
+                    : { opacity: labelOpacity }
+                }
+              >
+                NESS — Clean Energy Storage
+              </p>
+            </div>
           </div>
-        </div>
-      </section>
+
+          {/* Scroll indicator — visible at top, fades on scroll */}
+          {!isMobile && (
+            <div
+              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 will-change-[opacity]"
+              style={{ opacity: Math.max(0, 1 - scrollProgress * 4) }}
+              aria-hidden="true"
+            >
+              <span className="text-pearl/30 text-xs tracking-[0.2em] uppercase">Scroll</span>
+              <div className="w-px h-8 bg-gradient-to-b from-pearl/30 to-transparent animate-energy-pulse" />
+            </div>
+          )}
+        </section>
+      </div>
 
       {/* ────────────────────────────────────
           TRUST BAR — Elevated Indian identity
