@@ -212,40 +212,40 @@ const About = () => {
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3">
                     <FlaskConical className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={23} duration={1500} /></div>
+                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={30000} duration={2000} />+</div>
                   </div>
                   <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    PhDs on staff
+                    Cells tested
                   </div>
                 </div>
                 
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3">
                     <Binary className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={847000} duration={2500} />+</div>
+                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={5} duration={1500} />M+</div>
                   </div>
                   <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Test cycles run
+                    Data points collected
                   </div>
                 </div>
                 
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3">
                     <Cpu className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={12} duration={1800} /></div>
+                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={15} duration={1800} />+</div>
                   </div>
                   <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    AI models deployed
+                    Battery Engineers
                   </div>
                 </div>
                 
                 <div className="space-y-3 md:space-y-4">
                   <div className="flex items-center gap-3">
                     <Microscope className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums">₹<AnimatedCounter value={47} duration={2000} />Cr</div>
+                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={6} duration={1500} />+</div>
                   </div>
                   <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Annual R&D spend
+                    Years R&D
                   </div>
                 </div>
               </div>
