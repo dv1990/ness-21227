@@ -37,8 +37,7 @@ export const GradientOrb = memo(function GradientOrb({
 }: GradientOrbProps) {
   const hsl = COLOR_MAP[color];
   const opacity = 0.07 * intensity;
-  // Mobile: 50% size
-  const mobileSize = Math.round(size * 0.5);
+  // Mobile: 50% size handled via CSS min()
 
   return (
     <div

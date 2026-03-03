@@ -501,7 +501,7 @@ const About = () => {
               </Link>
               
               <Link to="/installers">
-                <Button size="lg" variant="outline" className="border-pearl/20 text-pearl hover:bg-pearl/10 px-8 md:px-10 py-5 md:py-6 text-base md:text-lg rounded-full transition-all hover:scale-105 w-full sm:w-auto">
+                <Button size="lg" variant="outline" className="border-pearl/20 text-pearl px-8 md:px-10 py-5 md:py-6 text-base md:text-lg rounded-full w-full sm:w-auto">
                   Partner With Us
                 </Button>
               </Link>

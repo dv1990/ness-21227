@@ -1,5 +1,5 @@
 import { memo, useState } from 'react';
-import { Battery, Zap, Shield, Sun, Gauge, Award, Cpu, TrendingUp, Plug } from 'lucide-react';
+import { Battery, Zap, Shield, Sun, Award, Cpu, TrendingUp, Plug } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useStaggeredIntersection } from '@/hooks/use-intersection-observer';
 import { Badge } from '@/components/ui/badge';
