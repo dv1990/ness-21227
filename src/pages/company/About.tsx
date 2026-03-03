@@ -267,7 +267,7 @@ const About = () => {
                   <div className="h-px bg-pearl/10"></div>
                   <div className="flex justify-between items-baseline gap-4">
                     <span className="text-sm md:text-base text-pearl/70">Customer downtime</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">{"<"}0.0001%</span>
+                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">{"<"}0.01%</span>
                   </div>
                   <div className="h-px bg-pearl/10"></div>
                   <div className="flex justify-between items-baseline gap-4">
