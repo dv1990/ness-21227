@@ -1,5 +1,5 @@
 import type { Product, Appliance } from '@/types/product';
-import nessPodImage from '@/assets/ness-pod-product.png';
+// nessPodImage removed — unused
 import nessProImage from '@/assets/ness-pro-product.png';
 import nessCubeImage from '@/assets/ness-cube-product.png';
 import { Wind, Coffee, Tv, Wifi, Fan, Lightbulb } from 'lucide-react';

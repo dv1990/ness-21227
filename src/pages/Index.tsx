@@ -90,7 +90,7 @@ const Interstitial = memo(function Interstitial({ text }: { text: string }) {
 
   return (
     <div
-      ref={ref}
+      ref={ref as React.RefObject<HTMLDivElement>}
       className="py-16 sm:py-20 md:py-28 bg-charcoal relative overflow-hidden"
     >
       <GradientOrbField variant="warm" />
