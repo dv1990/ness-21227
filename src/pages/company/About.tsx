@@ -262,32 +262,32 @@ const About = () => {
                   <div className="h-px bg-pearl/10"></div>
                   <div className="flex justify-between items-baseline gap-4">
                     <span className="text-sm md:text-base text-pearl/70">Quality control points</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">2,847</span>
+                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">12</span>
                   </div>
                   <div className="h-px bg-pearl/10"></div>
                   <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Defect rate (6 sigma)</span>
+                    <span className="text-sm md:text-base text-pearl/70">Customer downtime</span>
                     <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">{"<"}0.0001%</span>
                   </div>
                   <div className="h-px bg-pearl/10"></div>
                   <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Factory automation</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">94%</span>
+                    <span className="text-sm md:text-base text-pearl/70">Post Production QA</span>
+                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">48 Hours</span>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-pearl/5 backdrop-blur-sm border border-pearl/10 rounded-2xl p-6 md:p-8 space-y-5">
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/50 font-medium">Certifications</div>
-                <div className="flex flex-wrap gap-2 md:gap-3">
-                  <span className="px-4 py-2 bg-pearl/10 rounded-full text-xs md:text-sm text-pearl/90">
-</span>
-                  
-                  <span className="px-4 py-2 bg-pearl/10 rounded-full text-xs md:text-sm text-pearl/90">ISO 9001</span>
-                  <span className="px-4 py-2 bg-pearl/10 rounded-full text-xs md:text-sm text-pearl/90">UL 1973</span>
-                  <span className="px-4 py-2 bg-pearl/10 rounded-full text-xs md:text-sm text-pearl/90">BIS</span>
-                </div>
-              </div>
+              
+
+
+
+
+
+
+
+
+
+              
             </div>
           </div>
         </div>
@@ -299,8 +299,8 @@ const About = () => {
         {/* Subtle background pattern */}
         <div className="absolute inset-0 opacity-[0.015]">
           <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
-              backgroundSize: '48px 48px'
-            }}></div>
+            backgroundSize: '48px 48px'
+          }}></div>
         </div>
         
         <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
