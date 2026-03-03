@@ -316,8 +316,8 @@ const About = () => {
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
             <div className="text-center space-y-4 md:space-y-5 p-6 rounded-2xl bg-whisper/50">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">10K+
-                <AnimatedCounter value={10} duration={2000} />K+
+              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">
+                <AnimatedCounter value={500} duration={2000} />+
               </div>
               <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50 font-medium">Systems deployed</div>
               <p className="text-xs md:text-sm text-charcoal/40 leading-relaxed pt-1 italic">
