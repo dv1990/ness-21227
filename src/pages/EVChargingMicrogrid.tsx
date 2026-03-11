@@ -3,6 +3,8 @@ import Layout from '@/components/Layout';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { WebPImage } from '@/components/ui/webp-image';
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { SmoothFade } from "@/components/ui/smooth-animations";
 import heroImage from '@/assets/ev-hero-sunrise.webp';
 
 const EVChargingMicrogrid = () => {
@@ -21,15 +23,15 @@ const EVChargingMicrogrid = () => {
     <Layout className="-mt-16">
       {/* Minimal Sticky Nav */}
       <div className={cn(
-        "fixed top-0 left-0 right-0 z-40 bg-background/90 backdrop-blur-xl border-b border-border/50 transition-all duration-700",
+        "fixed top-0 left-0 right-0 z-40 bg-charcoal/90 backdrop-blur-xl border-b border-pearl/10 transition-all duration-700",
         stickyNav ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
       )}>
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-          <span className="text-sm tracking-wide text-foreground">NESS MICROGRID</span>
+          <span className="text-sm tracking-wide text-pearl">NESS MICROGRID</span>
           <div className="flex gap-6">
-            <button 
+            <button
               onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-              className="text-sm tracking-wide text-foreground hover:opacity-60 transition-opacity"
+              className="text-sm tracking-wide text-pearl hover:opacity-60 transition-opacity"
             >
               Contact
             </button>
@@ -75,7 +77,7 @@ const HeroSection = () => {
           "max-w-5xl transition-all duration-1000 ease-out",
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         )}>
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-extralight text-primary-foreground mb-12 leading-[0.95] tracking-tight">
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-light text-primary-foreground mb-12 leading-[0.95] tracking-tight">
             Never lose<br />
             a customer to<br />
             a grid failure.
@@ -86,7 +88,7 @@ const HeroSection = () => {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6">
-            <Button 
+            <Button
               size="lg"
               variant="hero"
               className="px-12 py-7 text-base rounded-none"
@@ -113,26 +115,26 @@ const HeroSection = () => {
 // Problem Section
 const ProblemSection = () => {
   return (
-    <section className="py-32 md:py-48 bg-background">
+    <section className="py-32 md:py-48 bg-graphite">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight mb-20 leading-tight text-foreground">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-light mb-20 leading-tight text-pearl">
             When the grid fails
           </h2>
 
-          <div className="space-y-1 border-t border-border/50">
+          <div className="space-y-1 border-t border-pearl/10">
             {[
               { id: 'grid-downtime', title: 'Grid downtime', subtitle: 'Lost revenue every minute offline' },
               { id: 'peak-demand', title: 'Peak demand charges', subtitle: 'Heavy bills during charging hours' },
               { id: 'unreliable-power', title: 'Unreliable power', subtitle: 'Damaged reputation and lost customers' }
             ].map((item) => (
-              <div 
+              <div
                 key={item.id}
-                className="group py-8 border-b border-border/50 transition-colors hover:bg-muted/30"
+                className="group py-8 border-b border-pearl/10 transition-colors hover:bg-pearl/[0.06]"
               >
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <h3 className="text-2xl sm:text-3xl font-light text-foreground">{item.title}</h3>
-                  <p className="text-base text-muted-foreground sm:text-right max-w-md">{item.subtitle}</p>
+                  <h3 className="text-2xl sm:text-3xl font-light text-pearl">{item.title}</h3>
+                  <p className="text-base text-pearl/60 sm:text-right max-w-md">{item.subtitle}</p>
                 </div>
               </div>
             ))}
@@ -146,28 +148,28 @@ const ProblemSection = () => {
 // Solution Section
 const SolutionSection = () => {
   return (
-    <section className="py-32 md:py-48 bg-muted/20">
+    <section className="py-32 md:py-48 bg-charcoal">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight mb-12 leading-tight text-foreground">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-light mb-12 leading-tight text-pearl">
             Power that's yours
           </h2>
-          
-          <p className="text-xl sm:text-2xl text-muted-foreground mb-24 max-w-3xl font-light leading-relaxed">
+
+          <p className="text-xl sm:text-2xl text-pearl/60 mb-24 max-w-3xl font-light leading-relaxed">
             NESS Microgrid combines open-access solar with battery storage and smart control—cutting costs, eliminating downtime, and ensuring reliable operation.
           </p>
 
           {/* Clean Flow */}
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-border/50">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-pearl/10">
             {['Solar', 'Battery', 'Charger', 'Vehicle'].map((item) => (
-              <div key={`flow-${item.toLowerCase()}`} className="bg-card p-12 flex items-center justify-center">
-                <span className="text-xl font-light tracking-wide text-foreground">{item}</span>
+              <div key={`flow-${item.toLowerCase()}`} className="bg-pearl/[0.03] p-12 flex items-center justify-center">
+                <span className="text-xl font-light tracking-wide text-pearl">{item}</span>
               </div>
             ))}
           </div>
 
           <div className="mt-16 text-center">
-            <p className="text-sm tracking-widest uppercase text-muted-foreground/60">
+            <p className="text-sm tracking-widest uppercase text-pearl/40">
               Grid-tied for backup & export
             </p>
           </div>
@@ -180,38 +182,38 @@ const SolutionSection = () => {
 // Deployments Section
 const DeploymentsSection = () => {
   return (
-    <section className="py-32 md:py-48 bg-background">
+    <section className="py-32 md:py-48 bg-graphite">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight mb-8 leading-tight text-foreground">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-light mb-8 leading-tight text-pearl">
             Proven where<br />uptime matters most
           </h2>
 
-          <div className="grid md:grid-cols-2 gap-px bg-border/50 mt-20">
-            <div className="bg-card p-12">
+          <div className="grid md:grid-cols-2 gap-px bg-pearl/10 mt-20">
+            <div className="bg-pearl/[0.03] p-12">
               <div className="mb-8">
-                <h3 className="text-3xl font-light mb-2 text-foreground">Bangalore Airport</h3>
-                <p className="text-sm text-muted-foreground/60 tracking-wide">KARNATAKA</p>
+                <h3 className="text-3xl font-light mb-2 text-pearl">Bangalore Airport</h3>
+                <p className="text-sm text-pearl/40 tracking-wide">KARNATAKA</p>
               </div>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-lg text-pearl/60 mb-8 leading-relaxed">
                 24×7 solar-assisted EV charging, keeping operations uninterrupted through grid fluctuations.
               </p>
-              <div className="flex gap-8 text-sm tracking-widest uppercase text-muted-foreground/60">
+              <div className="flex gap-8 text-sm tracking-widest uppercase text-pearl/40">
                 <span>24×7</span>
                 <span>High-load</span>
                 <span>Mission-critical</span>
               </div>
             </div>
 
-            <div className="bg-card p-12">
+            <div className="bg-pearl/[0.03] p-12">
               <div className="mb-8">
-                <h3 className="text-3xl font-light mb-2 text-foreground">Surat Bus Depot</h3>
-                <p className="text-sm text-muted-foreground/60 tracking-wide">GUJARAT (GSRTC)</p>
+                <h3 className="text-3xl font-light mb-2 text-pearl">Surat Bus Depot</h3>
+                <p className="text-sm text-pearl/40 tracking-wide">GUJARAT (GSRTC)</p>
               </div>
-              <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
+              <p className="text-lg text-pearl/60 mb-8 leading-relaxed">
                 Renewable micro-grid for public e-bus charging, reducing diesel backup use to zero.
               </p>
-              <div className="flex gap-8 text-sm tracking-widest uppercase text-muted-foreground/60">
+              <div className="flex gap-8 text-sm tracking-widest uppercase text-pearl/40">
                 <span>Zero diesel</span>
                 <span>Fleet charging</span>
                 <span>Public transport</span>
@@ -220,18 +222,18 @@ const DeploymentsSection = () => {
           </div>
 
           {/* Stats Bar */}
-          <div className="mt-20 grid grid-cols-3 gap-px bg-border/50">
-            <div className="bg-card p-12 text-center">
-              <div className="text-5xl font-extralight mb-2 text-foreground">99.9%</div>
-              <div className="text-sm tracking-wide text-muted-foreground">Uptime</div>
+          <div className="mt-20 grid grid-cols-3 gap-px bg-pearl/10">
+            <div className="bg-pearl/[0.03] p-12 text-center">
+              <div className="text-5xl font-light mb-2 text-pearl">99.9%</div>
+              <div className="text-sm tracking-wide text-pearl/60">Uptime</div>
             </div>
-            <div className="bg-card p-12 text-center">
-              <div className="text-5xl font-extralight mb-2 text-foreground">−40%</div>
-              <div className="text-sm tracking-wide text-muted-foreground">OPEX</div>
+            <div className="bg-pearl/[0.03] p-12 text-center">
+              <div className="text-5xl font-light mb-2 text-pearl">−40%</div>
+              <div className="text-sm tracking-wide text-pearl/60">OPEX</div>
             </div>
-            <div className="bg-card p-12 text-center">
-              <div className="text-5xl font-extralight mb-2 text-foreground">0 L</div>
-              <div className="text-sm tracking-wide text-muted-foreground">Diesel</div>
+            <div className="bg-pearl/[0.03] p-12 text-center">
+              <div className="text-5xl font-light mb-2 text-pearl">0 L</div>
+              <div className="text-sm tracking-wide text-pearl/60">Diesel</div>
             </div>
           </div>
         </div>
@@ -243,14 +245,14 @@ const DeploymentsSection = () => {
 // Impact Section
 const ImpactSection = () => {
   return (
-    <section className="py-32 md:py-48 bg-muted/20">
+    <section className="py-32 md:py-48 bg-charcoal">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight mb-20 leading-tight text-foreground">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-light mb-20 leading-tight text-pearl">
             Numbers that matter
           </h2>
 
-          <div className="space-y-1 border-t border-border/50">
+          <div className="space-y-1 border-t border-pearl/10">
             {[
               { id: 'energy-cost', metric: 'Energy Cost', improvement: '↓ 25–40%' },
               { id: 'demand-charges', metric: 'Demand Charges', improvement: '↓ 40–60%' },
@@ -258,12 +260,12 @@ const ImpactSection = () => {
               { id: 'uptime', metric: 'Uptime', improvement: '99.9%' },
               { id: 'carbon-offset', metric: 'Carbon Offset', improvement: '50+ tons/year' }
             ].map((item) => (
-              <div 
+              <div
                 key={item.id}
-                className="py-8 border-b border-border/50 flex justify-between items-center"
+                className="py-8 border-b border-pearl/10 flex justify-between items-center"
               >
-                <span className="text-xl sm:text-2xl font-light text-foreground">{item.metric}</span>
-                <span className="text-2xl sm:text-3xl font-light text-foreground">{item.improvement}</span>
+                <span className="text-xl sm:text-2xl font-light text-pearl">{item.metric}</span>
+                <span className="text-2xl sm:text-3xl font-light text-pearl">{item.improvement}</span>
               </div>
             ))}
           </div>
@@ -276,20 +278,20 @@ const ImpactSection = () => {
 // Use Cases Section
 const UseCasesSection = () => {
   return (
-    <section className="py-32 md:py-48 bg-background">
+    <section className="py-32 md:py-48 bg-graphite">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-6xl mx-auto">
-          <h2 className="text-5xl sm:text-6xl md:text-7xl font-extralight mb-12 leading-tight text-foreground">
+          <h2 className="text-5xl sm:text-6xl md:text-7xl font-light mb-12 leading-tight text-pearl">
             Designed for those<br />who keep India's<br />EV movement running
           </h2>
 
-          <div className="mt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-border/50">
+          <div className="mt-20 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-px bg-pearl/10">
             {['Fleet Depots', 'Bus Depots', 'Highways', 'Airports', 'Industrial Yards'].map((item) => (
-              <div 
+              <div
                 key={`usecase-${item.toLowerCase().replace(/\s+/g, '-')}`}
-                className="bg-card p-12 flex items-center justify-center text-center hover:bg-muted/30 transition-colors"
+                className="bg-pearl/[0.03] p-12 flex items-center justify-center text-center hover:bg-pearl/[0.06] transition-colors"
               >
-                <span className="text-base font-light tracking-wide text-foreground">{item}</span>
+                <span className="text-base font-light tracking-wide text-pearl">{item}</span>
               </div>
             ))}
           </div>
@@ -302,15 +304,15 @@ const UseCasesSection = () => {
 // Final Section
 const FinalSection = () => {
   return (
-    <section id="contact" className="py-48 md:py-64 bg-charcoal text-primary-foreground">
+    <section id="contact" className="py-48 md:py-64 bg-charcoal text-pearl">
       <div className="container mx-auto px-6 sm:px-12">
         <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-6xl sm:text-7xl md:text-8xl font-extralight mb-16 leading-tight">
+          <h2 className="text-6xl sm:text-7xl md:text-8xl font-light mb-16 leading-tight">
             Be the network<br />that never shuts down
           </h2>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button 
+            <Button
               size="lg"
               variant="hero-glass"
               className="px-12 py-7 text-base rounded-none transition-all"
@@ -320,8 +322,8 @@ const FinalSection = () => {
             </Button>
           </div>
 
-          <div className="mt-20 pt-20 border-t border-primary-foreground/10">
-            <p className="text-sm tracking-widest uppercase text-primary-foreground/40">
+          <div className="mt-20 pt-20 border-t border-pearl/10">
+            <p className="text-sm tracking-widest uppercase text-pearl/40">
               Trusted by Bangalore International Airport · Surat Bus Depot (GSRTC)
             </p>
           </div>

@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { AnimatedCard } from "@/components/ui/animated-card";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { SmoothFade } from "@/components/ui/smooth-animations";
 
 import manufacturingImg from "@/assets/manufacturing-facility.jpg";
 import trainingImg from "@/assets/training-workshop.jpg";
@@ -243,7 +245,9 @@ const Careers = () => {
   return (
     <Layout className="-mt-16">
       {/* ───── Section 1: Hero — Tribe Declaration ───── */}
-      <section className="relative min-h-screen flex items-center bg-pearl overflow-hidden">
+      <section className="relative min-h-screen flex items-center bg-charcoal overflow-hidden">
+        <GradientOrbField variant="standard" />
+
         {/* Subtle tech pattern overlay */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div
@@ -258,19 +262,19 @@ const Careers = () => {
         <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10 w-full">
           <div className="space-y-12 md:space-y-20 text-center">
             <div className="space-y-8 md:space-y-12">
-              <div className="inline-block px-4 md:px-5 py-2 bg-charcoal/5 rounded-full backdrop-blur-sm">
-                <span className="text-[10px] md:text-sm uppercase tracking-[0.12em] md:tracking-[0.15em] text-charcoal/60 font-medium whitespace-nowrap">
+              <div className="inline-block px-4 md:px-5 py-2 bg-pearl/10 rounded-full backdrop-blur-sm">
+                <span className="text-[10px] md:text-sm uppercase tracking-[0.12em] md:tracking-[0.15em] text-pearl/60 font-medium whitespace-nowrap">
                   Bangalore &middot; Deep Tech &middot; Clean Energy
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-light text-pearl leading-[0.95] tracking-tight px-4">
                 Blackouts end here.
                 <br />
-                <span className="text-charcoal/40">Own it or scroll past.</span>
+                <span className="text-pearl/40">Own it or scroll past.</span>
               </h1>
 
-              <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.6] max-w-3xl mx-auto px-4">
+              <p className="text-lg md:text-xl lg:text-2xl text-pearl/60 font-light leading-[1.6] max-w-3xl mx-auto px-4">
                 No committees. No spectators. 50 engineers who each own a piece of the problem — from
                 lab bench to living room. If you need permission to act, this isn't your place.
               </p>
@@ -279,18 +283,18 @@ const Careers = () => {
             {/* Stats strip */}
             <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-xl mx-auto pt-4 md:pt-8">
               <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
+                <div className="text-5xl md:text-6xl font-light text-pearl tabular-nums">
                   <AnimatedCounter value={50} duration={1800} suffix="+" />
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
+                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/50">
                   Team Members
                 </div>
               </div>
               <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
+                <div className="text-5xl md:text-6xl font-light text-pearl tabular-nums">
                   <AnimatedCounter value={4} duration={1500} suffix="+" />
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
+                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/50">
                   Years of R&D
                 </div>
               </div>
@@ -301,7 +305,7 @@ const Careers = () => {
               <Button
                 size="lg"
                 onClick={scrollToRoles}
-                className="bg-charcoal text-pearl hover:bg-charcoal/90 text-base px-8 py-6 rounded-full"
+                className="bg-energy text-charcoal hover:bg-energy-bright text-base px-8 py-6 rounded-full"
               >
                 See Open Roles
                 <ArrowRight className="ml-2 w-4 h-4" />
@@ -310,7 +314,7 @@ const Careers = () => {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-charcoal/20 text-charcoal hover:bg-charcoal/5 text-base px-8 py-6 rounded-full w-full sm:w-auto"
+                  className="border-pearl/20 text-pearl hover:bg-pearl/10 text-base px-8 py-6 rounded-full w-full sm:w-auto"
                 >
                   Our Story
                 </Button>
@@ -355,7 +359,7 @@ const Careers = () => {
             {/* Impact metrics */}
             <div className="grid grid-cols-3 gap-6 md:gap-12 pt-8 md:pt-12 border-t border-pearl/10 max-w-3xl mx-auto">
               <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
+                <div className="text-3xl md:text-5xl font-light text-energy tabular-nums">
                   <AnimatedCounter value={500} duration={2000} suffix="+" />
                 </div>
                 <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
@@ -363,7 +367,7 @@ const Careers = () => {
                 </div>
               </div>
               <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
+                <div className="text-3xl md:text-5xl font-light text-energy tabular-nums">
                   <AnimatedCounter value={99} duration={1800} suffix="%" />
                 </div>
                 <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
@@ -371,7 +375,7 @@ const Careers = () => {
                 </div>
               </div>
               <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
+                <div className="text-3xl md:text-5xl font-light text-energy tabular-nums">
                   <AnimatedCounter value={10} duration={1500} suffix="ms" />
                 </div>
                 <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
@@ -384,15 +388,15 @@ const Careers = () => {
       </section>
 
       {/* ───── Section 3: Culture — What Nobody Tells You ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-whisper">
+      <section className="py-20 md:py-32 lg:py-40 bg-graphite">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 md:mb-24 space-y-6 md:space-y-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-light text-pearl leading-[1.1] tracking-tight px-4">
               Extreme ownership.
               <br />
               Not a slogan.
             </h2>
-            <p className="text-lg md:text-xl text-charcoal/60 font-light max-w-2xl mx-auto">
+            <p className="text-lg md:text-xl text-pearl/60 font-light max-w-2xl mx-auto">
               Here's what ownership looks like when nobody's watching.
             </p>
           </div>
@@ -403,16 +407,16 @@ const Careers = () => {
                 key={card.title}
                 hover="lift"
                 delay={i * 100}
-                className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden"
+                className="bg-pearl/[0.03] border border-pearl/10 rounded-2xl overflow-hidden"
               >
                 <div className="p-8 md:p-10 space-y-5">
-                  <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
-                    <card.icon className="w-6 h-6 text-charcoal" />
+                  <div className="w-12 h-12 rounded-full bg-pearl/10 flex items-center justify-center">
+                    <card.icon className="w-6 h-6 text-pearl" />
                   </div>
-                  <h3 className="text-xl md:text-2xl font-light text-charcoal leading-tight">
+                  <h3 className="text-xl md:text-2xl font-light text-pearl leading-tight">
                     {card.title}
                   </h3>
-                  <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">{card.body}</p>
+                  <p className="text-base md:text-lg text-pearl/70 leading-[1.7]">{card.body}</p>
                 </div>
               </AnimatedCard>
             ))}
@@ -421,13 +425,13 @@ const Careers = () => {
       </section>
 
       {/* ───── Section 4: Life at NESS — Raw, Not Polished ───── */}
-      <section className="py-20 md:py-32 bg-whisper">
+      <section className="py-20 md:py-32 bg-charcoal">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-light text-pearl tracking-tight">
               Inside the machine.
             </h2>
-            <p className="text-lg text-charcoal/60 font-light">
+            <p className="text-lg text-pearl/60 font-light">
               Bangalore R&D. No stock photos. No staged smiles. This is what it actually looks like.
             </p>
           </div>
@@ -457,17 +461,17 @@ const Careers = () => {
       </section>
 
       {/* ───── Section 5: The Deal — Benefits as Identity ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-pearl">
+      <section className="py-20 md:py-32 lg:py-40 bg-graphite">
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-20 space-y-8">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight leading-[1.1]">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-pearl tracking-tight leading-[1.1]">
               Owners get<br />
-              <span className="text-charcoal/40">owner terms.</span>
+              <span className="text-pearl/40">owner terms.</span>
             </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.7] max-w-3xl mx-auto">
+            <p className="text-lg md:text-xl lg:text-2xl text-pearl/60 font-light leading-[1.7] max-w-3xl mx-auto">
               We'll never ask you to sacrifice your health, your family, or your sanity for a deadline.
               In return, you treat every unit that leaves this building like your family's power depends on it.{" "}
-              <span className="text-charcoal font-medium italic">Because someone's does.</span>
+              <span className="text-pearl font-medium italic">Because someone's does.</span>
             </p>
           </div>
 
@@ -477,14 +481,14 @@ const Careers = () => {
                 key={b.title}
                 hover="lift"
                 delay={i * 80}
-                className="bg-whisper border border-platinum/30 rounded-2xl overflow-hidden"
+                className="bg-pearl/[0.03] border border-pearl/10 rounded-2xl overflow-hidden"
               >
                 <div className="p-8 md:p-10 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-pearl flex items-center justify-center">
-                    <b.icon className="w-6 h-6 text-charcoal" />
+                  <div className="w-12 h-12 rounded-full bg-pearl/10 flex items-center justify-center">
+                    <b.icon className="w-6 h-6 text-pearl" />
                   </div>
-                  <h3 className="text-lg md:text-xl font-light text-charcoal">{b.title}</h3>
-                  <p className="text-base text-charcoal/60 leading-relaxed">{b.body}</p>
+                  <h3 className="text-lg md:text-xl font-light text-pearl">{b.title}</h3>
+                  <p className="text-base text-pearl/60 leading-relaxed">{b.body}</p>
                 </div>
               </AnimatedCard>
             ))}
@@ -493,13 +497,13 @@ const Careers = () => {
       </section>
 
       {/* ───── Section 6: Hiring Process ───── */}
-      <section className="py-20 md:py-32 bg-whisper">
+      <section className="py-20 md:py-32 bg-charcoal">
         <div className="max-w-5xl mx-auto px-6 md:px-12">
           <div className="text-center mb-16 md:mb-20 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
+            <h2 className="text-3xl md:text-5xl font-light text-pearl tracking-tight">
               Four steps. No theatre.
             </h2>
-            <p className="text-lg text-charcoal/60 font-light">
+            <p className="text-lg text-pearl/60 font-light">
               We respect your time the same way we expect you to respect ours. Here's the entire process.
             </p>
           </div>
@@ -507,21 +511,21 @@ const Careers = () => {
           {/* Timeline */}
           <div className="relative">
             {/* Connecting line — horizontal on md+, vertical on mobile */}
-            <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px border-t-2 border-dashed border-charcoal/15" />
-            <div className="md:hidden absolute top-0 bottom-0 left-6 w-px border-l-2 border-dashed border-charcoal/15" />
+            <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px border-t-2 border-dashed border-pearl/15" />
+            <div className="md:hidden absolute top-0 bottom-0 left-6 w-px border-l-2 border-dashed border-pearl/15" />
 
             <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-4">
               {HIRING_STEPS.map((step, i) => (
                 <div key={step.title} className="flex md:flex-col items-start md:items-center gap-5 md:gap-4 md:flex-1 relative">
-                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-pearl border-2 border-charcoal/10 flex items-center justify-center shrink-0 relative z-10">
-                    <step.icon className="w-5 h-5 md:w-7 md:h-7 text-charcoal/70" />
+                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-pearl/10 border-2 border-pearl/20 flex items-center justify-center shrink-0 relative z-10">
+                    <step.icon className="w-5 h-5 md:w-7 md:h-7 text-pearl/70" />
                   </div>
                   <div className="md:text-center space-y-2 pt-1 md:pt-4">
-                    <div className="text-xs uppercase tracking-[0.15em] text-charcoal/40 font-medium">
+                    <div className="text-xs uppercase tracking-[0.15em] text-pearl/40 font-medium">
                       Step {i + 1}
                     </div>
-                    <h3 className="text-lg md:text-xl font-light text-charcoal">{step.title}</h3>
-                    <p className="text-sm md:text-base text-charcoal/60 leading-relaxed max-w-[240px]">
+                    <h3 className="text-lg md:text-xl font-light text-pearl">{step.title}</h3>
+                    <p className="text-sm md:text-base text-pearl/60 leading-relaxed max-w-[240px]">
                       {step.body}
                     </p>
                   </div>
@@ -533,13 +537,13 @@ const Careers = () => {
       </section>
 
       {/* ───── Section 7: Open Roles ───── */}
-      <section id="open-roles" className="py-20 md:py-32 lg:py-40 bg-pearl scroll-mt-20">
+      <section id="open-roles" className="py-20 md:py-32 lg:py-40 bg-graphite scroll-mt-20">
         <div className="max-w-4xl mx-auto px-6 md:px-12">
           <div className="text-center mb-12 md:mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight">
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-pearl tracking-tight">
               Problems that need owners.
             </h2>
-            <p className="text-lg text-charcoal/60 font-light">
+            <p className="text-lg text-pearl/60 font-light">
               These aren't job titles. They're territories. Pick one and make it yours.
             </p>
           </div>
@@ -552,8 +556,8 @@ const Careers = () => {
                 onClick={() => setActiveDepartment(dept)}
                 className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                   activeDepartment === dept
-                    ? "bg-charcoal text-pearl shadow-md"
-                    : "bg-whisper text-charcoal/60 hover:bg-platinum hover:text-charcoal"
+                    ? "bg-energy text-charcoal shadow-md"
+                    : "bg-pearl/10 text-pearl/60 hover:bg-pearl/[0.06] hover:text-pearl"
                 }`}
               >
                 {dept}
@@ -568,51 +572,51 @@ const Careers = () => {
               return (
                 <div
                   key={role.id}
-                  className="bg-whisper border border-platinum/40 rounded-xl overflow-hidden transition-all duration-300"
+                  className="bg-pearl/[0.03] border border-pearl/10 rounded-xl overflow-hidden transition-all duration-300"
                 >
                   <button
                     onClick={() => setExpandedRole(isExpanded ? null : role.id)}
-                    className="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between gap-4 text-left hover:bg-platinum/30 transition-colors"
+                    className="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between gap-4 text-left hover:bg-pearl/[0.06] transition-colors"
                   >
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg md:text-xl font-light text-charcoal truncate">
+                      <h3 className="text-lg md:text-xl font-light text-pearl truncate">
                         {role.title}
                       </h3>
                       <div className="flex flex-wrap items-center gap-2 mt-2">
-                        <span className="inline-flex items-center gap-1 text-xs text-charcoal/50 bg-pearl px-3 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs text-pearl/50 bg-pearl/10 px-3 py-1 rounded-full">
                           <Briefcase className="w-3 h-3" />
                           {role.department}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-xs text-charcoal/50 bg-pearl px-3 py-1 rounded-full">
+                        <span className="inline-flex items-center gap-1 text-xs text-pearl/50 bg-pearl/10 px-3 py-1 rounded-full">
                           <MapPin className="w-3 h-3" />
                           {role.location}
                         </span>
-                        <span className="text-xs text-charcoal/40 bg-pearl px-3 py-1 rounded-full">
+                        <span className="text-xs text-pearl/40 bg-pearl/10 px-3 py-1 rounded-full">
                           {role.type}
                         </span>
                       </div>
                     </div>
                     <ChevronDown
-                      className={`w-5 h-5 text-charcoal/40 shrink-0 transition-transform duration-300 ${
+                      className={`w-5 h-5 text-pearl/40 shrink-0 transition-transform duration-300 ${
                         isExpanded ? "rotate-180" : ""
                       }`}
                     />
                   </button>
 
                   {isExpanded && (
-                    <div className="px-6 pb-6 md:px-8 md:pb-8 space-y-5 border-t border-platinum/30 pt-5">
-                      <p className="text-base text-charcoal/70 leading-relaxed">
+                    <div className="px-6 pb-6 md:px-8 md:pb-8 space-y-5 border-t border-pearl/10 pt-5">
+                      <p className="text-base text-pearl/70 leading-relaxed">
                         {role.description}
                       </p>
                       <div>
-                        <h4 className="text-sm uppercase tracking-[0.1em] text-charcoal/40 font-medium mb-3">
+                        <h4 className="text-sm uppercase tracking-[0.1em] text-pearl/40 font-medium mb-3">
                           What we're looking for
                         </h4>
                         <ul className="space-y-2">
                           {role.requirements.map((req, i) => (
                             <li
                               key={i}
-                              className="text-sm text-charcoal/60 leading-relaxed flex items-start gap-2"
+                              className="text-sm text-pearl/60 leading-relaxed flex items-start gap-2"
                             >
                               <span className="w-1.5 h-1.5 bg-energy rounded-full mt-2 shrink-0" />
                               {req}
@@ -624,7 +628,7 @@ const Careers = () => {
                         href={`mailto:careers@nunam.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
                         className="inline-block"
                       >
-                        <Button className="bg-charcoal text-pearl hover:bg-charcoal/90 rounded-full px-8">
+                        <Button className="bg-energy text-charcoal hover:bg-energy-bright rounded-full px-8">
                           Apply Now
                           <ArrowRight className="ml-2 w-4 h-4" />
                         </Button>
@@ -636,7 +640,7 @@ const Careers = () => {
             })}
 
             {filteredRoles.length === 0 && (
-              <div className="text-center py-12 text-charcoal/40">
+              <div className="text-center py-12 text-pearl/40">
                 No openings in this department right now. Check back soon or send an open application below.
               </div>
             )}
@@ -656,7 +660,7 @@ const Careers = () => {
           }}
         />
         <div className="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center space-y-8">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight leading-[1.1] tracking-tight">
+          <h2 className="text-3xl md:text-5xl lg:text-6xl font-light leading-[1.1] tracking-tight">
             No role listed?
             <br />
             <span className="text-energy italic">Create one.</span>

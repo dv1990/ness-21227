@@ -79,16 +79,16 @@ function WhySolarBatteryContent() {
     <div className="space-y-12">
       {/* The Hook */}
       <section className="space-y-6">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           Let me ask you something: <span className="text-energy">How much did you pay for electricity last year?</span>
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          If you're like most Indian homeowners, the answer probably made you wince. Between rising tariffs, 
-          unexpected power cuts, and the constant hum of your inverter, electricity has become one of your 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          If you're like most Indian homeowners, the answer probably made you wince. Between rising tariffs,
+          unexpected power cuts, and the constant hum of your inverter, electricity has become one of your
           biggest household headaches.
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          But here's what most people don't realize: <strong className="text-foreground">the solution isn't just solar panels.</strong> 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          But here's what most people don't realize: <strong className="text-pearl">the solution isn't just solar panels.</strong>
           It's solar + battery. And 2024 is the year everything changed.
         </p>
       </section>
@@ -98,67 +98,67 @@ function WhySolarBatteryContent() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-center">
           <div>
             <p className="text-4xl sm:text-5xl font-bold text-energy mb-2">₹15+</p>
-            <p className="text-muted-foreground">per unit electricity cost by 2026</p>
+            <p className="text-pearl/60">per unit electricity cost by 2026</p>
           </div>
           <div>
-            <p className="text-4xl sm:text-5xl font-bold text-foreground mb-2">300+</p>
-            <p className="text-muted-foreground">hours of power cuts yearly (avg)</p>
+            <p className="text-4xl sm:text-5xl font-bold text-pearl mb-2">300+</p>
+            <p className="text-pearl/60">hours of power cuts yearly (avg)</p>
           </div>
           <div>
             <p className="text-4xl sm:text-5xl font-bold text-energy mb-2">40%</p>
-            <p className="text-muted-foreground">battery cost drop since 2020</p>
+            <p className="text-pearl/60">battery cost drop since 2020</p>
           </div>
         </div>
       </div>
 
       {/* Problem Section */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">The Problem: Solar Alone Isn't Enough</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">The Problem: Solar Alone Isn't Enough</h2>
+
         <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 sm:p-8">
           <div className="flex items-start gap-4">
             <AlertTriangle className="w-8 h-8 text-red-500 flex-shrink-0 mt-1" />
             <div>
-              <h3 className="text-lg font-semibold text-foreground mb-2">The 6 PM Problem</h3>
-              <p className="text-muted-foreground leading-relaxed">
-                Your solar panels generate maximum power between 10 AM and 4 PM. But when do you actually 
-                use the most electricity? <strong className="text-foreground">6 PM to 11 PM</strong> — exactly when solar stops working.
+              <h3 className="text-lg font-semibold text-pearl mb-2">The 6 PM Problem</h3>
+              <p className="text-pearl/60 leading-relaxed">
+                Your solar panels generate maximum power between 10 AM and 4 PM. But when do you actually
+                use the most electricity? <strong className="text-pearl">6 PM to 11 PM</strong> — exactly when solar stops working.
                 Without batteries, you're still paying peak rates when it matters most.
               </p>
             </div>
           </div>
         </div>
 
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          Traditional solar setups export excess daytime power to the grid (if you're lucky enough to have 
-          net metering). But here's the catch: utilities pay you ₹2-3 per unit and charge you ₹8-12 per unit 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          Traditional solar setups export excess daytime power to the grid (if you're lucky enough to have
+          net metering). But here's the catch: utilities pay you ₹2-3 per unit and charge you ₹8-12 per unit
           during peak hours. <span className="text-energy font-semibold">That's a 4x loss.</span>
         </p>
       </section>
 
       {/* Solution Section */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">The Solution: Store It, Use It, Save It</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">The Solution: Store It, Use It, Save It</h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-4">
             <div className="w-14 h-14 bg-energy/20 rounded-2xl flex items-center justify-center">
               <Sun className="w-7 h-7 text-energy" />
             </div>
-            <h3 className="text-xl font-semibold text-foreground">Daytime: Generate & Store</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Your solar panels soak up the sun while you're at work. Instead of exporting that energy 
+            <h3 className="text-xl font-semibold text-pearl">Daytime: Generate & Store</h3>
+            <p className="text-pearl/60 leading-relaxed">
+              Your solar panels soak up the sun while you're at work. Instead of exporting that energy
               for pennies, batteries store it for when you actually need it.
             </p>
           </div>
-          
+
           <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-4">
             <div className="w-14 h-14 bg-energy/20 rounded-2xl flex items-center justify-center">
               <Battery className="w-7 h-7 text-energy" />
             </div>
-            <h3 className="text-xl font-semibold text-foreground">Evening: Power Your Life</h3>
-            <p className="text-muted-foreground leading-relaxed">
-              Come home to a fully powered house. Run your AC, cook dinner, charge devices — all from 
+            <h3 className="text-xl font-semibold text-pearl">Evening: Power Your Life</h3>
+            <p className="text-pearl/60 leading-relaxed">
+              Come home to a fully powered house. Run your AC, cook dinner, charge devices — all from
               stored solar energy. Zero grid dependency during peak hours.
             </p>
           </div>
@@ -167,8 +167,8 @@ function WhySolarBatteryContent() {
 
       {/* Benefits Checklist */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">What You Actually Get</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">What You Actually Get</h2>
+
         <div className="space-y-4">
           {[
             { text: "Power through outages — no more generator noise or diesel costs", icon: Shield },
@@ -177,11 +177,11 @@ function WhySolarBatteryContent() {
             { text: "Increase property value — solar homes sell for 4% more", icon: Star },
             { text: "Reduce carbon footprint — 3-4 tons of CO₂ saved annually", icon: CheckCircle },
           ].map((item, i) => (
-            <div key={i} className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors">
+            <div key={i} className="flex items-start gap-4 p-4 rounded-xl hover:bg-pearl/[0.06] transition-colors">
               <div className="w-10 h-10 bg-energy/20 rounded-full flex items-center justify-center flex-shrink-0">
                 <item.icon className="w-5 h-5 text-energy" />
               </div>
-              <p className="text-body-large text-foreground pt-1.5">{item.text}</p>
+              <p className="text-body-large text-pearl pt-1.5">{item.text}</p>
             </div>
           ))}
         </div>
@@ -189,25 +189,25 @@ function WhySolarBatteryContent() {
 
       {/* Why Now Section */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Why 2024 is the Perfect Time</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Why 2024 is the Perfect Time</h2>
+
         <div className="bg-gradient-to-br from-energy/10 to-transparent rounded-3xl p-8 sm:p-10 space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <div className="space-y-2">
               <p className="text-energy font-semibold text-lg">Battery Prices Crashed</p>
-              <p className="text-muted-foreground">LFP batteries are 40% cheaper than 2020. The ROI has never been better.</p>
+              <p className="text-pearl/60">LFP batteries are 40% cheaper than 2020. The ROI has never been better.</p>
             </div>
             <div className="space-y-2">
               <p className="text-energy font-semibold text-lg">Technology Matured</p>
-              <p className="text-muted-foreground">10-year warranties are standard. Systems last 15-25 years with minimal maintenance.</p>
+              <p className="text-pearl/60">10-year warranties are standard. Systems last 15-25 years with minimal maintenance.</p>
             </div>
             <div className="space-y-2">
               <p className="text-energy font-semibold text-lg">Grid Getting Worse</p>
-              <p className="text-muted-foreground">Load shedding is increasing. Energy independence isn't a luxury — it's insurance.</p>
+              <p className="text-pearl/60">Load shedding is increasing. Energy independence isn't a luxury — it's insurance.</p>
             </div>
             <div className="space-y-2">
               <p className="text-energy font-semibold text-lg">Subsidies Available</p>
-              <p className="text-muted-foreground">Government schemes can reduce upfront costs by 20-40%. These won't last forever.</p>
+              <p className="text-pearl/60">Government schemes can reduce upfront costs by 20-40%. These won't last forever.</p>
             </div>
           </div>
         </div>
@@ -215,8 +215,8 @@ function WhySolarBatteryContent() {
 
       {/* CTA Section */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Ready to See Your Savings?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Ready to See Your Savings?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           Use our calculator to see exactly how much you could save based on your current electricity usage.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -227,7 +227,7 @@ function WhySolarBatteryContent() {
             </Button>
           </Link>
           <Link to="/knowledge/product-guide">
-            <Button size="lg" variant="outline" className="min-h-[56px] px-8 text-lg">
+            <Button size="lg" variant="outline" className="min-h-[56px] px-8 text-lg border-pearl/10 text-pearl hover:bg-pearl/[0.06]">
               Find the Right Product
               <ArrowRight className="w-5 h-5 ml-2" />
             </Button>
@@ -241,7 +241,7 @@ function WhySolarBatteryContent() {
 // Product Guide Content
 function ProductGuideContent() {
   const [activeStep, setActiveStep] = React.useState(1);
-  
+
   const products = [
     {
       name: "NESS Pod",
@@ -276,23 +276,23 @@ function ProductGuideContent() {
   ];
 
   const usageTiers = [
-    { 
-      range: "200-400", 
-      label: "Light User", 
+    {
+      range: "200-400",
+      label: "Light User",
       icon: Lightbulb,
       description: "Small apartments, basic appliances",
       gradient: "from-emerald-500/20 to-emerald-600/5"
     },
-    { 
-      range: "400-800", 
-      label: "Medium User", 
+    {
+      range: "400-800",
+      label: "Medium User",
       icon: Home,
       description: "Family homes with AC usage",
       gradient: "from-energy/20 to-energy/5"
     },
-    { 
-      range: "800+", 
-      label: "Heavy User", 
+    {
+      range: "800+",
+      label: "Heavy User",
       icon: Building2,
       description: "Large homes, multiple ACs, EV",
       gradient: "from-orange-500/20 to-orange-600/5"
@@ -339,7 +339,7 @@ function ProductGuideContent() {
   return (
     <div className="space-y-12 relative">
       {/* Sticky Progress Indicator */}
-      <div className="sticky top-20 z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4 bg-background/80 backdrop-blur-xl border-b border-border/50 transition-all duration-300">
+      <div className="sticky top-20 z-40 -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-4 bg-charcoal/80 backdrop-blur-xl border-b border-pearl/10 transition-all duration-300">
         <div className="max-w-2xl mx-auto">
           <div className="flex items-center justify-between">
             {steps.map((step, i) => (
@@ -355,12 +355,12 @@ function ProductGuideContent() {
                 >
                   <div className={`
                     relative w-10 h-10 rounded-full flex items-center justify-center font-bold text-sm
-                    transition-all duration-500 
-                    ${activeStep === step.num 
-                      ? 'bg-gradient-to-br from-energy via-energy to-energy/80 text-charcoal shadow-lg shadow-energy/30 scale-110' 
-                      : activeStep > step.num 
+                    transition-all duration-500
+                    ${activeStep === step.num
+                      ? 'bg-gradient-to-br from-energy via-energy to-energy/80 text-charcoal shadow-lg shadow-energy/30 scale-110'
+                      : activeStep > step.num
                         ? 'bg-energy/20 text-energy border-2 border-energy/50'
-                        : 'bg-muted text-muted-foreground'
+                        : 'bg-pearl/[0.03] text-pearl/60'
                     }
                   `}>
                     {activeStep > step.num ? (
@@ -374,14 +374,14 @@ function ProductGuideContent() {
                   </div>
                   <div className="hidden sm:block text-left">
                     <p className={`text-sm font-semibold transition-colors ${
-                      activeStep === step.num ? 'text-energy' : 'text-foreground'
+                      activeStep === step.num ? 'text-energy' : 'text-pearl'
                     }`}>{step.title}</p>
-                    <p className="text-xs text-muted-foreground">{step.subtitle}</p>
+                    <p className="text-xs text-pearl/60">{step.subtitle}</p>
                   </div>
                 </button>
                 {i < steps.length - 1 && (
-                  <div className="flex-1 mx-2 sm:mx-4 h-0.5 bg-muted rounded-full overflow-hidden">
-                    <div 
+                  <div className="flex-1 mx-2 sm:mx-4 h-0.5 bg-pearl/[0.03] rounded-full overflow-hidden">
+                    <div
                       className="h-full bg-gradient-to-r from-energy to-energy/60 transition-all duration-500"
                       style={{ width: activeStep > step.num ? '100%' : '0%' }}
                     />
@@ -395,12 +395,12 @@ function ProductGuideContent() {
 
       {/* Intro */}
       <section className="space-y-6 pt-4">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           Choosing a solar + battery system shouldn't feel like solving a puzzle. <span className="text-energy">Let me simplify it for you.</span>
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          I've seen hundreds of homeowners overwhelmed by specs, jargon, and sales pitches. The truth? 
-          Picking the right system comes down to answering just <strong className="text-foreground">three simple questions.</strong>
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          I've seen hundreds of homeowners overwhelmed by specs, jargon, and sales pitches. The truth?
+          Picking the right system comes down to answering just <strong className="text-pearl">three simple questions.</strong>
         </p>
       </section>
 
@@ -411,34 +411,34 @@ function ProductGuideContent() {
             <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 rotate-3 hover:rotate-0 transition-transform duration-300">
               1
             </div>
-            <Gauge className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+            <Gauge className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-charcoal rounded-full p-0.5" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">How much electricity do you use?</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">How much electricity do you use?</h2>
         </div>
-        
+
         <div className="glass-card-light rounded-2xl p-6 sm:p-8">
-          <p className="text-body-large text-muted-foreground mb-8">
+          <p className="text-body-large text-pearl/60 mb-8">
             Check your last 3 electricity bills. Find your average monthly consumption (in kWh or units).
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {usageTiers.map((tier, i) => (
-              <div 
+              <div
                 key={i}
                 className={`
                   relative overflow-hidden rounded-2xl p-6 text-center
                   bg-gradient-to-br ${tier.gradient}
-                  border border-border/50 hover:border-energy/50
+                  border border-pearl/10 hover:border-energy/50
                   hover:-translate-y-1 hover:shadow-xl hover:shadow-energy/10
                   transition-all duration-300 cursor-pointer group
                 `}
               >
-                <div className="absolute top-3 right-3 w-10 h-10 bg-background/50 backdrop-blur rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                <div className="absolute top-3 right-3 w-10 h-10 bg-charcoal/50 backdrop-blur rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
                   <tier.icon className="w-5 h-5 text-energy" />
                 </div>
-                <p className="text-3xl font-bold text-foreground mb-1">{tier.range}</p>
-                <p className="text-sm text-muted-foreground mb-3">units/month</p>
+                <p className="text-3xl font-bold text-pearl mb-1">{tier.range}</p>
+                <p className="text-sm text-pearl/60 mb-3">units/month</p>
                 <p className="text-energy font-semibold text-lg">{tier.label}</p>
-                <p className="text-xs text-muted-foreground mt-2">{tier.description}</p>
+                <p className="text-xs text-pearl/60 mt-2">{tier.description}</p>
               </div>
             ))}
           </div>
@@ -452,35 +452,35 @@ function ProductGuideContent() {
             <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 -rotate-3 hover:rotate-0 transition-transform duration-300">
               2
             </div>
-            <Battery className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+            <Battery className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-charcoal rounded-full p-0.5" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">What do you want to power during outages?</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">What do you want to power during outages?</h2>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Essential Backup */}
           <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-6 hover:shadow-xl transition-shadow group">
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-semibold text-foreground">Essential Backup</h3>
-              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 rounded-full text-xs font-medium">
+              <h3 className="text-xl font-semibold text-pearl">Essential Backup</h3>
+              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-xs font-medium">
                 Budget Friendly
               </span>
             </div>
             <div className="grid grid-cols-5 gap-3">
               {essentialAppliances.map((appliance, i) => (
-                <div 
+                <div
                   key={i}
-                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-muted/30 hover:bg-energy/10 transition-colors group/item cursor-default"
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-pearl/[0.03] hover:bg-energy/10 transition-colors group/item cursor-default"
                 >
                   <div className="w-10 h-10 bg-energy/10 group-hover/item:bg-energy/20 rounded-xl flex items-center justify-center transition-colors">
                     <appliance.icon className="w-5 h-5 text-energy" />
                   </div>
-                  <span className="text-xs text-muted-foreground text-center">{appliance.name}</span>
+                  <span className="text-xs text-pearl/60 text-center">{appliance.name}</span>
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between pt-4 border-t border-border/50">
-              <p className="text-muted-foreground text-sm">Total power draw</p>
+            <div className="flex items-center justify-between pt-4 border-t border-pearl/10">
+              <p className="text-pearl/60 text-sm">Total power draw</p>
               <p className="text-energy font-bold text-lg">~310W</p>
             </div>
             <p className="text-energy font-semibold flex items-center gap-2">
@@ -488,32 +488,32 @@ function ProductGuideContent() {
               Need: 5-10 kWh
             </p>
           </div>
-          
+
           {/* Whole-Home Backup */}
           <div className="glass-card-light rounded-2xl p-6 sm:p-8 space-y-6 hover:shadow-xl transition-shadow group relative overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-energy/10 to-transparent rounded-bl-full" />
             <div className="flex items-center justify-between relative">
-              <h3 className="text-xl font-semibold text-foreground">Whole-Home Backup</h3>
+              <h3 className="text-xl font-semibold text-pearl">Whole-Home Backup</h3>
               <span className="px-3 py-1 bg-energy/10 text-energy rounded-full text-xs font-medium flex items-center gap-1">
                 <Star className="w-3 h-3" /> Popular
               </span>
             </div>
             <div className="grid grid-cols-4 gap-3">
               {wholeHomeAppliances.map((appliance, i) => (
-                <div 
+                <div
                   key={i}
-                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-muted/30 hover:bg-energy/10 transition-colors group/item cursor-default"
+                  className="flex flex-col items-center gap-2 p-3 rounded-xl bg-pearl/[0.03] hover:bg-energy/10 transition-colors group/item cursor-default"
                 >
                   <div className="w-10 h-10 bg-energy/10 group-hover/item:bg-energy/20 rounded-xl flex items-center justify-center transition-colors">
                     <appliance.icon className="w-5 h-5 text-energy" />
                   </div>
-                  <span className="text-xs text-muted-foreground text-center leading-tight">{appliance.name}</span>
+                  <span className="text-xs text-pearl/60 text-center leading-tight">{appliance.name}</span>
                   <span className="text-[10px] text-energy font-medium">{appliance.power}</span>
                 </div>
               ))}
             </div>
-            <div className="flex items-center justify-between pt-4 border-t border-border/50">
-              <p className="text-muted-foreground text-sm">Peak power draw</p>
+            <div className="flex items-center justify-between pt-4 border-t border-pearl/10">
+              <p className="text-pearl/60 text-sm">Peak power draw</p>
               <p className="text-energy font-bold text-lg">~7kW</p>
             </div>
             <p className="text-energy font-semibold flex items-center gap-2">
@@ -531,31 +531,31 @@ function ProductGuideContent() {
             <div className="w-14 h-14 bg-gradient-to-br from-energy via-energy to-energy/70 rounded-2xl flex items-center justify-center text-charcoal font-bold text-xl shadow-lg shadow-energy/25 rotate-2 hover:rotate-0 transition-transform duration-300">
               3
             </div>
-            <Clock className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-background rounded-full p-0.5" />
+            <Clock className="absolute -bottom-1 -right-1 w-5 h-5 text-energy bg-charcoal rounded-full p-0.5" />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">How long should backup last?</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">How long should backup last?</h2>
         </div>
-        
+
         <div className="glass-card-accent rounded-2xl p-6 sm:p-8 relative overflow-hidden">
           <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-energy/5 to-transparent rounded-bl-full" />
           <div className="relative space-y-6">
             <div className="flex flex-wrap gap-4">
               {[2, 4, 6, 8, 12].map((hours) => (
-                <div 
+                <div
                   key={hours}
-                  className="px-5 py-3 bg-muted/50 hover:bg-energy/10 border border-border hover:border-energy/50 rounded-xl cursor-pointer transition-all hover:scale-105"
+                  className="px-5 py-3 bg-pearl/[0.03] hover:bg-energy/10 border border-pearl/10 hover:border-energy/50 rounded-xl cursor-pointer transition-all hover:scale-105"
                 >
-                  <span className="text-lg font-bold text-foreground">{hours}</span>
-                  <span className="text-sm text-muted-foreground ml-1">hours</span>
+                  <span className="text-lg font-bold text-pearl">{hours}</span>
+                  <span className="text-sm text-pearl/60 ml-1">hours</span>
                 </div>
               ))}
             </div>
-            <div className="bg-background/50 rounded-xl p-4 border border-energy/20">
-              <p className="text-body-large text-foreground mb-2">
+            <div className="bg-charcoal/50 rounded-xl p-4 border border-energy/20">
+              <p className="text-body-large text-pearl mb-2">
                 <strong>Simple math:</strong> If you need 5kW of power for 4 hours during an outage, you need <span className="text-energy font-bold">5 × 4 = 20 kWh</span> of battery storage.
               </p>
-              <p className="text-muted-foreground text-sm">
-                💡 Pro tip: Most homes do fine with 4-6 hours of backup for essential loads. If you're in an area with frequent 
+              <p className="text-pearl/60 text-sm">
+                Pro tip: Most homes do fine with 4-6 hours of backup for essential loads. If you're in an area with frequent
                 8+ hour outages, size up accordingly.
               </p>
             </div>
@@ -565,17 +565,17 @@ function ProductGuideContent() {
 
       {/* Product Comparison - Premium Cards with Recommended Badge */}
       <section className="space-y-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground text-center">Our Products: At a Glance</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl text-center">Our Products: At a Glance</h2>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className={`
-                relative glass-card-light rounded-3xl p-6 sm:p-8 space-y-6 
+                relative glass-card-light rounded-3xl p-6 sm:p-8 space-y-6
                 hover:-translate-y-3 transition-all duration-500 group
-                ${product.recommended 
-                  ? 'ring-2 ring-energy shadow-xl shadow-energy/20 scale-[1.02] md:scale-105' 
+                ${product.recommended
+                  ? 'ring-2 ring-energy shadow-xl shadow-energy/20 scale-[1.02] md:scale-105'
                   : 'hover:shadow-xl'
                 }
               `}
@@ -589,43 +589,43 @@ function ProductGuideContent() {
                   </div>
                 </div>
               )}
-              
+
               <div className={`
                 aspect-square bg-gradient-to-br rounded-2xl flex items-center justify-center p-8
-                ${product.recommended 
-                  ? 'from-energy/20 via-energy/10 to-muted/20' 
-                  : 'from-muted/50 to-muted/20'
+                ${product.recommended
+                  ? 'from-energy/20 via-energy/10 to-pearl/[0.03]'
+                  : 'from-pearl/[0.03] to-pearl/[0.03]'
                 }
                 group-hover:scale-[1.02] transition-transform duration-300
               `}>
                 <img src={product.image} alt={product.name} className="max-h-full max-w-full object-contain drop-shadow-lg" loading="lazy" />
               </div>
-              
+
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <div className={`
                     w-10 h-10 rounded-xl flex items-center justify-center
-                    ${product.recommended ? 'bg-energy/20' : 'bg-muted'}
+                    ${product.recommended ? 'bg-energy/20' : 'bg-pearl/[0.03]'}
                   `}>
-                    <product.icon className={`w-5 h-5 ${product.recommended ? 'text-energy' : 'text-muted-foreground'}`} />
+                    <product.icon className={`w-5 h-5 ${product.recommended ? 'text-energy' : 'text-pearl/60'}`} />
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground">{product.name}</h3>
+                  <h3 className="text-2xl font-bold text-pearl">{product.name}</h3>
                 </div>
-                
+
                 <p className="text-energy font-semibold text-lg">{product.capacity}</p>
-                <p className="text-muted-foreground">{product.bestFor}</p>
-                
+                <p className="text-pearl/60">{product.bestFor}</p>
+
                 <ul className="space-y-2">
                   {product.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-2 text-sm text-muted-foreground">
-                      <CheckCircle className={`w-4 h-4 flex-shrink-0 ${product.recommended ? 'text-energy' : 'text-muted-foreground'}`} />
+                    <li key={j} className="flex items-center gap-2 text-sm text-pearl/60">
+                      <CheckCircle className={`w-4 h-4 flex-shrink-0 ${product.recommended ? 'text-energy' : 'text-pearl/60'}`} />
                       {f}
                     </li>
                   ))}
                 </ul>
-                
-                <div className="pt-4 border-t border-border/50">
-                  <p className="text-2xl font-bold text-foreground">{product.price}</p>
+
+                <div className="pt-4 border-t border-pearl/10">
+                  <p className="text-2xl font-bold text-pearl">{product.price}</p>
                 </div>
               </div>
             </div>
@@ -635,12 +635,12 @@ function ProductGuideContent() {
 
       {/* CTA */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6 bg-gradient-to-br from-energy/5 to-transparent">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Still Not Sure?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Still Not Sure?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           Our team can analyze your electricity bills and recommend the perfect system for your home.
         </p>
         <Link to="/contact">
-          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90 group">
+          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-energy hover:bg-energy/90 text-charcoal group">
             Get Free Consultation
             <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
           </Button>
@@ -656,7 +656,7 @@ function CalculatorContent() {
     <div className="space-y-12">
       {/* Interactive Calculator */}
       <section className="space-y-6">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           Let's crunch your numbers. <span className="text-energy">See exactly what solar + battery saves you.</span>
         </p>
       </section>
@@ -670,58 +670,58 @@ function CalculatorContent() {
           { label: "10-Year Savings", value: "₹6.5L+", sub: "with tariff rise" },
         ].map((stat, i) => (
           <div key={i} className="glass-card-light rounded-2xl p-6 text-center">
-            <p className="text-sm text-muted-foreground mb-1">{stat.label}</p>
+            <p className="text-sm text-pearl/60 mb-1">{stat.label}</p>
             <p className="text-2xl sm:text-3xl font-bold text-energy">{stat.value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{stat.sub}</p>
+            <p className="text-xs text-pearl/60 mt-1">{stat.sub}</p>
           </div>
         ))}
       </div>
 
       {/* Simple Calculator Form */}
       <section className="glass-card-accent rounded-3xl p-8 sm:p-12 space-y-8">
-        <h2 className="text-2xl font-semibold text-foreground text-center">Calculate Your Savings</h2>
-        
+        <h2 className="text-2xl font-semibold text-pearl text-center">Calculate Your Savings</h2>
+
         <div className="max-w-2xl mx-auto space-y-6">
           <div className="space-y-3">
-            <label className="text-foreground font-medium">Your monthly electricity bill (₹)</label>
+            <label className="text-pearl font-medium">Your monthly electricity bill (₹)</label>
             <div className="flex items-center gap-4">
-              <input 
-                type="range" 
-                min="1000" 
-                max="20000" 
+              <input
+                type="range"
+                min="1000"
+                max="20000"
                 step="500"
                 defaultValue="5000"
-                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-energy"
+                className="w-full h-2 bg-pearl/10 rounded-lg appearance-none cursor-pointer accent-energy"
               />
               <span className="text-2xl font-bold text-energy min-w-[100px] text-right">₹5,000</span>
             </div>
           </div>
 
           <div className="space-y-3">
-            <label className="text-foreground font-medium">Average power cuts per month (hours)</label>
+            <label className="text-pearl font-medium">Average power cuts per month (hours)</label>
             <div className="flex items-center gap-4">
-              <input 
-                type="range" 
-                min="0" 
-                max="100" 
+              <input
+                type="range"
+                min="0"
+                max="100"
                 step="5"
                 defaultValue="20"
-                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-energy"
+                className="w-full h-2 bg-pearl/10 rounded-lg appearance-none cursor-pointer accent-energy"
               />
               <span className="text-2xl font-bold text-energy min-w-[80px] text-right">20 hrs</span>
             </div>
           </div>
 
           <div className="space-y-3">
-            <label className="text-foreground font-medium">Your state electricity tariff growth (annual %)</label>
+            <label className="text-pearl font-medium">Your state electricity tariff growth (annual %)</label>
             <div className="flex items-center gap-4">
-              <input 
-                type="range" 
-                min="3" 
-                max="15" 
+              <input
+                type="range"
+                min="3"
+                max="15"
                 step="1"
                 defaultValue="8"
-                className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer accent-energy"
+                className="w-full h-2 bg-pearl/10 rounded-lg appearance-none cursor-pointer accent-energy"
               />
               <span className="text-2xl font-bold text-energy min-w-[60px] text-right">8%</span>
             </div>
@@ -729,19 +729,19 @@ function CalculatorContent() {
         </div>
 
         {/* Results Preview */}
-        <div className="border-t border-border/50 pt-8 mt-8">
+        <div className="border-t border-pearl/10 pt-8 mt-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
             <div className="space-y-2">
-              <p className="text-muted-foreground">Your 10-Year Savings</p>
+              <p className="text-pearl/60">Your 10-Year Savings</p>
               <p className="text-4xl sm:text-5xl font-bold text-energy">₹6.5L</p>
             </div>
             <div className="space-y-2">
-              <p className="text-muted-foreground">Payback Period</p>
-              <p className="text-4xl sm:text-5xl font-bold text-foreground">4.2 yrs</p>
+              <p className="text-pearl/60">Payback Period</p>
+              <p className="text-4xl sm:text-5xl font-bold text-pearl">4.2 yrs</p>
             </div>
             <div className="space-y-2">
-              <p className="text-muted-foreground">CO₂ Saved</p>
-              <p className="text-4xl sm:text-5xl font-bold text-foreground">32 tons</p>
+              <p className="text-pearl/60">CO₂ Saved</p>
+              <p className="text-4xl sm:text-5xl font-bold text-pearl">32 tons</p>
             </div>
           </div>
         </div>
@@ -749,8 +749,8 @@ function CalculatorContent() {
 
       {/* How We Calculate */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">How This Works</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">How This Works</h2>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {[
             {
@@ -773,8 +773,8 @@ function CalculatorContent() {
               <div className="w-10 h-10 bg-energy rounded-full flex items-center justify-center text-charcoal font-bold">
                 {item.step}
               </div>
-              <h3 className="text-lg font-semibold text-foreground">{item.title}</h3>
-              <p className="text-muted-foreground">{item.desc}</p>
+              <h3 className="text-lg font-semibold text-pearl">{item.title}</h3>
+              <p className="text-pearl/60">{item.desc}</p>
             </div>
           ))}
         </div>
@@ -782,8 +782,8 @@ function CalculatorContent() {
 
       {/* CTA */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Want a Precise Quote?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Want a Precise Quote?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           These are estimates. For an exact quote based on your roof, location, and usage patterns, talk to our team.
         </p>
         <Link to="/contact">
@@ -803,27 +803,27 @@ function AllInOneContent() {
     <div className="space-y-12">
       {/* Hook */}
       <section className="space-y-6">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           Here's what nobody tells you about traditional solar installations: <span className="text-energy">50% of problems come from mismatched components.</span>
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          Different brands of panels, inverters, batteries, and BMS units talking to each other through 
-          cobbled-together wiring. When something fails, everyone points fingers. The panel guy blames the 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          Different brands of panels, inverters, batteries, and BMS units talking to each other through
+          cobbled-together wiring. When something fails, everyone points fingers. The panel guy blames the
           inverter. The inverter guy blames the battery. You're left in the dark — literally.
         </p>
       </section>
 
       {/* Comparison */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Traditional vs All-in-One</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Traditional vs All-in-One</h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <XCircle className="w-8 h-8 text-red-500" />
-              <h3 className="text-xl font-semibold text-foreground">Traditional Setup</h3>
+              <h3 className="text-xl font-semibold text-pearl">Traditional Setup</h3>
             </div>
-            <ul className="space-y-3 text-muted-foreground">
+            <ul className="space-y-3 text-pearl/60">
               <li className="flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400 mt-1 flex-shrink-0" /> 4-6 separate components to source</li>
               <li className="flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400 mt-1 flex-shrink-0" /> Complex wiring, more failure points</li>
               <li className="flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400 mt-1 flex-shrink-0" /> 2-3 days installation time</li>
@@ -831,13 +831,13 @@ function AllInOneContent() {
               <li className="flex items-start gap-2"><XCircle className="w-4 h-4 text-red-400 mt-1 flex-shrink-0" /> Finger-pointing when issues arise</li>
             </ul>
           </div>
-          
+
           <div className="bg-energy/10 border border-energy/20 rounded-2xl p-6 sm:p-8 space-y-4">
             <div className="flex items-center gap-3 mb-4">
               <CheckCircle className="w-8 h-8 text-energy" />
-              <h3 className="text-xl font-semibold text-foreground">All-in-One System</h3>
+              <h3 className="text-xl font-semibold text-pearl">All-in-One System</h3>
             </div>
-            <ul className="space-y-3 text-muted-foreground">
+            <ul className="space-y-3 text-pearl/60">
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-energy mt-1 flex-shrink-0" /> One integrated unit, factory-tested</li>
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-energy mt-1 flex-shrink-0" /> Minimal wiring, plug-and-play</li>
               <li className="flex items-start gap-2"><CheckCircle className="w-4 h-4 text-energy mt-1 flex-shrink-0" /> 4-6 hours installation time</li>
@@ -850,25 +850,25 @@ function AllInOneContent() {
 
       {/* Installer Benefits */}
       <section className="space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Why Installers Love All-in-One</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Why Installers Love All-in-One</h2>
+
         <div className="glass-card-accent rounded-3xl p-8 sm:p-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
               <p className="text-4xl font-bold text-energy">60%</p>
-              <p className="text-muted-foreground">Faster installations</p>
+              <p className="text-pearl/60">Faster installations</p>
             </div>
             <div className="space-y-2">
               <p className="text-4xl font-bold text-energy">75%</p>
-              <p className="text-muted-foreground">Fewer service calls</p>
+              <p className="text-pearl/60">Fewer service calls</p>
             </div>
             <div className="space-y-2">
               <p className="text-4xl font-bold text-energy">90%</p>
-              <p className="text-muted-foreground">Customer satisfaction</p>
+              <p className="text-pearl/60">Customer satisfaction</p>
             </div>
             <div className="space-y-2">
               <p className="text-4xl font-bold text-energy">2x</p>
-              <p className="text-muted-foreground">More jobs per month</p>
+              <p className="text-pearl/60">More jobs per month</p>
             </div>
           </div>
         </div>
@@ -876,12 +876,12 @@ function AllInOneContent() {
 
       {/* CTA */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Ready to Simplify Your Installs?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Ready to Simplify Your Installs?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           Join our network of installers and get priority access to all-in-one systems with better margins.
         </p>
         <Link to="/installers">
-          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90">
+          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-energy hover:bg-energy/90 text-charcoal">
             Become a Partner
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
@@ -966,19 +966,19 @@ function HybridInstallationContent() {
     <div className="space-y-12">
       {/* Intro */}
       <section className="space-y-6">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           Installing hybrid solar systems doesn't have to be complicated. <span className="text-energy">Follow this proven 6-step process.</span>
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          This guide is based on 500+ successful installations. Each step includes time estimates, 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          This guide is based on 500+ successful installations. Each step includes time estimates,
           common pitfalls to avoid, and pro tips from experienced installers.
         </p>
       </section>
 
       {/* Timeline */}
       <section className="space-y-8">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">The 6-Step Process</h2>
-        
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">The 6-Step Process</h2>
+
         <div className="space-y-6">
           {steps.map((step, i) => (
             <div key={i} className="glass-card-light rounded-2xl p-6 sm:p-8">
@@ -988,7 +988,7 @@ function HybridInstallationContent() {
                     {step.num}
                   </div>
                   <div className="sm:hidden">
-                    <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                    <h3 className="text-xl font-semibold text-pearl">{step.title}</h3>
                     <p className="text-energy text-sm flex items-center gap-1 mt-1">
                       <Clock className="w-4 h-4" /> {step.time}
                     </p>
@@ -996,14 +996,14 @@ function HybridInstallationContent() {
                 </div>
                 <div className="flex-1 space-y-4">
                   <div className="hidden sm:block">
-                    <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                    <h3 className="text-xl font-semibold text-pearl">{step.title}</h3>
                     <p className="text-energy text-sm flex items-center gap-1 mt-1">
                       <Clock className="w-4 h-4" /> {step.time}
                     </p>
                   </div>
                   <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {step.details.map((detail, j) => (
-                      <li key={j} className="flex items-start gap-2 text-muted-foreground">
+                      <li key={j} className="flex items-start gap-2 text-pearl/60">
                         <CheckCircle className="w-4 h-4 text-energy mt-0.5 flex-shrink-0" />
                         {detail}
                       </li>
@@ -1018,19 +1018,19 @@ function HybridInstallationContent() {
 
       {/* Total Time */}
       <section className="glass-card-accent rounded-3xl p-8 sm:p-12 text-center">
-        <p className="text-muted-foreground mb-2">Total Installation Time</p>
+        <p className="text-pearl/60 mb-2">Total Installation Time</p>
         <p className="text-5xl sm:text-6xl font-bold text-energy">6-10 Hours</p>
-        <p className="text-muted-foreground mt-4">For a typical 5-10kW residential hybrid system</p>
+        <p className="text-pearl/60 mt-4">For a typical 5-10kW residential hybrid system</p>
       </section>
 
       {/* CTA */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Need Detailed Technical Docs?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Need Detailed Technical Docs?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           Download our complete installation manual with wiring diagrams, settings guides, and troubleshooting flowcharts.
         </p>
         <Link to="/downloads">
-          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90">
+          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-energy hover:bg-energy/90 text-charcoal">
             Download Installation Guide
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
@@ -1062,11 +1062,11 @@ function BestPracticesContent() {
     <div className="space-y-12">
       {/* Intro */}
       <section className="space-y-6">
-        <p className="text-xl sm:text-2xl text-foreground font-medium leading-relaxed">
+        <p className="text-xl sm:text-2xl text-pearl font-medium leading-relaxed">
           The difference between a good installer and a great one? <span className="text-energy">Knowing what NOT to do.</span>
         </p>
-        <p className="text-body-large text-muted-foreground leading-relaxed">
-          These best practices come from analyzing warranty claims, service callbacks, and customer complaints 
+        <p className="text-body-large text-pearl/60 leading-relaxed">
+          These best practices come from analyzing warranty claims, service callbacks, and customer complaints
           across thousands of installations. Learn from others' mistakes.
         </p>
       </section>
@@ -1075,16 +1075,16 @@ function BestPracticesContent() {
       <section className="space-y-6">
         <div className="flex items-center gap-3">
           <CheckCircle className="w-8 h-8 text-energy" />
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">The Do's</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">The Do's</h2>
         </div>
-        
+
         <div className="space-y-4">
           {dos.map((item, i) => (
             <div key={i} className="bg-energy/10 border border-energy/20 rounded-2xl p-6 flex gap-4">
               <CheckCircle className="w-6 h-6 text-energy flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+                <h3 className="text-lg font-semibold text-pearl mb-1">{item.title}</h3>
+                <p className="text-pearl/60">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -1095,16 +1095,16 @@ function BestPracticesContent() {
       <section className="space-y-6">
         <div className="flex items-center gap-3">
           <XCircle className="w-8 h-8 text-red-500" />
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">The Don'ts</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">The Don'ts</h2>
         </div>
-        
+
         <div className="space-y-4">
           {donts.map((item, i) => (
             <div key={i} className="bg-red-500/10 border border-red-500/20 rounded-2xl p-6 flex gap-4">
-              <XCircle className="w-6 h-6 text-red-500 flex-shrink-0 mt-1" />
+              <XCircle className="w-6 h-6 text-red-400 flex-shrink-0 mt-1" />
               <div>
-                <h3 className="text-lg font-semibold text-foreground mb-1">{item.title}</h3>
-                <p className="text-muted-foreground">{item.desc}</p>
+                <h3 className="text-lg font-semibold text-pearl mb-1">{item.title}</h3>
+                <p className="text-pearl/60">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -1116,9 +1116,9 @@ function BestPracticesContent() {
         <div className="flex items-start gap-4">
           <Star className="w-8 h-8 text-energy flex-shrink-0" />
           <div>
-            <h3 className="text-xl font-semibold text-foreground mb-3">Pro Tip: The 24-Hour Check</h3>
-            <p className="text-body-large text-muted-foreground">
-              After every installation, call the customer within 24 hours. Ask: "Is everything working as expected?" 
+            <h3 className="text-xl font-semibold text-pearl mb-3">Pro Tip: The 24-Hour Check</h3>
+            <p className="text-body-large text-pearl/60">
+              After every installation, call the customer within 24 hours. Ask: "Is everything working as expected?"
               This simple practice catches issues before they become complaints, builds trust, and generates referrals.
             </p>
           </div>
@@ -1127,12 +1127,12 @@ function BestPracticesContent() {
 
       {/* CTA */}
       <section className="glass-card rounded-3xl p-8 sm:p-12 text-center space-y-6">
-        <h2 className="text-2xl sm:text-3xl font-semibold text-foreground">Want Hands-On Training?</h2>
-        <p className="text-body-large text-muted-foreground max-w-2xl mx-auto">
+        <h2 className="text-2xl sm:text-3xl font-semibold text-pearl">Want Hands-On Training?</h2>
+        <p className="text-body-large text-pearl/60 max-w-2xl mx-auto">
           Join our certified installer program. Get practical training, certification, and priority access to support.
         </p>
         <Link to="/installers">
-          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-foreground text-background hover:bg-foreground/90">
+          <Button size="lg" className="min-h-[56px] px-8 text-lg bg-energy hover:bg-energy/90 text-charcoal">
             Explore Training Programs
             <ArrowRight className="w-5 h-5 ml-2" />
           </Button>
@@ -1151,12 +1151,12 @@ const KnowledgeArticle = () => {
     return (
       <Layout>
         <div className="container mx-auto max-w-4xl px-4 sm:px-6 py-20 sm:py-32 text-center">
-          <h1 className="text-3xl sm:text-display-medium font-medium text-foreground mb-6">Article Not Found</h1>
-          <p className="text-body-large text-muted-foreground mb-8">
+          <h1 className="text-3xl sm:text-display-medium font-medium text-pearl mb-6">Article Not Found</h1>
+          <p className="text-body-large text-pearl/60 mb-8">
             The article you're looking for doesn't exist or has been moved.
           </p>
           <Link to="/knowledge">
-            <Button size="lg" className="min-h-[48px]">
+            <Button size="lg" className="min-h-[48px] bg-energy hover:bg-energy/90 text-charcoal">
               <ArrowLeft className="w-5 h-5 mr-2" />
               Back to Knowledge Hub
             </Button>
@@ -1172,19 +1172,19 @@ const KnowledgeArticle = () => {
       <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-hidden">
         {/* Hero Background Image */}
         <div className="absolute inset-0">
-          <img 
-            src={article.heroImage} 
+          <img
+            src={article.heroImage}
             alt={article.title}
             className="w-full h-full object-cover opacity-20"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-b from-charcoal via-charcoal/95 to-charcoal" />
         </div>
 
         <div className="container mx-auto px-4 sm:px-6 relative z-10">
           {/* Back Link */}
-          <Link 
-            to="/knowledge" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 group"
+          <Link
+            to="/knowledge"
+            className="inline-flex items-center gap-2 text-pearl/60 hover:text-pearl transition-colors mb-8 group"
           >
             <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
             Back to Knowledge Hub
@@ -1192,7 +1192,7 @@ const KnowledgeArticle = () => {
 
           <div className="max-w-4xl">
             {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+            <div className="flex flex-wrap items-center gap-4 text-sm text-pearl/60 mb-6">
               <span className="flex items-center gap-1">
                 <Clock className="w-4 h-4" />
                 {article.readTime}
@@ -1204,22 +1204,22 @@ const KnowledgeArticle = () => {
             </div>
 
             {/* Title */}
-            <h1 className="text-3xl sm:text-4xl md:text-display-medium font-medium text-foreground mb-6 tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-display-medium font-medium text-pearl mb-6 tracking-tight leading-tight">
               {article.title}
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl">
+            <p className="text-lg sm:text-xl text-pearl/60 leading-relaxed max-w-3xl">
               {article.subtitle}
             </p>
 
             {/* Actions */}
             <div className="flex items-center gap-4 mt-8">
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="outline" size="sm" className="gap-2 border-pearl/10 text-pearl hover:bg-pearl/[0.06]">
                 <Share2 className="w-4 h-4" />
                 Share
               </Button>
-              <Button variant="outline" size="sm" className="gap-2">
+              <Button variant="outline" size="sm" className="gap-2 border-pearl/10 text-pearl hover:bg-pearl/[0.06]">
                 <Bookmark className="w-4 h-4" />
                 Save
               </Button>
@@ -1229,7 +1229,7 @@ const KnowledgeArticle = () => {
       </section>
 
       {/* Article Content */}
-      <section className="py-12 sm:py-20">
+      <section className="py-12 sm:py-20 bg-charcoal">
         <div className="container mx-auto px-4 sm:px-6">
           <article className="max-w-4xl mx-auto">
             {article.content}
@@ -1238,23 +1238,23 @@ const KnowledgeArticle = () => {
       </section>
 
       {/* Related Articles */}
-      <section className="py-16 sm:py-24 bg-pearl/30">
+      <section className="py-16 sm:py-24 bg-graphite">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-8 text-center">Keep Learning</h2>
+          <h2 className="text-2xl sm:text-3xl font-semibold text-pearl mb-8 text-center">Keep Learning</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
             {Object.entries(articleContent)
               .filter(([key]) => key !== slug)
               .slice(0, 3)
               .map(([key, art]) => (
-                <Link 
+                <Link
                   key={key}
                   to={`/knowledge/${key}`}
                   className="glass-card-light rounded-2xl p-6 hover:-translate-y-2 transition-all duration-300 group"
                 >
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-energy transition-colors">
+                  <h3 className="text-lg font-semibold text-pearl mb-2 group-hover:text-energy transition-colors">
                     {art.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{art.subtitle}</p>
+                  <p className="text-sm text-pearl/60 mb-4 line-clamp-2">{art.subtitle}</p>
                   <span className="text-energy text-sm font-medium flex items-center gap-1">
                     Read article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </span>
