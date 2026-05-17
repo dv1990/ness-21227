@@ -25,6 +25,8 @@ const HomeownerConfigurator = lazy(() =>
     default: m.HomeownerConfigurator,
   })),
 );
+const ScrollProductShowcase = lazy(() => import("@/components/ScrollProductShowcase"));
+const EnergyFlowDiagram = lazy(() => import("@/components/EnergyFlowDiagram"));
 
 /* ─────────────────────────────────────────────
    MAGNETIC WRAPPER — subtle cursor-pull on CTAs (desktop only)
@@ -354,6 +356,14 @@ const Index = () => {
       <Interstitial text="The cleanest power plant in India fits on your wall." />
 
       {/* ════════════════════════════════════════════
+          SECTION 2.5 — SCROLL PRODUCT SHOWCASE
+          Apple-style pinned scroll with feature callouts
+          ════════════════════════════════════════════ */}
+      <Suspense fallback={<div className="h-screen bg-charcoal" />}>
+        <ScrollProductShowcase />
+      </Suspense>
+
+      {/* ════════════════════════════════════════════
           SECTION 3 — POWERWALL AS SCULPTURE
           Product floating on dark. Green underglow.
           ════════════════════════════════════════════ */}
@@ -450,6 +460,14 @@ const Index = () => {
 
       {/* ── Interstitial ── */}
       <Interstitial text="500 Indian homes already run on sunlight." />
+
+      {/* ════════════════════════════════════════════
+          SECTION 3.5 — ENERGY FLOW DIAGRAM
+          Animated SVG: solar → battery → home
+          ════════════════════════════════════════════ */}
+      <Suspense fallback={<div className="h-64 bg-charcoal" />}>
+        <EnergyFlowDiagram />
+      </Suspense>
 
       {/* ════════════════════════════════════════════
           SECTION 4 — THE MOVEMENT — Social Proof
