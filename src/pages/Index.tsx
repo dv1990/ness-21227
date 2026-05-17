@@ -119,6 +119,30 @@ const Interstitial = memo(function Interstitial({ text }: { text: string }) {
   );
 });
 
+/* ─────────────────────────────────────────────
+   HERO SCROLL STEPS — 3 cinematic text reveals
+   ───────────────────────────────────────────── */
+const HERO_STEPS = [
+  {
+    top: "Power without",
+    accent: "permission.",
+    sub: "Life, uninterrupted.",
+    showCTA: true,
+  },
+  {
+    top: "Free energy",
+    accent: "lands on your roof.",
+    sub: "Every day. Most homes waste it. Not yours.",
+    showCTA: false,
+  },
+  {
+    top: "Clean energy",
+    accent: "is the new luxury.",
+    sub: "Silent. Seamless. Backed by a decade-long true warranty.",
+    showCTA: false,
+  },
+] as const;
+
 const Index = () => {
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = useIsMobile();
@@ -130,14 +154,10 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll-driven transform values (desktop only)
-  // Phase 1 (0-0.5): Text fades up, product overlays lighten
-  // Phase 2 (0.5-1.0): Product scales subtly, label appears
-  const textOpacity = isMobile ? 1 : Math.max(0, 1 - scrollProgress * 2.5);
-  const textTranslateY = isMobile ? 0 : scrollProgress * -80;
-  const overlayOpacity = isMobile ? 1 : Math.max(0.15, 1 - scrollProgress * 1.2);
-  const productScale = isMobile ? 1 : 1 + scrollProgress * 0.06;
-  const labelOpacity = isMobile ? 1 : Math.min(1, Math.max(0, (scrollProgress - 0.4) * 3));
+  // 3-step hero — each step owns ~33% of scroll range
+  const heroStep = isMobile ? 0 : scrollProgress < 0.33 ? 0 : scrollProgress < 0.67 ? 1 : 2;
+  const overlayOpacity = isMobile ? 1 : Math.max(0.12, 0.9 - scrollProgress * 0.6);
+  const productScale = isMobile ? 1 : 1 + scrollProgress * 0.04;
 
   return (
     <Layout className="-mt-16">
@@ -152,7 +172,7 @@ const Index = () => {
         ref={heroRef}
         className={cn(
           "relative w-full bg-charcoal",
-          isMobile ? "min-h-[100svh]" : "h-[180vh]",
+          isMobile ? "min-h-[100svh]" : "h-[360vh]",
         )}
       >
         <section
@@ -193,100 +213,112 @@ const Index = () => {
             <GradientOrbField variant="warm" />
           </div>
 
-          {/* Hero content — fades up on scroll */}
-          <div
-            className="relative z-10 min-h-[100svh] md:min-h-[100vh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0 will-change-transform"
-            style={
-              isMobile
-                ? undefined
-                : {
-                    transform: `translateY(${textTranslateY}px)`,
-                    opacity: textOpacity,
-                  }
-            }
-          >
-            <div className="space-y-8 sm:space-y-12 md:space-y-14 max-w-3xl w-full">
+          {/* Hero content — 3-step scroll reveal */}
+          <div className="relative z-10 min-h-[100svh] md:min-h-[100vh] flex items-center max-w-[1600px] mx-auto px-4 sm:px-8 md:px-16 py-20 sm:py-0">
+            <div className="relative max-w-3xl w-full" style={{ minHeight: "22rem" }}>
 
-              {/* Headline — Outfit 700, provocative */}
-              <h1
-                id="hero-heading"
-                className={cn(
-                  "font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[0.95] tracking-[-0.03em] text-pearl transition-all duration-1000 ease-out",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-                )}
-              >
-                Power without
-                <br />
-                <span className="text-gradient-energy">permission.</span>
-              </h1>
-
-              {/* Sub-headline — Outfit 300, elaboration */}
-              <p
-                className={cn(
-                  "font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-[1.35] tracking-[-0.015em] max-w-[700px] text-pearl/50 transition-all duration-1000 ease-out delay-200",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-                )}
-              >
-                Your roof collects it. Your wall stores it.
-                <span className="block mt-1 text-pearl/70">The grid becomes optional.</span>
-              </p>
-
-              {/* CTAs */}
-              <div
-                className={cn(
-                  "pt-2 sm:pt-4 flex flex-col sm:flex-row items-start gap-4 transition-all duration-1000 ease-out delay-400",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
-                )}
-              >
-                <MagneticWrapper>
-                  <Link to="/residential" className="inline-block group">
-                    <Button
-                      size="lg"
-                      className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
-                    >
-                      <span className="flex items-center justify-center">
-                        Own Your Energy
-                        <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
-                      </span>
-                    </Button>
-                  </Link>
-                </MagneticWrapper>
-                <Link to="/contact/homeowner" className="inline-block group">
-                  <Button
-                    size="lg"
-                    className="interactive font-display bg-transparent border border-pearl/30 hover:border-pearl/60 text-pearl hover:bg-pearl/10 font-light px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
+              {HERO_STEPS.map((step, i) => {
+                const isActive = i === heroStep;
+                const isPast = i < heroStep;
+                return (
+                  <div
+                    key={i}
+                    className="absolute inset-0 flex flex-col justify-center gap-8 sm:gap-12 md:gap-14"
+                    style={{
+                      opacity: isMobile ? (i === 0 ? 1 : 0) : isActive ? 1 : 0,
+                      transform: isMobile
+                        ? "none"
+                        : `translateY(${isActive ? 0 : isPast ? -24 : 24}px)`,
+                      transition: "opacity 0.65s ease, transform 0.65s ease",
+                      pointerEvents: isActive ? "auto" : "none",
+                    }}
+                    aria-hidden={!isActive}
                   >
-                    Talk to an Expert
-                  </Button>
-                </Link>
-              </div>
+                    {/* Headline */}
+                    <h1
+                      id={i === 0 ? "hero-heading" : undefined}
+                      className={cn(
+                        "font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[7rem] font-bold leading-[0.95] tracking-[-0.03em] text-pearl",
+                        i === 0 && (isVisible ? "transition-all duration-1000 ease-out opacity-100 translate-y-0" : "opacity-0 translate-y-8"),
+                      )}
+                    >
+                      {step.top}
+                      <br />
+                      <span className="text-gradient-energy">{step.accent}</span>
+                    </h1>
 
-              {/* Product identifier — fades in later on scroll */}
-              <p
-                className={cn(
-                  "text-pearl/25 text-xs sm:text-sm font-light tracking-[0.2em] uppercase mt-6 transition-all duration-1000 ease-out delay-500",
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4",
-                )}
-                style={
-                  isMobile
-                    ? undefined
-                    : { opacity: labelOpacity }
-                }
-              >
-                NESS — Clean Energy Storage
-              </p>
+                    {/* Sub-headline */}
+                    <p
+                      className={cn(
+                        "font-display text-xl sm:text-2xl md:text-3xl lg:text-4xl font-light leading-[1.35] tracking-[-0.015em] max-w-[700px] text-pearl/60",
+                        i === 0 && (isVisible ? "transition-all duration-1000 ease-out delay-200 opacity-100 translate-y-0" : "opacity-0 translate-y-8"),
+                      )}
+                    >
+                      {step.sub}
+                    </p>
+
+                    {/* CTAs — only on step 0 */}
+                    {step.showCTA && (
+                      <div
+                        className={cn(
+                          "pt-2 sm:pt-4 flex flex-col sm:flex-row items-start gap-4",
+                          isVisible ? "transition-all duration-1000 ease-out delay-400 opacity-100 translate-y-0" : "opacity-0 translate-y-8",
+                        )}
+                      >
+                        <MagneticWrapper>
+                          <Link to="/homeowners" className="inline-block group">
+                            <Button
+                              size="lg"
+                              className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-8 py-4 sm:px-12 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
+                            >
+                              <span className="flex items-center justify-center">
+                                Own Your Energy
+                                <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6 group-hover:translate-x-2 transition-transform duration-300" />
+                              </span>
+                            </Button>
+                          </Link>
+                        </MagneticWrapper>
+                        <Link to="/contact/homeowner" className="inline-block group">
+                          <Button
+                            size="lg"
+                            className="interactive font-display bg-transparent border border-pearl/30 hover:border-pearl/60 text-pearl hover:bg-pearl/10 font-light px-8 py-4 sm:px-10 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300"
+                          >
+                            Talk to an Expert
+                          </Button>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
 
-          {/* Scroll indicator — visible at top, fades on scroll */}
+          {/* Step indicator + scroll hint */}
           {!isMobile && (
-            <div
-              className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 will-change-[opacity]"
-              style={{ opacity: Math.max(0, 1 - scrollProgress * 4) }}
-              aria-hidden="true"
-            >
-              <span className="text-pearl/30 text-xs tracking-[0.2em] uppercase">Scroll</span>
-              <div className="w-px h-8 bg-gradient-to-b from-pearl/30 to-transparent animate-energy-pulse" />
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-3" aria-hidden="true">
+              {/* Step dots */}
+              <div className="flex gap-2">
+                {HERO_STEPS.map((_, i) => (
+                  <div
+                    key={i}
+                    className="rounded-full transition-all duration-500"
+                    style={{
+                      width: heroStep === i ? 20 : 6,
+                      height: 6,
+                      background: heroStep === i ? "hsl(142 69% 58%)" : "rgba(255,255,255,0.2)",
+                    }}
+                  />
+                ))}
+              </div>
+              {/* Scroll line — fades after step 0 */}
+              <div
+                className="flex flex-col items-center gap-1 transition-opacity duration-500"
+                style={{ opacity: heroStep === 0 ? 0.5 : 0.2 }}
+              >
+                <span className="text-pearl/40 text-xs tracking-[0.2em] uppercase">Scroll</span>
+                <div className="w-px h-6 bg-gradient-to-b from-pearl/30 to-transparent animate-energy-pulse" />
+              </div>
             </div>
           )}
         </section>
