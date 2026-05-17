@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { motion, useMotionValue, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
@@ -134,7 +134,7 @@ function MobileShowcase() {
 
 function DesktopShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollYProgress = useMotionValue(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -144,7 +144,7 @@ function DesktopShowcase() {
       const rect = container.getBoundingClientRect();
       const scrollDistance = rect.height - window.innerHeight;
       if (scrollDistance <= 0) return;
-      scrollYProgress.set(Math.max(0, Math.min(-rect.top / scrollDistance, 1)));
+      setProgress(Math.max(0, Math.min(-rect.top / scrollDistance, 1)));
     };
 
     let ticking = false;
@@ -162,49 +162,15 @@ function DesktopShowcase() {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", update);
     };
-  }, [scrollYProgress]);
+  }, []);
 
-  // Per-feature opacity
-  const f0Opacity = useTransform(scrollYProgress, [0, 0.05, 0.20, 0.28], [1, 1, 1, 0]);
-  const f1Opacity = useTransform(scrollYProgress, [0.20, 0.28, 0.45, 0.53], [0, 1, 1, 0]);
-  const f2Opacity = useTransform(scrollYProgress, [0.45, 0.53, 0.70, 0.78], [0, 1, 1, 0]);
-  const f3Opacity = useTransform(scrollYProgress, [0.70, 0.78, 0.95, 1.0], [0, 1, 1, 1]);
+  // Active feature index — each feature owns 25% of the scroll range
+  const activeIndex = progress < 0.25 ? 0 : progress < 0.50 ? 1 : progress < 0.75 ? 2 : 3;
 
-  // Per-feature Y slide
-  const f0Y = useTransform(scrollYProgress, [0, 0.05, 0.20, 0.28], ["0px", "0px", "0px", "-28px"]);
-  const f1Y = useTransform(scrollYProgress, [0.20, 0.28, 0.45, 0.53], ["28px", "0px", "0px", "-28px"]);
-  const f2Y = useTransform(scrollYProgress, [0.45, 0.53, 0.70, 0.78], ["28px", "0px", "0px", "-28px"]);
-  const f3Y = useTransform(scrollYProgress, [0.70, 0.78, 0.95, 1.0], ["28px", "0px", "0px", "0px"]);
-
-  // Hotspot dot scales
-  const dot0Scale = useTransform(scrollYProgress, [0, 0.05, 0.22, 0.28], [1.4, 1.4, 1.4, 0.7]);
-  const dot1Scale = useTransform(scrollYProgress, [0.22, 0.28, 0.47, 0.53], [0.7, 1.4, 1.4, 0.7]);
-  const dot2Scale = useTransform(scrollYProgress, [0.47, 0.53, 0.70, 0.78], [0.7, 1.4, 1.4, 0.7]);
-  const dot3Scale = useTransform(scrollYProgress, [0.70, 0.78, 0.95, 1.0], [0.7, 1.4, 1.4, 1.4]);
-
-  // Nav dot dimensions (width pills)
-  const nav0W = useTransform(scrollYProgress, [0, 0.05, 0.23, 0.25], [24, 24, 24, 6]);
-  const nav1W = useTransform(scrollYProgress, [0.23, 0.28, 0.48, 0.53], [6, 24, 24, 6]);
-  const nav2W = useTransform(scrollYProgress, [0.48, 0.53, 0.70, 0.78], [6, 24, 24, 6]);
-  const nav3W = useTransform(scrollYProgress, [0.70, 0.78, 0.95, 1.0], [6, 24, 24, 24]);
-
-  // Nav dot opacities
-  const nav0O = useTransform(scrollYProgress, [0, 0.23, 0.25], [1, 1, 0.35]);
-  const nav1O = useTransform(scrollYProgress, [0.23, 0.28, 0.48, 0.53], [0.35, 1, 1, 0.35]);
-  const nav2O = useTransform(scrollYProgress, [0.48, 0.53, 0.70, 0.78], [0.35, 1, 1, 0.35]);
-  const nav3O = useTransform(scrollYProgress, [0.70, 0.78, 1.0], [0.35, 1, 1]);
-
-  // Image subtle parallax
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "-5%"]);
-
-  // Progress bar
-  const progressWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
-
-  const featureOpacities = [f0Opacity, f1Opacity, f2Opacity, f3Opacity];
-  const featureYs = [f0Y, f1Y, f2Y, f3Y];
-  const dotScales = [dot0Scale, dot1Scale, dot2Scale, dot3Scale];
-  const navWidths = [nav0W, nav1W, nav2W, nav3W];
-  const navOpacities = [nav0O, nav1O, nav2O, nav3O];
+  // Image parallax via MotionValue (smooth, no re-render)
+  const imageYMV = useMotionValue(0);
+  const imageY = useTransform(imageYMV, [0, 1], ["0%", "-5%"]);
+  useEffect(() => { imageYMV.set(progress); }, [progress, imageYMV]);
 
   return (
     <div
@@ -217,7 +183,10 @@ function DesktopShowcase() {
       <div className="sticky top-0 h-screen flex flex-col overflow-hidden">
         {/* Top progress bar */}
         <div className="absolute top-0 left-0 right-0 h-[2px] bg-pearl/5 z-20">
-          <motion.div className="h-full bg-energy" style={{ width: progressWidth }} />
+          <div
+            className="h-full bg-energy transition-[width] duration-100"
+            style={{ width: `${progress * 100}%` }}
+          />
         </div>
 
         {/* Ambient background */}
@@ -259,61 +228,70 @@ function DesktopShowcase() {
                 />
 
                 {/* Hotspot dots */}
-                {FEATURES.map((f, i) => (
-                  <motion.div
-                    key={f.id}
-                    className="absolute"
-                    style={{
-                      left: f.dotX,
-                      top: f.dotY,
-                      transform: "translate(-50%, -50%)",
-                      scale: dotScales[i],
-                    }}
-                  >
-                    {/* Ping ring */}
+                {FEATURES.map((f, i) => {
+                  const isActive = i === activeIndex;
+                  return (
                     <motion.div
-                      className="absolute rounded-full"
-                      style={{
-                        width: 12,
-                        height: 12,
-                        background: f.color,
-                        opacity: featureOpacities[i],
-                        top: "50%",
-                        left: "50%",
-                        x: "-50%",
-                        y: "-50%",
-                      }}
-                      animate={{ scale: [1, 2.8], opacity: [0.7, 0] }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                    />
-                    {/* Dot */}
-                    <div
-                      className="relative w-3 h-3 rounded-full border-2 border-charcoal shadow-lg"
-                      style={{ background: f.color }}
-                    />
-                  </motion.div>
-                ))}
+                      key={f.id}
+                      className="absolute"
+                      style={{ left: f.dotX, top: f.dotY, x: "-50%", y: "-50%" }}
+                      animate={{ scale: isActive ? 1.4 : 0.7, opacity: isActive ? 1 : 0.35 }}
+                      transition={{ duration: 0.4, ease: "easeOut" }}
+                    >
+                      {/* Ping ring — only on active dot */}
+                      {isActive && (
+                        <motion.div
+                          className="absolute rounded-full"
+                          style={{
+                            width: 12,
+                            height: 12,
+                            background: f.color,
+                            top: "50%",
+                            left: "50%",
+                            x: "-50%",
+                            y: "-50%",
+                          }}
+                          animate={{ scale: [1, 2.8], opacity: [0.7, 0] }}
+                          transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                        />
+                      )}
+                      {/* Solid dot */}
+                      <div
+                        className="relative w-3 h-3 rounded-full border-2 border-charcoal shadow-lg"
+                        style={{ background: f.color }}
+                      />
+                    </motion.div>
+                  );
+                })}
               </motion.div>
 
-              {/* Scroll hint */}
+              {/* Scroll hint — only at start */}
               <motion.div
                 className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-pearl/25 text-xs select-none"
-                style={{ opacity: f0Opacity }}
+                animate={{ opacity: progress < 0.08 ? 1 : 0 }}
+                transition={{ duration: 0.3 }}
               >
                 <ChevronDown className="w-4 h-4 animate-bounce" aria-hidden="true" />
                 <span>scroll to explore</span>
               </motion.div>
             </div>
 
-            {/* RIGHT — feature text */}
-            <div className="relative h-72 lg:h-80">
+            {/* RIGHT — feature text, only active feature rendered */}
+            <div className="relative h-72 lg:h-80 overflow-hidden">
               {FEATURES.map((f, i) => {
                 const Icon = f.icon;
+                const isActive = i === activeIndex;
+                const isPast = i < activeIndex;
                 return (
                   <motion.div
                     key={f.id}
                     className="absolute inset-0 flex flex-col justify-center"
-                    style={{ opacity: featureOpacities[i], y: featureYs[i] }}
+                    animate={{
+                      opacity: isActive ? 1 : 0,
+                      y: isActive ? 0 : isPast ? -28 : 28,
+                      pointerEvents: isActive ? "auto" : "none",
+                    }}
+                    transition={{ duration: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
                   >
                     <p
                       className="text-xs uppercase tracking-[0.2em] mb-3 font-medium flex items-center gap-2"
@@ -355,17 +333,18 @@ function DesktopShowcase() {
 
         {/* Nav dots — bottom */}
         <div className="pb-8 flex items-center justify-center gap-2 relative z-10">
-          {FEATURES.map((f, i) => (
-            <motion.div
-              key={f.id}
-              className="h-1.5 rounded-full"
-              style={{
-                background: f.color,
-                width: navWidths[i],
-                opacity: navOpacities[i],
-              }}
-            />
-          ))}
+          {FEATURES.map((f, i) => {
+            const isActive = i === activeIndex;
+            return (
+              <motion.div
+                key={f.id}
+                className="h-1.5 rounded-full"
+                animate={{ width: isActive ? 24 : 6, opacity: isActive ? 1 : 0.35 }}
+                transition={{ duration: 0.3 }}
+                style={{ background: f.color }}
+              />
+            );
+          })}
         </div>
       </div>
 
