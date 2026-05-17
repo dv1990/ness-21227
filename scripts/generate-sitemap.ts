@@ -13,8 +13,11 @@ interface SitemapEntry {
 const entries: SitemapEntry[] = [
   { path: "/", changefreq: "weekly", priority: "1.0" },
   { path: "/commercial", changefreq: "monthly", priority: "0.9" },
+  { path: "/commercial-enhanced", changefreq: "monthly", priority: "0.7" },
+  { path: "/ci", changefreq: "monthly", priority: "0.5" },
   { path: "/homeowners", changefreq: "monthly", priority: "0.9" },
   { path: "/installers", changefreq: "monthly", priority: "0.8" },
+  { path: "/installers-enhanced", changefreq: "monthly", priority: "0.7" },
   { path: "/find-installer", changefreq: "monthly", priority: "0.7" },
   { path: "/products/ness-ac-sync", changefreq: "monthly", priority: "0.9" },
   { path: "/ev-charging-microgrid", changefreq: "monthly", priority: "0.8" },
