@@ -5,9 +5,20 @@ import App from "./App.tsx";
 import "./index.css";
 import "./styles/hero-optimized.css";
 import "./styles/accessibility.css";
+import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import { optimizeFontLoading, preconnectFonts } from "./lib/font-optimizer";
 import { deferNonCriticalCSS } from "./lib/critical-css";
 import { prefetchCriticalRoutes } from "./lib/route-prefetch";
+
+// Preload the homepage hero image (LCP candidate) as early as possible
+if (typeof document !== "undefined" && window.location.pathname === "/") {
+  const link = document.createElement("link");
+  link.rel = "preload";
+  link.as = "image";
+  link.href = nessHeroProduct;
+  link.fetchPriority = "high";
+  document.head.appendChild(link);
+}
 
 // Development-only error logging
 if (import.meta.env.DEV) {
