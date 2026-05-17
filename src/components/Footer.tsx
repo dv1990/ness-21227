@@ -73,7 +73,7 @@ const Footer = () => {
                 <ArrowRight className="ml-2 w-5 h-5" aria-hidden="true" />
               </Button>
             </Link>
-            <Link to="/residential">
+            <Link to="/homeowners">
               <Button
                 size="lg"
                 className="border border-pearl/20 bg-transparent text-pearl/70 hover:text-pearl hover:border-pearl/40 px-10 py-6 text-lg rounded-full transition-all duration-300"
@@ -119,9 +119,9 @@ const Footer = () => {
               <FooterLinkColumn
                 title="Products"
                 links={[
-                  { to: "/residential", label: "Home Solutions" },
+                  { to: "/homeowners", label: "Home Solutions" },
                   { to: "/commercial", label: "Commercial" },
-                  { to: "/technology", label: "Technology" },
+                  { to: "/ev-charging-microgrid", label: "EV & Microgrid" },
                   { to: "/warranty", label: "Warranty" },
                 ]}
               />
@@ -130,8 +130,8 @@ const Footer = () => {
               <FooterLinkColumn
                 title="Company"
                 links={[
-                  { to: "/about", label: "About" },
-                  { to: "/news", label: "News" },
+                  { to: "/company/about", label: "About" },
+                  { to: "/company/news", label: "News" },
                   { to: "/careers", label: "Careers" },
                   { to: "/contact", label: "Contact" },
                 ]}
@@ -143,7 +143,7 @@ const Footer = () => {
                 links={[
                   { to: "/find-installer", label: "Find Installer" },
                   { to: "/installers", label: "For Installers" },
-                  { to: "/knowledge-hub", label: "Knowledge Hub" },
+                  { to: "/knowledge", label: "Knowledge Hub" },
                   { to: "/downloads", label: "Downloads" },
                 ]}
               />

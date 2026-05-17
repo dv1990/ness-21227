@@ -67,6 +67,42 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Access-Control-Allow-Origin = "*"
 
+# 301 redirects for legacy/alias routes — must come before the SPA catch-all
+[[redirects]]
+  from = "/residential"
+  to = "/homeowners"
+  status = 301
+
+[[redirects]]
+  from = "/about"
+  to = "/company/about"
+  status = 301
+
+[[redirects]]
+  from = "/news"
+  to = "/company/news"
+  status = 301
+
+[[redirects]]
+  from = "/hiring"
+  to = "/careers"
+  status = 301
+
+[[redirects]]
+  from = "/troubleshooting"
+  to = "/support/troubleshooting"
+  status = 301
+
+[[redirects]]
+  from = "/knowledge-hub"
+  to = "/knowledge"
+  status = 301
+
+[[redirects]]
+  from = "/ci"
+  to = "/commercial"
+  status = 301
+
 # SPA Routing - Redirect all routes to index.html
 [[redirects]]
   from = "/*"

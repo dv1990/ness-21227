@@ -16,41 +16,40 @@
       "type": "image/x-icon"
     },
     {
-      "src": "/placeholder.svg",
+      "src": "/icon-192.png",
       "sizes": "192x192",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/placeholder.svg",
+      "src": "/icon-512.png",
       "sizes": "512x512",
-      "type": "image/svg+xml",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ],
   "shortcuts": [
     {
-      "name": "Residential Products",
+      "name": "Home Battery Solutions",
       "short_name": "Residential",
       "description": "Browse residential energy solutions",
-      "url": "/residential-enhanced",
-      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+      "url": "/homeowners",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Commercial Solutions",
-      "short_name": "Commercial", 
+      "short_name": "Commercial",
       "description": "Explore commercial energy systems",
-      "url": "/commercial-enhanced",
-      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+      "url": "/commercial",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     },
     {
       "name": "Find Installer",
       "short_name": "Installers",
       "description": "Find certified NESS installers",
-      "url": "/installers-enhanced", 
-      "icons": [{ "src": "/placeholder.svg", "sizes": "192x192" }]
+      "url": "/find-installer",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
     }
   ],
-  "edge_side_includes": true,
   "prefer_related_applications": false
 }
