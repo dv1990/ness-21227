@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { ServiceWorkerPrompt } from "@/components/ServiceWorkerPrompt";
+import RouteSEO from "@/components/RouteSEO";
 
 // Router future flags for v7 compatibility
 const routerFutureConfig = {
@@ -67,6 +68,7 @@ function App() {
           <Toaster />
           <ScrollProgressBar />
           <ServiceWorkerPrompt />
+          <RouteSEO />
           <Suspense fallback={<PageLoadingFallback />}>
             <Routes>
           {/* Overview (Landing) */}
