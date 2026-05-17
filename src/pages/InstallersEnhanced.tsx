@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
-import { 
+import {
   ArrowRight, Calculator, Award, Users,
   CheckCircle, Star,
   TrendingUp, Send
@@ -17,6 +17,8 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { LazySection } from "@/components/ui/lazy-section";
 import { InstallerPageSkeleton } from "@/components/installers/InstallerPageSkeleton";
 import { LoadingSpinner } from "@/components/ui/loading-spinner";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { SmoothFade } from "@/components/ui/smooth-animations";
 import trainingWorkshop from "@/assets/training-workshop.jpg";
 import configuratorTool from "@/assets-webp/configurator-tool.webp";
 
@@ -37,22 +39,24 @@ const InstallersEnhanced = () => {
     <Layout className="-mt-16">
       <Suspense fallback={<InstallerPageSkeleton />}>
         {/* Hero - Business First */}
-        <section className="relative min-h-[60vh] flex items-center bg-background animate-fade-in">
-          <div className="max-w-6xl mx-auto px-8 w-full">
+        <section className="relative min-h-[60vh] flex items-center bg-charcoal animate-fade-in overflow-hidden">
+          <GradientOrbField variant="standard" />
+
+          <div className="max-w-6xl mx-auto px-8 w-full relative z-10">
             <div className="max-w-3xl">
-              <h1 className="text-7xl md:text-8xl font-light text-foreground leading-tight mb-8 tracking-tight">
+              <h1 className="text-7xl md:text-8xl font-light text-pearl leading-tight mb-8 tracking-tight">
                 Certified
                 <br />
-                <span className="text-primary">Installer Program</span>
+                <span className="text-energy">Installer Program</span>
               </h1>
-              
-              <p className="text-2xl text-muted-foreground mb-12 leading-relaxed">
-                Premium margins. Technical support. Certification training. 
+
+              <p className="text-2xl text-pearl/60 mb-12 leading-relaxed">
+                Premium margins. Technical support. Certification training.
                 Build a profitable clean energy business.
               </p>
 
-              <Button 
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-12 py-6 text-lg rounded-full"
+              <Button
+                className="bg-energy hover:bg-energy-bright text-charcoal px-12 py-6 text-lg rounded-full"
                 onClick={() => document.getElementById('program')?.scrollIntoView({ behavior: 'smooth' })}
               >
                 View Program Details
@@ -65,39 +69,39 @@ const InstallersEnhanced = () => {
 
       {/* Program Details */}
       <LazySection rootMargin="100px">
-        <section id="program" className="py-32 bg-muted/10 animate-fade-in">
+        <section id="program" className="py-32 bg-graphite animate-fade-in">
         <div className="max-w-6xl mx-auto px-8">
-          
+
           <div className="text-center mb-20">
-            <h2 className="text-5xl md:text-6xl font-light text-foreground mb-6">
+            <h2 className="text-5xl md:text-6xl font-light text-pearl mb-6">
               Program Structure
             </h2>
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            
+
             {/* Certification */}
-            <Card className="border-border">
+            <Card className="bg-pearl/[0.03] border border-pearl/10">
               <CardContent className="p-8">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                  <Award className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-energy/20 rounded-2xl flex items-center justify-center mb-6">
+                  <Award className="w-8 h-8 text-energy" />
                 </div>
-                <h3 className="text-2xl font-medium text-foreground mb-4">Certification</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-medium text-pearl mb-4">Certification</h3>
+                <ul className="space-y-3 text-pearl/60">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>3-day technical training</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Hands-on installation practice</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>System design & commissioning</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Safety & troubleshooting</span>
                   </li>
                 </ul>
@@ -105,27 +109,27 @@ const InstallersEnhanced = () => {
             </Card>
 
             {/* Support */}
-            <Card className="border-border">
+            <Card className="bg-pearl/[0.03] border border-pearl/10">
               <CardContent className="p-8">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                  <Users className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-energy/20 rounded-2xl flex items-center justify-center mb-6">
+                  <Users className="w-8 h-8 text-energy" />
                 </div>
-                <h3 className="text-2xl font-medium text-foreground mb-4">Support</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-medium text-pearl mb-4">Support</h3>
+                <ul className="space-y-3 text-pearl/60">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Dedicated technical hotline</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Remote diagnostics access</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Marketing collateral library</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Lead generation assistance</span>
                   </li>
                 </ul>
@@ -133,27 +137,27 @@ const InstallersEnhanced = () => {
             </Card>
 
             {/* Economics */}
-            <Card className="border-primary/20 bg-primary/5">
+            <Card className="border-energy/20 bg-energy/10">
               <CardContent className="p-8">
-                <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-6">
-                  <TrendingUp className="w-8 h-8 text-primary" />
+                <div className="w-16 h-16 bg-energy/20 rounded-2xl flex items-center justify-center mb-6">
+                  <TrendingUp className="w-8 h-8 text-energy" />
                 </div>
-                <h3 className="text-2xl font-medium text-foreground mb-4">Economics</h3>
-                <ul className="space-y-3 text-muted-foreground">
+                <h3 className="text-2xl font-medium text-pearl mb-4">Economics</h3>
+                <ul className="space-y-3 text-pearl/60">
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>25-30% gross margins</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Territory exclusivity options</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>30-day payment terms</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <CheckCircle className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" />
+                    <CheckCircle className="w-5 h-5 text-energy mt-0.5 flex-shrink-0" />
                     <span>Volume-based incentives</span>
                   </li>
                 </ul>
@@ -166,45 +170,45 @@ const InstallersEnhanced = () => {
 
       {/* Testimonial */}
       <LazySection rootMargin="100px">
-        <section className="py-32 bg-background animate-fade-in">
+        <section className="py-32 bg-charcoal animate-fade-in">
         <div className="max-w-4xl mx-auto px-8">
-          <Card className="border-border">
+          <Card className="bg-pearl/[0.03] border-pearl/10">
             <CardContent className="p-12">
               <div className="grid md:grid-cols-2 gap-12 items-center">
-                
+
                 <div className="space-y-6">
                   <div className="flex gap-1">
                     {[...Array(5)].map((_, starIdx) => (
-                      <Star key={starIdx} className="w-5 h-5 text-primary fill-current" />
+                      <Star key={starIdx} className="w-5 h-5 text-energy fill-current" />
                     ))}
                   </div>
-                  
-                  <p className="text-xl text-foreground leading-relaxed">
-                    "Margins are solid. Support picks up in 2 rings. No callbacks on 200+ installations. 
+
+                  <p className="text-xl text-pearl leading-relaxed">
+                    "Margins are solid. Support picks up in 2 rings. No callbacks on 200+ installations.
                     That's all I need."
                   </p>
-                  
+
                   <div className="space-y-1">
-                    <div className="text-lg font-medium text-foreground">Rajesh Singh</div>
-                    <div className="text-sm text-muted-foreground">Solar Solutions Mumbai</div>
-                    <div className="text-sm text-muted-foreground">Mumbai, Maharashtra</div>
+                    <div className="text-lg font-medium text-pearl">Rajesh Singh</div>
+                    <div className="text-sm text-pearl/60">Solar Solutions Mumbai</div>
+                    <div className="text-sm text-pearl/60">Mumbai, Maharashtra</div>
                   </div>
                 </div>
 
                 <div className="space-y-4">
-                  <div className="text-center p-6 bg-muted/50 rounded-xl">
-                    <div className="text-4xl font-light text-primary mb-2">₹2.4Cr</div>
-                    <div className="text-sm text-muted-foreground">Annual revenue</div>
+                  <div className="text-center p-6 bg-pearl/[0.03] rounded-xl">
+                    <div className="text-4xl font-light text-energy mb-2">₹2.4Cr</div>
+                    <div className="text-sm text-pearl/60">Annual revenue</div>
                   </div>
-                  
+
                   <div className="grid grid-cols-2 gap-4">
-                    <div className="text-center p-4 bg-muted/30 rounded-xl">
-                      <div className="text-2xl font-light text-foreground">450+</div>
-                      <div className="text-xs text-muted-foreground">Installations</div>
+                    <div className="text-center p-4 bg-pearl/[0.03] rounded-xl">
+                      <div className="text-2xl font-light text-pearl">450+</div>
+                      <div className="text-xs text-pearl/60">Installations</div>
                     </div>
-                    <div className="text-center p-4 bg-muted/30 rounded-xl">
-                      <div className="text-2xl font-light text-foreground">3.5yr</div>
-                      <div className="text-xs text-muted-foreground">Partner since</div>
+                    <div className="text-center p-4 bg-pearl/[0.03] rounded-xl">
+                      <div className="text-2xl font-light text-pearl">3.5yr</div>
+                      <div className="text-xs text-pearl/60">Partner since</div>
                     </div>
                   </div>
                 </div>
@@ -217,44 +221,44 @@ const InstallersEnhanced = () => {
 
       {/* Application Form */}
       <LazySection rootMargin="100px">
-        <section id="apply" className="py-32 bg-muted/10 animate-fade-in">
+        <section id="apply" className="py-32 bg-graphite animate-fade-in">
         <div className="max-w-2xl mx-auto px-8">
-          
+
           <div className="text-center mb-12">
-            <h2 className="text-5xl font-light text-foreground mb-4">
+            <h2 className="text-5xl font-light text-pearl mb-4">
               Apply Now
             </h2>
-            <p className="text-xl text-muted-foreground">
+            <p className="text-xl text-pearl/60">
               Review within 48 hours
             </p>
           </div>
 
-          <Card className="border-border">
+          <Card className="bg-pearl/[0.03] border-pearl/10">
             <CardContent className="p-8">
               <div className="space-y-6">
                 <div className="grid md:grid-cols-2 gap-4">
-                  <Input placeholder="Your name" />
-                  <Input placeholder="Company name" />
+                  <Input placeholder="Your name" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
+                  <Input placeholder="Company name" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <Input type="email" placeholder="Email" />
-                  <Input placeholder="Phone" />
+                  <Input type="email" placeholder="Email" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
+                  <Input placeholder="Phone" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
                 </div>
                 <div className="grid md:grid-cols-2 gap-4">
-                  <Input placeholder="City, State" />
-                  <Input type="number" placeholder="Years experience" />
+                  <Input placeholder="City, State" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
+                  <Input type="number" placeholder="Years experience" className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
                 </div>
-                <Textarea placeholder="Why do you want to become a certified installer?" rows={3} />
+                <Textarea placeholder="Why do you want to become a certified installer?" rows={3} className="bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30" />
 
-                <Button 
-                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground py-6 text-lg"
+                <Button
+                  className="w-full bg-energy hover:bg-energy-bright text-charcoal py-6 text-lg"
                   onClick={handleJoinMovement}
                 >
                   Submit Application
                   <Send className="ml-2 w-5 h-5" />
                 </Button>
 
-                <p className="text-sm text-center text-muted-foreground">
+                <p className="text-sm text-center text-pearl/60">
                   Review within 48 hours
                 </p>
               </div>
@@ -268,7 +272,7 @@ const InstallersEnhanced = () => {
       <LazySection rootMargin="100px">
         <section className="relative h-[60vh] overflow-hidden animate-fade-in">
           <div className="absolute inset-0">
-            <img 
+            <img
               src={trainingWorkshop}
               alt="NESS partners building the future"
               className="w-full h-full object-cover"
@@ -276,11 +280,11 @@ const InstallersEnhanced = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-r from-charcoal/70 via-charcoal/30 to-transparent"></div>
           </div>
-        
+
         <div className="relative z-10 h-full flex items-center">
           <div className="max-w-6xl mx-auto px-8 w-full">
             <div className="max-w-3xl">
-              <div className="text-5xl md:text-7xl font-thin text-pearl mb-8 leading-[0.85] tracking-tight">
+              <div className="text-5xl md:text-7xl font-light text-pearl mb-8 leading-[0.85] tracking-tight">
                 This is how
                 <br />
                 <span className="text-pearl/60">legends are built</span>
@@ -296,24 +300,24 @@ const InstallersEnhanced = () => {
 
       {/* Advanced Tools Showcase */}
       <LazySection rootMargin="100px">
-        <section className="py-32 bg-background animate-fade-in">
+        <section className="py-32 bg-charcoal animate-fade-in">
         <div className="max-w-6xl mx-auto px-8">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
+
             <div className="space-y-12">
               <div className="space-y-8">
-                <Badge variant="outline" className="px-4 py-2">
+                <Badge variant="outline" className="px-4 py-2 bg-pearl/10 text-pearl/60 border-pearl/10">
                   <Calculator className="w-4 h-4 mr-2" />
                   Smart Tools
                 </Badge>
 
-                <h2 className="text-6xl font-extralight text-foreground leading-[0.85] tracking-tight">
+                <h2 className="text-6xl font-light text-pearl leading-[0.85] tracking-tight">
                   System
                   <br />
                   configurator
                 </h2>
 
-                <p className="text-lg font-light text-muted-foreground leading-relaxed">
+                <p className="text-lg font-light text-pearl/60 leading-relaxed">
                   Generate accurate system specifications and professional proposals in minutes with our advanced AI-powered configuration tool.
                 </p>
               </div>
@@ -321,13 +325,13 @@ const InstallersEnhanced = () => {
               <div className="space-y-6">
                 {[
                   "Load pattern analysis",
-                  "Optimal component sizing", 
+                  "Optimal component sizing",
                   "Environmental impact reports",
                   "Professional documentation"
                 ].map((feature) => (
                   <div key={feature} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-primary" />
-                    <span className="text-foreground">{feature}</span>
+                    <CheckCircle className="w-5 h-5 text-energy" />
+                    <span className="text-pearl">{feature}</span>
                   </div>
                 ))}
               </div>
@@ -352,7 +356,7 @@ const InstallersEnhanced = () => {
             </div>
 
             <FloatingCard className="overflow-hidden" delay={0.3}>
-              <img 
+              <img
                 src={configuratorTool}
                 alt="System configurator tool"
                 className="w-full h-full object-cover"
@@ -366,33 +370,33 @@ const InstallersEnhanced = () => {
 
       {/* Final Call to Action - Steve Jobs Style */}
       <LazySection rootMargin="100px">
-        <section className="py-32 bg-foreground text-background relative overflow-hidden animate-fade-in">
+        <section className="py-32 bg-graphite text-pearl relative overflow-hidden animate-fade-in">
         <div className="absolute inset-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-energy/10 rounded-full blur-3xl animate-pulse"></div>
           <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-brand-glow/10 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }}></div>
         </div>
 
         <div className="max-w-3xl mx-auto px-8 text-center relative z-10">
           <div className="space-y-12">
-            <h2 className="font-display text-5xl md:text-7xl font-thin text-background leading-[0.85] tracking-tight">
+            <h2 className="font-display text-5xl md:text-7xl font-light text-pearl leading-[0.85] tracking-tight">
               The future
               <br />
-              <span className="text-background/60">starts now</span>
+              <span className="text-pearl/60">starts now</span>
             </h2>
-            
-            <p className="text-xl font-light text-background/80 leading-relaxed max-w-2xl mx-auto">
-              Join the movement that's transforming how families feel about energy. 
+
+            <p className="text-xl font-light text-pearl/80 leading-relaxed max-w-2xl mx-auto">
+              Join the movement that's transforming how families feel about energy.
               Your business. Your purpose. Your children's legacy.
             </p>
-            
+
             <MagneticButton variant="secondary" size="lg">
               <Link to="#join" className="flex items-center">
                 Join the Movement
                 <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
             </MagneticButton>
-            
-            <div className="text-sm text-background/50 mt-8">
+
+            <div className="text-sm text-pearl/50 mt-8">
               The revolution needs you. Are you ready?
             </div>
           </div>

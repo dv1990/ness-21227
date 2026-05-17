@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
 
 const NotFound = () => {
   const location = useLocation();
