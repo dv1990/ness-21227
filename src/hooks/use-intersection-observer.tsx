@@ -91,7 +91,7 @@ export const useStaggeredIntersection = (
   useEffect(() => {
     if (!isIntersecting) return;
 
-    const timeouts: NodeJS.Timeout[] = [];
+    const timeouts: ReturnType<typeof setTimeout>[] = [];
     
     for (let i = 0; i < itemCount; i++) {
       const timeout = setTimeout(() => {
