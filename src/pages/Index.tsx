@@ -623,6 +623,9 @@ const Index = () => {
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <SmoothFade>
               <div className="text-center mb-16 sm:mb-20">
+                <p className="text-energy text-xs sm:text-sm uppercase tracking-[0.2em] mb-4">
+                  Home &amp; Commercial Battery Storage Systems
+                </p>
                 <h2
                   id="benefits-heading"
                   className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl tracking-[-0.03em] leading-[1.05]"
@@ -630,7 +633,7 @@ const Index = () => {
                   The NESS <span className="text-gradient-energy">Difference</span>
                 </h2>
                 <p className="text-lg sm:text-xl text-pearl/40 font-light max-w-2xl mx-auto mt-6 leading-relaxed">
-                  Clean energy engineering meets everyday independence.
+                  Advanced lithium battery storage engineered for Indian homes and businesses — solar-ready, blackout-proof, backed by a real warranty.
                 </p>
               </div>
             </SmoothFade>

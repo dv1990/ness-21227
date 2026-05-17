@@ -2,13 +2,18 @@ import { Helmet } from "react-helmet-async";
 import { useLocation } from "react-router-dom";
 
 const SITE_URL = "https://ness.energy";
+const OG_IMAGE = "https://ness.energy/og-image.jpg";
 
 interface RouteMeta {
   title: string;
   description: string;
   type?: "website" | "article" | "product";
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
 }
+
+// Routes that are aliases or internal variants — should not be indexed
+const NOINDEX_ROUTES = new Set(["/ci", "/commercial-enhanced", "/installers-enhanced", "/residential", "/hiring", "/troubleshooting", "/knowledge-hub", "/contact-enhanced"]);
 
 const ROUTE_META: Record<string, RouteMeta> = {
   "/": {
@@ -20,6 +25,44 @@ const ROUTE_META: Record<string, RouteMeta> = {
     title: "Commercial & Industrial Battery Storage | NESS Energy",
     description:
       "Reliable C&I battery energy storage for factories, offices, and critical facilities. Reduce demand charges and ensure uninterrupted operations.",
+    jsonLd: {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: [
+        {
+          "@type": "Question",
+          name: "Can NESS fully replace our diesel generator?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Yes. Size the CUBE to your critical load and runtime. We integrate with solar and grid, deliver seamless switchover, and design for peak events.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "What maintenance is required for NESS commercial battery storage?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "Minimal. LFP chemistry, sealed enclosures, cloud diagnostics, and predictive alerts reduce routine service to simple periodic checks.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "Will guests hear the NESS battery system at our resort?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "No. NESS POD operates at ≤ 30 dB with vibration control and remote placement options.",
+          },
+        },
+        {
+          "@type": "Question",
+          name: "How do you size NESS storage for EV charging?",
+          acceptedAnswer: {
+            "@type": "Answer",
+            text: "We model connector count, session profiles, and tariff windows; then right-size storage for peak-shaving and off-peak arbitrage.",
+          },
+        },
+      ],
+    },
   },
   "/commercial-enhanced": {
     title: "Commercial Battery Storage Systems | NESS Energy",
@@ -155,6 +198,14 @@ const ROUTE_META: Record<string, RouteMeta> = {
     title: "Cookie Policy | NESS Energy",
     description: "How NESS Energy uses cookies and similar technologies.",
   },
+  "/privacy": {
+    title: "Privacy Policy | NESS Energy",
+    description: "How NESS Energy (Nunam Pvt. Ltd.) collects, uses, and protects your personal data.",
+  },
+  "/terms": {
+    title: "Terms of Use | NESS Energy",
+    description: "Terms and conditions governing use of the NESS Energy website and services.",
+  },
 };
 
 const FALLBACK: RouteMeta = ROUTE_META["/"];
@@ -203,6 +254,7 @@ const RouteSEO = () => {
     }
   }
 
+  const noindex = NOINDEX_ROUTES.has(normalized);
   const url = `${SITE_URL}${normalized === "/" ? "/" : normalized}`;
   const ldArray = meta.jsonLd
     ? Array.isArray(meta.jsonLd)
@@ -215,12 +267,19 @@ const RouteSEO = () => {
       <title>{meta.title}</title>
       <meta name="description" content={meta.description} />
       <link rel="canonical" href={url} />
+      {noindex && <meta name="robots" content="noindex, follow" />}
       <meta property="og:title" content={meta.title} />
       <meta property="og:description" content={meta.description} />
       <meta property="og:url" content={url} />
       <meta property="og:type" content={meta.type || "website"} />
+      <meta property="og:image" content={OG_IMAGE} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={meta.title} />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
+      <meta name="twitter:image" content={OG_IMAGE} />
       {ldArray.map((ld, i) => (
         <script key={i} type="application/ld+json">
           {JSON.stringify(ld)}

@@ -46,6 +46,8 @@ const InstallersEnhanced = lazy(() => import("./pages/InstallersEnhanced"));
 const Troubleshooting = lazy(() => import("./pages/Troubleshooting"));
 const TroubleshootingGuide = lazy(() => import("./pages/TroubleshootingGuide"));
 const Downloads = lazy(() => import("./pages/Downloads"));
+const Privacy = lazy(() => import("./pages/Privacy"));
+const Terms = lazy(() => import("./pages/Terms"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component with skeleton
@@ -113,6 +115,8 @@ function App() {
           
           {/* Legal Pages */}
           <Route path="/cookie-policy" element={<CookiePolicy />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           
           {/* Legacy redirects for existing routes */}
           <Route path="/residential" element={<ContactHomeowner />} />

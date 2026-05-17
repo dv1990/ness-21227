@@ -1,5 +1,6 @@
 import { useLocation, Link } from "react-router-dom";
 import { useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 
@@ -12,6 +13,9 @@ const NotFound = () => {
 
   return (
     <Layout>
+      <Helmet>
+        <meta name="robots" content="noindex, nofollow" />
+      </Helmet>
       <div className="container mx-auto max-w-7xl px-6 py-32 text-center">
         <div className="animate-fade-in-up">
           <h1 className="text-display mb-8">404</h1>
