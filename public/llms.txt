@@ -1,0 +1,27 @@
+# NESS Energy Systems
+
+> Premium battery energy storage systems for residential and commercial applications. Engineered for performance, designed for life.
+
+NESS Energy designs and deploys advanced lithium battery storage systems for homes, businesses, and EV/microgrid applications across India. Our products pair high-density cells with rigorous engineering, a true warranty, and a nationwide installer network.
+
+## Pages
+
+- [Home](/): Overview of NESS battery storage products and brand.
+- [Commercial & Industrial](/commercial): Battery storage for commercial and industrial sites.
+- [Homeowners](/homeowners): Residential battery storage and backup power.
+- [Installers](/installers): Become a certified NESS installer.
+- [Find an Installer](/find-installer): Locate NESS-certified installers near you.
+- [NESS AC Sync](/products/ness-ac-sync): AC-coupled hybrid storage system.
+- [EV Charging & Microgrid](/ev-charging-microgrid): EV charging and microgrid solutions.
+- [True Warranty](/warranty): NESS True Warranty program details.
+- [About](/company/about): Company story, R&D, and team.
+- [News](/company/news): Latest announcements and press.
+- [Knowledge Hub](/knowledge): Guides and educational articles on energy storage.
+- [Downloads](/downloads): Datasheets, manuals, and brochures.
+- [Contact](/contact): Get in touch with NESS.
+- [Careers](/careers): Open roles at NESS.
+
+## Optional
+
+- [Cookie Policy](/cookie-policy)
+- [Troubleshooting](/support/troubleshooting)
