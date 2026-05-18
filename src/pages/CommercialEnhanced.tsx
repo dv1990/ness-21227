@@ -6,7 +6,8 @@ import { WebPImage } from "@/components/ui/webp-image";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { ArrowRight, CheckCircle2, Factory, Hotel, Fuel, Zap, TrendingDown, Clock, Leaf, ChevronDown, Sparkles } from "lucide-react";
+import { ArrowRight, CheckCircle2, Factory, Hotel, Fuel, Zap, TrendingDown, Clock, Leaf, ChevronDown } from "lucide-react";
+import { TrustStrip } from "@/components/ui/trust-strip";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { toast } from "sonner";
 import { sendEmail } from "@/lib/email-service";
@@ -85,47 +86,25 @@ const CommercialEnhanced = () => {
               {/* Content card */}
               <div className="rounded-3xl p-8 sm:p-12 lg:p-14 px-0">
 
-                {/* Eyebrow text with icon */}
-                <div className="inline-flex items-center gap-2 mb-6 sm:mb-8">
-                  <Sparkles className="w-4 h-4 text-energy" />
-                  <span className="text-xs sm:text-sm text-pearl/80 font-medium uppercase tracking-wider">
-                    Commercial & Industrial Solutions
-                  </span>
-                </div>
-
-                {/* Premium headline */}
-                <h1 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl leading-[1.05] tracking-tighter mb-6 sm:mb-8">
-                  Empower productivity, sustainably.
+                {/* Premium headline — voice continuous with home page */}
+                <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold text-pearl leading-[0.95] tracking-[-0.03em] mb-6 sm:mb-8">
+                  Your business,<br />
+                  <span className="text-gradient-energy">on sunlight.</span>
                 </h1>
 
                 {/* Subtext */}
-                <p className="text-lg sm:text-xl lg:text-2xl font-light text-pearl/90 max-w-2xl leading-relaxed mb-8 sm:mb-10">
-                  Clean, intelligent energy that drives progress     lowering costs, emissions, and complexity.
+                <p className="font-display text-xl sm:text-2xl md:text-3xl font-light text-pearl/65 max-w-2xl leading-[1.35] tracking-[-0.015em] mb-8 sm:mb-10">
+                  Cut energy costs ~60%.<br />
+                  Replace the diesel. Keep the production line moving.
                 </p>
 
-                {/* Key stat badges */}
-                <div className="flex flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10">
-                  <div className="bg-energy/10 backdrop-blur-sm border border-energy/20 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-energy/20 transition-all">
-                    <TrendingDown className="w-4 h-4 text-energy" />
-                    <span className="text-xs sm:text-sm font-medium text-pearl">↓60% Energy Costs</span>
-                  </div>
-                  <div className="bg-energy/10 backdrop-blur-sm border border-energy/20 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-energy/20 transition-all">
-                    <Leaf className="w-4 h-4 text-energy" />
-                    <span className="text-xs sm:text-sm font-medium text-pearl">Zero Emissions</span>
-                  </div>
-                  <div className="bg-energy/10 backdrop-blur-sm border border-energy/20 rounded-full px-4 sm:px-5 py-2 sm:py-2.5 flex items-center gap-2 hover:bg-energy/20 transition-all">
-                    <Zap className="w-4 h-4 text-energy" />
-                    <span className="text-xs sm:text-sm font-medium text-pearl">≤50ms Switch</span>
-                  </div>
-                </div>
-
-                {/* Enhanced CTA button */}
+                {/* CTA — standardized verb */}
                 <div>
                   <Button size="lg" onClick={() => document.getElementById('contact')?.scrollIntoView({
                   behavior: 'smooth'
-                })} className="font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-6 sm:py-7 rounded-full text-base sm:text-lg shadow-2xl shadow-energy/30 transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95" aria-label="Start your transition to clean energy">
+                })} className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 rounded-full text-base sm:text-lg shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.35)] hover:scale-105 active:scale-95 transition-all duration-300" aria-label="Request a commercial quote">
                     <span className="flex items-center">
-                      Start Your Transition
+                      Get a Quote
                       <ArrowRight className="ml-3 w-5 h-5" />
                     </span>
                   </Button>
@@ -143,6 +122,9 @@ const CommercialEnhanced = () => {
             <ChevronDown className="w-6 h-6" />
           </button>
         </section>
+
+        {/* Canonical trust strip — same shape across all product pages */}
+        <TrustStrip variant="dark" />
 
         {/* Small Industries Section */}
         <section className="relative py-24 sm:py-40 bg-charcoal overflow-hidden">

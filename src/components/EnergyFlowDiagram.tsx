@@ -276,7 +276,6 @@ const EnergyFlowDiagram = () => {
           transition={{ duration: 0.5, delay: 2 }}
         >
           {[
-            { icon: Zap,  label: "10ms switchover — seamless" },
             { icon: Sun,  label: "Solar-first logic built in" },
             { icon: Wifi, label: "Remote monitoring 24/7" },
           ].map((pill) => (

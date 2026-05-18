@@ -136,7 +136,7 @@ const Troubleshooting = () => {
         <header className="border-b border-charcoal/15">
           <div className="container mx-auto max-w-6xl px-6 pt-16 pb-6">
             <div className="flex flex-wrap items-baseline justify-between gap-y-2 text-[10px] font-mono uppercase tracking-[0.3em] text-silver">
-              <span>The Field Manual</span>
+              <span>Troubleshooting</span>
               <span>Issue 01 · May 2026</span>
               <span>NESS by Nunam</span>
             </div>
@@ -149,9 +149,9 @@ const Troubleshooting = () => {
               transition={{ duration: 0.7 }}
               className="font-display font-bold leading-[0.85] tracking-[-0.04em] text-[clamp(3rem,11vw,9rem)]"
             >
-              The Field
+              Troubleshoot
               <br />
-              <span className="italic font-light">Manual.</span>
+              <span className="italic font-light">your NESS.</span>
             </motion.h1>
 
             <div className="mt-10 grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -361,7 +361,7 @@ const Troubleshooting = () => {
           <div className="border-t border-pearl/15">
             <div className="container mx-auto max-w-6xl px-6 py-4 flex flex-wrap items-center justify-between gap-y-1 text-[10px] font-mono uppercase tracking-[0.3em] text-pearl/50">
               <span>p. 01 / 01</span>
-              <span>The Field Manual</span>
+              <span>Troubleshooting</span>
               <span>ness.energy/support</span>
             </div>
           </div>

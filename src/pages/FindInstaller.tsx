@@ -172,7 +172,7 @@ const FindInstaller = () => {
           <section className="px-6 md:px-12 lg:px-20 pt-8">
             <div className="mx-auto max-w-screen-xl">
               <FolioStrip
-                left="THE NETWORK · CERTIFIED INSTALLERS · INDIA"
+                left="FIND AN INSTALLER · INDIA"
                 right="ATLAS 01 · MAY 2026"
               />
 
@@ -187,11 +187,11 @@ const FindInstaller = () => {
                 </div>
                 <div className="col-span-12 md:col-span-10">
                   <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/50 mb-6">
-                    A directory of certified NESS partners
+                    Certified NESS installers
                   </p>
-                  <h1 className="font-display font-light leading-[0.85] tracking-tight text-[clamp(3rem,10vw,9rem)]">
-                    The<br/>
-                    <em className="italic text-charcoal/70">network.</em>
+                  <h1 className="font-display font-light leading-[0.88] tracking-tight text-[clamp(2.75rem,9vw,8rem)]">
+                    Find an installer<br/>
+                    <em className="italic text-charcoal/70">near you.</em>
                   </h1>
                   <p className="mt-10 max-w-xl text-xl md:text-2xl font-light leading-snug text-charcoal/80">
                     BIS-certified. MNRE-approved. Tell us where you are —
@@ -307,7 +307,7 @@ const FindInstaller = () => {
                     className="group inline-flex items-center gap-3 font-display text-3xl md:text-4xl font-light disabled:opacity-50"
                   >
                     <span className="border-b-2 border-energy pb-1 group-hover:border-charcoal transition-colors">
-                      {isLoading ? "Searching…" : "Show me the network"}
+                      {isLoading ? "Searching…" : "Find Installers"}
                     </span>
                     <span aria-hidden className="text-energy">→</span>
                   </button>
@@ -333,7 +333,7 @@ const FindInstaller = () => {
         <section className="px-6 md:px-12 lg:px-20 pt-24">
           <div className="mx-auto max-w-screen-xl">
             <FolioStrip
-              left={`THE NETWORK · NEAR ${customerData.pincode}`}
+              left={`INSTALLERS NEAR ${customerData.pincode}`}
               right={`${installers.length} ENTR${installers.length === 1 ? "Y" : "IES"} FOUND`}
             />
 

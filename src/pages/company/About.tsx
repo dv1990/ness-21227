@@ -95,31 +95,31 @@ const About = () => {
       <section className="bg-pearl">
         <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
           <div className="border-t-2 border-charcoal pt-3 flex items-center justify-between font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-charcoal/70">
-            <span>The Company</span>
-            <span className="hidden md:inline">A Field Guide · First Edition</span>
+            <span>About</span>
+            <span className="hidden md:inline">50 engineers · Bangalore · since 2020</span>
             <span>NESS · Bangalore</span>
           </div>
 
           <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-24">
             <div className="col-span-12 md:col-span-9">
               <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50 mb-6">
-                A Field Guide · in five chapters
+                Who we are · in five chapters
               </div>
-              <h1 className="font-display font-extralight text-[18vw] md:text-[14vw] lg:text-[170px] leading-[0.82] tracking-[-0.04em] text-charcoal">
-                The
+              <h1 className="font-display font-extralight text-[14vw] md:text-[10vw] lg:text-[130px] leading-[0.85] tracking-[-0.04em] text-charcoal">
+                We build
                 <br />
-                <em className="italic font-light">company</em>
+                <em className="italic font-light">batteries in Bangalore</em>
                 <span className="text-energy">.</span>
               </h1>
             </div>
             <aside className="col-span-12 md:col-span-3 md:pt-4 md:border-l md:border-charcoal/15 md:pl-6 space-y-4">
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
-                A note on form
+                What we make
               </div>
-              <p className="font-serif italic text-base text-charcoal/70 leading-[1.55]">
-                This is the company in long form — a booklet, not a brochure. Made in India,
-                made with care, made to be read end to end. Marginalia from the founding team
-                runs in the right-hand column.
+              <p className="font-serif text-base text-charcoal/70 leading-[1.55]">
+                Home energy storage, designed and assembled in Bangalore. Built for Indian
+                conditions. Installed in 500+ homes since 2020. This page is the company
+                in long form — five chapters, end to end.
               </p>
               <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
                 — The Founders
