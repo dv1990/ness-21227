@@ -262,7 +262,7 @@ const ContactDistributor = () => {
                   <LetterField n="01." label="Company" error={errors.company?.message}>
                     <input
                       {...register("company")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
                       placeholder="Your company name"
                     />
                   </LetterField>
@@ -271,7 +271,7 @@ const ContactDistributor = () => {
                     <LetterField n="02." label="Contact person" error={errors.contactName?.message}>
                       <input
                         {...register("contactName")}
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="Your name"
                       />
                     </LetterField>
@@ -279,7 +279,7 @@ const ContactDistributor = () => {
                       <input
                         type="tel"
                         {...register("phone")}
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="+91 …"
                       />
                     </LetterField>
@@ -289,7 +289,7 @@ const ContactDistributor = () => {
                     <input
                       type="email"
                       {...register("email")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                       placeholder="you@firm.com"
                     />
                   </LetterField>
@@ -297,7 +297,7 @@ const ContactDistributor = () => {
                   <LetterField n="05." label="Territories you cover" error={errors.territories?.message}>
                     <input
                       {...register("territories")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-light text-lg placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-light text-lg placeholder:text-charcoal/30 outline-none"
                       placeholder="e.g. Karnataka + TN, or Delhi-NCR"
                     />
                   </LetterField>
@@ -305,7 +305,7 @@ const ContactDistributor = () => {
                   <LetterField n="06." label="Current portfolio" error={errors.portfolio?.message}>
                     <input
                       {...register("portfolio")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-light text-lg placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-light text-lg placeholder:text-charcoal/30 outline-none"
                       placeholder="brands you distribute, channels you run"
                     />
                   </LetterField>
@@ -336,7 +336,7 @@ const ContactDistributor = () => {
                     <textarea
                       {...register("message")}
                       rows={5}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-light text-lg placeholder:text-charcoal/30 outline-none resize-none leading-relaxed"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-light text-lg placeholder:text-charcoal/30 outline-none resize-none leading-relaxed"
                       placeholder="Why your channel? What would you bring to a NESS partnership?"
                     />
                   </LetterField>

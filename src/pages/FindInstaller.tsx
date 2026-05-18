@@ -224,7 +224,7 @@ const FindInstaller = () => {
                       maxLength={6}
                       pattern="[0-9]{6}"
                       required
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-3xl md:text-5xl font-light placeholder:text-charcoal/25 outline-none tracking-widest"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 font-display text-3xl md:text-5xl font-light placeholder:text-charcoal/30 outline-none tracking-widest transition-colors"
                       placeholder="6-digit PIN"
                     />
                     <p className="font-mono text-[10px] uppercase tracking-widest text-charcoal/50 mt-3">
@@ -247,7 +247,7 @@ const FindInstaller = () => {
                         value={customerData.name}
                         onChange={(e) => handleInputChange("name", e.target.value)}
                         required
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="Your name"
                       />
                     </div>
@@ -268,7 +268,7 @@ const FindInstaller = () => {
                         value={customerData.phone}
                         onChange={(e) => handleInputChange("phone", e.target.value)}
                         required
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="+91 …"
                       />
                     </div>
@@ -289,7 +289,7 @@ const FindInstaller = () => {
                       value={customerData.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
                       required
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                       placeholder="you@home.com"
                     />
                   </div>

@@ -390,7 +390,7 @@ const ContactInstaller = () => {
                     <input
                       type="text"
                       {...register("fullName")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal focus:ring-0 rounded-none px-0 py-3 font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
                       placeholder="Your full name"
                     />
                   </LetterField>
@@ -403,7 +403,7 @@ const ContactInstaller = () => {
                     <input
                       type="text"
                       {...register("company")}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal focus:ring-0 rounded-none px-0 py-3 font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
                       placeholder="Your firm"
                     />
                   </LetterField>
@@ -413,7 +413,7 @@ const ContactInstaller = () => {
                       <input
                         type="email"
                         {...register("email")}
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal focus:ring-0 rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="you@firm.com"
                       />
                     </LetterField>
@@ -422,7 +422,7 @@ const ContactInstaller = () => {
                       <input
                         type="tel"
                         {...register("phone")}
-                        className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal focus:ring-0 rounded-none px-0 py-3 font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
                         placeholder="+91 …"
                       />
                     </LetterField>
@@ -454,7 +454,7 @@ const ContactInstaller = () => {
                     <textarea
                       {...register("message")}
                       rows={5}
-                      className="w-full bg-transparent border-0 border-b border-charcoal/30 focus:border-charcoal focus:ring-0 rounded-none px-0 py-3 font-light text-lg placeholder:text-charcoal/30 outline-none resize-none leading-relaxed"
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-light text-lg placeholder:text-charcoal/30 outline-none resize-none leading-relaxed"
                       placeholder="Tell us where you're installing, what you're building, what's slowing you down…"
                     />
                   </LetterField>
