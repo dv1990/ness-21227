@@ -85,6 +85,12 @@ const ChapterHead = ({
 const About = () => {
   return (
     <Layout className="-mt-16">
+      <SEO
+        title="About NESS Energy Systems"
+        description="NESS Energy Systems — Indian-built home and commercial battery storage. Engineered in Bangalore, made for Indian power conditions."
+        path="/company/about"
+        jsonLd={aboutLocalBusinessLd}
+      />
       {/* ───── FRONTISPIECE ───── */}
       <section className="bg-pearl">
         <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
