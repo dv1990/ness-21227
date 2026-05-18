@@ -1,520 +1,569 @@
 import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
-import {
-  ArrowRight,
-  Users,
-  Target,
-  Globe,
-  Heart,
-  Microscope,
-  Shield,
-  Binary,
-  FlaskConical,
-  Cpu } from
-"lucide-react";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { AnimatedCard } from "@/components/ui/animated-card";
+import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+
+// ─── Small editorial primitives ──────────────────────────────────────────────
+
+const Folio = ({
+  left,
+  center,
+  right,
+  tone = "light",
+}: {
+  left: string;
+  center?: string;
+  right: string;
+  tone?: "light" | "dark";
+}) => {
+  const text = tone === "dark" ? "text-pearl/60" : "text-charcoal/60";
+  const rule = tone === "dark" ? "border-pearl/20" : "border-charcoal/20";
+  return (
+    <div className={`flex items-center justify-between gap-4 border-y ${rule} py-2 font-mono text-[10px] uppercase tracking-[0.22em] ${text}`}>
+      <span>{left}</span>
+      {center && <span className="hidden md:inline">{center}</span>}
+      <span>{right}</span>
+    </div>
+  );
+};
+
+const ChapterHead = ({
+  number,
+  kicker,
+  title,
+  tone = "light",
+}: {
+  number: string;
+  kicker: string;
+  title: React.ReactNode;
+  tone?: "light" | "dark";
+}) => {
+  const muted = tone === "dark" ? "text-pearl/50" : "text-charcoal/50";
+  const accent = tone === "dark" ? "text-pearl" : "text-charcoal";
+  const rule = tone === "dark" ? "bg-pearl/20" : "bg-charcoal/20";
+  return (
+    <div className="space-y-8">
+      <div className={`flex items-center gap-4 font-mono text-[10px] uppercase tracking-[0.22em] ${muted}`}>
+        <span className={accent}>Chapter {number}</span>
+        <span className={`h-px flex-1 ${rule}`} />
+        <span>{kicker}</span>
+      </div>
+      <h2 className={`font-display font-light text-5xl md:text-7xl lg:text-8xl leading-[0.92] tracking-[-0.035em] ${accent}`}>
+        {title}
+      </h2>
+    </div>
+  );
+};
 
 const About = () => {
   return (
     <Layout className="-mt-16">
-      {/* Hero Section - Premium Deep Tech */}
-      <section className="relative min-h-screen flex items-center bg-pearl overflow-hidden">
-        
-        {/* Background Image Placeholder */}
-        <div className="absolute inset-0 bg-gradient-to-br from-charcoal/5 to-transparent">
-          {/* Placeholder: hero image — warm family moment in sunlit home with NESS battery */}
-        </div>
-        
-        {/* Subtle tech pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div className="absolute inset-0" style={{
-            backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
-            backgroundSize: '32px 32px'
-          }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10 w-full">
-          
-          <div className="space-y-12 md:space-y-20 text-center">
-            <div className="space-y-8 md:space-y-12">
-              <div className="inline-block px-5 py-2 bg-charcoal/5 rounded-full backdrop-blur-sm">
-                <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/60 font-medium">Made in India • Made with Care</span>
+      {/* ───── FRONTISPIECE ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
+          <div className="border-t-2 border-charcoal pt-3 flex items-center justify-between font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-charcoal/70">
+            <span>The Company</span>
+            <span className="hidden md:inline">A Field Guide · First Edition</span>
+            <span>NESS · Bangalore</span>
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-24">
+            <div className="col-span-12 md:col-span-9">
+              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50 mb-6">
+                A Field Guide · in five chapters
               </div>
-              
-              <h1 className="text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
-                The Energy
+              <h1 className="font-display font-extralight text-[18vw] md:text-[14vw] lg:text-[170px] leading-[0.82] tracking-[-0.04em] text-charcoal">
+                The
                 <br />
-                That Cares.
+                <em className="italic font-light">company</em>
+                <span className="text-energy">.</span>
               </h1>
-              
-              <div className="space-y-6 max-w-4xl mx-auto px-4">
-                <p className="text-xl md:text-2xl lg:text-3xl text-charcoal/60 font-light leading-[1.6]">
-                  NESS isn't just about electricity — it's about empathy, reliability, and belonging.
-                </p>
-                <p className="text-lg md:text-xl text-charcoal/40 italic font-light leading-relaxed">
-                  Energy that feels human: calm when you need it, strong when you rely on it.
-                </p>
-              </div>
             </div>
+            <aside className="col-span-12 md:col-span-3 md:pt-4 md:border-l md:border-charcoal/15 md:pl-6 space-y-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+                A note on form
+              </div>
+              <p className="font-serif italic text-base text-charcoal/70 leading-[1.55]">
+                This is the company in long form — a booklet, not a brochure. Made in India,
+                made with care, made to be read end to end. Marginalia from the founding team
+                runs in the right-hand column.
+              </p>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
+                — The Founders
+              </div>
+            </aside>
+          </div>
 
-            {/* Engineering stats */}
-            <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-2xl mx-auto pt-4 md:pt-8">
-              <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
-                  <AnimatedCounter value={4} duration={1800} />
+          {/* Standfirst with drop cap */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-20">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <p className="font-serif text-2xl md:text-3xl text-charcoal leading-[1.4] first-letter:font-display first-letter:text-[7rem] md:first-letter:text-[9rem] first-letter:font-light first-letter:float-left first-letter:mr-4 first-letter:mt-2 first-letter:leading-[0.78] first-letter:text-energy">
+                NESS isn't just about electricity. It's about empathy, reliability, and belonging
+                — energy that feels human: calm when you need it, strong when you rely on it.
+              </p>
+            </div>
+          </div>
+
+          {/* Stat shelf */}
+          <div className="mt-20 md:mt-28 grid grid-cols-12 border-y border-charcoal">
+            <div className="col-span-6 md:col-span-3 py-6 px-4 border-r border-charcoal/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Years on the bench</div>
+              <div className="font-display font-extralight text-5xl md:text-6xl tabular-nums text-charcoal mt-2">04</div>
+            </div>
+            <div className="col-span-6 md:col-span-3 py-6 px-4 md:border-r border-charcoal/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Quality checks</div>
+              <div className="font-display font-extralight text-5xl md:text-6xl tabular-nums text-charcoal mt-2">12</div>
+            </div>
+            <div className="col-span-6 md:col-span-3 py-6 px-4 border-r border-charcoal/15 border-t md:border-t-0">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Homes powered</div>
+              <div className="font-display font-extralight text-5xl md:text-6xl tabular-nums text-charcoal mt-2">500<span className="text-energy">+</span></div>
+            </div>
+            <div className="col-span-6 md:col-span-3 py-6 px-4 border-t md:border-t-0">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">System uptime</div>
+              <div className="font-display font-extralight text-5xl md:text-6xl tabular-nums text-charcoal mt-2">99.94<span className="text-charcoal/40 text-2xl align-top">%</span></div>
+            </div>
+          </div>
+
+          <div className="mt-12 text-center font-mono text-charcoal/30 tracking-[0.5em]">⁂</div>
+        </div>
+      </section>
+
+      {/* ───── CHAPTER 01 · THE FRAMING ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <ChapterHead
+            number="01"
+            kicker="The Framing · Three Cares"
+            title={
+              <>
+                We don't store energy.
+                <br />
+                <em className="font-extralight text-charcoal/40">We nurture it.</em>
+              </>
+            }
+          />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-10">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <p className="font-serif text-lg md:text-xl text-charcoal/80 leading-[1.7]">
+                Behind every NESS battery is a team that cares — engineers who see energy as a
+                responsibility, not a commodity. There are three places that care goes: into the
+                home, into the hands of the partner who installs it, and into the world it
+                leaves behind.
+              </p>
+            </div>
+          </div>
+
+          {/* Three cares as journal entries */}
+          <div className="mt-20 grid md:grid-cols-3 gap-x-10 gap-y-12 border-t border-charcoal pt-10">
+            <article className="space-y-5">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display font-light text-5xl text-energy">i.</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 flex-1 border-b border-dotted border-charcoal/30 pb-1">
+                  Care for homes
+                </span>
+              </div>
+              <h3 className="font-display font-light text-2xl text-charcoal leading-tight">
+                For the mother's prayer. The child's online class.
+              </h3>
+              <p className="font-serif text-base text-charcoal/75 leading-[1.7]">
+                From your mother's prayers to your child's online class, NESS quietly keeps life
+                moving. Every home deserves uninterrupted comfort.
+              </p>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 italic border-t border-charcoal/15 pt-3">
+                10+ years. Every morning. No worry.
+              </div>
+            </article>
+
+            <article className="space-y-5 md:border-x md:border-charcoal/15 md:px-10">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display font-light text-5xl text-energy">ii.</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 flex-1 border-b border-dotted border-charcoal/30 pb-1">
+                  Care for those who power others
+                </span>
+              </div>
+              <h3 className="font-display font-light text-2xl text-charcoal leading-tight">
+                For the EPC partner. The rooftop installer.
+              </h3>
+              <p className="font-serif text-base text-charcoal/75 leading-[1.7]">
+                For every EPC partner and installer, NESS means simplicity, reliability, and
+                zero-headache service — so they can build reputations on trust, not
+                troubleshooting.
+              </p>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 italic border-t border-charcoal/15 pt-3">
+                Works the first time. Every time.
+              </div>
+            </article>
+
+            <article className="space-y-5">
+              <div className="flex items-baseline gap-3">
+                <span className="font-display font-light text-5xl text-energy">iii.</span>
+                <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 flex-1 border-b border-dotted border-charcoal/30 pb-1">
+                  Care for the planet
+                </span>
+              </div>
+              <h3 className="font-display font-light text-2xl text-charcoal leading-tight">
+                Circular by intent. Efficient by design.
+              </h3>
+              <p className="font-serif text-base text-charcoal/75 leading-[1.7]">
+                NESS is built for a cleaner, more conscious energy future. Every installation
+                leaves the world slightly better than we found it.
+              </p>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 italic border-t border-charcoal/15 pt-3">
+                Clean energy. Sustainable choice.
+              </div>
+            </article>
+          </div>
+
+          <div className="mt-20 text-center font-mono text-charcoal/30 tracking-[0.5em]">§ § §</div>
+        </div>
+      </section>
+
+      {/* ───── CHAPTER 02 · THE LAB ───── */}
+      <section className="bg-charcoal text-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <ChapterHead
+            number="02"
+            kicker="The Lab · R&D in Bangalore"
+            tone="dark"
+            title={
+              <>
+                Behind every NESS
+                <br />
+                <em className="font-extralight text-pearl/40">is a promise.</em>
+              </>
+            }
+          />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <p className="font-serif text-lg md:text-xl text-pearl/80 leading-[1.7] first-letter:font-display first-letter:text-7xl first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-energy">
+                Our Bangalore R&D center isn't just about technology — it's where caring meets
+                precision. Where engineers obsess over reliability so you never have to. Where
+                we test for ten years of peace, not just performance specs.
+              </p>
+            </div>
+          </div>
+
+          {/* Cell test data — as ledger */}
+          <div className="mt-16 md:mt-24 grid grid-cols-12 gap-0 border-y border-pearl/20">
+            {[
+              { figure: "30,000+", label: "Cells tested" },
+              { figure: "5M+", label: "Data points" },
+              { figure: "15+", label: "Battery engineers" },
+              { figure: "06+", label: "Years on the bench" },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className={`col-span-6 md:col-span-3 py-8 md:py-10 px-4 ${
+                  i < 3 ? "md:border-r" : ""
+                } ${i < 2 ? "border-r" : i === 2 ? "border-r md:border-r" : ""} ${i >= 2 ? "border-t md:border-t-0" : ""} border-pearl/15`}
+              >
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">
+                  № {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
-                  Years of R&D
+                <div className="font-display font-extralight text-4xl md:text-5xl tabular-nums text-pearl mt-3">
+                  {s.figure}
+                </div>
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/60 mt-2">
+                  {s.label}
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
-                  <AnimatedCounter value={12} duration={1500} />
-                </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
-                  Quality Checks
-                </div>
+            ))}
+          </div>
+
+          {/* Manufacturing ledger */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-20">
+            <aside className="col-span-12 md:col-span-3 md:pt-2">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 mb-3">
+                Marginalia
+              </div>
+              <p className="font-serif italic text-pearl/60 text-sm leading-[1.6]">
+                What follows is a partial extract from the manufacturing ledger — the numbers we
+                hold ourselves to, printed for the record.
+              </p>
+            </aside>
+
+            <div className="col-span-12 md:col-span-9">
+              <div className="border-t border-pearl/30">
+                {[
+                  { k: "Cell matching precision", v: "±2 mV" },
+                  { k: "Quality control points", v: "12" },
+                  { k: "Customer downtime", v: "< 0.01%" },
+                  { k: "Post-production QA", v: "48 hours" },
+                ].map((r, i) => (
+                  <div
+                    key={r.k}
+                    className="grid grid-cols-12 gap-4 items-baseline border-b border-pearl/15 py-5"
+                  >
+                    <div className="col-span-1 font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </div>
+                    <div className="col-span-7 font-serif text-base md:text-lg text-pearl/80">
+                      {r.k}
+                    </div>
+                    <div className="col-span-4 text-right font-display font-light text-2xl md:text-3xl tabular-nums text-pearl">
+                      {r.v}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Engineering Philosophy */}
-      <section className="py-20 md:py-32 lg:py-40 bg-whisper">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          
-          <div className="text-center mb-16 md:mb-24 lg:mb-32 space-y-6 md:space-y-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
-              We don't just store energy.
-              <br />
-              We nurture it.
-            </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light max-w-3xl mx-auto leading-[1.7] px-4">
-              Behind every NESS battery is a team that cares — engineers who see energy as a responsibility, not a commodity.
-            </p>
+      {/* ───── CHAPTER 03 · THE WITNESS ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <ChapterHead
+            number="03"
+            kicker="The Witness · What lasts"
+            title={
+              <>
+                Real homes.
+                <br />
+                <em className="font-extralight text-charcoal/40">Real comfort.</em>
+              </>
+            }
+          />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <p className="font-serif text-lg md:text-xl text-charcoal/80 leading-[1.7]">
+                Ten thousand families trust NESS to quietly care for their energy. From sunrise
+                to sunset, we're there — invisibly, reliably.
+              </p>
+            </div>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-            
-            {/* Care for Your Peace of Mind */}
-            <AnimatedCard hover="lift" className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
-              {/* Image Placeholder */}
-              <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* Placeholder: peaceful Indian home interior with NESS battery integrated */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Heart className="w-16 h-16 text-charcoal/10" />
-                </div>
-              </div>
-              
-              <div className="p-8 md:p-10 space-y-5">
-                <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
-                  <Heart className="w-6 h-6 text-charcoal" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-light text-charcoal leading-tight">Care for Homes</h3>
-                <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">
-                  From your mother's prayers to your child's online class, NESS quietly keeps life moving. 
-                  Every home deserves uninterrupted comfort.
-                </p>
-                <div className="text-sm text-charcoal/40 pt-3 border-t border-platinum/30 italic">
-                  10+ years. Every morning. No worry.
-                </div>
-              </div>
-            </AnimatedCard>
+          {/* Pull quote */}
+          <div className="my-20 md:my-28 relative">
+            <span className="absolute -top-8 md:-top-16 left-0 md:-left-4 font-display font-light text-[160px] md:text-[240px] text-energy/30 leading-none select-none">
+              &ldquo;
+            </span>
+            <blockquote className="relative pl-8 md:pl-20">
+              <p className="font-serif italic text-3xl md:text-5xl lg:text-6xl text-charcoal leading-[1.15] tracking-tight">
+                Power cuts don't just disrupt electricity. They interrupt life. NESS gives
+                families their comfort back.
+              </p>
+              <footer className="mt-8 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+                — A homeowner · Chennai · 2025
+              </footer>
+            </blockquote>
+          </div>
 
-            {/* Care for Partners */}
-            <AnimatedCard hover="lift" delay={100} className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
-              {/* Image Placeholder */}
-              <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* Placeholder: installer team on rooftop solar installation */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Users className="w-16 h-16 text-charcoal/10" />
+          {/* Witness stats — ledger format */}
+          <div className="border-y border-charcoal">
+            {[
+              { fig: "500+", label: "Systems deployed", note: "Every home a testament" },
+              { fig: "100+", label: "MWh delivered", note: "Clean. Reliable. Continuous." },
+              { fig: "25,000+", label: "Cycles proven", note: "Each one a promise kept" },
+              { fig: "99.94%", label: "System uptime", note: "Because almost isn't enough" },
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className="grid grid-cols-12 gap-4 items-baseline border-b last:border-b-0 border-charcoal/15 py-6 md:py-8"
+              >
+                <div className="col-span-1 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 tabular-nums">
+                  {String(i + 1).padStart(2, "0")}
+                </div>
+                <div className="col-span-11 md:col-span-4 font-display font-extralight text-5xl md:text-7xl tabular-nums text-charcoal leading-none">
+                  {s.fig}
+                </div>
+                <div className="col-span-6 md:col-span-3 font-mono text-[10px] md:text-xs uppercase tracking-[0.22em] text-charcoal/60">
+                  {s.label}
+                </div>
+                <div className="col-span-6 md:col-span-4 font-serif italic text-sm md:text-base text-charcoal/60">
+                  {s.note}
                 </div>
               </div>
-              
-              <div className="p-8 md:p-10 space-y-5">
-                <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
-                  <Users className="w-6 h-6 text-charcoal" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-light text-charcoal leading-tight">Care for People Who Power Others</h3>
-                <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">
-                  For every EPC partner and installer, NESS means simplicity, reliability, and zero-headache service — 
-                  so they can build reputations on trust, not troubleshooting.
-                </p>
-                <div className="text-sm text-charcoal/40 pt-3 border-t border-platinum/30 italic">
-                  Systems that work the first time, every time.
-                </div>
-              </div>
-            </AnimatedCard>
-
-            {/* Care for Planet */}
-            <AnimatedCard hover="lift" delay={200} className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden group">
-              {/* Image Placeholder */}
-              <div className="aspect-[4/3] bg-gradient-to-br from-charcoal/5 to-charcoal/10 relative overflow-hidden">
-                {/* Placeholder: green landscape with solar panels */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <Globe className="w-16 h-16 text-charcoal/10" />
-                </div>
-              </div>
-              
-              <div className="p-8 md:p-10 space-y-5">
-                <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
-                  <Globe className="w-6 h-6 text-charcoal" />
-                </div>
-                <h3 className="text-xl md:text-2xl font-light text-charcoal leading-tight">Care for the Planet</h3>
-                <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">
-                  Circular by intent, efficient by design — NESS is built for a cleaner, more conscious energy future. 
-                  Every installation leaves the world slightly better.
-                </p>
-                <div className="text-sm text-charcoal/40 pt-3 border-t border-platinum/30 italic">
-                  Clean energy. Sustainable choice.
-                </div>
-              </div>
-            </AnimatedCard>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* R&D & Manufacturing Excellence */}
-      <section className="py-20 md:py-32 lg:py-40 bg-charcoal text-pearl relative overflow-hidden">
-        
-        {/* Background Image Placeholder */}
-        <div className="absolute inset-0 opacity-10">
-          {/* Placeholder: R&D laboratory background — Bangalore facility */}
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          
-          <div className="grid lg:grid-cols-2 gap-12 md:gap-16 lg:gap-24 items-center">
-            
-            <div className="space-y-10 md:space-y-12">
-              <div className="space-y-6 md:space-y-8">
-                <div className="inline-block px-5 py-2 bg-pearl/10 rounded-full backdrop-blur-sm">
-                  <span className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/70 font-medium">R&D Center • Bangalore</span>
-                </div>
-                
-                <h2 className="text-4xl md:text-5xl lg:text-6xl font-extralight leading-[1.1] tracking-tight">
-                  Behind every NESS
-                  <br />
-                  is a promise.
-                </h2>
-                
-                <p className="text-lg md:text-xl text-pearl/70 font-light leading-[1.7] max-w-xl">
-                  Our Bangalore R&D center isn't just about technology — it's where caring meets precision. 
-                  Where engineers obsess over reliability so you never have to. 
-                  Where we test for 10 years of peace, not just performance specs.
-                </p>
-              </div>
+      {/* ───── CHAPTER 04 · THE WHY ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <ChapterHead
+            number="04"
+            kicker="The Why · A Promise & a Mission"
+            title={
+              <>
+                Why NESS
+                <br />
+                <em className="font-extralight text-charcoal/40">exists.</em>
+              </>
+            }
+          />
 
-              <div className="grid grid-cols-2 gap-6 md:gap-8 pt-8">
-                <div className="space-y-3 md:space-y-4">
-                  <div className="flex items-center gap-3">
-                    <FlaskConical className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={30000} duration={2000} />+</div>
-                  </div>
-                  <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Cells tested
-                  </div>
-                </div>
-                
-                <div className="space-y-3 md:space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Binary className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={5} duration={1500} />M+</div>
-                  </div>
-                  <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Data points collected
-                  </div>
-                </div>
-                
-                <div className="space-y-3 md:space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Cpu className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={15} duration={1800} />+</div>
-                  </div>
-                  <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Battery Engineers
-                  </div>
-                </div>
-                
-                <div className="space-y-3 md:space-y-4">
-                  <div className="flex items-center gap-3">
-                    <Microscope className="w-5 h-5 md:w-6 md:h-6 text-pearl/50" />
-                    <div className="text-3xl md:text-4xl font-extralight tabular-nums"><AnimatedCounter value={6} duration={1500} />+</div>
-                  </div>
-                  <div className="text-xs md:text-sm text-pearl/60 uppercase tracking-[0.12em]">
-                    Years R&D
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="space-y-6 md:space-y-8">
-              <div className="bg-pearl/5 backdrop-blur-sm border border-pearl/10 rounded-2xl p-6 md:p-8 space-y-5 md:space-y-6">
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/50 font-medium">Manufacturing Quality</div>
-                <div className="space-y-5 md:space-y-6">
-                  <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Cell matching precision</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">±2mV</span>
-                  </div>
-                  <div className="h-px bg-pearl/10"></div>
-                  <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Quality control points</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">12</span>
-                  </div>
-                  <div className="h-px bg-pearl/10"></div>
-                  <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Customer downtime</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">{"<"}0.01%</span>
-                  </div>
-                  <div className="h-px bg-pearl/10"></div>
-                  <div className="flex justify-between items-baseline gap-4">
-                    <span className="text-sm md:text-base text-pearl/70">Post Production QA</span>
-                    <span className="text-xl md:text-2xl font-light tabular-nums text-pearl">48 Hours</span>
-                  </div>
-                </div>
-              </div>
-
-              
-
-
-
-
-
-
-
-
-
-              
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Impact - Real World Results */}
-      <section className="py-20 md:py-32 lg:py-40 bg-pearl relative overflow-hidden">
-        
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-[0.015]">
-          <div className="absolute inset-0" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)',
-            backgroundSize: '48px 48px'
-          }}></div>
-        </div>
-        
-        <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
-          
-          <div className="text-center mb-16 md:mb-24 space-y-6 md:space-y-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
-              Real homes. Real comfort.
-            </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light max-w-3xl mx-auto leading-[1.7] px-4">
-              10,000+ families trust NESS to quietly care for their energy. From sunrise to sunset, we're there — invisibly, reliably.
-            </p>
-          </div>
-          
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 lg:gap-16">
-            <div className="text-center space-y-4 md:space-y-5 p-6 rounded-2xl bg-whisper/50">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">
-                <AnimatedCounter value={500} duration={2000} />+
-              </div>
-              <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50 font-medium">Systems deployed</div>
-              <p className="text-xs md:text-sm text-charcoal/40 leading-relaxed pt-1 italic">
-                Every home a testament
-              </p>
-            </div>
-            
-            <div className="text-center space-y-4 md:space-y-5 p-6 rounded-2xl bg-whisper/50">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">
-                <AnimatedCounter value={100} duration={2000} />+
-              </div>
-              <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50 font-medium">MWh delivered</div>
-              <p className="text-xs md:text-sm text-charcoal/40 leading-relaxed pt-1 italic">
-                Clean. Reliable. Continuous.
-              </p>
-            </div>
-            
-            <div className="text-center space-y-4 md:space-y-5 p-6 rounded-2xl bg-whisper/50">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">
-                <AnimatedCounter value={25000} duration={2500} />+
-              </div>
-              <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50 font-medium">Cycles proven</div>
-              <p className="text-xs md:text-sm text-charcoal/40 leading-relaxed pt-1 italic">
-                Each one a promise kept
-              </p>
-            </div>
-            
-            <div className="text-center space-y-4 md:space-y-5 p-6 rounded-2xl bg-whisper/50">
-              <div className="text-5xl md:text-6xl lg:text-7xl font-extralight text-charcoal tabular-nums">
-                99.94%
-              </div>
-              <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50 font-medium">System uptime</div>
-              <p className="text-xs md:text-sm text-charcoal/40 leading-relaxed pt-1 italic">
-                Because almost isn't enough
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-10">
+            <div className="col-span-12 md:col-span-7 md:col-start-3">
+              <p className="font-serif text-xl md:text-2xl text-charcoal/80 leading-[1.6]">
+                NESS was born from a simple idea — that power should never be cold or
+                complicated. It should <em className="text-charcoal underline decoration-energy decoration-2 underline-offset-4">care.</em>
               </p>
             </div>
           </div>
 
-          {/* Image Placeholder for Real Installation */}
-          <div className="mt-20 md:mt-28 aspect-[21/9] bg-gradient-to-br from-charcoal/5 to-charcoal/10 rounded-3xl overflow-hidden relative">
-            {/* Placeholder: panoramic shot of Indian homes with NESS installations */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-center space-y-4 p-8">
-                <p className="text-2xl md:text-3xl lg:text-4xl text-charcoal/30 font-light italic leading-[1.6] max-w-3xl">
-                  "Power cuts don't just disrupt electricity — they interrupt life.
-                  <br />
-                  NESS gives families their comfort back."
-                </p>
-              </div>
+          {/* The Promise — as a triptych */}
+          <div className="mt-20 md:mt-24">
+            <Folio left="The Promise" center="In three parts" right="01 / 02" />
+            <div className="grid md:grid-cols-3 gap-0 border-b border-charcoal">
+              {[
+                {
+                  to: "To Customers",
+                  body: "Peace of mind, powered effortlessly.",
+                },
+                {
+                  to: "To Partners",
+                  body: "Systems that work the first time, and every time after.",
+                },
+                {
+                  to: "To the Planet",
+                  body: "Every installation leaves the world slightly better.",
+                },
+              ].map((p, i) => (
+                <div
+                  key={p.to}
+                  className={`py-10 md:py-12 px-2 md:px-8 ${
+                    i < 2 ? "md:border-r" : ""
+                  } ${i < 2 ? "border-b md:border-b-0" : ""} border-charcoal/15`}
+                >
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 mb-4">
+                    Article {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="font-display font-light text-lg text-energy mb-3">{p.to}</div>
+                  <p className="font-serif text-xl md:text-2xl text-charcoal leading-[1.35]">
+                    {p.body}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Mission & Values - The Why */}
-      <section className="py-20 md:py-32 lg:py-40 bg-whisper">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          
-          <div className="text-center mb-16 md:mb-24 lg:mb-32 space-y-6 md:space-y-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
-              Why NESS exists.
-            </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light max-w-3xl mx-auto leading-[1.7] px-4">
-              NESS was born from a simple idea — that power should never be cold or complicated. It should care.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 mb-16 md:mb-24">
-            
-            {/* Mission */}
-            <div className="bg-pearl border border-platinum/30 rounded-3xl p-8 md:p-10 lg:p-12 space-y-6 md:space-y-8">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-whisper flex items-center justify-center">
-                <Heart className="w-7 h-7 md:w-8 md:h-8 text-charcoal" />
-              </div>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-charcoal">Our Promise</h3>
-              <div className="space-y-5 md:space-y-6 text-charcoal/70 leading-[1.7]">
-                <p className="text-base md:text-lg">
-                  <strong className="text-charcoal font-medium">To Customers:</strong><br />
-                  Peace of mind, powered effortlessly.
-                </p>
-                <div className="h-px bg-platinum/30"></div>
-                <p className="text-base md:text-lg">
-                  <strong className="text-charcoal font-medium">To Partners:</strong><br />
-                  Systems that work the first time, and every time after.
-                </p>
-                <div className="h-px bg-platinum/30"></div>
-                <p className="text-base md:text-lg">
-                  <strong className="text-charcoal font-medium">To the Planet:</strong><br />
-                  Every installation leaves the world slightly better.
-                </p>
-              </div>
-            </div>
-
-            {/* Mission Statement */}
-            <div className="bg-pearl border border-platinum/30 rounded-3xl p-8 md:p-10 lg:p-12 space-y-6 md:space-y-8">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-whisper flex items-center justify-center">
-                <Target className="w-7 h-7 md:w-8 md:h-8 text-charcoal" />
-              </div>
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-charcoal">Our Mission</h3>
-              <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">
-                To make clean, uninterrupted power simple and accessible — so you can focus on what matters most: 
-                living, creating, connecting.
+          {/* The Mission */}
+          <div className="mt-16 grid grid-cols-12 gap-4 md:gap-6">
+            <aside className="col-span-12 md:col-span-3 md:pt-2">
+              <Folio left="The Mission" right="02 / 02" />
+            </aside>
+            <div className="col-span-12 md:col-span-9 md:pt-2">
+              <p className="font-serif text-2xl md:text-4xl text-charcoal leading-[1.3] first-letter:font-display first-letter:text-7xl md:first-letter:text-8xl first-letter:font-light first-letter:float-left first-letter:mr-4 first-letter:mt-2 first-letter:leading-[0.78] first-letter:text-charcoal">
+                To make clean, uninterrupted power simple and accessible — so you can focus on
+                what matters most: living, creating, connecting.
               </p>
-              <p className="text-sm md:text-base text-charcoal/50 italic pt-4 md:pt-6 border-t border-platinum/30">
+              <p className="mt-8 font-serif italic text-base md:text-lg text-charcoal/60 pl-1 border-l-2 border-energy pl-4">
                 We don't just store energy — we nurture it.
               </p>
             </div>
           </div>
-
-          {/* Our Voice & Values */}
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-            
-            <div className="text-center space-y-5 md:space-y-6 p-6 md:p-8 rounded-2xl bg-pearl/50">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-pearl border border-platinum/30 flex items-center justify-center mx-auto">
-                <Heart className="w-7 h-7 md:w-8 md:h-8 text-charcoal" />
-              </div>
-              <h3 className="text-lg md:text-xl font-light text-charcoal">Warm, not technical</h3>
-              <p className="text-charcoal/60 leading-[1.7] text-sm md:text-base">
-                We speak like humans, not manuals. Because energy should feel human: 
-                calm when you need it, strong when you rely on it.
-              </p>
-            </div>
-
-            <div className="text-center space-y-5 md:space-y-6 p-6 md:p-8 rounded-2xl bg-pearl/50">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-pearl border border-platinum/30 flex items-center justify-center mx-auto">
-                <Shield className="w-7 h-7 md:w-8 md:h-8 text-charcoal" />
-              </div>
-              <h3 className="text-lg md:text-xl font-light text-charcoal">Confident, not loud</h3>
-              <p className="text-charcoal/60 leading-[1.7] text-sm md:text-base">
-                Our silence is our strength. The best power is the one that quietly cares — 
-                invisible when life flows as it should.
-              </p>
-            </div>
-
-            <div className="text-center space-y-5 md:space-y-6 p-6 md:p-8 rounded-2xl bg-pearl/50">
-              <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-pearl border border-platinum/30 flex items-center justify-center mx-auto">
-                <Users className="w-7 h-7 md:w-8 md:h-8 text-charcoal" />
-              </div>
-              <h3 className="text-lg md:text-xl font-light text-charcoal">Inclusive, not corporate</h3>
-              <p className="text-charcoal/60 leading-[1.7] text-sm md:text-base">
-                We celebrate the community of people who care about energy — 
-                the Energy Warriors building a cleaner future together.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
-      {/* Final CTA */}
-      <section className="py-20 md:py-32 lg:py-40 bg-charcoal text-pearl relative overflow-hidden">
-        
-        {/* Background Image Placeholder */}
-        <div className="absolute inset-0 opacity-10">
-          {/* Placeholder: community background — installers, families, engineers united by clean energy */}
-        </div>
-        
-        <div className="max-w-5xl mx-auto px-6 md:px-12 text-center relative z-10">
-          
-          <div className="space-y-12 md:space-y-16 lg:space-y-20">
-            <div className="space-y-8 md:space-y-10">
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight leading-[1.1] tracking-tight px-4">
-                Join the community
+      {/* ───── CHAPTER 05 · THE VOICE ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <ChapterHead
+            number="05"
+            kicker="The Voice · Three temperaments"
+            title={
+              <>
+                How we
                 <br />
-                that cares.
-              </h2>
-              
-              <p className="text-lg md:text-xl lg:text-2xl text-pearl/70 font-light max-w-3xl mx-auto leading-[1.7] px-4">
-                We call them Energy Warriors — people who choose sustainable living, who install with care, 
-                who power homes and hearts with clean energy. Together, we're creating a movement where caring is the most powerful energy of all.
-              </p>
-            </div>
+                <em className="font-extralight text-charcoal/40">speak.</em>
+              </>
+            }
+          />
 
-            <div className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center pt-4 md:pt-8">
-              <Link to="/contact/homeowner">
-                <Button size="lg" className="bg-pearl text-charcoal hover:bg-pearl/90 px-8 md:px-10 py-5 md:py-6 text-base md:text-lg rounded-full transition-all hover:scale-105 w-full sm:w-auto">
-                  <div className="flex items-center gap-2">
-                    <span>Talk to Us</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </div>
-                </Button>
-              </Link>
-              
-              <Link to="/installers">
-                <Button size="lg" variant="outline" className="border-pearl/20 text-pearl px-8 md:px-10 py-5 md:py-6 text-base md:text-lg rounded-full w-full sm:w-auto">
-                  Partner With Us
-                </Button>
-              </Link>
-            </div>
-
-            <div className="pt-8 md:pt-12 text-sm md:text-base text-pearl/40 italic">
-              NESS — because the best power is the one that quietly cares.
-            </div>
+          <div className="mt-16 grid md:grid-cols-3 gap-0 border-t border-charcoal">
+            {[
+              {
+                k: "Warm",
+                anti: "not technical",
+                body: "We speak like humans, not manuals. Because energy should feel human: calm when you need it, strong when you rely on it.",
+              },
+              {
+                k: "Confident",
+                anti: "not loud",
+                body: "Our silence is our strength. The best power is the one that quietly cares — invisible when life flows as it should.",
+              },
+              {
+                k: "Inclusive",
+                anti: "not corporate",
+                body: "We celebrate the community of people who care about energy — the Energy Warriors building a cleaner future together.",
+              },
+            ].map((v, i) => (
+              <div
+                key={v.k}
+                className={`py-10 md:py-12 px-2 md:px-8 ${i < 2 ? "md:border-r" : ""} ${i < 2 ? "border-b md:border-b-0" : ""} border-charcoal/15`}
+              >
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 mb-6">
+                  Temperament {String(i + 1).padStart(2, "0")} of 03
+                </div>
+                <h3 className="font-display font-light text-4xl md:text-5xl text-charcoal leading-none tracking-tight">
+                  {v.k},
+                </h3>
+                <div className="font-serif italic text-charcoal/50 text-lg mt-1 mb-6">
+                  {v.anti}.
+                </div>
+                <p className="font-serif text-base text-charcoal/75 leading-[1.7]">{v.body}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
-    </Layout>);
 
+      {/* ───── COLOPHON ───── */}
+      <section className="bg-charcoal text-pearl">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/50 flex items-center gap-4 mb-12">
+            <span className="text-pearl">Colophon</span>
+            <span className="h-px flex-1 bg-pearl/20" />
+            <span>An invitation</span>
+          </div>
+
+          <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-[-0.03em]">
+            Join the community
+            <br />
+            <em className="font-extralight text-energy">that cares.</em>
+          </h2>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12">
+            <div className="col-span-12 md:col-span-8 md:col-start-3">
+              <p className="font-serif text-lg md:text-xl text-pearl/80 leading-[1.7] first-letter:font-display first-letter:text-7xl first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-energy">
+                We call them Energy Warriors — people who choose sustainable living, who install
+                with care, who power homes and hearts with clean energy. Together, we're
+                creating a movement where caring is the most powerful energy of all.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <Link
+              to="/contact/homeowner"
+              className="inline-flex items-center gap-3 px-6 py-4 bg-pearl text-charcoal font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-pearl/90 transition-colors"
+            >
+              Talk to us <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/installers"
+              className="inline-flex items-center gap-3 px-6 py-4 border border-pearl/30 text-pearl font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-pearl/10 transition-colors"
+            >
+              Partner with us
+            </Link>
+          </div>
+
+          <div className="mt-20 pt-6 border-t border-pearl/15 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">
+            <span>The Field Guide · NESS</span>
+            <span className="hidden md:inline italic font-serif normal-case tracking-normal">
+              the best power is the one that quietly cares
+            </span>
+            <span>Bangalore</span>
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 };
 
 export default About;

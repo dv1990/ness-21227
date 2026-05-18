@@ -1,28 +1,13 @@
 import { useState } from "react";
 import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import {
-  Rocket,
-  Microscope,
-  Shuffle,
-  Heart,
-  IndianRupee,
-  ShieldCheck,
-  BookOpen,
-  Zap,
-  Send,
-  MessageSquare,
-  Code2,
-  Users,
   MapPin,
   Briefcase,
   ChevronDown,
   ArrowRight,
   ExternalLink,
 } from "lucide-react";
-import { AnimatedCounter } from "@/components/ui/animated-counter";
-import { AnimatedCard } from "@/components/ui/animated-card";
 
 import manufacturingImg from "@/assets/manufacturing-facility.jpg";
 import trainingImg from "@/assets/training-workshop.jpg";
@@ -143,22 +128,22 @@ const ROLES: JobRole[] = [
 
 const CULTURE_CARDS = [
   {
-    icon: Rocket,
+    numeral: "I.",
     title: "You own it from day one.",
     body: "First week: real code in production. Real circuits on the bench. No shadowing period. No training wheels. You either own your output or you don't belong here.",
   },
   {
-    icon: Microscope,
+    numeral: "II.",
     title: "Your name is on every unit.",
     body: "12 quality checks. Every single unit. We've scrapped entire batches over a 2% deviation — and the engineer who caught it made the call alone. No committee. If your standard is 'good enough,' you'll hate it here.",
   },
   {
-    icon: Shuffle,
+    numeral: "III.",
     title: "Nobody will hand you a playbook.",
     body: "Our firmware lead built racing drones. Supply chain manager was a chef. We don't hire résumés — we hire people who've solved problems nobody assigned them. Figure-it-out is the only job description.",
   },
   {
-    icon: Heart,
+    numeral: "IV.",
     title: "You answer to the family at 3am.",
     body: "Not a manager. Not a sprint review. The child studying for exams. The ICU ventilator. The wedding that can't go dark. Every shortcut you take, someone's power depends on. Own that weight or don't apply.",
   },
@@ -166,22 +151,22 @@ const CULTURE_CARDS = [
 
 const BENEFITS = [
   {
-    icon: IndianRupee,
+    glyph: "§",
     title: "Equity. Not a bonus — a stake.",
     body: "Owners get ownership. We're early, the upside is real, and your work compounds. Build wealth alongside the company you're building.",
   },
   {
-    icon: ShieldCheck,
+    glyph: "¶",
     title: "Your family is covered. Period.",
     body: "Full health coverage from day one. No waiting periods. No fine print. We don't ask you to sacrifice your family for a deadline — ever.",
   },
   {
-    icon: BookOpen,
+    glyph: "†",
     title: "Get dangerous. We'll fund it.",
     body: "Annual budget for courses, conferences, books — whatever makes you harder to replace. Your growth is the company's growth.",
   },
   {
-    icon: Zap,
+    glyph: "❋",
     title: "Run NESS in your own home.",
     body: "Employee pricing on our products. If you're going to own the problem, you should own the solution too.",
   },
@@ -189,22 +174,18 @@ const BENEFITS = [
 
 const HIRING_STEPS = [
   {
-    icon: Send,
     title: "Show Up",
     body: "Resume + one line: what would you own here? That tells us more than any cover letter.",
   },
   {
-    icon: MessageSquare,
     title: "Real Talk",
     body: "30 minutes. No scripts. We'll be honest about what's hard. You be honest about what you want.",
   },
   {
-    icon: Code2,
     title: "Prove It",
     body: "A real problem from our stack. Take-home or live — your call. We judge ownership, not trivia.",
   },
   {
-    icon: Users,
     title: "Meet Your Team",
     body: "Lunch with the people you'd work beside. Grill us. If we're not right for you, we want to know too.",
   },
@@ -214,16 +195,39 @@ const LIFE_IMAGES = [
   {
     src: manufacturingImg,
     caption: "2am Friday — the team that cracked the 10ms switchover bug",
+    folio: "PLATE I",
   },
   {
     src: trainingImg,
     caption: "Rooftop lunch debates that accidentally become the product roadmap",
+    folio: "PLATE II",
   },
   {
     src: batteryImg,
-    caption: "Testing in 45\u00B0C Rajasthan heat. Because Indian conditions aren't lab conditions.",
+    caption: "Testing in 45°C Rajasthan heat. Because Indian conditions aren't lab conditions.",
+    folio: "PLATE III",
   },
 ];
+
+// ─── Small editorial bits ────────────────────────────────────────────────────
+
+const FolioStrip = ({ left, center, right }: { left: string; center?: string; right: string }) => (
+  <div className="flex items-center justify-between gap-4 border-y border-charcoal/20 py-2 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60">
+    <span>{left}</span>
+    {center && <span className="hidden md:inline">{center}</span>}
+    <span>{right}</span>
+  </div>
+);
+
+const SectionNumber = ({ index, total, label }: { index: string; total: string; label: string }) => (
+  <div className="flex items-baseline gap-4 font-mono text-[11px] uppercase tracking-[0.22em] text-charcoal/60">
+    <span className="text-charcoal">{index}</span>
+    <span className="h-px flex-1 bg-charcoal/20" />
+    <span>{label}</span>
+    <span className="h-px w-8 bg-charcoal/20" />
+    <span>{total}</span>
+  </div>
+);
 
 // ─── Component ───────────────────────────────────────────────────────────────
 
@@ -236,324 +240,396 @@ const Careers = () => {
       ? ROLES
       : ROLES.filter((r) => r.department === activeDepartment);
 
-  const scrollToRoles = () => {
-    document.getElementById("open-roles")?.scrollIntoView({ behavior: "smooth" });
-  };
-
   return (
     <Layout className="-mt-16">
-      {/* ───── Section 1: Hero — Tribe Declaration ───── */}
-      <section className="relative min-h-screen flex items-center bg-pearl overflow-hidden">
-        {/* Subtle tech pattern overlay */}
-        <div className="absolute inset-0 opacity-[0.02]">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage: "radial-gradient(circle at 2px 2px, currentColor 1px, transparent 0)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-        </div>
+      {/* ───── 00 · MASTHEAD ───── */}
+      <section className="relative bg-pearl overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
+          {/* top folio */}
+          <div className="border-t-2 border-charcoal pt-3">
+            <div className="flex items-center justify-between font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-charcoal/70">
+              <span>The NESS Dispatch</span>
+              <span className="hidden md:inline">Issue №01 · Vol. 04</span>
+              <span>Bangalore · Est. MMXXII</span>
+            </div>
+          </div>
 
-        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32 relative z-10 w-full">
-          <div className="space-y-12 md:space-y-20 text-center">
-            <div className="space-y-8 md:space-y-12">
-              <div className="inline-block px-4 md:px-5 py-2 bg-charcoal/5 rounded-full backdrop-blur-sm">
-                <span className="text-[10px] md:text-sm uppercase tracking-[0.12em] md:tracking-[0.15em] text-charcoal/60 font-medium whitespace-nowrap">
-                  Bangalore &middot; Deep Tech &middot; Clean Energy
-                </span>
+          {/* Masthead title */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-10 md:mt-16">
+            <div className="col-span-12 md:col-span-9">
+              <div className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mb-4">
+                The Careers Issue / A Hiring Manifesto
               </div>
-
-              <h1 className="text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-extralight text-charcoal leading-[0.95] tracking-tight px-4">
-                Blackouts end here.
+              <h1 className="font-display font-light text-[18vw] md:text-[15vw] lg:text-[180px] leading-[0.82] tracking-[-0.04em] text-charcoal">
+                Black<span className="italic font-extralight">outs</span>
                 <br />
-                <span className="text-charcoal/40">Own it or scroll past.</span>
+                end <span className="text-energy">·</span> here.
               </h1>
+            </div>
+            <aside className="col-span-12 md:col-span-3 md:pt-2 space-y-4 md:border-l md:border-charcoal/15 md:pl-6">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+                Marginalia ↓
+              </div>
+              <p className="font-serif italic text-base text-charcoal/70 leading-[1.55]">
+                A small note from the editor — this isn't a careers page. It's a list of problems
+                that need owners. If you scroll for perks, you'll be disappointed. If you scroll
+                for stakes, welcome.
+              </p>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
+                — Yours, ed.
+              </div>
+            </aside>
+          </div>
 
-              <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.6] max-w-3xl mx-auto px-4">
-                No committees. No spectators. 50 engineers who each own a piece of the problem — from
-                lab bench to living room. If you need permission to act, this isn't your place.
+          {/* sub-deck */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12 md:mt-16">
+            <div className="col-span-12 md:col-span-7 md:col-start-3">
+              <p className="font-serif text-xl md:text-2xl text-charcoal leading-[1.55] first-letter:font-display first-letter:font-light first-letter:text-7xl md:first-letter:text-8xl first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-[0.85]">
+                No committees. No spectators. Fifty engineers who each own a piece of the problem
+                — from lab bench to living room. If you need permission to act, this isn't your
+                place. <em>Own it, or scroll past.</em>
               </p>
             </div>
+          </div>
 
-            {/* Stats strip */}
-            <div className="grid grid-cols-2 gap-8 md:gap-16 max-w-xl mx-auto pt-4 md:pt-8">
-              <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
-                  <AnimatedCounter value={50} duration={1800} suffix="+" />
+          {/* metadata strip */}
+          <div className="mt-16 md:mt-24">
+            <FolioStrip left="50+ on the masthead" center="Four years on press" right="Page 01 / 08" />
+            <div className="grid grid-cols-2 gap-0 mt-0">
+              <div className="border-r border-charcoal/15 py-6 pr-6">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50 mb-2">
+                  Headcount
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
-                  Team Members
+                <div className="font-display font-extralight text-6xl md:text-7xl text-charcoal tabular-nums tracking-tight">
+                  50<span className="text-energy">+</span>
                 </div>
               </div>
-              <div className="space-y-3">
-                <div className="text-5xl md:text-6xl font-extralight text-charcoal tabular-nums">
-                  <AnimatedCounter value={4} duration={1500} suffix="+" />
+              <div className="py-6 pl-6">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50 mb-2">
+                  Years on the bench
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-charcoal/50">
-                  Years of R&D
+                <div className="font-display font-extralight text-6xl md:text-7xl text-charcoal tabular-nums tracking-tight">
+                  04
                 </div>
               </div>
             </div>
+            <FolioStrip left="" right="Continued overleaf →" />
+          </div>
 
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-              <Button
-                size="lg"
-                onClick={scrollToRoles}
-                className="bg-charcoal text-pearl hover:bg-charcoal/90 text-base px-8 py-6 rounded-full"
-              >
-                See Open Roles
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </Button>
-              <Link to="/company/about" className="w-full sm:w-auto">
-                <Button
-                  size="lg"
-                  variant="outline"
-                  className="border-charcoal/20 text-charcoal hover:bg-charcoal/5 text-base px-8 py-6 rounded-full w-full sm:w-auto"
-                >
-                  Our Story
-                </Button>
-              </Link>
-            </div>
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <a href="#open-roles" className="group inline-flex items-center gap-3 px-6 py-4 bg-charcoal text-pearl font-mono text-[11px] uppercase tracking-[0.22em]">
+              See the classifieds
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </a>
+            <Link
+              to="/company/about"
+              className="inline-flex items-center gap-3 px-6 py-4 border border-charcoal/40 text-charcoal font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-charcoal hover:text-pearl transition-colors"
+            >
+              Read our field guide →
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* ───── Section 2: Origin & Stakes ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-charcoal text-pearl relative overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse 80% 50% at 50% 100%, hsl(151 100% 45% / 0.08), transparent),
-              radial-gradient(ellipse 60% 40% at 20% 80%, hsl(151 100% 45% / 0.04), transparent)
-            `,
-          }}
-        />
-        <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10">
-          <div className="space-y-12 md:space-y-16">
-            <p className="text-2xl md:text-3xl lg:text-4xl font-light leading-[1.5] text-pearl/90 text-center">
-              A hospital in Tamil Nadu.
-              <br className="hidden md:block" />
-              Six hours without power. The backup generator{" "}
-              <span className="italic">failed.</span>
-              <br className="hidden md:block" />
-              A ventilator went silent.
-            </p>
+      {/* ───── 01 · DISPATCH / The Origin Story ───── */}
+      <section className="bg-charcoal text-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/50 flex items-center gap-4 mb-12">
+            <span className="text-pearl">01</span>
+            <span className="h-px flex-1 bg-pearl/20" />
+            <span>Dispatch · The Stakes</span>
+            <span className="h-px w-8 bg-pearl/20" />
+            <span>of 04</span>
+          </div>
 
-            <p className="text-xl md:text-2xl text-pearl/60 font-medium leading-[1.7] max-w-3xl mx-auto text-center">
-              That's not a statistic. That's the problem you'd own.
-            </p>
-
-            <p className="text-lg md:text-xl text-pearl/40 font-light leading-[1.7] max-w-3xl mx-auto text-center">
-              300 million homes on a failing grid. Diesel generators poisoning the air.
-              Nobody's coming to fix this. So we are. The question is whether you're the kind
-              of person who reads that and feels <span className="text-pearl/70 italic">responsible.</span>
-            </p>
-
-            {/* Impact metrics */}
-            <div className="grid grid-cols-3 gap-6 md:gap-12 pt-8 md:pt-12 border-t border-pearl/10 max-w-3xl mx-auto">
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
-                  <AnimatedCounter value={500} duration={2000} suffix="+" />
-                </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
-                  Indian Homes Powered
-                </div>
+          <div className="grid grid-cols-12 gap-4 md:gap-8">
+            <div className="col-span-12 md:col-span-2 md:pt-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">
+                Filed from
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
-                  <AnimatedCounter value={99} duration={1800} suffix="%" />
-                </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
-                  System Uptime
-                </div>
+              <div className="font-serif italic text-pearl/80 mt-1">Tamil Nadu</div>
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 mt-6">
+                Dateline
               </div>
-              <div className="text-center space-y-2">
-                <div className="text-3xl md:text-5xl font-extralight text-energy tabular-nums">
-                  <AnimatedCounter value={10} duration={1500} suffix="ms" />
+              <div className="font-mono text-pearl/80 mt-1 text-sm">03:12 AM</div>
+            </div>
+
+            <div className="col-span-12 md:col-span-8 md:col-start-3 space-y-8">
+              <p className="font-serif text-3xl md:text-5xl leading-[1.15] text-pearl tracking-tight">
+                A hospital in Tamil Nadu. Six hours without power. The backup generator{" "}
+                <em className="text-energy not-italic font-display font-light underline decoration-energy/40 decoration-from-font underline-offset-[6px]">
+                  failed.
+                </em>{" "}
+                A ventilator went silent.
+              </p>
+
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-12 md:col-span-1 font-display text-6xl md:text-7xl text-energy leading-none">
+                  &ldquo;
                 </div>
-                <div className="text-xs md:text-sm uppercase tracking-[0.15em] text-pearl/40">
-                  Switchover Speed
+                <p className="col-span-12 md:col-span-11 font-serif italic text-lg md:text-xl text-pearl/70 leading-[1.7]">
+                  That's not a statistic. That's the problem you'd own. Three hundred million homes
+                  on a failing grid. Diesel generators poisoning the air. Nobody's coming to fix
+                  this. So we are. The question is whether you're the kind of person who reads
+                  that and feels <span className="text-pearl not-italic">responsible.</span>
+                </p>
+              </div>
+
+              <div className="pt-8 border-t border-pearl/15 grid grid-cols-3 gap-6 md:gap-12">
+                <div>
+                  <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl">500<span className="text-energy">+</span></div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 mt-2">Homes powered</div>
+                </div>
+                <div>
+                  <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl">99<span className="text-pearl/40 text-2xl md:text-3xl align-top">%</span></div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 mt-2">Uptime</div>
+                </div>
+                <div>
+                  <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl">10<span className="text-pearl/40 text-2xl md:text-3xl align-top">ms</span></div>
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40 mt-2">Switchover</div>
                 </div>
               </div>
             </div>
           </div>
+
+          <div className="mt-16 text-center font-mono text-pearl/30 tracking-[0.5em]">⁂</div>
         </div>
       </section>
 
-      {/* ───── Section 3: Culture — What Nobody Tells You ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-whisper">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16 md:mb-24 space-y-6 md:space-y-8">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-extralight text-charcoal leading-[1.1] tracking-tight px-4">
-              Extreme ownership.
-              <br />
-              Not a slogan.
-            </h2>
-            <p className="text-lg md:text-xl text-charcoal/60 font-light max-w-2xl mx-auto">
-              Here's what ownership looks like when nobody's watching.
-            </p>
+      {/* ───── 02 · THE MANIFESTO ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36">
+          <SectionNumber index="02" total="of 04" label="The Manifesto · Four Articles" />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12 md:mt-16">
+            <div className="col-span-12 md:col-span-8">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50 mb-4">
+                On the matter of —
+              </div>
+              <h2 className="font-display font-light text-6xl md:text-8xl lg:text-[140px] leading-[0.88] tracking-[-0.035em] text-charcoal">
+                Extreme
+                <br />
+                <em className="font-extralight text-charcoal/30">ownership.</em>
+              </h2>
+            </div>
+            <aside className="col-span-12 md:col-span-4 md:pt-12 md:border-l md:border-charcoal/15 md:pl-6 space-y-3">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+                A footnote*
+              </div>
+              <p className="font-serif italic text-base text-charcoal/70 leading-[1.55]">
+                Not a slogan. Not a poster on the wall. Four articles of how we actually behave
+                when nobody's watching — printed here so you can hold us to them.
+              </p>
+              <div className="font-mono text-[9px] uppercase tracking-[0.22em] text-charcoal/40 pt-2">
+                * see overleaf for the four
+              </div>
+            </aside>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
-            {CULTURE_CARDS.map((card, i) => (
-              <AnimatedCard
-                key={card.title}
-                hover="lift"
-                delay={i * 100}
-                className="bg-pearl border border-platinum/30 rounded-2xl overflow-hidden"
-              >
-                <div className="p-8 md:p-10 space-y-5">
-                  <div className="w-12 h-12 rounded-full bg-whisper flex items-center justify-center">
-                    <card.icon className="w-6 h-6 text-charcoal" />
+          {/* The four articles — newspaper columns */}
+          <div className="mt-16 md:mt-24 border-t border-charcoal pt-8">
+            <div className="grid md:grid-cols-2 gap-x-12 md:gap-x-16 gap-y-12">
+              {CULTURE_CARDS.map((card, i) => (
+                <article key={card.title} className={`relative ${i < 2 ? "md:pb-12 md:border-b md:border-charcoal/15" : ""}`}>
+                  <div className="flex items-baseline gap-4 mb-4">
+                    <span className="font-display font-light text-4xl md:text-5xl text-energy tabular-nums">
+                      {card.numeral}
+                    </span>
+                    <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 flex-1 border-b border-dotted border-charcoal/30 pb-1">
+                      Article № {i + 1}
+                    </span>
                   </div>
-                  <h3 className="text-xl md:text-2xl font-light text-charcoal leading-tight">
+                  <h3 className="font-display font-light text-2xl md:text-3xl text-charcoal leading-[1.15] tracking-tight mb-4">
                     {card.title}
                   </h3>
-                  <p className="text-base md:text-lg text-charcoal/70 leading-[1.7]">{card.body}</p>
-                </div>
-              </AnimatedCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───── Section 4: Life at NESS — Raw, Not Polished ───── */}
-      <section className="py-20 md:py-32 bg-whisper">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-12 md:mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
-              Inside the machine.
-            </h2>
-            <p className="text-lg text-charcoal/60 font-light">
-              Bangalore R&D. No stock photos. No staged smiles. This is what it actually looks like.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {LIFE_IMAGES.map((img, i) => (
-              <div
-                key={i}
-                className="relative aspect-[4/3] rounded-2xl overflow-hidden group cursor-default"
-              >
-                <img
-                  src={img.src}
-                  alt={img.caption}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
-                <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6">
-                  <p className="text-sm md:text-base text-pearl/90 font-light leading-snug">
-                    {img.caption}
+                  <p className="font-serif text-base md:text-lg text-charcoal/80 leading-[1.7] first-letter:font-display first-letter:text-5xl first-letter:font-light first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-charcoal">
+                    {card.body}
                   </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───── Section 5: The Deal — Benefits as Identity ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-pearl">
-        <div className="max-w-5xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-12 md:mb-20 space-y-8">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight leading-[1.1]">
-              Owners get<br />
-              <span className="text-charcoal/40">owner terms.</span>
-            </h2>
-            <p className="text-lg md:text-xl lg:text-2xl text-charcoal/60 font-light leading-[1.7] max-w-3xl mx-auto">
-              We'll never ask you to sacrifice your health, your family, or your sanity for a deadline.
-              In return, you treat every unit that leaves this building like your family's power depends on it.{" "}
-              <span className="text-charcoal font-medium italic">Because someone's does.</span>
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 gap-6">
-            {BENEFITS.map((b, i) => (
-              <AnimatedCard
-                key={b.title}
-                hover="lift"
-                delay={i * 80}
-                className="bg-whisper border border-platinum/30 rounded-2xl overflow-hidden"
-              >
-                <div className="p-8 md:p-10 space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-pearl flex items-center justify-center">
-                    <b.icon className="w-6 h-6 text-charcoal" />
-                  </div>
-                  <h3 className="text-lg md:text-xl font-light text-charcoal">{b.title}</h3>
-                  <p className="text-base text-charcoal/60 leading-relaxed">{b.body}</p>
-                </div>
-              </AnimatedCard>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ───── Section 6: Hiring Process ───── */}
-      <section className="py-20 md:py-32 bg-whisper">
-        <div className="max-w-5xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-16 md:mb-20 space-y-4">
-            <h2 className="text-3xl md:text-5xl font-extralight text-charcoal tracking-tight">
-              Four steps. No theatre.
-            </h2>
-            <p className="text-lg text-charcoal/60 font-light">
-              We respect your time the same way we expect you to respect ours. Here's the entire process.
-            </p>
-          </div>
-
-          {/* Timeline */}
-          <div className="relative">
-            {/* Connecting line — horizontal on md+, vertical on mobile */}
-            <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-px border-t-2 border-dashed border-charcoal/15" />
-            <div className="md:hidden absolute top-0 bottom-0 left-6 w-px border-l-2 border-dashed border-charcoal/15" />
-
-            <div className="flex flex-col md:flex-row md:justify-between gap-10 md:gap-4">
-              {HIRING_STEPS.map((step, i) => (
-                <div key={step.title} className="flex md:flex-col items-start md:items-center gap-5 md:gap-4 md:flex-1 relative">
-                  <div className="w-12 h-12 md:w-20 md:h-20 rounded-full bg-pearl border-2 border-charcoal/10 flex items-center justify-center shrink-0 relative z-10">
-                    <step.icon className="w-5 h-5 md:w-7 md:h-7 text-charcoal/70" />
-                  </div>
-                  <div className="md:text-center space-y-2 pt-1 md:pt-4">
-                    <div className="text-xs uppercase tracking-[0.15em] text-charcoal/40 font-medium">
-                      Step {i + 1}
-                    </div>
-                    <h3 className="text-lg md:text-xl font-light text-charcoal">{step.title}</h3>
-                    <p className="text-sm md:text-base text-charcoal/60 leading-relaxed max-w-[240px]">
-                      {step.body}
-                    </p>
-                  </div>
-                </div>
+                </article>
               ))}
             </div>
           </div>
+
+          <div className="mt-24 text-center font-mono text-charcoal/30 tracking-[0.5em]">§ § §</div>
         </div>
       </section>
 
-      {/* ───── Section 7: Open Roles ───── */}
-      <section id="open-roles" className="py-20 md:py-32 lg:py-40 bg-pearl scroll-mt-20">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <div className="text-center mb-12 md:mb-16 space-y-4">
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight text-charcoal tracking-tight">
-              Problems that need owners.
-            </h2>
-            <p className="text-lg text-charcoal/60 font-light">
-              These aren't job titles. They're territories. Pick one and make it yours.
-            </p>
+      {/* ───── PLATES · Inside the machine ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-28">
+          <FolioStrip left="Photo plates" center="Bangalore R&D" right="Unretouched" />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-8 mb-12">
+            <div className="col-span-12 md:col-span-7">
+              <h2 className="font-display font-light text-4xl md:text-6xl text-charcoal leading-[0.95] tracking-tight">
+                Inside <em className="font-extralight text-charcoal/40">the machine.</em>
+              </h2>
+            </div>
+            <aside className="col-span-12 md:col-span-4 md:col-start-9 md:pt-2">
+              <p className="font-serif italic text-charcoal/60 text-sm leading-[1.6]">
+                No stock photos. No staged smiles. This is what it actually looks like —
+                a Tuesday, a Thursday, a 2am Friday.
+              </p>
+            </aside>
           </div>
 
-          {/* Department filter pills */}
-          <div className="flex flex-wrap gap-3 justify-center mb-10">
+          <div className="grid md:grid-cols-12 gap-4 md:gap-6">
+            {LIFE_IMAGES.map((img, i) => (
+              <figure
+                key={i}
+                className={`relative ${
+                  i === 0 ? "md:col-span-7" : i === 1 ? "md:col-span-5" : "md:col-span-12"
+                }`}
+              >
+                <div className={`relative overflow-hidden bg-charcoal/5 ${i === 2 ? "aspect-[21/9]" : "aspect-[4/3]"}`}>
+                  <img
+                    src={img.src}
+                    alt={img.caption}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover grayscale-[15%] transition-all duration-700 hover:grayscale-0"
+                  />
+                </div>
+                <figcaption className="mt-3 flex items-baseline gap-3 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60">
+                  <span className="text-charcoal">{img.folio}</span>
+                  <span className="h-px w-6 bg-charcoal/30" />
+                  <span className="font-serif italic normal-case tracking-normal text-charcoal/70 text-sm">
+                    {img.caption}
+                  </span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───── 03 · THE DEAL ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36">
+          <SectionNumber index="03" total="of 04" label="The Deal · Owner Terms" />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12 md:mt-16">
+            <div className="col-span-12 md:col-span-6">
+              <h2 className="font-display font-light text-6xl md:text-8xl leading-[0.9] tracking-[-0.035em] text-charcoal">
+                Owners
+                <br />
+                get <em className="font-extralight text-charcoal/40">owner</em>
+                <br />
+                terms.
+              </h2>
+            </div>
+            <div className="col-span-12 md:col-span-5 md:col-start-8 md:pt-6">
+              <p className="font-serif text-lg md:text-xl text-charcoal/80 leading-[1.7]">
+                We'll never ask you to sacrifice your health, your family, or your sanity for a
+                deadline. In return, you treat every unit that leaves this building like your
+                family's power depends on it.{" "}
+                <em className="text-charcoal font-display not-italic underline decoration-energy decoration-2 underline-offset-4">
+                  Because someone's does.
+                </em>
+              </p>
+            </div>
+          </div>
+
+          {/* Benefits — as bonded clauses */}
+          <div className="mt-16 md:mt-24 border-t border-charcoal">
+            {BENEFITS.map((b, i) => (
+              <article
+                key={b.title}
+                className="grid grid-cols-12 gap-4 md:gap-6 border-b border-charcoal/15 py-8 md:py-10"
+              >
+                <div className="col-span-2 md:col-span-1 font-display font-light text-3xl md:text-5xl text-energy leading-none">
+                  {b.glyph}
+                </div>
+                <div className="col-span-10 md:col-span-2">
+                  <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
+                    Clause
+                  </div>
+                  <div className="font-mono text-charcoal text-sm mt-1 tabular-nums">
+                    0{i + 1} / 0{BENEFITS.length}
+                  </div>
+                </div>
+                <h3 className="col-span-12 md:col-span-4 font-display font-light text-xl md:text-2xl text-charcoal leading-tight tracking-tight">
+                  {b.title}
+                </h3>
+                <p className="col-span-12 md:col-span-5 font-serif text-base text-charcoal/70 leading-[1.7]">
+                  {b.body}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───── PROCESS ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <FolioStrip left="The Process" center="Four steps. No theatre." right="≈ 2 weeks" />
+
+          <h2 className="font-display font-light text-5xl md:text-7xl text-charcoal leading-[0.95] tracking-tight mt-10 mb-16">
+            Four steps.
+            <br />
+            <em className="font-extralight text-charcoal/40">No theatre.</em>
+          </h2>
+
+          <div className="grid md:grid-cols-4 gap-0 border-t border-charcoal">
+            {HIRING_STEPS.map((step, i) => (
+              <div
+                key={step.title}
+                className={`py-8 md:py-10 ${i < HIRING_STEPS.length - 1 ? "md:border-r" : ""} border-b md:border-b-0 border-charcoal/15 md:pr-6 ${i > 0 ? "md:pl-6" : ""}`}
+              >
+                <div className="flex items-baseline gap-3 mb-5">
+                  <span className="font-display font-light text-5xl md:text-6xl tabular-nums text-charcoal">
+                    0{i + 1}
+                  </span>
+                  <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
+                    /04
+                  </span>
+                </div>
+                <h3 className="font-display font-light text-xl md:text-2xl text-charcoal mb-3">
+                  {step.title}
+                </h3>
+                <p className="font-serif text-sm md:text-base text-charcoal/70 leading-[1.65]">
+                  {step.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ───── 04 · THE CLASSIFIEDS ───── */}
+      <section id="open-roles" className="bg-pearl scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-36">
+          <SectionNumber index="04" total="of 04" label="The Classifieds · Open Roles" />
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12 md:mt-16">
+            <div className="col-span-12 md:col-span-8">
+              <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl text-charcoal leading-[0.92] tracking-[-0.03em]">
+                Problems
+                <br />
+                that need <em className="font-extralight text-energy">owners.</em>
+              </h2>
+            </div>
+            <aside className="col-span-12 md:col-span-4 md:pt-6">
+              <p className="font-serif italic text-charcoal/70 text-base leading-[1.6]">
+                These aren't job titles — they're territories. Pick one and make it yours. Read
+                each like a deed, not a description.
+              </p>
+            </aside>
+          </div>
+
+          {/* Department filter */}
+          <div className="mt-12 mb-8 flex flex-wrap gap-x-6 gap-y-3 border-y border-charcoal py-4">
+            <span className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+              Filter by desk →
+            </span>
             {DEPARTMENTS.map((dept) => (
               <button
                 key={dept}
                 onClick={() => setActiveDepartment(dept)}
-                className={`px-5 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                className={`font-mono text-[11px] uppercase tracking-[0.22em] transition-colors ${
                   activeDepartment === dept
-                    ? "bg-charcoal text-pearl shadow-md"
-                    : "bg-whisper text-charcoal/60 hover:bg-platinum hover:text-charcoal"
+                    ? "text-charcoal border-b border-energy"
+                    : "text-charcoal/50 hover:text-charcoal border-b border-dotted border-transparent"
                 }`}
               >
                 {dept}
@@ -561,134 +637,146 @@ const Careers = () => {
             ))}
           </div>
 
-          {/* Role cards */}
-          <div className="space-y-4">
-            {filteredRoles.map((role) => {
+          {/* Classified ads */}
+          <div className="divide-y divide-charcoal/20 border-b border-charcoal">
+            {filteredRoles.map((role, idx) => {
               const isExpanded = expandedRole === role.id;
               return (
-                <div
-                  key={role.id}
-                  className="bg-whisper border border-platinum/40 rounded-xl overflow-hidden transition-all duration-300"
-                >
+                <article key={role.id} className="py-6 md:py-8">
                   <button
                     onClick={() => setExpandedRole(isExpanded ? null : role.id)}
-                    className="w-full px-6 py-5 md:px-8 md:py-6 flex items-center justify-between gap-4 text-left hover:bg-platinum/30 transition-colors"
+                    className="w-full text-left group"
                   >
-                    <div className="flex-1 min-w-0">
-                      <h3 className="text-lg md:text-xl font-light text-charcoal truncate">
-                        {role.title}
-                      </h3>
-                      <div className="flex flex-wrap items-center gap-2 mt-2">
-                        <span className="inline-flex items-center gap-1 text-xs text-charcoal/50 bg-pearl px-3 py-1 rounded-full">
-                          <Briefcase className="w-3 h-3" />
-                          {role.department}
+                    <div className="grid grid-cols-12 gap-4 md:gap-6 items-baseline">
+                      <div className="col-span-12 md:col-span-1 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 tabular-nums">
+                        № {String(idx + 1).padStart(2, "0")}
+                      </div>
+                      <div className="col-span-10 md:col-span-7">
+                        <h3 className="font-display font-light text-2xl md:text-4xl text-charcoal leading-tight tracking-tight group-hover:text-energy transition-colors">
+                          {role.title}
+                        </h3>
+                        <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60">
+                          <span className="inline-flex items-center gap-1.5">
+                            <Briefcase className="w-3 h-3" />
+                            {role.department}
+                          </span>
+                          <span className="inline-flex items-center gap-1.5">
+                            <MapPin className="w-3 h-3" />
+                            {role.location}
+                          </span>
+                          <span>· {role.type}</span>
+                        </div>
+                      </div>
+                      <div className="col-span-2 md:col-span-4 flex md:justify-end items-baseline gap-3">
+                        <span className="hidden md:inline font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 group-hover:text-charcoal transition-colors">
+                          {isExpanded ? "Close ad ↑" : "Read ad ↓"}
                         </span>
-                        <span className="inline-flex items-center gap-1 text-xs text-charcoal/50 bg-pearl px-3 py-1 rounded-full">
-                          <MapPin className="w-3 h-3" />
-                          {role.location}
-                        </span>
-                        <span className="text-xs text-charcoal/40 bg-pearl px-3 py-1 rounded-full">
-                          {role.type}
-                        </span>
+                        <ChevronDown
+                          className={`w-5 h-5 text-charcoal/60 transition-transform duration-300 ${
+                            isExpanded ? "rotate-180" : ""
+                          }`}
+                        />
                       </div>
                     </div>
-                    <ChevronDown
-                      className={`w-5 h-5 text-charcoal/40 shrink-0 transition-transform duration-300 ${
-                        isExpanded ? "rotate-180" : ""
-                      }`}
-                    />
                   </button>
 
                   {isExpanded && (
-                    <div className="px-6 pb-6 md:px-8 md:pb-8 space-y-5 border-t border-platinum/30 pt-5">
-                      <p className="text-base text-charcoal/70 leading-relaxed">
-                        {role.description}
-                      </p>
-                      <div>
-                        <h4 className="text-sm uppercase tracking-[0.1em] text-charcoal/40 font-medium mb-3">
-                          What we're looking for
-                        </h4>
+                    <div className="grid grid-cols-12 gap-4 md:gap-6 mt-8 pt-6 border-t border-dashed border-charcoal/20">
+                      <div className="col-span-12 md:col-span-1 hidden md:block" />
+                      <div className="col-span-12 md:col-span-7 space-y-6">
+                        <p className="font-serif text-lg text-charcoal/85 leading-[1.7] first-letter:font-display first-letter:text-5xl first-letter:font-light first-letter:float-left first-letter:mr-2 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-energy">
+                          {role.description}
+                        </p>
+                      </div>
+                      <div className="col-span-12 md:col-span-4 space-y-4">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 border-b border-charcoal/30 pb-2">
+                          What we look for
+                        </div>
                         <ul className="space-y-2">
                           {role.requirements.map((req, i) => (
                             <li
                               key={i}
-                              className="text-sm text-charcoal/60 leading-relaxed flex items-start gap-2"
+                              className="font-serif text-sm text-charcoal/70 leading-[1.6] flex gap-2"
                             >
-                              <span className="w-1.5 h-1.5 bg-energy rounded-full mt-2 shrink-0" />
-                              {req}
+                              <span className="text-energy">→</span>
+                              <span>{req}</span>
                             </li>
                           ))}
                         </ul>
+                        <a
+                          href={`mailto:careers@nunam.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
+                          className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-charcoal border-b border-energy pb-1 hover:text-energy transition-colors"
+                        >
+                          Claim this territory <ArrowRight className="w-3.5 h-3.5" />
+                        </a>
                       </div>
-                      <a
-                        href={`mailto:careers@nunam.com?subject=Application%3A%20${encodeURIComponent(role.title)}`}
-                        className="inline-block"
-                      >
-                        <Button className="bg-charcoal text-pearl hover:bg-charcoal/90 rounded-full px-8">
-                          Apply Now
-                          <ArrowRight className="ml-2 w-4 h-4" />
-                        </Button>
-                      </a>
                     </div>
                   )}
-                </div>
+                </article>
               );
             })}
 
             {filteredRoles.length === 0 && (
-              <div className="text-center py-12 text-charcoal/40">
-                No openings in this department right now. Check back soon or send an open application below.
+              <div className="py-16 text-center font-serif italic text-charcoal/50">
+                No classifieds at this desk this week. Send an open application overleaf —
+                we read every one.
               </div>
             )}
+          </div>
+
+          <div className="mt-6 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+            <span>End of classifieds</span>
+            <span>Page 07 / 08</span>
           </div>
         </div>
       </section>
 
-      {/* ───── Section 8: Open Application CTA ───── */}
-      <section className="py-20 md:py-32 lg:py-40 bg-charcoal text-pearl relative overflow-hidden">
-        <div
-          className="absolute inset-0"
-          style={{
-            background: `
-              radial-gradient(ellipse 80% 50% at 50% 100%, hsl(151 100% 45% / 0.06), transparent),
-              radial-gradient(ellipse 60% 40% at 80% 80%, hsl(151 100% 45% / 0.03), transparent)
-            `,
-          }}
-        />
-        <div className="max-w-3xl mx-auto px-6 md:px-12 relative z-10 text-center space-y-8">
-          <h2 className="text-3xl md:text-5xl lg:text-6xl font-extralight leading-[1.1] tracking-tight">
+      {/* ───── COLOPHON / OPEN CALL ───── */}
+      <section className="bg-charcoal text-pearl">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-36">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/50 flex items-center gap-4 mb-12">
+            <span className="text-pearl">Colophon</span>
+            <span className="h-px flex-1 bg-pearl/20" />
+            <span>An Open Call</span>
+          </div>
+
+          <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-[-0.03em]">
             No role listed?
             <br />
-            <span className="text-energy italic">Create one.</span>
+            <em className="font-extralight text-energy">Create one.</em>
           </h2>
-          <p className="text-lg md:text-xl text-pearl/60 font-light leading-[1.7] max-w-2xl mx-auto">
-            The best people who ever joined us weren't applying for a position — they were
-            claiming a problem. Tell us what you'd own, how you'd fix it, and why it can't wait.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <a href="mailto:careers@nunam.com?subject=I%20have%20an%20idea">
-              <Button
-                size="lg"
-                className="bg-energy text-charcoal hover:bg-energy-bright font-medium text-base px-8 py-6 rounded-full w-full sm:w-auto"
-              >
-                Claim Your Problem
-                <Send className="ml-2 w-4 h-4" />
-              </Button>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12">
+            <div className="col-span-12 md:col-span-7 md:col-start-3">
+              <p className="font-serif text-lg md:text-xl text-pearl/80 leading-[1.7] first-letter:font-display first-letter:text-7xl first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-energy">
+                The best people who ever joined us weren't applying for a position — they were
+                claiming a problem. Tell us what you'd own, how you'd fix it, and why it can't
+                wait. <em>Address your letter to the editor.</em>
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <a
+              href="mailto:careers@nunam.com?subject=I%20have%20an%20idea"
+              className="inline-flex items-center gap-3 px-6 py-4 bg-energy text-charcoal font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-energy-bright transition-colors"
+            >
+              Claim your problem <ArrowRight className="w-4 h-4" />
             </a>
             <a
               href="https://www.linkedin.com/company/nunam"
               target="_blank"
               rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-4 border border-pearl/30 text-pearl font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-pearl/10 transition-colors"
             >
-              <Button
-                size="lg"
-                variant="outline"
-                className="bg-transparent border-pearl/20 text-pearl hover:bg-pearl/10 text-base px-8 py-6 rounded-full w-full sm:w-auto"
-              >
-                Find us on LinkedIn
-                <ExternalLink className="ml-2 w-4 h-4" />
-              </Button>
+              Find us on LinkedIn <ExternalLink className="w-3.5 h-3.5" />
             </a>
+          </div>
+
+          <div className="mt-20 pt-6 border-t border-pearl/15 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">
+            <span>The NESS Dispatch · Careers Issue</span>
+            <span>Set in Outfit & system serif · Bangalore</span>
+            <span className="hidden md:inline">Page 08 / 08</span>
           </div>
         </div>
       </section>

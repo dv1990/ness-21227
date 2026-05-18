@@ -1,8 +1,33 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
-import { ArrowLeft, Clock, Calendar, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator, Lightbulb, Fan, Wifi, Smartphone, Refrigerator, AirVent, Droplets, Car, Crown, Sparkles, Home, Building2, Gauge } from "lucide-react";
+import { ArrowLeft, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator, Lightbulb, Fan, Wifi, Smartphone, Refrigerator, AirVent, Droplets, Car, Crown, Sparkles, Home, Building2, Gauge, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
+
+// Editorial helper components — reusable across article bodies.
+const Rule = () => (
+  <div className="flex justify-center my-12 sm:my-16" aria-hidden>
+    <span className="font-display text-2xl text-muted-foreground tracking-[1em] pl-[1em]">⁂</span>
+  </div>
+);
+
+const PullQuote = ({ children, attribution }: { children: React.ReactNode; attribution?: string }) => (
+  <blockquote className="my-12 sm:my-16 relative">
+    <span className="hidden lg:block absolute -left-12 top-0 font-display text-7xl leading-none text-energy/60 select-none">“</span>
+    <p className="font-display italic font-light text-3xl sm:text-5xl text-foreground leading-[1.05] tracking-[-0.02em]">
+      {children}
+    </p>
+    {attribution && (
+      <footer className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+        — {attribution}
+      </footer>
+    )}
+  </blockquote>
+);
+
+// Drop-cap wrapper for the first paragraph of any section.
+const dropCap =
+  "first-letter:float-left first-letter:font-display first-letter:font-bold first-letter:text-7xl sm:first-letter:text-8xl first-letter:leading-[0.85] first-letter:mr-3 first-letter:mt-1 first-letter:text-foreground";
 
 // Import images - using optimized WebP versions
 import familyEnergyLifestyle from "@/assets-webp/family-energy-lifestyle.webp";
@@ -16,58 +41,79 @@ import evCharging from "@/assets-webp/ev-charging.webp";
 
 // Article content data
 const articleContent: Record<string, {
+  number: string;
+  category: string;
   title: string;
   subtitle: string;
   readTime: string;
   date: string;
+  byline: string;
   heroImage: string;
   content: React.ReactNode;
 }> = {
   "why-solar-battery": {
-    title: "Why Adopt Solar + Battery Now?",
-    subtitle: "The complete guide to understanding why 2024 is the perfect time to switch to solar with battery storage",
+    number: "01",
+    category: "Essay · Energy Economics",
+    title: "Why adopt solar and battery now",
+    subtitle: "Rising tariffs, an unreliable grid, and the quiet collapse of the old electricity contract. A case for the only setup that pays for itself before it pays you back.",
     readTime: "8 min read",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "The Editors",
     heroImage: familyEnergyLifestyle,
     content: <WhySolarBatteryContent />
   },
   "product-guide": {
-    title: "How to Choose the Right Product",
-    subtitle: "A simple framework to find your perfect solar + battery solution based on your unique needs",
+    number: "02",
+    category: "Field Guide · Selection",
+    title: "How to choose the right product",
+    subtitle: "A three-question framework — usage, loads, duration — that replaces the catalogue with a conversation.",
     readTime: "6 min read",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "Engineering Desk",
     heroImage: batteryTechnology,
     content: <ProductGuideContent />
   },
   "calculator": {
-    title: "Your Savings Calculator",
-    subtitle: "See exactly how much you can save with solar + battery — and how fast you'll recover your investment",
+    number: "03",
+    category: "Interactive · Finance",
+    title: "Your savings calculator",
+    subtitle: "Bills, payback periods, tariff drift, the cost of carbon. Plug in your numbers; the page does the arithmetic.",
     readTime: "Interactive",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "Numbers Desk",
     heroImage: greenFutureCity,
     content: <CalculatorContent />
   },
   "all-in-one": {
-    title: "Why All-in-One Systems Win",
-    subtitle: "The installer's secret: One unit, one install, zero callbacks. Here's why integrated systems are the future.",
+    number: "04",
+    category: "Argument · Systems Design",
+    title: "Why all-in-one wins",
+    subtitle: "Fifty percent of failures begin where two vendors meet. The case for one box, one warranty, one phone number.",
     readTime: "5 min read",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "The Editors",
     heroImage: commercialComplex,
     content: <AllInOneContent />
   },
   "hybrid-installation": {
-    title: "Hybrid Installation Simplified",
-    subtitle: "Your step-by-step guide to installing hybrid solar systems — no guesswork, just results",
+    number: "05",
+    category: "Manual · Procedure",
+    title: "Hybrid installation, simplified",
+    subtitle: "Six steps from rooftop survey to handover. Time estimates, common pitfalls, what to label.",
     readTime: "10 min read",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "Field Operations",
     heroImage: evCharging,
     content: <HybridInstallationContent />
   },
   "best-practices": {
-    title: "Installation Do's and Don'ts",
-    subtitle: "Master the essentials for every install. Avoid common mistakes that cost time and money.",
+    number: "06",
+    category: "Notes · Craft",
+    title: "Do's and don'ts on site",
+    subtitle: "What the warranty claims tell us. Five things that protect the install; five that quietly destroy it.",
     readTime: "7 min read",
-    date: "December 2024",
+    date: "May 2026",
+    byline: "Field Operations",
     heroImage: batteryTechnology,
     content: <BestPracticesContent />
   }
@@ -1150,116 +1196,221 @@ const KnowledgeArticle = () => {
   if (!article) {
     return (
       <Layout>
-        <div className="container mx-auto max-w-4xl px-4 sm:px-6 py-20 sm:py-32 text-center">
-          <h1 className="text-3xl sm:text-display-medium font-medium text-foreground mb-6">Article Not Found</h1>
-          <p className="text-body-large text-muted-foreground mb-8">
-            The article you're looking for doesn't exist or has been moved.
+        <div className="container mx-auto max-w-3xl px-4 sm:px-6 py-24 sm:py-40">
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-energy mb-6">
+            ❋ Errata
           </p>
-          <Link to="/knowledge">
-            <Button size="lg" className="min-h-[48px]">
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Knowledge Hub
-            </Button>
+          <h1 className="font-display font-medium tracking-[-0.03em] text-foreground text-5xl sm:text-7xl leading-[0.95] mb-6">
+            The entry you sought <span className="italic font-light">is not on the shelf.</span>
+          </h1>
+          <p className="font-display italic text-xl text-muted-foreground mb-10 max-w-xl">
+            Either the catalogue has changed, or the page never made it past the editor.
+          </p>
+          <Link
+            to="/knowledge"
+            className="inline-flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.25em] text-foreground border-b border-dashed border-foreground/40 hover:border-energy hover:text-energy pb-1 transition-colors"
+          >
+            <ArrowLeft className="w-3 h-3" />
+            Return to the index
           </Link>
         </div>
       </Layout>
     );
   }
 
+  const related = Object.entries(articleContent).filter(([k]) => k !== slug).slice(0, 3);
+
   return (
     <Layout>
-      {/* Hero Section */}
-      <section className="relative pt-24 sm:pt-32 pb-16 sm:pb-24 overflow-hidden">
-        {/* Hero Background Image */}
-        <div className="absolute inset-0">
-          <img 
-            src={article.heroImage} 
-            alt={article.title}
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
+      {/* ─── FOLIO STRIP ─────────────────────────────────────────── */}
+      <div className="bg-background border-b border-foreground/10 pt-20 sm:pt-24">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono uppercase tracking-[0.2em] text-muted-foreground border-b border-foreground/15 pb-3">
+            <Link to="/knowledge" className="inline-flex items-center gap-2 hover:text-foreground transition-colors">
+              <ArrowLeft className="w-3 h-3" />
+              The Library
+            </Link>
+            <span className="hidden sm:inline">Vol. 04 — Issue 02</span>
+            <span>Article #{article.number} / 06</span>
+          </div>
         </div>
+      </div>
 
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          {/* Back Link */}
-          <Link 
-            to="/knowledge" 
-            className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors mb-8 group"
-          >
-            <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
-            Back to Knowledge Hub
-          </Link>
-
-          <div className="max-w-4xl">
-            {/* Meta */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
-              <span className="flex items-center gap-1">
-                <Clock className="w-4 h-4" />
-                {article.readTime}
-              </span>
-              <span className="flex items-center gap-1">
-                <Calendar className="w-4 h-4" />
-                {article.date}
-              </span>
+      {/* ─── MASTHEAD ────────────────────────────────────────────── */}
+      <section className="bg-background pt-10 sm:pt-16 pb-12 sm:pb-20 border-b border-foreground/10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="grid grid-cols-12 gap-x-6 gap-y-8">
+            <div className="col-span-12 lg:col-span-2">
+              <p className="font-display text-[5rem] sm:text-[7rem] leading-none font-bold text-foreground/90">
+                #{article.number}
+              </p>
             </div>
 
-            {/* Title */}
-            <h1 className="text-3xl sm:text-4xl md:text-display-medium font-medium text-foreground mb-6 tracking-tight leading-tight">
-              {article.title}
-            </h1>
+            <div className="col-span-12 lg:col-span-8">
+              <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-energy mb-4">
+                {article.category}
+              </p>
+              <h1 className="font-display font-medium tracking-[-0.03em] leading-[0.95] text-foreground text-4xl sm:text-6xl lg:text-7xl mb-6">
+                {article.title}.
+              </h1>
+              <p className="font-display italic font-light text-xl sm:text-2xl text-muted-foreground leading-snug max-w-3xl">
+                {article.subtitle}
+              </p>
 
-            {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed max-w-3xl">
-              {article.subtitle}
-            </p>
-
-            {/* Actions */}
-            <div className="flex items-center gap-4 mt-8">
-              <Button variant="outline" size="sm" className="gap-2">
-                <Share2 className="w-4 h-4" />
-                Share
-              </Button>
-              <Button variant="outline" size="sm" className="gap-2">
-                <Bookmark className="w-4 h-4" />
-                Save
-              </Button>
+              {/* Horizontal metadata strip */}
+              <div className="mt-10 border-y border-foreground/15 py-4 flex flex-wrap items-center gap-x-8 gap-y-2 font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
+                <span><span className="text-foreground/60">By</span> <span className="text-foreground">{article.byline}</span></span>
+                <span><span className="text-foreground/60">Filed</span> <span className="text-foreground">{article.date}</span></span>
+                <span><span className="text-foreground/60">Reading</span> <span className="text-foreground">{article.readTime}</span></span>
+                <div className="ml-auto flex gap-4">
+                  <Button variant="ghost" size="sm" className="h-7 px-2 gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground">
+                    <Share2 className="w-3 h-3" /> Share
+                  </Button>
+                  <Button variant="ghost" size="sm" className="h-7 px-2 gap-1.5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground hover:text-foreground">
+                    <Bookmark className="w-3 h-3" /> Save
+                  </Button>
+                </div>
+              </div>
             </div>
+
+            <aside className="hidden lg:block col-span-2 pl-6 border-l border-foreground/15">
+              <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                Marginalia
+              </p>
+              <p className="font-display italic text-sm text-foreground leading-snug">
+                Read in the order presented, or as the mood takes you. The footnotes are short.
+              </p>
+            </aside>
           </div>
         </div>
       </section>
 
-      {/* Article Content */}
-      <section className="py-12 sm:py-20">
+      {/* ─── HERO IMAGE PLATE ────────────────────────────────────── */}
+      <section className="bg-whisper py-8 sm:py-12 border-b border-foreground/10">
         <div className="container mx-auto px-4 sm:px-6">
-          <article className="max-w-4xl mx-auto">
-            {article.content}
-          </article>
+          <figure className="relative">
+            <img
+              src={article.heroImage}
+              alt={article.title}
+              className="w-full h-[40vh] sm:h-[55vh] object-cover grayscale-[15%]"
+              loading="eager"
+            />
+            <figcaption className="mt-3 flex flex-wrap justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+              <span>Plate I — Illustration for {article.title}</span>
+              <span>NESS Archive</span>
+            </figcaption>
+          </figure>
         </div>
       </section>
 
-      {/* Related Articles */}
-      <section className="py-16 sm:py-24 bg-pearl/30">
+      {/* ─── ARTICLE BODY ────────────────────────────────────────── */}
+      <section className="bg-background py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-foreground mb-8 text-center">Keep Learning</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {Object.entries(articleContent)
-              .filter(([key]) => key !== slug)
-              .slice(0, 3)
-              .map(([key, art]) => (
-                <Link 
-                  key={key}
+          <div className="grid grid-cols-12 gap-x-6">
+            {/* Marginalia (lg+) */}
+            <aside className="hidden lg:block col-span-2">
+              <div className="sticky top-24 space-y-6">
+                <div>
+                  <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                    The Piece
+                  </p>
+                  <p className="font-display italic text-sm text-foreground leading-snug">
+                    #{article.number} · {article.readTime}
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-foreground/15">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                    Section
+                  </p>
+                  <p className="font-display italic text-sm text-foreground leading-snug">
+                    {article.category}
+                  </p>
+                </div>
+                <div className="pt-4 border-t border-foreground/15">
+                  <p className="font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
+                    Filed under
+                  </p>
+                  <p className="font-display italic text-sm text-foreground leading-snug">
+                    {article.byline}, {article.date}
+                  </p>
+                </div>
+              </div>
+            </aside>
+
+            {/* Narrow reading column */}
+            <article
+              className="col-span-12 lg:col-span-8 max-w-[680px] mx-auto editorial-prose"
+            >
+              <div className={dropCap}>
+                {article.content}
+              </div>
+            </article>
+
+            {/* Right margin — small mobile-style page number */}
+            <aside className="hidden lg:block col-span-2 pl-6 border-l border-foreground/10">
+              <div className="sticky top-24 font-mono text-[9px] uppercase tracking-[0.25em] text-muted-foreground space-y-2">
+                <p>¶ Footnotes appear inline.</p>
+                <p>§ Section breaks marked ⁂.</p>
+                <p>Pull quotes break the column.</p>
+              </div>
+            </aside>
+          </div>
+
+          {/* Page-number folio */}
+          <div className="mt-16 sm:mt-20 max-w-[680px] mx-auto lg:ml-[calc(16.6%+1.5rem)] lg:mr-0 flex items-baseline justify-between border-t border-foreground/15 pt-4 font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+            <span>End of article</span>
+            <span>Page {String(parseInt(article.number, 10) * 6).padStart(2, "0")} / 38</span>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── NEXT IN THE LIBRARY ─────────────────────────────────── */}
+      <section className="bg-whisper py-16 sm:py-24 border-y border-foreground/10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <div className="flex items-baseline justify-between border-b border-foreground/20 pb-3 mb-8 sm:mb-10">
+            <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.25em] text-foreground">
+              ❋ Next in The Library
+            </p>
+            <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
+              Three more entries
+            </p>
+          </div>
+
+          <ul className="border-t border-foreground/30">
+            {related.map(([key, art]) => (
+              <li key={key} className="border-b border-foreground/15">
+                <Link
                   to={`/knowledge/${key}`}
-                  className="glass-card-light rounded-2xl p-6 hover:-translate-y-2 transition-all duration-300 group"
+                  className="group grid grid-cols-12 gap-x-4 sm:gap-x-6 py-6 sm:py-8 items-baseline hover:bg-background/60 transition-colors -mx-2 px-2 sm:-mx-4 sm:px-4"
                 >
-                  <h3 className="text-lg font-semibold text-foreground mb-2 group-hover:text-energy transition-colors">
-                    {art.title}
-                  </h3>
-                  <p className="text-sm text-muted-foreground mb-4 line-clamp-2">{art.subtitle}</p>
-                  <span className="text-energy text-sm font-medium flex items-center gap-1">
-                    Read article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                  <span className="col-span-2 sm:col-span-1 font-mono text-xs sm:text-sm text-muted-foreground tabular-nums">
+                    #{art.number}
                   </span>
+                  <div className="col-span-10 sm:col-span-8">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.22em] text-muted-foreground mb-2">
+                      {art.category}
+                    </p>
+                    <h3 className="font-display font-medium tracking-[-0.02em] text-foreground text-2xl sm:text-3xl leading-[1.05] group-hover:italic group-hover:text-energy transition-all">
+                      {art.title}
+                    </h3>
+                  </div>
+                  <div className="col-span-12 sm:col-span-3 mt-2 sm:mt-0 flex sm:justify-end items-baseline gap-3 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+                    <span className="hidden sm:inline"><Clock className="w-3 h-3 inline mr-1" />{art.readTime}</span>
+                    <span className="text-foreground group-hover:text-energy transition-colors">→</span>
+                  </div>
                 </Link>
-              ))}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-10 text-center">
+            <Link
+              to="/knowledge"
+              className="inline-flex items-baseline gap-3 font-mono text-xs uppercase tracking-[0.25em] text-foreground border-b border-dashed border-foreground/40 hover:border-energy hover:text-energy pb-1 transition-colors"
+            >
+              Return to the index
+              <span aria-hidden>→</span>
+            </Link>
           </div>
         </div>
       </section>
