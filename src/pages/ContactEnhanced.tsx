@@ -102,6 +102,12 @@ const ContactEnhanced = () => {
 
   return (
     <Layout className="-mt-16">
+      <SEO
+        title="Contact NESS Energy Systems — Bangalore"
+        description="Reach NESS Energy Systems in Whitefield, Bangalore. Request specs, schedule a site visit, or ask technical questions. Response within 24 hours."
+        path="/contact"
+        jsonLd={localBusinessLd}
+      />
       {/* Hero */}
       <section className="relative pt-24 pb-8 sm:py-32 bg-charcoal">
         <GradientOrbField />
