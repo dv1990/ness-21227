@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Layout from "@/components/Layout";
+import SEO from "@/components/SEO";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,31 @@ import { Send, Phone, Mail, MapPin, Clock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { GradientOrbField } from "@/components/ui/gradient-orb";
 import { SmoothFade } from "@/components/ui/smooth-animations";
+
+const localBusinessLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "NESS Energy Systems",
+  url: "https://ness.energy",
+  email: "hello@ness.energy",
+  telephone: "+91-80-1234-5678",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "123 Tech Park, Whitefield",
+    addressLocality: "Bangalore",
+    addressRegion: "Karnataka",
+    postalCode: "560066",
+    addressCountry: "IN",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  ],
+};
 
 const ContactEnhanced = () => {
   const [formData, setFormData] = useState({
