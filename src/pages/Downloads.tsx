@@ -2,6 +2,22 @@ import Layout from "@/components/Layout";
 import { useMemo, useState } from "react";
 import { Download } from "lucide-react";
 
+// File-type chips — visual scan-aid. Color-coded but restrained
+// (one extra ink colour per chip class, not a full rainbow).
+const fileTypeStyles: Record<string, string> = {
+  PDF:  "bg-foreground/[0.04] text-foreground border-foreground/20",
+  DWG:  "bg-energy/10 text-energy border-energy/30",
+  BIN:  "bg-foreground/[0.04] text-foreground/70 border-foreground/20",
+  TXT:  "bg-foreground/[0.04] text-foreground/70 border-foreground/20",
+  DOCX: "bg-foreground/[0.04] text-foreground/70 border-foreground/20",
+  SVG:  "bg-energy/10 text-energy border-energy/30",
+};
+
+function getFileType(filename: string): string {
+  const m = filename.match(/\.([a-zA-Z0-9]+)$/);
+  return m ? m[1].toUpperCase() : "FILE";
+}
+
 // ──────────────────────────────────────────────────────────────────────────
 // THE ARCHIVE · TECHNICAL RECORDS · 2026
 // A reference desk for installers, integrators, and technicians.
@@ -264,43 +280,67 @@ const Downloads = () => {
                 </div>
               </header>
 
-              {/* Records list */}
+              {/* Records list — restructured for scan-ability:
+                  - File-type chip (PDF / DWG / BIN / TXT) as a visual key
+                  - Filename in a larger mono so it dominates the row
+                  - One-line metadata strip (version · size · date) instead of
+                    a cramped three-line stack
+                  - Explicit "Download" button text on hover, not just an icon */}
               <ul className="col-span-12 lg:col-span-9 border-t border-foreground/30">
-                {section.docs.map((doc, i) => (
-                  <li key={doc.filename} className="border-b border-foreground/15">
-                    <a
-                      href="#"
-                      onClick={(e) => e.preventDefault()}
-                      className="group grid grid-cols-12 gap-x-3 sm:gap-x-4 py-5 sm:py-6 items-baseline hover:bg-whisper/60 transition-colors -mx-2 px-2"
-                    >
-                      <span className="col-span-12 sm:col-span-1 font-mono text-[10px] sm:text-xs text-muted-foreground tabular-nums order-1 sm:order-none">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
+                {section.docs.map((doc, i) => {
+                  const type = getFileType(doc.filename);
+                  const chip = fileTypeStyles[type] || fileTypeStyles.PDF;
+                  return (
+                    <li key={doc.filename} className="border-b border-foreground/15">
+                      <a
+                        href="#"
+                        onClick={(e) => e.preventDefault()}
+                        className="group flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-5 py-6 sm:py-7 hover:bg-whisper/60 transition-colors -mx-2 px-2 sm:-mx-4 sm:px-4"
+                      >
+                        {/* File-type chip */}
+                        <div className="flex-shrink-0 flex items-start gap-3 sm:block sm:w-16">
+                          <span
+                            className={`inline-flex items-center justify-center font-mono text-[10px] tracking-[0.15em] font-medium px-2.5 py-1 rounded border ${chip}`}
+                          >
+                            {type}
+                          </span>
+                          <span className="font-mono text-[10px] text-muted-foreground tabular-nums sm:hidden">
+                            №{String(i + 1).padStart(2, "0")}
+                          </span>
+                        </div>
 
-                      <div className="col-span-12 sm:col-span-7 order-2 sm:order-none">
-                        <p className="font-mono text-sm sm:text-base text-foreground group-hover:text-energy transition-colors break-all">
-                          {doc.filename}
-                        </p>
-                        <p className="mt-1 text-sm text-muted-foreground leading-snug">
-                          {doc.description}
-                        </p>
-                      </div>
+                        {/* Primary: filename + description */}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-mono text-[15px] sm:text-base text-foreground group-hover:text-energy transition-colors break-all leading-snug">
+                            {doc.filename}
+                          </p>
+                          <p className="mt-1.5 text-[15px] sm:text-base text-muted-foreground leading-[1.55]">
+                            {doc.description}
+                          </p>
 
-                      <div className="col-span-6 sm:col-span-3 order-3 sm:order-none font-mono text-[10px] sm:text-[11px] uppercase tracking-[0.18em] text-muted-foreground space-y-0.5 mt-2 sm:mt-0">
-                        <span className="block text-foreground/90">{doc.version}</span>
-                        <span className="block tabular-nums">{doc.size}</span>
-                        <span className="block">{doc.date}</span>
-                      </div>
+                          {/* Inline metadata strip — single line, monospace, tabular */}
+                          <div className="mt-2.5 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+                            <span className="text-foreground/85">{doc.version}</span>
+                            <span aria-hidden className="text-foreground/25">·</span>
+                            <span className="tabular-nums">{doc.size}</span>
+                            <span aria-hidden className="text-foreground/25">·</span>
+                            <span>{doc.date}</span>
+                            <span aria-hidden className="hidden sm:inline text-foreground/25">·</span>
+                            <span className="hidden sm:inline tabular-nums">№{String(i + 1).padStart(2, "0")}</span>
+                          </div>
+                        </div>
 
-                      <div className="col-span-6 sm:col-span-1 order-4 sm:order-none flex sm:justify-end items-center mt-2 sm:mt-0">
-                        <Download
-                          className="w-4 h-4 text-foreground/60 group-hover:text-energy group-hover:translate-y-0.5 transition-all"
-                          strokeWidth={1.5}
-                        />
-                      </div>
-                    </a>
-                  </li>
-                ))}
+                        {/* Action: visible button text, not just an icon */}
+                        <div className="flex-shrink-0 sm:self-center">
+                          <span className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/70 group-hover:text-energy transition-colors border-b border-dashed border-foreground/30 group-hover:border-energy pb-0.5">
+                            Download
+                            <Download className="w-3.5 h-3.5 group-hover:translate-y-0.5 transition-transform" strokeWidth={1.75} />
+                          </span>
+                        </div>
+                      </a>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

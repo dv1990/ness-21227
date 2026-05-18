@@ -1261,25 +1261,27 @@ function BestPracticesContent() {
 // use, no vendor hype, honest about trade-offs and costs.
 // ────────────────────────────────────────────────────────────────────────────
 
-// Shared prose container — narrow column for reading, simple typography.
+// Shared prose container — narrow column for reading, generous typography.
+// Body text size and contrast tuned for older eyes (a Mom-test concern):
+// solid text-foreground instead of /85, 18-20px range, 1.75 leading.
 const Prose = ({ children }: { children: React.ReactNode }) => (
-  <div className="max-w-2xl mx-auto space-y-7 text-[17px] sm:text-lg leading-[1.7] text-foreground/85">
+  <div className="max-w-[640px] mx-auto space-y-7 text-[18px] sm:text-[19px] leading-[1.75] text-foreground">
     {children}
   </div>
 );
 
 const Heading = ({ children }: { children: React.ReactNode }) => (
-  <h2 className="font-display font-medium text-foreground text-2xl sm:text-3xl tracking-[-0.02em] leading-tight pt-6">
+  <h2 className="font-display font-medium text-foreground text-3xl sm:text-4xl tracking-[-0.02em] leading-[1.15] pt-8 pb-1">
     {children}
   </h2>
 );
 
 const Aside = ({ label, children }: { label: string; children: React.ReactNode }) => (
-  <aside className="border-y border-foreground/15 py-5 px-5 bg-whisper/60 my-2">
+  <aside className="my-4 border-l-2 border-energy pl-5 sm:pl-6 py-3 bg-whisper/70">
     <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
       {label}
     </p>
-    <div className="text-[15px] sm:text-base text-foreground/80 leading-relaxed">{children}</div>
+    <div className="text-[16px] sm:text-[17px] text-foreground leading-[1.65]">{children}</div>
   </aside>
 );
 
@@ -2009,13 +2011,11 @@ const KnowledgeArticle = () => {
               </div>
             </aside>
 
-            {/* Narrow reading column */}
+            {/* Reading column — 720px (~65ch) is the modern long-read sweet spot. */}
             <article
-              className="col-span-12 lg:col-span-8 max-w-[680px] mx-auto editorial-prose"
+              className="col-span-12 lg:col-span-8 max-w-[720px] mx-auto editorial-prose"
             >
-              <div className={dropCap}>
-                {article.content}
-              </div>
+              {article.content}
             </article>
 
             {/* Right margin — small mobile-style page number */}
