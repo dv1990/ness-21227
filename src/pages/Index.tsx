@@ -9,7 +9,7 @@ import nessHeroProduct from "@/assets/ness-hero-product.webp";
 import nessPodProduct from "@/assets/ness-pod-hero-new.webp";
 import nessProProduct from "@/assets-webp/ness-pro-product.webp";
 import { useState, useEffect, useRef, memo, lazy, Suspense } from "react";
-import { ArrowRight, Star, Shield, MapPin, Zap, Home, Quote } from "lucide-react";
+import { ArrowRight, Star, Shield, MapPin, Zap, Quote } from "lucide-react";
 import { GradientOrbField } from "@/components/ui/gradient-orb";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { LiveTicker } from "@/components/ui/live-ticker";
@@ -437,9 +437,9 @@ const Index = () => {
 
                 <StaggerReveal stagger={120} className="space-y-5 sm:space-y-6">
                   {[
-                    { title: "Store the sun", desc: "Capture solar energy during the day. Use it at night. Your roof becomes a power station." },
+                    { title: "Store the sun", desc: "Your panels generate during the day. The battery holds it. Use it after sunset, when grid power costs the most." },
                     { title: "Whole-home power", desc: "AC, fridge, Wi-Fi, lights — everything runs. Not just essentials. Everything." },
-                    { title: "10ms switchover", desc: "Grid drops? You won't notice. 200× faster than a blink." },
+                    { title: "Pay the grid less", desc: "Off-peak charging, peak-hour discharging. A typical Bangalore home saves ~₹47,000 a year." },
                   ].map((f) => (
                     <div key={f.title} className="flex items-start gap-4 group">
                       <div className="w-8 h-8 rounded-full bg-energy/10 border border-energy/20 flex items-center justify-center flex-shrink-0 mt-0.5 group-hover:bg-energy/20 transition-colors">
@@ -456,7 +456,7 @@ const Index = () => {
                 <SmoothFade delay={300}>
                   <div className="pt-4">
                     <MagneticWrapper>
-                      <Link to="/residential">
+                      <Link to="/homeowners">
                         <Button
                           size="lg"
                           className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 text-lg rounded-full transition-all duration-300 hover:shadow-[0_20px_60px_rgba(0,230,118,0.3)] hover:scale-105 active:scale-95"
@@ -476,7 +476,7 @@ const Index = () => {
                   <div className="relative">
                     <WebPImage
                       src={nessProProduct}
-                      alt="NESS Powerwall — Clean energy storage for your home"
+                      alt="NESS Pro home battery — clean energy storage for Indian homes"
                       className="w-full h-auto rounded-2xl product-glow"
                       priority={false}
                     />
@@ -552,7 +552,7 @@ const Index = () => {
               {[
                 { label: "IEC 62619", sub: "Certified" },
                 { label: "BIS", sub: "Certified" },
-                { label: "4.9★", sub: "500+ homes" },
+                { label: "4.9★", sub: "Customer rating" },
                 { label: "10 Year", sub: "Full Warranty" },
               ].map((badge) => (
                 <div key={badge.label} className="text-center py-5 sm:py-6 px-4 rounded-xl border border-graphite/10 bg-pearl/80 backdrop-blur-sm">
@@ -659,68 +659,11 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* ════════════════════════════════════════════
-          SECTION 6 — THE DIFFERENCE
-          Why NESS — refined trust features on dark canvas
-          ════════════════════════════════════════════ */}
-      <LazySection>
-        <section
-          className="relative py-24 md:py-32 lg:py-40 bg-graphite overflow-hidden"
-          aria-labelledby="benefits-heading"
-        >
-          <GradientOrbField variant="warm" />
-
-          <div className="relative z-10 max-w-6xl mx-auto px-6">
-            <SmoothFade>
-              <div className="text-center mb-16 sm:mb-20">
-                <p className="text-energy text-xs sm:text-sm uppercase tracking-[0.2em] mb-4">
-                  Home &amp; Commercial Battery Storage Systems
-                </p>
-                <h2
-                  id="benefits-heading"
-                  className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl tracking-[-0.03em] leading-[1.05]"
-                >
-                  The NESS <span className="text-gradient-energy">Difference</span>
-                </h2>
-                <p className="text-lg sm:text-xl text-pearl/40 font-light max-w-2xl mx-auto mt-6 leading-relaxed">
-                  Advanced lithium battery storage engineered for Indian homes and businesses — solar-ready, blackout-proof, backed by a real warranty.
-                </p>
-              </div>
-            </SmoothFade>
-
-            <StaggerReveal stagger={150} className="grid md:grid-cols-3 gap-4 md:gap-5">
-              {[
-                {
-                  icon: Shield,
-                  title: "Clean. Silent. Zero Emissions.",
-                  desc: "No diesel. No fumes. No noise. Just stored sunlight powering your home in absolute silence.",
-                },
-                {
-                  icon: Zap,
-                  title: "Solar That Works at Night",
-                  desc: "Your panels generate during the day. NESS stores it. Use clean energy 24/7 — even when the sun's down.",
-                },
-                {
-                  icon: Home,
-                  title: "Whole Home. Not Half Measures.",
-                  desc: "AC, refrigerator, Wi-Fi, entertainment — all at once, all night on clean energy. Not just essentials. Everything.",
-                },
-              ].map((card) => (
-                <div
-                  key={card.title}
-                  className="group relative p-7 sm:p-8 rounded-2xl border border-pearl/10 bg-pearl/[0.03] transition-all duration-300 hover:bg-pearl/[0.06] hover:border-pearl/20"
-                >
-                  <div className="w-14 h-14 bg-energy/10 rounded-full flex items-center justify-center mb-6 group-hover:bg-energy/20 transition-colors duration-300">
-                    <card.icon className="w-7 h-7 text-energy" aria-hidden="true" />
-                  </div>
-                  <h3 className="font-display text-xl sm:text-2xl font-semibold text-pearl mb-3">{card.title}</h3>
-                  <p className="text-pearl/50 leading-relaxed font-light text-sm sm:text-base">{card.desc}</p>
-                </div>
-              ))}
-            </StaggerReveal>
-          </div>
-        </section>
-      </LazySection>
+      {/* SECTION 6 (formerly "The NESS Difference") REMOVED — pure recap of
+          sections 3, 5, and ScrollProductShowcase. Removing it eliminated the
+          three biggest verbatim repetitions on the page ("AC/fridge/Wi-Fi —
+          not just essentials, Everything", "Solar That Works at Night",
+          "Clean. Silent. Zero Emissions"). */}
 
       {/* ════════════════════════════════════════════
           SECTION 7 — THE DECLARATION — Stats
@@ -733,9 +676,9 @@ const Index = () => {
           <div className="relative z-10 max-w-6xl mx-auto px-6">
             <div className="grid md:grid-cols-3 gap-8 sm:gap-12 text-center">
               {[
-                { value: 100, suffix: "%", label: "Solar compatible", desc: "Store every watt your panels generate" },
-                { value: 45, suffix: "°C", label: "Tested operating temperature", desc: "Engineered for Indian summers" },
-                { value: 10, suffix: " yr", label: "Full replacement warranty", desc: "A decade of clean, free energy" },
+                { value: 47, suffix: "K", label: "₹ saved per year", desc: "Typical 5kW solar + 10kWh NESS Bangalore household" },
+                { value: 6000, suffix: "+", label: "Charge cycles tested", desc: "Sixteen years of daily use. Cells still hold 80%." },
+                { value: 4, suffix: " hr", label: "Install, no civil work", desc: "One crew. No rewiring. No downtime." },
               ].map((stat, i) => (
                 <div key={stat.label} className="space-y-4">
                   <SmoothFade delay={i * 150}>
@@ -758,8 +701,10 @@ const Index = () => {
         </section>
       </LazySection>
 
-      {/* ── Interstitial ── */}
-      <Interstitial text="Bangalore-built. Tested in conditions Silicon Valley can't imagine." />
+      {/* Interstitial #3 removed — defensive Silicon Valley comparison,
+          redundant with ScrollProductShowcase's "Built for Indian summers,
+          not California weather" line. Two defensive jabs on one page was
+          one too many. */}
 
       {/* ════════════════════════════════════════════
           SECTION 8 — CUSTOMER STORIES
@@ -816,9 +761,28 @@ const Index = () => {
         </section>
       </LazySection>
 
+      {/* ── CONFIGURATOR (lazy loaded) ──
+          Moved ABOVE the Final CTA so the funnel reads:
+          configurator (try the product) → final CTA (own it). */}
+      <Suspense
+        fallback={
+          <div className="py-24 bg-charcoal">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6">
+              <div className="space-y-4 mb-12 animate-pulse">
+                <div className="h-10 bg-pearl/10 rounded w-1/2 mx-auto" />
+                <div className="h-6 bg-pearl/10 rounded w-3/4 mx-auto" />
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <HomeownerConfigurator />
+      </Suspense>
+
       {/* ════════════════════════════════════════════
           SECTION 9 — THE INVITATION — Final CTA
-          Intense energy-green glow. "See what's next."
+          Concrete outcome-led copy (Mom-test passing) replacing the
+          previous "See what's next" filler.
           ════════════════════════════════════════════ */}
       <section className="relative py-28 sm:py-36 md:py-44 bg-charcoal overflow-hidden" aria-label="Call to action">
         <GradientOrbField variant="intense" />
@@ -826,25 +790,26 @@ const Index = () => {
         <div className="relative z-10 max-w-4xl mx-auto px-6 text-center space-y-10 sm:space-y-12">
           <SmoothFade>
             <h2 className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-pearl tracking-[-0.03em] leading-[1.05]">
-              See what's <span className="text-gradient-energy">next.</span>
+              Stop paying<br />
+              <span className="text-gradient-energy">peak tariffs.</span>
             </h2>
           </SmoothFade>
           <SmoothFade delay={150}>
             <p className="text-lg sm:text-xl md:text-2xl text-pearl/40 font-light max-w-2xl mx-auto leading-relaxed">
-              The future of home energy is already installed in 500+ Indian homes.
-              <span className="block mt-2 text-pearl/55">Yours could be next.</span>
+              500 Indian families already did.
+              <span className="block mt-2 text-pearl/55">You're one quote away.</span>
             </p>
           </SmoothFade>
 
           <SmoothFade delay={300}>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
               <MagneticWrapper>
-                <Link to="/residential">
+                <Link to="/homeowners">
                   <Button
                     size="lg"
                     className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-14 py-5 sm:py-7 text-lg sm:text-xl rounded-full transition-all duration-300 shadow-[0_20px_60px_rgba(0,230,118,0.25)] hover:shadow-[0_25px_80px_rgba(0,230,118,0.4)] hover:scale-105 active:scale-95"
                   >
-                    Own Your Energy
+                    Get a Quote
                     <ArrowRight className="ml-3 w-5 h-5 sm:w-6 sm:h-6" aria-hidden="true" />
                   </Button>
                 </Link>
@@ -861,22 +826,6 @@ const Index = () => {
           </SmoothFade>
         </div>
       </section>
-
-      {/* ── CONFIGURATOR (lazy loaded) ── */}
-      <Suspense
-        fallback={
-          <div className="py-24 bg-charcoal">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6">
-              <div className="space-y-4 mb-12 animate-pulse">
-                <div className="h-10 bg-pearl/10 rounded w-1/2 mx-auto" />
-                <div className="h-6 bg-pearl/10 rounded w-3/4 mx-auto" />
-              </div>
-            </div>
-          </div>
-        }
-      >
-        <HomeownerConfigurator />
-      </Suspense>
     </Layout>
   );
 };
