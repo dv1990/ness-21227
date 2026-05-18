@@ -203,24 +203,24 @@ const KnowledgeHub = () => {
           >
             <div className="col-span-12 lg:col-span-7">
               <p className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-energy mb-4">
-                § The Library
+                Knowledge
               </p>
               <h1 className="font-display font-bold text-foreground tracking-[-0.04em] leading-[0.88] text-[14vw] sm:text-[10vw] lg:text-[8.5rem]">
-                A library<br />
-                <span className="italic font-light">for the</span><br />
-                quietly<br />
-                powered.
+                How NESS<br />
+                <span className="italic font-light">works,</span><br />
+                in twelve<br />
+                pieces.
               </h1>
             </div>
 
             <div className="col-span-12 lg:col-span-5 lg:pt-8 flex flex-col justify-end">
-              <p className="font-display text-xl sm:text-2xl text-foreground leading-snug mb-6 italic">
-                Twelve entries on electricity, batteries, rooftops, and the
-                small economics of going slightly off the grid. Six of them
-                are for the person who has never bought one before.
+              <p className="font-display text-xl sm:text-2xl text-foreground leading-snug mb-6">
+                Twelve short reads on electricity, batteries, rooftops, and the
+                small economics of going slightly off the grid. Six of them are
+                for the person who has never bought a battery before.
               </p>
               <div className="border-t border-foreground/15 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground space-y-1">
-                <p>Edited in Bangalore</p>
+                <p>Written in Bangalore</p>
                 <p>For newcomers, homeowners &amp; installers</p>
                 <p>Twelve pieces · ~60 minutes total</p>
               </div>

@@ -1,9 +1,10 @@
 import { lazy, Suspense, useCallback, memo } from 'react';
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
-import { Zap, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import heroImage from "@/assets/homeowner-hero-battery.webp";
 import NessFeatureGrid from "@/components/homeowner/NessFeatureGrid";
+import { TrustStrip } from "@/components/ui/trust-strip";
 
 // Lazy load below-the-fold sections for better initial load
 const LazySection = lazy(() => import("@/components/ui/lazy-section").then(m => ({ default: m.LazySection })));
@@ -40,44 +41,27 @@ const ContactHomeowner = () => {
         <div className="relative h-full flex items-center">
           <div className="container mx-auto px-6 lg:px-12">
             <div className="max-w-3xl space-y-8">
-              <div className="inline-block px-4 py-2 bg-energy/20 rounded-full backdrop-blur-sm border border-energy/20">
-                <span className="text-sm font-medium text-energy">Intelligent Home Energy</span>
-              </div>
-
               <div className="space-y-6">
-                <h1 className="text-6xl md:text-7xl lg:text-8xl font-light tracking-tight leading-[0.9] text-pearl">
-                  Power without<br />
-                  dependency. <span className="text-energy font-light">Energy</span><br />
-                  that thinks ahead.
+                <h1 className="font-display text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold tracking-[-0.03em] leading-[0.95] text-pearl">
+                  Built for<br />
+                  <span className="text-gradient-energy">Indian homes.</span>
                 </h1>
 
-                <p className="text-2xl md:text-3xl text-pearl/60 font-light leading-relaxed max-w-2xl">
-                  The new luxury isn't a louder generator.<br />
-                  It's a silent system that learns your rhythm{' '}
-                  <br className="hidden sm:block" />and never asks for attention.
+                <p className="font-display text-xl sm:text-2xl md:text-3xl text-pearl/65 font-light leading-[1.35] tracking-[-0.015em] max-w-2xl">
+                  From ₹2.5 Lakh installed.<br />
+                  Built in Bangalore. Backed for ten years.
                 </p>
               </div>
 
-              <div className="flex flex-wrap gap-6 pt-4">
-                <div className="flex items-center gap-3 text-sm backdrop-blur-sm bg-pearl/[0.05] px-4 py-2 rounded-full">
-                  <div className="w-2 h-2 bg-energy rounded-full animate-pulse" />
-                  <span className="text-pearl">Live monitoring</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm backdrop-blur-sm bg-pearl/[0.05] px-4 py-2 rounded-full">
-                  <Zap className="w-4 h-4 text-energy" />
-                  <span className="text-pearl">10ms response time</span>
-                </div>
-              </div>
-
-              <div className="pt-6">
+              <div className="pt-2 sm:pt-4">
                 <Button
                   size="lg"
                   onClick={scrollToConfigurator}
-                  className="bg-energy hover:bg-energy-bright text-charcoal px-8 py-6 text-lg rounded-full shadow-2xl hover:shadow-energy/50 transition-all duration-300"
-                  aria-label="Start the product selection process to find your perfect NESS system"
+                  className="interactive font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 sm:px-12 py-5 sm:py-6 text-base sm:text-lg rounded-full transition-all duration-300 shadow-2xl hover:shadow-[0_20px_60px_rgba(0,230,118,0.35)] hover:scale-105 active:scale-95"
+                  aria-label="Configure your NESS system"
                 >
-                  Discover Your System
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  Get a Quote
+                  <ArrowRight className="ml-3 w-5 h-5" />
                 </Button>
               </div>
             </div>
@@ -97,26 +81,29 @@ const ContactHomeowner = () => {
         </div>
       </section>
 
+      {/* Canonical trust strip — same shape across all product pages */}
+      <TrustStrip variant="dark" />
+
       {/* Apple-style Feature Grid */}
       <NessFeatureGrid />
 
       {/* Lazy load below-the-fold sections */}
       <Suspense fallback={<div className="min-h-[400px] bg-gradient-to-b from-charcoal to-graphite" />}>
-        <LazySection>
+        <LazySection rootMargin="800px">
           <PhilosophicalSection />
         </LazySection>
       </Suspense>
 
       {/* Lazy load configurator section with framer-motion */}
       <Suspense fallback={<div className="min-h-screen bg-gradient-to-b from-graphite to-charcoal flex items-center justify-center"><div className="w-8 h-8 border-2 border-energy border-t-transparent rounded-full animate-spin"></div></div>}>
-        <LazySection rootMargin="300px">
+        <LazySection rootMargin="800px">
           <HomeownerConfigurator />
         </LazySection>
       </Suspense>
 
       {/* Lazy load remaining sections */}
       <Suspense fallback={<div className="min-h-[600px]" />}>
-        <LazySection>
+        <LazySection rootMargin="800px">
           <BelowFoldSections />
         </LazySection>
       </Suspense>

@@ -42,6 +42,7 @@ import { useState, useEffect, memo, lazy, Suspense } from "react";
 import { ArrowRight, Quote } from "lucide-react";
 import { GradientOrbField } from "@/components/ui/gradient-orb";
 import { SmoothFade } from "@/components/ui/smooth-animations";
+import { TrustStrip } from "@/components/ui/trust-strip";
 import { cn } from "@/lib/utils";
 import nessHeroProduct from "@/assets/ness-hero-product.webp";
 
@@ -112,9 +113,9 @@ const Index = () => {
                   : "opacity-0 translate-y-8",
               )}
             >
-              ₹47,000 saved a year.
+              From ₹2.5 Lakh installed.
               <br />
-              10-year warranty. Installed in 4 hours.
+              ₹47,000 saved a year. 10-year warranty.
             </p>
 
             <div
@@ -140,6 +141,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Canonical trust strip — same shape on every product page */}
+      <TrustStrip variant="dark" />
 
       {/* ════════════════════════════════════════════
           2 — CONFIGURATOR

@@ -123,7 +123,7 @@ function MobileShowcase() {
               size="lg"
               className="font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-10 py-5 rounded-full"
             >
-              Own Your Energy <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
+              Get a Quote <ArrowRight className="ml-2 w-4 h-4" aria-hidden="true" />
             </Button>
           </Link>
         </div>
@@ -363,7 +363,7 @@ function DesktopShowcase() {
               size="lg"
               className="font-display bg-energy hover:bg-energy-bright text-charcoal font-semibold px-14 py-7 text-xl rounded-full shadow-2xl shadow-energy/20 hover:shadow-energy/40 transition-all duration-300 hover:scale-105 active:scale-95"
             >
-              Own Your Energy
+              Get a Quote
               <ArrowRight className="ml-3 w-5 h-5" aria-hidden="true" />
             </Button>
           </Link>

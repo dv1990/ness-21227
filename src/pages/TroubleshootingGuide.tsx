@@ -424,7 +424,7 @@ const TroubleshootingGuide = () => {
           <div className="border-t border-charcoal/15">
             <div className="container mx-auto max-w-5xl px-6 py-4 flex flex-wrap items-center justify-between gap-y-1 text-[10px] font-mono uppercase tracking-[0.3em] text-silver">
               <span>{pName} · {title}</span>
-              <span>The Field Manual</span>
+              <span>Troubleshooting</span>
               <span>ness.energy/support</span>
             </div>
           </div>

@@ -52,20 +52,20 @@ const TrueWarranty = () => {
       <section className="bg-pearl">
         <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
           <div className="border-t-2 border-charcoal pt-3 flex items-center justify-between font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-charcoal/70">
-            <span>The Pact</span>
-            <span className="hidden md:inline">A Ten-Year Promise · Bonded</span>
+            <span>Warranty</span>
+            <span className="hidden md:inline">10 years · 347 words · No asterisks</span>
             <span>NESS · Bangalore</span>
           </div>
 
           <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-24">
             <div className="col-span-12 md:col-span-9">
               <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50 mb-6">
-                Issued in plain English · 347 words · No asterisks
+                Plain English · 347 words · No asterisks
               </div>
-              <h1 className="font-display font-extralight text-[16vw] md:text-[12vw] lg:text-[150px] leading-[0.82] tracking-[-0.04em] text-charcoal">
-                The
+              <h1 className="font-display font-extralight text-[14vw] md:text-[10vw] lg:text-[130px] leading-[0.85] tracking-[-0.04em] text-charcoal">
+                Our 10-year
                 <br />
-                <em className="italic font-light">pact</em>
+                <em className="italic font-light">promise</em>
                 <span className="text-energy">.</span>
               </h1>
             </div>
