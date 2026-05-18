@@ -16,10 +16,80 @@ type Entry = {
   byline: string;
   readTime: string;
   pages: string;
-  audience: "homeowner" | "installer";
+  audience: "homeowner" | "installer" | "newcomer";
 };
 
 const ENTRIES: Entry[] = [
+  // ─── BATTERY BASICS · A PRIMER ──────────────────────────────────────
+  // Six pieces written for the person who has never bought a battery before.
+  // No jargon without translation. No vendor hype. Mom-tested copy.
+  {
+    slug: "basics-what-is-a-battery",
+    number: "A1",
+    category: "Basics · First Principles",
+    title: "What is a battery, really?",
+    dek: "You charged your phone last night. A home battery is the same idea, just bigger and quieter. Five paragraphs, no jargon.",
+    byline: "The Primer Desk",
+    readTime: "3 MIN",
+    pages: "A1–A4",
+    audience: "newcomer",
+  },
+  {
+    slug: "basics-will-it-run-my-fan",
+    number: "A2",
+    category: "Basics · Practical Math",
+    title: "Will my fan run for 4 hours?",
+    dek: "A ceiling fan, a fridge, three tubelights, a phone charging. The number that matters is kWh. Here is what kWh means in things you can see.",
+    byline: "The Primer Desk",
+    readTime: "4 MIN",
+    pages: "A5–A9",
+    audience: "newcomer",
+  },
+  {
+    slug: "basics-do-i-need-solar",
+    number: "A3",
+    category: "Basics · Common Question",
+    title: "Do I need solar to use a battery?",
+    dek: "No. But you will save less. The honest trade-off, in rupees, for the household that asks this question first.",
+    byline: "The Primer Desk",
+    readTime: "3 MIN",
+    pages: "A10–A12",
+    audience: "newcomer",
+  },
+  {
+    slug: "basics-inverter-vs-battery",
+    number: "A4",
+    category: "Basics · Untangling Words",
+    title: "Inverter, UPS, battery — what's the difference?",
+    dek: "The big black box on your wall is probably one of three things. Here is how to tell which, and why the new one is not the old one with a fresh sticker.",
+    byline: "The Primer Desk",
+    readTime: "5 MIN",
+    pages: "A13–A17",
+    audience: "newcomer",
+  },
+  {
+    slug: "basics-five-questions",
+    number: "A5",
+    category: "Basics · Buying Wisely",
+    title: "Five questions to ask before you sign",
+    dek: "You don't need a degree to spot a bad quote. Five questions any installer should answer in plain Hindi or English. If they can't — keep looking.",
+    byline: "The Primer Desk",
+    readTime: "4 MIN",
+    pages: "A18–A22",
+    audience: "newcomer",
+  },
+  {
+    slug: "basics-what-breaks",
+    number: "A6",
+    category: "Basics · Honest Trade-offs",
+    title: "What can go wrong, and what it costs",
+    dek: "Most things, for ten years, do not break. The things that do — and what a fix actually costs in this country. We will tell you because no one else will.",
+    byline: "The Primer Desk",
+    readTime: "5 MIN",
+    pages: "A23–A28",
+    audience: "newcomer",
+  },
+  // ─── THE ORIGINAL SIX ───────────────────────────────────────────────
   {
     slug: "why-solar-battery",
     number: "01",
@@ -92,7 +162,7 @@ const FEATURED = ENTRIES[0];
 const REST = ENTRIES.slice(1);
 
 const KnowledgeHub = () => {
-  const [filter, setFilter] = useState<"all" | "homeowner" | "installer">("all");
+  const [filter, setFilter] = useState<"all" | "newcomer" | "homeowner" | "installer">("all");
   const [query, setQuery] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
@@ -145,13 +215,14 @@ const KnowledgeHub = () => {
 
             <div className="col-span-12 lg:col-span-5 lg:pt-8 flex flex-col justify-end">
               <p className="font-display text-xl sm:text-2xl text-foreground leading-snug mb-6 italic">
-                Six entries on electricity, batteries, rooftops, and the small
-                economics of going slightly off the grid.
+                Twelve entries on electricity, batteries, rooftops, and the
+                small economics of going slightly off the grid. Six of them
+                are for the person who has never bought one before.
               </p>
               <div className="border-t border-foreground/15 pt-4 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground space-y-1">
                 <p>Edited in Bangalore</p>
-                <p>For homeowners &amp; installers</p>
-                <p>Six pieces · ~36 minutes total</p>
+                <p>For newcomers, homeowners &amp; installers</p>
+                <p>Twelve pieces · ~60 minutes total</p>
               </div>
             </div>
           </div>
@@ -248,6 +319,7 @@ const KnowledgeHub = () => {
               <div className="mt-5 flex gap-6 font-mono text-[11px] uppercase tracking-[0.2em]">
                 {([
                   ["all", "All"],
+                  ["newcomer", "Newcomers"],
                   ["homeowner", "Homeowners"],
                   ["installer", "Installers"],
                 ] as const).map(([k, label]) => (

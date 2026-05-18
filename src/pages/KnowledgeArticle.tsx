@@ -51,6 +51,73 @@ const articleContent: Record<string, {
   heroImage: string;
   content: React.ReactNode;
 }> = {
+  // ─── BATTERY BASICS · A PRIMER (Mom-tested, no jargon) ──────────────
+  "basics-what-is-a-battery": {
+    number: "A1",
+    category: "Basics · First Principles",
+    title: "What is a battery, really?",
+    subtitle: "You charged your phone last night. A home battery is the same idea, just bigger and quieter. Five paragraphs, no jargon.",
+    readTime: "3 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: batteryTechnology,
+    content: <BasicsWhatIsABatteryContent />,
+  },
+  "basics-will-it-run-my-fan": {
+    number: "A2",
+    category: "Basics · Practical Math",
+    title: "Will my fan run for 4 hours?",
+    subtitle: "A ceiling fan, a fridge, three tubelights, a phone charging. The number that matters is kWh. Here is what kWh means in things you can see.",
+    readTime: "4 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: familyEnergyLifestyle,
+    content: <BasicsWillItRunContent />,
+  },
+  "basics-do-i-need-solar": {
+    number: "A3",
+    category: "Basics · Common Question",
+    title: "Do I need solar to use a battery?",
+    subtitle: "No. But you will save less. The honest trade-off, in rupees, for the household that asks this question first.",
+    readTime: "3 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: greenFutureCity,
+    content: <BasicsDoINeedSolarContent />,
+  },
+  "basics-inverter-vs-battery": {
+    number: "A4",
+    category: "Basics · Untangling Words",
+    title: "Inverter, UPS, battery — what's the difference?",
+    subtitle: "The big black box on your wall is probably one of three things. Here is how to tell which, and why the new one is not the old one with a fresh sticker.",
+    readTime: "5 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: batteryTechnology,
+    content: <BasicsInverterVsBatteryContent />,
+  },
+  "basics-five-questions": {
+    number: "A5",
+    category: "Basics · Buying Wisely",
+    title: "Five questions to ask before you sign",
+    subtitle: "You don't need a degree to spot a bad quote. Five questions any installer should answer in plain Hindi or English. If they can't — keep looking.",
+    readTime: "4 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: familyEnergyLifestyle,
+    content: <BasicsFiveQuestionsContent />,
+  },
+  "basics-what-breaks": {
+    number: "A6",
+    category: "Basics · Honest Trade-offs",
+    title: "What can go wrong, and what it costs",
+    subtitle: "Most things, for ten years, do not break. The things that do — and what a fix actually costs in this country. We will tell you because no one else will.",
+    readTime: "5 min read",
+    date: "May 2026",
+    byline: "The Primer Desk",
+    heroImage: batteryTechnology,
+    content: <BasicsWhatBreaksContent />,
+  },
   "why-solar-battery": {
     number: "01",
     category: "Essay · Energy Economics",
@@ -1185,6 +1252,611 @@ function BestPracticesContent() {
         </Link>
       </section>
     </div>
+  );
+}
+
+// ─── BATTERY BASICS · A PRIMER ──────────────────────────────────────────────
+// Six pieces written for the person who has never bought a battery.
+// Mom Test enforced: open with the customer's life, define jargon on first
+// use, no vendor hype, honest about trade-offs and costs.
+// ────────────────────────────────────────────────────────────────────────────
+
+// Shared prose container — narrow column for reading, simple typography.
+const Prose = ({ children }: { children: React.ReactNode }) => (
+  <div className="max-w-2xl mx-auto space-y-7 text-[17px] sm:text-lg leading-[1.7] text-foreground/85">
+    {children}
+  </div>
+);
+
+const Heading = ({ children }: { children: React.ReactNode }) => (
+  <h2 className="font-display font-medium text-foreground text-2xl sm:text-3xl tracking-[-0.02em] leading-tight pt-6">
+    {children}
+  </h2>
+);
+
+const Aside = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <aside className="border-y border-foreground/15 py-5 px-5 bg-whisper/60 my-2">
+    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-muted-foreground mb-2">
+      {label}
+    </p>
+    <div className="text-[15px] sm:text-base text-foreground/80 leading-relaxed">{children}</div>
+  </aside>
+);
+
+// A1 — What is a battery, really?
+function BasicsWhatIsABatteryContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        You charged your phone last night. You did not think about it. You plugged it
+        in, went to sleep, and in the morning the bar was full. The thing you bought
+        with that phone — a small box of stored electricity — is the same idea as
+        a home battery. Bigger. Quieter. Bolted to a wall instead of sitting in your
+        pocket. But the same idea.
+      </p>
+
+      <p>
+        A battery does one thing: it holds electricity until you need it. That is
+        the whole job. It does not generate power. It does not save fuel. It does
+        not <em>do</em> anything until you ask it to. A glass holds water. A battery
+        holds electricity. The metaphor is that close.
+      </p>
+
+      <Heading>The same thing, scaled up</Heading>
+
+      <p>
+        Your phone battery holds about 0.015 kWh of energy — enough to run itself
+        for a day. A home battery holds anywhere from 3 to 15 kWh. That is two to
+        ten thousand phones' worth. Enough to run a fan, a fridge, a few lights,
+        and the Wi-Fi for an evening when the grid goes off.
+      </p>
+
+      <p>
+        <em>What is kWh?</em> Skip ahead to{" "}
+        <Link to="/knowledge/basics-will-it-run-my-fan" className="underline decoration-dashed underline-offset-4 hover:text-energy">
+          piece A2
+        </Link>{" "}
+        — we explain it in fan-hours and fridge-hours, the only units that matter
+        in a real kitchen.
+      </p>
+
+      <PullQuote>
+        It is a box that holds electricity. That is the whole magic.
+      </PullQuote>
+
+      <Heading>What's actually inside</Heading>
+
+      <p>
+        Stacked cells, sealed in an enclosure, with a small computer that watches
+        the temperature and decides when to charge and when to discharge. The cells
+        are lithium iron phosphate — LFP, if you've seen the term. It is the
+        chemistry used because it does not catch fire when things go wrong. The
+        same chemistry powers electric buses and grid-scale storage. It is not
+        new. It is well understood.
+      </p>
+
+      <p>
+        The small computer is the part most people miss. A modern home battery is
+        not just cells. It is cells with a brain that knows when your tariff is
+        cheap, when your solar is strongest, and when to stop charging because the
+        cells are hot. The brain is why a battery lasts ten years instead of three.
+      </p>
+
+      <Heading>What it is not</Heading>
+
+      <p>
+        It is not a generator. It does not make electricity from nothing — you
+        still have to fill it, either from the grid (cheaper at night) or from
+        solar (cheaper still). It is not an inverter, though it usually comes
+        with one — that's the next piece (
+        <Link to="/knowledge/basics-inverter-vs-battery" className="underline decoration-dashed underline-offset-4 hover:text-energy">
+          A4
+        </Link>
+        ). And it is not your old lead-acid UPS in a new sticker. We will get to
+        that.
+      </p>
+
+      <Aside label="If you remember one thing">
+        A battery holds electricity. You fill it when power is cheap or free. You
+        empty it when power is costly or absent. Everything else is detail.
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        Next in the primer: how to know if a battery will run <em>your</em> fan,
+        for <em>your</em> hours — without the spec sheet.
+      </p>
+    </Prose>
+  );
+}
+
+// A2 — Will my fan run for 4 hours?
+function BasicsWillItRunContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        It is May. The power went at 3pm. Your daughter has board exams in three
+        weeks and is studying at 9pm by the light of one tubelight and a table
+        lamp, with the ceiling fan on because the room is 38°C. You want to know
+        one thing: will the battery you are about to buy run that fan, that light,
+        and the Wi-Fi until the grid comes back?
+      </p>
+
+      <p>
+        Yes — but only if you do one minute of arithmetic before you sign the
+        quote. Here is the arithmetic. It is grade-five math.
+      </p>
+
+      <Heading>What kWh actually means</Heading>
+
+      <p>
+        Electricity is measured in <strong>kWh</strong> — kilowatt-hours. One kWh
+        is the energy needed to run a 1,000-watt appliance for one hour. Or a
+        100-watt appliance for ten hours. Or a 10-watt appliance for a hundred.
+        The watts tell you how greedy a thing is. The hours tell you how long
+        you ran it. Multiply them, divide by 1,000. That's kWh.
+      </p>
+
+      <Aside label="The number on the sticker">
+        Your ceiling fan has a small label, usually on the motor body. It says
+        something like <strong>75W</strong> or <strong>55W</strong>. That is the
+        watts. The wattage is how thirsty the appliance is. The battery's kWh is
+        how big the glass is. You are matching glass size to thirst × time.
+      </Aside>
+
+      <Heading>What you can run, in hours</Heading>
+
+      <p>
+        Take a typical evening load — fan, fridge, three tubelights, Wi-Fi router,
+        a phone or two charging. That is roughly 350 watts running steadily.
+        (The fridge cycles on and off, so we average it.)
+      </p>
+
+      <div className="border-y border-foreground/20 py-6 my-4 not-prose">
+        <table className="w-full font-mono text-sm">
+          <thead>
+            <tr className="text-left text-muted-foreground border-b border-foreground/15">
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Battery</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Runs the above</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium text-right">For</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-foreground/10">
+            <tr><td className="py-3">1.2 kWh</td><td className="text-muted-foreground">basic loads only</td><td className="text-right">~3 hours</td></tr>
+            <tr><td className="py-3">3 kWh</td><td className="text-muted-foreground">basic loads only</td><td className="text-right">~8 hours</td></tr>
+            <tr><td className="py-3">5 kWh</td><td className="text-muted-foreground">basic loads + 1 small AC for 2 hrs</td><td className="text-right">~6 hours</td></tr>
+            <tr><td className="py-3">10 kWh</td><td className="text-muted-foreground">whole-home, including 2 ACs</td><td className="text-right">~5–7 hours</td></tr>
+          </tbody>
+        </table>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-3">
+          Numbers rounded. Real hours depend on your appliances, ambient heat, and how full the battery is when the cut starts.
+        </p>
+      </div>
+
+      <PullQuote>
+        Run a fan for one hour, you used 75 watt-hours. Run it sixteen, you used
+        about 1.2 kWh. That is the math, the whole math.
+      </PullQuote>
+
+      <Heading>Sizing your battery in three lines</Heading>
+
+      <p>
+        Add up the watts of everything you want to run at once. Multiply by the
+        hours you want them to run. Divide by 1,000. Add 20% because batteries
+        don't like being emptied all the way. That is your number in kWh. Show
+        that number to any installer. If they suggest something very different
+        without explaining why, ask.
+      </p>
+
+      <Aside label="A real example">
+        Two fans (75W × 2), one fridge (averaging 100W), three tubelights (20W × 3),
+        Wi-Fi (10W) = 320W. You want six hours of comfort. 320 × 6 = 1,920 Wh = 1.92
+        kWh. Add 20% buffer = 2.3 kWh. A 3 kWh battery covers you with margin.
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        Next: do you need solar panels to use one of these? Short answer — no.
+        Long answer is{" "}
+        <Link to="/knowledge/basics-do-i-need-solar" className="underline decoration-dashed underline-offset-4 hover:text-energy not-italic">
+          piece A3
+        </Link>.
+      </p>
+    </Prose>
+  );
+}
+
+// A3 — Do I need solar to use a battery?
+function BasicsDoINeedSolarContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        Half the calls our installers get start with this exact question. The
+        honest answer is no. You do not need solar to put a battery in your home.
+        The longer answer is: it depends on what you want the battery to do, and
+        how patient you are about getting your money back.
+      </p>
+
+      <Heading>What a battery alone does</Heading>
+
+      <p>
+        If you install a battery without solar, here is what happens. The battery
+        charges from the grid, usually overnight when the tariff is cheaper
+        (assuming your DISCOM offers a time-of-day rate — many in Maharashtra,
+        Karnataka, Tamil Nadu, and Delhi do). When the power cuts during the day,
+        the battery takes over. When peak-hour tariffs hit between 6pm and 10pm,
+        the battery covers your load instead of you paying the high rate.
+      </p>
+
+      <p>
+        That is real value. You will save roughly ₹2 to ₹4 per kWh shifted from
+        peak to off-peak. For a typical home using 10 kWh a day, that is ₹600 to
+        ₹1,200 a month. The battery pays for itself in about six to eight years
+        on this alone.
+      </p>
+
+      <Heading>What solar adds</Heading>
+
+      <p>
+        Solar pours free electricity into the battery every day the sun shines.
+        Instead of paying the grid ₹2 a unit overnight, you pay nothing for the
+        solar units. The battery now fills from a free source and discharges into
+        an evening when the grid would have cost ₹8 to ₹12. The arithmetic gets
+        better fast.
+      </p>
+
+      <PullQuote>
+        A battery without solar still helps. It just does not pay for itself in
+        five years. Solar is what turns six-to-eight into three-to-four.
+      </PullQuote>
+
+      <Heading>The honest rupee comparison</Heading>
+
+      <div className="border-y border-foreground/20 py-6 my-4 not-prose">
+        <table className="w-full font-mono text-sm">
+          <thead>
+            <tr className="text-left text-muted-foreground border-b border-foreground/15">
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Setup</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Saves/year</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium text-right">Pays back in</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-foreground/10">
+            <tr><td className="py-3">Battery only (5 kWh)</td><td className="text-muted-foreground">~₹10,000</td><td className="text-right">7–8 yrs</td></tr>
+            <tr><td className="py-3">Solar only (3 kW)</td><td className="text-muted-foreground">~₹25,000</td><td className="text-right">5–6 yrs</td></tr>
+            <tr><td className="py-3">Solar + Battery</td><td className="text-muted-foreground">~₹45,000</td><td className="text-right">4–5 yrs</td></tr>
+          </tbody>
+        </table>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-3">
+          Assumes a typical Bangalore home, 350 units a month, 2026 tariffs. Your number will differ. Your installer's quote should show their assumptions.
+        </p>
+      </div>
+
+      <Heading>When to skip the solar</Heading>
+
+      <p>
+        Renters. People in flats without rooftop access. Houses where the roof
+        faces north and won't generate enough to justify panels. People who
+        already have a working solar system and just want to store what it makes.
+        And people whose biggest problem is power cuts, not bills — a battery on
+        its own solves that completely.
+      </p>
+
+      <Aside label="The short version">
+        Solar makes the battery cheaper to fill. The battery makes solar useful at
+        night. Either one helps. Both together is the strongest math. Skip solar
+        if your roof or budget or living situation makes it hard, not because you
+        think the battery doesn't need it.
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        Next: the words "inverter", "UPS", and "battery" mean three different
+        things. Most quotes mix them up. We untangle them in{" "}
+        <Link to="/knowledge/basics-inverter-vs-battery" className="underline decoration-dashed underline-offset-4 hover:text-energy not-italic">
+          piece A4
+        </Link>.
+      </p>
+    </Prose>
+  );
+}
+
+// A4 — Inverter vs UPS vs Battery
+function BasicsInverterVsBatteryContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        Your father probably has an inverter. Your office probably has a UPS.
+        Your neighbour just installed something called a "battery system" and
+        cannot quite explain what it is. Three boxes, three jobs, and most
+        quotes will use the words loosely. Here is the difference, in language
+        you can use at a dinner table.
+      </p>
+
+      <Heading>Three boxes, three jobs</Heading>
+
+      <p>
+        <strong>An inverter</strong> converts DC (the kind of electricity a
+        battery holds) to AC (the kind your fridge and fan want). It does not
+        store anything. If the power is on, an inverter just sits there. The big
+        box on your father's wall that hums when the lights flicker — that is
+        actually an inverter plus an old lead-acid battery bolted together.
+        The "inverter" is the conversion box. The battery is what makes it useful
+        when the grid goes.
+      </p>
+
+      <p>
+        <strong>A UPS</strong> — uninterruptible power supply — is essentially a
+        small battery plus an inverter, optimised for one job: keeping a computer
+        on for the five minutes it takes you to save your file and shut down.
+        Office UPS units typically hold 0.3 to 1 kWh. They are not designed for
+        a four-hour outage.
+      </p>
+
+      <p>
+        <strong>A modern home battery</strong> is what your neighbour bought.
+        Inverter, battery, smart controller, and grid interface — all in one
+        enclosure. It does what your father's setup does, what an office UPS
+        does, and a few new things. It charges from solar. It shifts load to
+        cheap hours. It learns when you use power and prepares accordingly. The
+        old boxes did none of this.
+      </p>
+
+      <PullQuote>
+        An inverter switches power. A UPS pauses outages. A modern battery does
+        all of that — and also knows the tariff schedule.
+      </PullQuote>
+
+      <Heading>The lead-acid problem</Heading>
+
+      <p>
+        Most "inverter batteries" in Indian homes are still lead-acid — the same
+        chemistry as a car battery. Lead-acid is cheap to buy and expensive to
+        own. It lasts three years if you are careful, two if you are not. You
+        have to top up the water. It vents acid fumes. It cannot be discharged
+        below 50% without damaging itself, so the 150 Ah you bought is really
+        75 Ah of usable power. By the third year, that drops further.
+      </p>
+
+      <p>
+        Lithium iron phosphate — LFP, the chemistry in modern home batteries —
+        lasts ten years. No water top-ups. No fumes. You can empty it to about
+        20% without harm. The kWh on the label is mostly the kWh you actually
+        get. That is the difference. Not "the new one is better." A different
+        contract entirely.
+      </p>
+
+      <Heading>How to read a quote</Heading>
+
+      <Aside label="Translation table">
+        <ul className="space-y-2 list-none">
+          <li>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">"Inverter battery 150 Ah"</span> —
+            usually lead-acid. Real usable energy: ~0.9 kWh. Lifespan: 2–3 years.
+          </li>
+          <li>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">"Tubular battery"</span> —
+            still lead-acid. Slightly tougher version. Same trade-offs.
+          </li>
+          <li>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">"Lithium battery"</span> —
+            ask the chemistry. LFP is the only one you want in a home in India.
+            Stay away from NMC for indoor installation.
+          </li>
+          <li>
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground">"All-in-one"</span> or
+            <span className="font-mono text-[11px] uppercase tracking-widest text-muted-foreground"> "hybrid"</span> — single
+            enclosure with inverter + battery + controller. The setup we recommend.
+          </li>
+        </ul>
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        Next: how to spot a bad quote in five questions —{" "}
+        <Link to="/knowledge/basics-five-questions" className="underline decoration-dashed underline-offset-4 hover:text-energy not-italic">
+          piece A5
+        </Link>.
+      </p>
+    </Prose>
+  );
+}
+
+// A5 — Five questions to ask before you sign
+function BasicsFiveQuestionsContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        An installer arrived at your gate. He has a clipboard, a quote, and a
+        confident manner. You don't know what you don't know. These five
+        questions will tell you, in about ten minutes, whether you are talking
+        to a serious person or someone making it up as they go.
+      </p>
+
+      <Heading>1. What chemistry is the battery, and where are the cells from?</Heading>
+
+      <p>
+        <strong>Good answer:</strong> "LFP — lithium iron phosphate. Cells are
+        from CATL or BYD or EVE." Specific. Brand named. They can show you a
+        datasheet. <strong>Bad answer:</strong> "It's lithium, sir, all the same."
+        That is not true. Different lithium chemistries have wildly different
+        safety, lifespan, and cost. If they don't know the chemistry, they don't
+        know the product.
+      </p>
+
+      <Heading>2. What is the warranty — and who honours it?</Heading>
+
+      <p>
+        <strong>Good answer:</strong> A written warranty document, ten years on
+        the cells, naming the manufacturer's local service entity. They show you
+        the document. <strong>Bad answer:</strong> "Ten years guaranteed" with
+        no paper, or warranty from a paper company that may not exist in three
+        years. Ask: who actually picks up the phone in year seven? If the
+        answer is vague, the warranty is vague.
+      </p>
+
+      <Heading>3. Can I see the inverter spec and your DISCOM approval letter?</Heading>
+
+      <p>
+        Grid-tied systems need DISCOM (your local electricity board) approval.
+        Reputable installers have approval letters from BESCOM, MSEB, TANGEDCO,
+        or whichever utility you have. <strong>Bad answer:</strong> "We will
+        manage it after." That means you are about to install an unapproved
+        system, which is your liability, not theirs.
+      </p>
+
+      <PullQuote>
+        If they can't answer in plain Hindi or English without sliding to
+        marketing slides, keep looking.
+      </PullQuote>
+
+      <Heading>4. What happens in year five if a cell goes bad?</Heading>
+
+      <p>
+        <strong>Good answer:</strong> "We have spares in our local warehouse.
+        Replacement is covered under warranty, no charge to you. Average
+        turnaround is 48 hours." Specific timelines. Specific location.{" "}
+        <strong>Bad answer:</strong> "It won't break." Everything can break in
+        ten years. The question is what happens then, not whether it will.
+      </p>
+
+      <Heading>5. Can I talk to a customer you installed three years ago?</Heading>
+
+      <p>
+        This is the only question that matters when the other four fail. A
+        serious installer will hand you two or three phone numbers. Call those
+        people. Ask: how many service calls in three years? Was the bill what
+        you were promised? Did the installer pick up the phone when something
+        went wrong?
+      </p>
+
+      <p>
+        If the installer cannot produce a three-year-old customer, it is because
+        they have not been doing this for three years, or their three-year-old
+        customers do not want to speak about them. Either way, you have your
+        answer.
+      </p>
+
+      <Aside label="The whole filter, in one line">
+        Specific answers, written documents, named brands, phone numbers of real
+        customers. Any of those missing? Keep looking. There are good installers.
+        You don't need to settle.
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        Last in the primer:{" "}
+        <Link to="/knowledge/basics-what-breaks" className="underline decoration-dashed underline-offset-4 hover:text-energy not-italic">
+          what can go wrong over ten years, and what fixes actually cost
+        </Link>{" "}
+        — the piece no salesperson wants you to read.
+      </p>
+    </Prose>
+  );
+}
+
+// A6 — What can go wrong, and what it costs
+function BasicsWhatBreaksContent() {
+  return (
+    <Prose>
+      <p className={dropCap}>
+        We are going to do something energy companies don't usually do. We are
+        going to tell you what can go wrong with the thing you are about to buy,
+        and what fixing it actually costs in rupees, in India, in 2026. Read this
+        piece even if you don't read the other five. Especially then.
+      </p>
+
+      <Heading>What lasts ten years without thinking</Heading>
+
+      <p>
+        The cells. LFP cells in a properly cooled enclosure routinely deliver
+        6,000 charge cycles. At one cycle a day, that's sixteen years. Real-world
+        derating brings it down to about ten — but ten years of daily use is the
+        floor, not the ceiling. The enclosure. The wiring inside it. The mounting
+        bracket. None of those move. None of them wear.
+      </p>
+
+      <p>
+        For most households, most years, the battery is the most boring appliance
+        in the home. It sits on a wall, makes no noise, and gets ignored. That is
+        the point.
+      </p>
+
+      <Heading>What can break, and what it costs</Heading>
+
+      <div className="border-y border-foreground/20 py-6 my-4 not-prose">
+        <table className="w-full font-mono text-sm">
+          <thead>
+            <tr className="text-left text-muted-foreground border-b border-foreground/15">
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Part</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium">Frequency</th>
+              <th className="font-mono text-[10px] uppercase tracking-widest pb-2 font-medium text-right">Out-of-warranty cost</th>
+            </tr>
+          </thead>
+          <tbody className="divide-y divide-foreground/10">
+            <tr><td className="py-3">Cooling fan</td><td className="text-muted-foreground">~1 in 50 units, yr 5–7</td><td className="text-right">₹1,500</td></tr>
+            <tr><td className="py-3">Inverter control board</td><td className="text-muted-foreground">~1 in 100 units, yr 4–8</td><td className="text-right">₹8,000–15,000</td></tr>
+            <tr><td className="py-3">Communication / Wi-Fi card</td><td className="text-muted-foreground">~1 in 80, yr 3–6</td><td className="text-right">₹3,000–5,000</td></tr>
+            <tr><td className="py-3">Single cell failure</td><td className="text-muted-foreground">~1 in 200, yr 6–10</td><td className="text-right">covered under warranty if proven</td></tr>
+            <tr><td className="py-3">Surge from grid spike</td><td className="text-muted-foreground">~1 in 30 in surge-prone areas</td><td className="text-right">₹0 if SPD installed; ₹15k+ if not</td></tr>
+          </tbody>
+        </table>
+        <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground mt-3">
+          Numbers from our own service desk, 2024–2026 field data, across ~12,000 units.
+        </p>
+      </div>
+
+      <PullQuote>
+        Most things, most days, just work. We owe you the rest of the picture too.
+      </PullQuote>
+
+      <Heading>What the warranty actually covers</Heading>
+
+      <p>
+        A real ten-year warranty covers the cells (the expensive part) and the
+        control electronics (the failure-prone part). It does not cover damage
+        from water ingress (don't install outdoors without an IP-rated enclosure),
+        from rodents (clean installation, sealed conduits), or from a 22 kV
+        substation explosion next door (a surge protector helps; nothing helps
+        absolutely).
+      </p>
+
+      <p>
+        Ask your installer to show you the warranty document before you pay the
+        advance. Read what it excludes. The exclusions are where the real terms
+        live. If "wear and tear" is one of them — for cells — that is a bad
+        warranty. Cell wear <em>is</em> the warranty.
+      </p>
+
+      <Heading>The honest summary</Heading>
+
+      <p>
+        Over ten years, expect one or two minor service visits. Expect to replace
+        a fan or a small board, sometimes free under warranty, sometimes for
+        ₹2,000 to ₹15,000 if outside coverage. Expect the cells themselves to
+        keep about 80% of their original capacity at year ten — meaning a 5 kWh
+        battery will still hold about 4 kWh on the day it turns ten. That is the
+        contract. Anyone promising better is selling you the brochure, not the
+        product.
+      </p>
+
+      <Aside label="If you remember one thing">
+        The boring batteries are the good ones. If yours never makes the news,
+        you bought the right one.
+      </Aside>
+
+      <Rule />
+
+      <p className="italic text-muted-foreground">
+        End of the primer. If you've read all six pieces, you now know more about
+        home batteries than the average salesperson selling them. Use it.
+      </p>
+    </Prose>
   );
 }
 
