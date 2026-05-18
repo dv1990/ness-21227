@@ -1,6 +1,8 @@
 import { useState, useMemo } from "react";
 import Layout from "@/components/Layout";
 import { Link } from "react-router-dom";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { SmoothFade } from "@/components/ui/smooth-animations";
 
 interface CustomerData {
   name: string;

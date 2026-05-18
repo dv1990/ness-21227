@@ -1,6 +1,8 @@
 import Layout from "@/components/Layout";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { GradientOrbField } from "@/components/ui/gradient-orb";
+import { SmoothFade } from "@/components/ui/smooth-animations";
 
 // ─── Small editorial primitives ──────────────────────────────────────────────
 
