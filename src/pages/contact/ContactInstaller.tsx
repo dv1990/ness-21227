@@ -1,20 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import {
   Dialog,
   DialogContent,
@@ -22,9 +10,6 @@ import {
 } from "@/components/ui/dialog";
 import SystemConfigurator from "@/components/SystemConfigurator";
 import { useToast } from "@/hooks/use-toast";
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
-import nessPodInstall from "@/assets/ness-pod-installation-hero.webp";
-import configuratorTool from "@/assets-webp/configurator-tool.webp";
 
 const formSchema = z.object({
   fullName: z.string().trim().min(2, "Name must be at least 2 characters").max(100),
@@ -40,24 +25,27 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
+const projectTypes = [
+  { value: "ci-rooftop", label: "C&I rooftop" },
+  { value: "utility-microgrid", label: "Utility / Microgrid" },
+  { value: "ev-charging", label: "EV charging hub" },
+  { value: "resort-hospitality", label: "Resort / Hospitality" },
+  { value: "industrial-backup", label: "Industrial backup" },
+  { value: "other", label: "Other" },
+];
+
+const Rule = () => <hr className="border-0 border-t border-charcoal/20" />;
+
+const FolioStrip = ({ left, right }: { left: string; right: string }) => (
+  <div className="flex items-center justify-between gap-4 font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50 py-3 border-y border-charcoal/15">
+    <span>{left}</span>
+    <span>{right}</span>
+  </div>
+);
+
 const ContactInstaller = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const { toast } = useToast();
-  const heroRef = useRef<HTMLDivElement>(null);
-  const [scrollY, setScrollY] = useState(0);
-
-  // Scroll reveal hooks for sections
-  const empathy = useScrollReveal({ threshold: 0.2 });
-  const solution = useScrollReveal({ threshold: 0.2 });
-
-  // Parallax effect for hero
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const {
     register,
@@ -67,17 +55,15 @@ const ContactInstaller = () => {
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      consent: false,
-    },
+    defaultValues: { consent: false },
   });
 
   const consent = watch("consent");
+  const projectType = watch("projectType");
 
   const onSubmit = async (data: FormData) => {
     try {
       const { sendEmail } = await import('@/lib/email-service');
-
       await sendEmail({
         from_name: data.fullName || '',
         from_email: data.email || '',
@@ -87,14 +73,13 @@ const ContactInstaller = () => {
         form_type: 'Installer Contact',
         project_type: data.projectType,
       });
-
       toast({
         title: "Message sent!",
         description: "We'll get back to you within 24 hours.",
       });
       setIsSubmitted(true);
-      scrollToTop();
-    } catch (error) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } catch {
       toast({
         title: "Error",
         description: "Failed to send message. Please try again.",
@@ -105,319 +90,184 @@ const ContactInstaller = () => {
 
   const scrollToContact = (e: React.MouseEvent) => {
     e.preventDefault();
-    const contactSection = document.getElementById("contact");
-    if (contactSection) {
-      contactSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-  };
-
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <Layout className="-mt-16">
-      <div className="bg-charcoal">
-        {/* Hero Section - Full bleed with image and parallax */}
-        <section
-          ref={heroRef}
-          className="relative min-h-[85vh] flex items-center overflow-hidden"
-        >
-          {/* Background Image with Parallax */}
-          <div
-            className="absolute inset-0 z-0"
-            style={{
-              transform: `translateY(${scrollY * 0.5}px)`,
-              willChange: 'transform'
-            }}
-          >
-            <img
-              src={nessPodInstall}
-              alt="Professional battery installation"
-              className="w-full h-[120%] object-cover"
-              loading="eager"
-              fetchPriority="high"
+      <div className="bg-pearl text-charcoal pt-24">
+
+        {/* ─────────────── MASTHEAD ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 pt-12">
+          <div className="mx-auto max-w-screen-xl">
+            <FolioStrip
+              left="THE NESS REVIEW · BANGALORE"
+              right="ISSUE 04 · FOR INSTALLERS · MAY 2026"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-charcoal/95 via-charcoal/70 to-charcoal/40" />
-          </div>
 
-          {/* Content */}
-          <div className="relative z-10 mx-auto max-w-screen-xl px-6 py-20">
-            <div className="max-w-3xl space-y-8">
-              <p
-                className="text-sm font-semibold tracking-[0.2em] uppercase text-energy-bright opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '100ms', animationFillMode: 'forwards' }}
-              >
-                For EPC Installers
-              </p>
-              <h1
-                className="text-5xl md:text-7xl lg:text-8xl font-light tracking-tight text-pearl leading-[0.95] opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '200ms', animationFillMode: 'forwards' }}
-              >
-                The easiest
-                <br />
-                battery you'll
-                <br />
-                ever install.
-              </h1>
-              <p
-                className="text-xl md:text-2xl text-pearl/80 font-light max-w-2xl leading-relaxed opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '300ms', animationFillMode: 'forwards' }}
-              >
-                Powered by digital intelligence. Built for reliability—without the headaches.
-              </p>
-              <div
-                className="flex items-center gap-3 text-pearl/60 text-sm opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '400ms', animationFillMode: 'forwards' }}
-              >
-                <div className="w-12 h-px bg-energy" />
-                <span>Fix it. Forget it. Powered by Digital Trust.</span>
-              </div>
-              <div
-                className="pt-4 opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '500ms', animationFillMode: 'forwards' }}
-              >
-                <Button
-                  onClick={scrollToContact}
-                  id="cta-become-partner"
-                  data-cta="become-partner"
-                  size="lg"
-                  className="bg-energy hover:brightness-110 text-pearl rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-4 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy active:scale-100 min-h-[56px]"
-                  aria-label="Become a NESS Partner - Scroll to contact form"
-                >
-                  Become a NESS Partner
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Scroll indicator */}
-          <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-pearl/40 opacity-0 animate-fade-in"
-            style={{ animationDelay: '800ms', animationFillMode: 'forwards' }}
-            aria-hidden="true"
-          >
-            <span className="text-xs uppercase tracking-wider">Scroll</span>
-            <svg width="20" height="30" viewBox="0 0 20 30" fill="none" className="motion-safe:animate-bounce">
-              <rect x="1" y="1" width="18" height="28" rx="9" stroke="currentColor" strokeWidth="2"/>
-              <circle cx="10" cy="10" r="2" fill="currentColor"/>
-            </svg>
-          </div>
-        </section>
-
-        {/* The Reality - Empathy Block with Scroll Reveal */}
-        <section
-          ref={empathy.ref as React.RefObject<HTMLElement>}
-          className={`py-32 md:py-40 px-6 bg-graphite transition-all duration-1000 ${
-            empathy.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-        >
-          <div className="mx-auto max-w-screen-xl">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Text Content */}
-              <div className="max-w-xl space-y-10">
-                <div className="space-y-6">
-                  <h2 className="text-4xl md:text-5xl lg:text-6xl font-light text-pearl leading-tight">
-                    Every installer
-                    <br />
-                    knows this moment.
-                  </h2>
-                  <div className="text-lg md:text-xl text-pearl/60 space-y-4 font-light leading-relaxed">
-                    <p className="transition-opacity duration-700 delay-100">The panels go up smooth.</p>
-                    <p className="transition-opacity duration-700 delay-200">The inverter syncs perfectly.</p>
-                    <p className="text-pearl/90 transition-opacity duration-700 delay-300">Then comes the battery — and the pause.</p>
-                  </div>
-                  <p className="text-2xl md:text-3xl font-medium text-pearl pt-4 leading-snug transition-opacity duration-700 delay-400">
-                    One wrong configuration, and the customer calls never stop.
-                  </p>
-                </div>
-              </div>
-
-              {/* Visual Stats Cards */}
-              <div className="grid grid-cols-2 gap-6">
-                <div className="bg-pearl/[0.03] rounded-3xl p-8 border border-pearl/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="text-5xl font-light text-energy mb-3">3 hours</div>
-                  <div className="text-sm text-pearl/60">Average troubleshooting time per install</div>
-                </div>
-                <div className="bg-pearl/[0.03] rounded-3xl p-8 border border-pearl/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 mt-8">
-                  <div className="text-5xl font-light text-energy mb-3">47%</div>
-                  <div className="text-sm text-pearl/60">Of callbacks are config-related</div>
-                </div>
-                <div className="bg-pearl/[0.03] rounded-3xl p-8 border border-pearl/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1">
-                  <div className="text-5xl font-light text-energy mb-3">₹45k</div>
-                  <div className="text-sm text-pearl/60">Lost per botched commissioning</div>
-                </div>
-                <div className="bg-pearl/[0.03] rounded-3xl p-8 border border-pearl/10 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 mt-8">
-                  <div className="text-5xl font-light text-energy mb-3">3 hours</div>
-                  <div className="text-sm text-pearl/60">Setup time with NESS</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* The Shift - Solution Block Simplified */}
-        <section
-          ref={solution.ref as React.RefObject<HTMLElement>}
-          className={`relative py-32 md:py-40 overflow-hidden bg-charcoal transition-all duration-1000 ${
-            solution.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}
-        >
-          <div className="relative z-10 mx-auto max-w-screen-xl px-6">
-            <div className="max-w-5xl mx-auto">
-              {/* Main Message */}
-              <div className="text-center space-y-12 mb-20">
-                <h2 className="text-5xl md:text-7xl font-light text-pearl leading-tight">
-                  NESS ends
-                  <br />
-                  that story.
-                </h2>
-                <p className="text-2xl md:text-3xl text-pearl font-light leading-relaxed max-w-3xl mx-auto">
-                  You plug it in, and it just works.
+            <div className="grid grid-cols-12 gap-6 pt-16 pb-24">
+              <div className="col-span-12 md:col-span-2">
+                <p className="font-mono text-xs uppercase tracking-[0.25em] text-charcoal/60">
+                  Cover<br/>Story
                 </p>
               </div>
-
-              {/* Three Core Benefits in Grid */}
-              <div className="grid md:grid-cols-3 gap-8 md:gap-12">
-                <div className="text-center space-y-4 group">
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                      <path d="M16 6V16L22 22" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <circle cx="16" cy="16" r="12" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-pearl">Auto-configured</h3>
-                  <p className="text-pearl/60 leading-relaxed">
-                    No menus. No calibration. The battery sets itself up in 3 hours.
-                  </p>
-                </div>
-
-                <div className="text-center space-y-4 group">
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                      <path d="M16 4C16 4 8 8 8 14V20C8 24 12 28 16 28C20 28 24 24 24 20V14C24 8 16 4 16 4Z" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      <path d="M12 16L15 19L20 13" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-pearl">Cloud-verified</h3>
-                  <p className="text-pearl/60 leading-relaxed">
-                    Every unit is monitored and validated in real-time from our cloud.
-                  </p>
-                </div>
-
-                <div className="text-center space-y-4 group">
-                  <div className="w-16 h-16 mx-auto rounded-2xl bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
-                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-                      <circle cx="16" cy="10" r="3" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
-                      <path d="M10 24C10 20.686 12.686 18 16 18C19.314 18 22 20.686 22 24" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round"/>
-                      <path d="M24 12L28 16M28 16L24 20M28 16H20" stroke="hsl(var(--energy-core))" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  </div>
-                  <h3 className="text-xl font-semibold text-pearl">Smart support</h3>
-                  <p className="text-pearl/60 leading-relaxed">
-                    Predictive alerts catch issues before your customer even notices.
-                  </p>
-                </div>
-              </div>
-
-              {/* Simple CTA */}
-              <div className="text-center mt-16">
-                <p className="text-lg text-pearl/60 mb-6">
-                  Commission faster. Sleep better. Protect your margins.
+              <div className="col-span-12 md:col-span-10">
+                <p className="font-mono text-xs uppercase tracking-[0.3em] text-charcoal/50 mb-6">
+                  For EPC Installers · A field letter
                 </p>
+                <h1 className="font-display font-light leading-[0.85] tracking-tight text-[clamp(3rem,10vw,9rem)]">
+                  The easiest<br/>
+                  battery you'll<br/>
+                  <em className="font-light italic text-charcoal/70">ever install.</em>
+                </h1>
+                <div className="mt-12 grid grid-cols-12 gap-6 items-end">
+                  <p className="col-span-12 md:col-span-7 text-xl md:text-2xl font-light leading-snug text-charcoal/80">
+                    Powered by digital intelligence. Built for reliability — without the headaches.
+                  </p>
+                  <div className="col-span-12 md:col-span-5 font-mono text-[11px] uppercase tracking-[0.25em] text-charcoal/50 md:text-right">
+                    Fix it. Forget it.<br/>
+                    Powered by digital trust.
+                  </div>
+                </div>
+                <div className="mt-12">
+                  <button
+                    onClick={scrollToContact}
+                    className="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl font-light"
+                  >
+                    <span className="border-b border-energy pb-1 group-hover:border-charcoal transition-colors">
+                      Become a NESS partner
+                    </span>
+                    <span aria-hidden className="text-energy">→</span>
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Benefits Grid - Visual Cards with Icons */}
-        <section className="py-32 md:py-40 px-6 bg-graphite">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="text-center mb-20 space-y-6">
-              <h2 className="text-5xl md:text-6xl font-light text-pearl leading-tight">
-                Why EPCs
-                <br />
-                choose NESS.
+        {/* ─────────────── CH. 01 — THE PAUSE ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-24 border-t border-charcoal/15">
+          <div className="mx-auto max-w-screen-xl grid grid-cols-12 gap-6">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-display text-7xl font-light text-charcoal/20 leading-none">01</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mt-3">
+                Chapter one<br/>The pause
+              </p>
+            </div>
+            <div className="col-span-12 md:col-span-6">
+              <h2 className="font-display text-4xl md:text-5xl font-light leading-tight">
+                Every installer<br/>knows this moment.
               </h2>
-              <p className="text-xl text-pearl/60 font-light max-w-2xl mx-auto">
-                More than a battery. A partnership that protects your reputation.
+              <div className="mt-8 space-y-3 text-lg md:text-xl font-light leading-relaxed text-charcoal/80">
+                <p>The panels go up smooth.</p>
+                <p>The inverter syncs perfectly.</p>
+                <p className="italic">Then comes the battery — and the pause.</p>
+              </div>
+              <p className="mt-10 font-display text-2xl md:text-3xl font-light leading-snug">
+                One wrong configuration, and the customer calls never stop.
               </p>
             </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <aside className="col-span-12 md:col-span-3 md:pl-6 md:border-l border-charcoal/20 space-y-8">
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50">
+                Marginalia / the numbers
+              </p>
               {[
-                {
-                  icon: (
-                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
-                      <circle cx="24" cy="24" r="20" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
-                      <path d="M16 24L22 30L32 18" stroke="hsl(var(--energy-core))" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  ),
-                  title: "Plug & play setup",
-                  description: "No hidden menus. No messy calibration.",
-                  stat: "15 min",
-                  statLabel: "avg install"
-                },
-                {
-                  icon: (
-                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
-                      <path d="M24 8V24L32 32" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                      <circle cx="24" cy="24" r="18" stroke="hsl(var(--energy-core))" strokeWidth="2"/>
-                    </svg>
-                  ),
-                  title: "Fewer customer calls",
-                  description: "Predictable systems, happier clients.",
-                  stat: "94%",
-                  statLabel: "satisfaction"
-                },
-                {
-                  icon: (
-                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
-                      <path d="M12 24L24 36L36 12" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  ),
-                  title: "Faster handovers",
-                  description: "Commission, sign off, move on.",
-                  stat: "3x",
-                  statLabel: "faster"
-                },
-                {
-                  icon: (
-                    <svg viewBox="0 0 48 48" className="w-12 h-12" fill="none">
-                      <path d="M34 20V14H28M34 14L24 24L18 18L8 28" stroke="hsl(var(--energy-core))" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-                    </svg>
-                  ),
-                  title: "Higher margins",
-                  description: "Time saved is margin protected.",
-                  stat: "23%",
-                  statLabel: "margin boost"
-                },
-              ].map((benefit, index) => (
-                <div
-                  key={index}
-                  className="group bg-pearl/[0.03] backdrop-blur-sm rounded-3xl p-8 border border-pearl/10 transition-all duration-500 hover:shadow-2xl hover:border-energy/30 hover:-translate-y-2 hover:bg-pearl/[0.06]"
-                  style={{
-                    animation: `fade-in-up 700ms ease-out forwards`,
-                    animationDelay: `${index * 150}ms`,
-                    opacity: 0,
-                  }}
-                >
-                  <div className="space-y-6">
-                    <div className="flex items-start justify-between">
-                      <div className="text-energy group-hover:scale-110 transition-transform duration-300">
-                        {benefit.icon}
-                      </div>
-                      <div className="text-right">
-                        <div className="text-3xl font-light text-energy">{benefit.stat}</div>
-                        <div className="text-xs text-pearl/60 uppercase tracking-wider">{benefit.statLabel}</div>
-                      </div>
-                    </div>
-                    <div className="space-y-3">
-                      <h3 className="text-2xl font-medium text-pearl">
-                        {benefit.title}
-                      </h3>
-                      <p className="text-pearl/60 leading-relaxed">{benefit.description}</p>
-                    </div>
+                { stat: "3 hrs", label: "average troubleshooting per install" },
+                { stat: "47%", label: "callbacks that are config-related" },
+                { stat: "₹45k", label: "lost per botched commissioning" },
+              ].map((m) => (
+                <div key={m.label}>
+                  <div className="font-display text-4xl font-light">{m.stat}</div>
+                  <div className="font-mono text-[11px] uppercase tracking-widest text-charcoal/60 mt-1 leading-snug">
+                    {m.label}
+                  </div>
+                </div>
+              ))}
+            </aside>
+          </div>
+        </section>
+
+        <div className="px-6 md:px-12 lg:px-20">
+          <div className="mx-auto max-w-screen-xl text-center py-8 text-2xl text-charcoal/30 font-display">⁂</div>
+        </div>
+
+        {/* ─────────────── CH. 02 — THE SHIFT ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-24 border-t border-charcoal/15 bg-whisper/40">
+          <div className="mx-auto max-w-screen-xl grid grid-cols-12 gap-6">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-display text-7xl font-light text-charcoal/20 leading-none">02</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mt-3">
+                Chapter two<br/>The shift
+              </p>
+            </div>
+            <div className="col-span-12 md:col-span-9">
+              <h2 className="font-display text-5xl md:text-7xl font-light leading-[0.95]">
+                NESS ends<br/>
+                <em className="italic text-charcoal/70">that story.</em>
+              </h2>
+              <p className="mt-8 text-xl md:text-2xl font-light max-w-xl text-charcoal/80">
+                You plug it in, and it just works.
+              </p>
+
+              <div className="mt-16 grid md:grid-cols-3 gap-12 md:gap-8">
+                {[
+                  { n: "i.", title: "Auto-configured", body: "No menus. No calibration. The battery sets itself up in 3 hours." },
+                  { n: "ii.", title: "Cloud-verified", body: "Every unit is monitored and validated in real-time from our cloud." },
+                  { n: "iii.", title: "Smart support", body: "Predictive alerts catch issues before your customer even notices." },
+                ].map((b) => (
+                  <div key={b.title} className="space-y-3">
+                    <p className="font-mono text-xs uppercase tracking-[0.3em] text-energy">{b.n}</p>
+                    <h3 className="font-display text-2xl font-light">{b.title}</h3>
+                    <p className="text-base font-light leading-relaxed text-charcoal/75">{b.body}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ─────────────── CH. 03 — WHAT YOU GET ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-24 border-t border-charcoal/15">
+          <div className="mx-auto max-w-screen-xl">
+            <div className="grid grid-cols-12 gap-6 mb-16">
+              <div className="col-span-12 md:col-span-3">
+                <p className="font-display text-7xl font-light text-charcoal/20 leading-none">03</p>
+                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mt-3">
+                  Chapter three<br/>What you get
+                </p>
+              </div>
+              <div className="col-span-12 md:col-span-9">
+                <h2 className="font-display text-4xl md:text-5xl font-light leading-tight">
+                  Why EPCs choose NESS.
+                </h2>
+                <p className="mt-4 text-lg font-light text-charcoal/70 italic max-w-xl">
+                  More than a battery. A partnership that protects your reputation.
+                </p>
+              </div>
+            </div>
+
+            <Rule />
+
+            <div className="divide-y divide-charcoal/15">
+              {[
+                { stat: "15 min", label: "avg install", title: "Plug & play setup", body: "No hidden menus. No messy calibration." },
+                { stat: "94%", label: "satisfaction", title: "Fewer customer calls", body: "Predictable systems, happier clients." },
+                { stat: "3×", label: "faster", title: "Faster handovers", body: "Commission, sign off, move on." },
+                { stat: "23%", label: "margin boost", title: "Higher margins", body: "Time saved is margin protected." },
+              ].map((row, i) => (
+                <div key={row.title} className="grid grid-cols-12 gap-6 py-8 items-baseline">
+                  <div className="col-span-2 md:col-span-1 font-mono text-xs uppercase tracking-[0.3em] text-charcoal/50">
+                    {String(i + 1).padStart(2, "0")}
+                  </div>
+                  <div className="col-span-10 md:col-span-5">
+                    <h3 className="font-display text-3xl md:text-4xl font-light">{row.title}</h3>
+                    <p className="mt-2 text-base font-light text-charcoal/70 max-w-md">{row.body}</p>
+                  </div>
+                  <div className="col-span-12 md:col-span-6 md:text-right">
+                    <span className="font-display text-5xl md:text-6xl font-light text-energy">{row.stat}</span>
+                    <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50">
+                      {row.label}
+                    </span>
                   </div>
                 </div>
               ))}
@@ -425,436 +275,280 @@ const ContactInstaller = () => {
           </div>
         </section>
 
-        {/* Proof Strip - Enhanced */}
-        <section className="py-20 px-6 bg-charcoal">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16">
-              <div className="flex items-center gap-4">
-                <span className="inline-block bg-energy text-pearl rounded-full px-4 py-2 text-xs uppercase tracking-[0.15em] font-bold shadow-energy">
-                  Field-proven
+        {/* ─────────────── PROOF STRIP ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-12 border-y border-charcoal/15 bg-charcoal text-pearl">
+          <div className="mx-auto max-w-screen-xl flex flex-col md:flex-row items-baseline justify-between gap-6">
+            <p className="font-mono text-[11px] uppercase tracking-[0.35em] text-energy">
+              Field-proven · footnote
+            </p>
+            <p className="font-display text-2xl md:text-4xl font-light leading-snug">
+              Powering <span className="text-energy">1000+ homes</span> across India
+              <span className="text-pearl/60"> — zero diesel, zero downtime.</span>
+            </p>
+          </div>
+        </section>
+
+        {/* ─────────────── CH. 04 — TOOLS ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-24 border-t border-charcoal/15">
+          <div className="mx-auto max-w-screen-xl grid grid-cols-12 gap-6">
+            <div className="col-span-12 md:col-span-3">
+              <p className="font-display text-7xl font-light text-charcoal/20 leading-none">04</p>
+              <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mt-3">
+                Chapter four<br/>Tools of the trade
+              </p>
+            </div>
+            <div className="col-span-12 md:col-span-9">
+              <h2 className="font-display text-4xl md:text-6xl font-light leading-tight">
+                The system<br/>configurator.
+              </h2>
+              <p className="mt-6 text-lg md:text-xl font-light text-charcoal/75 max-w-2xl leading-relaxed">
+                Generate accurate system specifications and professional proposals
+                in minutes — load pattern analysis, optimal component sizing,
+                environmental impact reports, professional documentation.
+              </p>
+
+              <div className="mt-10 flex items-baseline gap-6">
+                <span className="font-display text-6xl font-light text-energy">2.3</span>
+                <span className="font-mono text-xs uppercase tracking-[0.3em] text-charcoal/60">
+                  min · average<br/>config time
                 </span>
               </div>
-              <div className="h-12 w-px bg-pearl/10 hidden md:block" />
-              <p className="text-lg md:text-xl text-pearl font-light text-center md:text-left max-w-2xl leading-relaxed">
-                Powering <span className="font-semibold text-energy">1000+ homes</span> across India
-                <br className="hidden md:block" />
-                <span className="text-pearl/60"> — zero diesel, zero downtime.</span>
-              </p>
+
+              <div className="mt-10">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <button className="group inline-flex items-center gap-3 font-display text-2xl font-light">
+                      <span className="border-b border-energy pb-1 group-hover:border-charcoal transition-colors">
+                        Launch the configurator
+                      </span>
+                      <span aria-hidden className="text-energy">→</span>
+                    </button>
+                  </DialogTrigger>
+                  <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
+                    <SystemConfigurator />
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* System Configurator Section - Enhanced */}
-        <section className="py-32 md:py-40 px-6 bg-graphite">
+        {/* ─────────────── BELIEF ─────────────── */}
+        <section className="px-6 md:px-12 lg:px-20 py-32 bg-charcoal text-pearl border-t border-charcoal">
           <div className="mx-auto max-w-screen-xl">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              <div className="space-y-10 order-2 lg:order-1">
-                <div className="space-y-6">
-                  <span className="inline-block text-sm font-semibold tracking-[0.2em] uppercase text-energy">
-                    Smart Tools
-                  </span>
+            <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-energy mb-12">
+              Editorial · the belief
+            </p>
+            <h2 className="font-display text-5xl md:text-7xl lg:text-8xl font-light leading-[0.95]">
+              India doesn't just<br/>
+              need more solar —<br/>
+              <em className="italic text-pearl/60">it needs power that<br/>stays trusted.</em>
+            </h2>
+            <p className="mt-12 max-w-2xl text-xl md:text-2xl font-light text-pearl/80 leading-relaxed">
+              You build the future. We keep it running — quietly, continuously, confidently.
+            </p>
+            <div className="mt-12 flex items-center gap-6">
+              <button
+                onClick={scrollToContact}
+                className="group inline-flex items-center gap-3 font-display text-2xl md:text-3xl font-light"
+              >
+                <span className="border-b border-energy pb-1 group-hover:border-pearl transition-colors">
+                  Become a NESS partner
+                </span>
+                <span aria-hidden className="text-energy">→</span>
+              </button>
+            </div>
+          </div>
+        </section>
 
-                  <h2 className="text-5xl md:text-6xl font-light text-pearl leading-tight">
-                    System
-                    <br />
-                    configurator
+        {/* ─────────────── CH. 05 — THE LETTER ─────────────── */}
+        <section id="contact" className="px-6 md:px-12 lg:px-20 py-24 bg-pearl">
+          <div className="mx-auto max-w-3xl">
+            <FolioStrip left="FORM 03 · INSTALLER ENQUIRY" right="REPLY WITHIN 24 HRS" />
+
+            {!isSubmitted ? (
+              <>
+                <div className="pt-16 pb-12">
+                  <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-charcoal/60 mb-6">
+                    Chapter five · write to us
+                  </p>
+                  <h2 className="font-display text-5xl md:text-7xl font-light leading-[0.9]">
+                    Dear NESS,
                   </h2>
-
-                  <p className="text-xl text-pearl/60 font-light leading-relaxed">
-                    Generate accurate system specifications and professional proposals
-                    in minutes with our advanced configuration tool.
+                  <p className="mt-8 text-lg md:text-xl font-light italic text-charcoal/75 leading-relaxed">
+                    Tell us about your project. We'll simplify the storage —
+                    and protect your margins.
                   </p>
                 </div>
 
-                <div className="space-y-5">
-                  {[
-                    { text: "Load pattern analysis", delay: 0 },
-                    { text: "Optimal component sizing", delay: 100 },
-                    { text: "Environmental impact reports", delay: 200 },
-                    { text: "Professional documentation", delay: 300 },
-                  ].map((feature) => (
-                    <div
-                      key={feature.text}
-                      className="flex items-center gap-4 group"
-                      style={{
-                        animation: `fade-in-up 600ms ease-out forwards`,
-                        animationDelay: `${feature.delay}ms`,
-                        opacity: 0
-                      }}
-                    >
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-energy/10 flex items-center justify-center group-hover:bg-energy/20 transition-colors duration-300">
-                        <svg
-                          width="16"
-                          height="16"
-                          viewBox="0 0 16 16"
-                          fill="none"
-                          aria-hidden="true"
-                        >
-                          <path
-                            d="M4 8L7 11L12 5"
-                            stroke="hsl(var(--energy-core))"
-                            strokeWidth="2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      <span className="text-lg text-pearl group-hover:text-energy transition-colors duration-300">{feature.text}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="pt-4">
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button
-                        size="lg"
-                        className="bg-energy hover:brightness-110 text-pearl rounded-xl px-8 py-7 text-lg font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy group"
-                      >
-                        <svg
-                          width="24"
-                          height="24"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          className="mr-3 group-hover:rotate-90 transition-transform duration-500"
-                          aria-hidden="true"
-                        >
-                          <rect
-                            x="3"
-                            y="3"
-                            width="8"
-                            height="8"
-                            rx="2"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <rect
-                            x="13"
-                            y="3"
-                            width="8"
-                            height="8"
-                            rx="2"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <rect
-                            x="3"
-                            y="13"
-                            width="8"
-                            height="8"
-                            rx="2"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                          <rect
-                            x="13"
-                            y="13"
-                            width="8"
-                            height="8"
-                            rx="2"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                          />
-                        </svg>
-                        Launch Configurator
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-7xl max-h-[90vh] overflow-y-auto">
-                      <SystemConfigurator />
-                    </DialogContent>
-                  </Dialog>
-                </div>
-              </div>
-
-              <div className="relative order-1 lg:order-2">
-                <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-pearl/10 group">
-                  <img
-                    src={configuratorTool}
-                    alt="System configurator interface"
-                    className="w-full h-auto transform group-hover:scale-105 transition-transform duration-700"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-charcoal/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                </div>
-                {/* Floating stat card */}
-                <div className="absolute -bottom-6 -left-6 bg-pearl/[0.03] rounded-2xl p-6 shadow-2xl border border-pearl/10 backdrop-blur-sm">
-                  <div className="text-4xl font-light text-energy mb-2">2.3min</div>
-                  <div className="text-sm text-pearl/60">Average config time</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Belief / Purpose Block - Full bleed */}
-        <section className="relative py-40 md:py-48 overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-charcoal via-graphite to-charcoal" />
-
-          <div className="relative z-10 mx-auto max-w-screen-xl px-6">
-            <div className="max-w-4xl mx-auto text-center space-y-12">
-              <h2 className="text-5xl md:text-7xl lg:text-8xl font-light text-pearl leading-[0.95]">
-                India doesn't just
-                <br />
-                need more solar —
-                <br />
-                <span className="text-pearl/60">it needs power that</span>
-                <br />
-                stays trusted.
-              </h2>
-              <p className="text-2xl md:text-3xl text-pearl/80 font-light leading-relaxed max-w-3xl mx-auto">
-                You build the future. We keep it running — quietly, continuously,
-                confidently.
-              </p>
-              <div className="pt-8">
-                <Button
-                  onClick={scrollToContact}
-                  data-cta="become-partner-2"
-                  size="lg"
-                  className="bg-energy hover:brightness-110 text-pearl rounded-xl px-10 py-8 text-xl font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-300 hover:scale-105 hover:shadow-energy"
-                >
-                  Become a NESS Partner
-                </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Decorative elements */}
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-energy/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-energy/5 rounded-full blur-2xl" />
-        </section>
-
-        {/* Contact Section */}
-        <section id="contact" className="py-20 md:py-24 px-6 bg-graphite">
-          <div className="mx-auto max-w-screen-xl">
-            <div className="max-w-2xl mx-auto">
-              {!isSubmitted ? (
-                <div className="space-y-8">
-                  <div className="text-center space-y-4">
-                    <h2 className="text-3xl md:text-4xl font-medium text-pearl">
-                      Talk to the NESS team.
-                    </h2>
-                    <p className="text-lg text-pearl/60">
-                      Tell us about your project. We'll simplify the storage —
-                      and protect your margins.
-                    </p>
-                  </div>
-
-                  <form
-                    onSubmit={handleSubmit(onSubmit)}
-                    className="space-y-6 bg-pearl/[0.03] rounded-2xl p-8 border border-pearl/10"
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-12">
+                  <LetterField
+                    n="01."
+                    label="Full name"
+                    error={errors.fullName?.message}
                   >
-                    <div className="space-y-2">
-                      <Label htmlFor="fullName" className="text-sm font-medium text-pearl/80">
-                        Full Name *
-                      </Label>
-                      <Input
-                        id="fullName"
-                        {...register("fullName")}
-                        className="h-12 bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
-                        aria-invalid={errors.fullName ? "true" : "false"}
-                        aria-describedby={errors.fullName ? "fullName-error" : undefined}
-                      />
-                      {errors.fullName && (
-                        <p id="fullName-error" className="text-sm text-destructive" role="alert">
-                          {errors.fullName.message}
-                        </p>
-                      )}
-                    </div>
+                    <input
+                      type="text"
+                      {...register("fullName")}
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
+                      placeholder="Your full name"
+                    />
+                  </LetterField>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="company" className="text-sm font-medium text-pearl/80">
-                        Company *
-                      </Label>
-                      <Input
-                        id="company"
-                        {...register("company")}
-                        className="h-12 bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
-                        aria-invalid={errors.company ? "true" : "false"}
-                        aria-describedby={errors.company ? "company-error" : undefined}
-                      />
-                      {errors.company && (
-                        <p id="company-error" className="text-sm text-destructive" role="alert">
-                          {errors.company.message}
-                        </p>
-                      )}
-                    </div>
+                  <LetterField
+                    n="02."
+                    label="Company"
+                    error={errors.company?.message}
+                  >
+                    <input
+                      type="text"
+                      {...register("company")}
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-2xl font-light placeholder:text-charcoal/30 outline-none"
+                      placeholder="Your firm"
+                    />
+                  </LetterField>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-sm font-medium text-pearl/80">
-                        Work Email *
-                      </Label>
-                      <Input
-                        id="email"
+                  <div className="grid md:grid-cols-2 gap-12">
+                    <LetterField n="03." label="Work email" error={errors.email?.message}>
+                      <input
                         type="email"
                         {...register("email")}
-                        className="h-12 bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
-                        aria-invalid={errors.email ? "true" : "false"}
-                        aria-describedby={errors.email ? "email-error" : undefined}
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        placeholder="you@firm.com"
                       />
-                      {errors.email && (
-                        <p id="email-error" className="text-sm text-destructive" role="alert">
-                          {errors.email.message}
-                        </p>
-                      )}
-                    </div>
+                    </LetterField>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-sm font-medium text-pearl/80">
-                        Phone (optional)
-                      </Label>
-                      <Input
-                        id="phone"
+                    <LetterField n="04." label="Phone — optional" error={undefined}>
+                      <input
                         type="tel"
                         {...register("phone")}
-                        className="h-12 bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
+                        className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-display text-xl font-light placeholder:text-charcoal/30 outline-none"
+                        placeholder="+91 …"
                       />
-                    </div>
+                    </LetterField>
+                  </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="projectType" className="text-sm font-medium text-pearl/80">
-                        Project Type *
-                      </Label>
-                      <Select
-                        onValueChange={(value) => setValue("projectType", value)}
-                      >
-                        <SelectTrigger
-                          id="projectType"
-                          className="h-12 bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
-                          aria-invalid={errors.projectType ? "true" : "false"}
-                          aria-describedby={errors.projectType ? "projectType-error" : undefined}
-                        >
-                          <SelectValue placeholder="Select project type" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="ci-rooftop">C&I rooftop</SelectItem>
-                          <SelectItem value="utility-microgrid">
-                            Utility / Microgrid
-                          </SelectItem>
-                          <SelectItem value="ev-charging">
-                            EV charging hub
-                          </SelectItem>
-                          <SelectItem value="resort-hospitality">
-                            Resort / Hospitality
-                          </SelectItem>
-                          <SelectItem value="industrial-backup">
-                            Industrial backup
-                          </SelectItem>
-                          <SelectItem value="other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                      {errors.projectType && (
-                        <p id="projectType-error" className="text-sm text-destructive" role="alert">
-                          {errors.projectType.message}
-                        </p>
-                      )}
+                  <LetterField n="05." label="Project type" error={errors.projectType?.message}>
+                    <div className="flex flex-wrap gap-2 pt-2">
+                      {projectTypes.map((p) => {
+                        const active = projectType === p.value;
+                        return (
+                          <button
+                            key={p.value}
+                            type="button"
+                            onClick={() => setValue("projectType", p.value, { shouldValidate: true })}
+                            className={`font-mono text-xs uppercase tracking-[0.2em] px-3 py-2 border transition-colors ${
+                              active
+                                ? "bg-charcoal text-pearl border-charcoal"
+                                : "bg-transparent text-charcoal/70 border-charcoal/30 hover:border-charcoal"
+                            }`}
+                          >
+                            {p.label}
+                          </button>
+                        );
+                      })}
                     </div>
+                  </LetterField>
 
-                    <div className="space-y-2">
-                      <Label htmlFor="message" className="text-sm font-medium text-pearl/80">
-                        Message / Requirements *
-                      </Label>
-                      <Textarea
-                        id="message"
-                        {...register("message")}
-                        rows={5}
-                        className="resize-none bg-pearl/[0.03] border-pearl/10 text-pearl placeholder:text-pearl/30 focus:border-energy/50"
-                        aria-invalid={errors.message ? "true" : "false"}
-                        aria-describedby={errors.message ? "message-error" : undefined}
-                      />
-                      {errors.message && (
-                        <p id="message-error" className="text-sm text-destructive" role="alert">
-                          {errors.message.message}
-                        </p>
-                      )}
-                    </div>
+                  <LetterField n="06." label="Your message" error={errors.message?.message}>
+                    <textarea
+                      {...register("message")}
+                      rows={5}
+                      className="w-full bg-whisper border-0 border-b-2 border-charcoal/50 focus:border-energy focus:ring-0 rounded-none px-3 py-3 transition-colors font-light text-lg placeholder:text-charcoal/30 outline-none resize-none leading-relaxed"
+                      placeholder="Tell us where you're installing, what you're building, what's slowing you down…"
+                    />
+                  </LetterField>
 
-                    <div className="space-y-4">
-                      <div className="flex items-start gap-3">
-                        <Checkbox
-                          id="consent"
-                          checked={consent}
-                          onCheckedChange={(checked) =>
-                            setValue("consent", checked as boolean)
-                          }
-                          aria-invalid={errors.consent ? "true" : "false"}
-                          aria-describedby={errors.consent ? "consent-error" : undefined}
-                        />
-                        <Label
-                          htmlFor="consent"
-                          className="text-sm text-pearl/60 leading-relaxed cursor-pointer"
-                        >
-                          I agree to be contacted about NESS solutions and
-                          understand the privacy policy. *
-                        </Label>
-                      </div>
-                      {errors.consent && (
-                        <p id="consent-error" className="text-sm text-destructive" role="alert">
-                          {errors.consent.message}
-                        </p>
-                      )}
-                    </div>
+                  <div className="flex items-start gap-4 pt-4 border-t border-charcoal/15">
+                    <input
+                      type="checkbox"
+                      id="consent"
+                      checked={consent}
+                      onChange={(e) => setValue("consent", e.target.checked, { shouldValidate: true })}
+                      className="mt-1 w-4 h-4 accent-charcoal"
+                    />
+                    <label htmlFor="consent" className="text-sm font-light text-charcoal/70 leading-relaxed cursor-pointer">
+                      I agree to be contacted about NESS solutions and understand the privacy policy.
+                    </label>
+                  </div>
+                  {errors.consent && (
+                    <p className="text-sm text-red-700 -mt-8" role="alert">{errors.consent.message}</p>
+                  )}
 
-                    <Button
+                  <div className="pt-8 flex flex-col md:flex-row md:items-baseline md:justify-between gap-6 border-t border-charcoal/15">
+                    <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50">
+                      Signed, sealed.<br/>Reply within 24 hrs · usually faster.
+                    </p>
+                    <button
                       type="submit"
                       disabled={isSubmitting}
-                      id="cta-submit-contact"
-                      data-cta="submit-contact"
-                      className="w-full bg-energy hover:brightness-95 text-pearl rounded-xl px-6 py-6 text-base font-semibold focus-visible:ring-2 focus-visible:ring-energy/40 transition-all duration-200 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="group inline-flex items-center gap-3 font-display text-3xl md:text-4xl font-light disabled:opacity-50"
                     >
-                      {isSubmitting ? "Sending..." : "Request a Callback"}
-                    </Button>
-
-                    <p className="text-xs text-center text-pearl/60">
-                      No spam. Your details are safe with us.
-                    </p>
-                  </form>
-                </div>
-              ) : (
-                <div
-                  className="bg-pearl/[0.03] rounded-2xl p-12 border border-pearl/10 text-center space-y-6"
-                  role="status"
-                  aria-live="polite"
-                >
-                  <div className="flex justify-center">
-                    <div className="w-16 h-16 rounded-full bg-energy/10 flex items-center justify-center">
-                      <svg
-                        width="32"
-                        height="32"
-                        viewBox="0 0 32 32"
-                        fill="none"
-                        aria-hidden="true"
-                      >
-                        <path
-                          d="M26.6667 8L12 22.6667L5.33337 16"
-                          stroke="hsl(var(--energy-core))"
-                          strokeWidth="3"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </div>
+                      <span className="border-b-2 border-energy pb-1 group-hover:border-charcoal transition-colors">
+                        {isSubmitting ? "Sending…" : "Send this letter"}
+                      </span>
+                      <span aria-hidden className="text-energy">→</span>
+                    </button>
                   </div>
-                  <h3 className="text-2xl font-semibold text-pearl">
-                    Thanks. We'll take it from here.
-                  </h3>
-                  <p className="text-lg text-pearl/60 max-w-lg mx-auto">
-                    We'll reach out within one business day. Meanwhile, check your
-                    inbox for a quick commissioning checklist.
-                  </p>
-                  <Button
-                    onClick={scrollToTop}
-                    variant="outline"
-                    className="rounded-xl px-6 py-3"
-                  >
-                    Back to Top
-                  </Button>
-                </div>
-              )}
-            </div>
+                </form>
+              </>
+            ) : (
+              <div className="py-32 text-center space-y-8">
+                <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-energy">
+                  Received · {new Date().toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" })}
+                </p>
+                <h3 className="font-display text-5xl md:text-7xl font-light leading-[0.95]">
+                  Thank you.<br/>
+                  <em className="italic text-charcoal/70">We'll write back.</em>
+                </h3>
+                <p className="text-lg font-light text-charcoal/75 max-w-md mx-auto leading-relaxed">
+                  We'll reach out within one business day. Meanwhile, check your inbox
+                  for a quick commissioning checklist.
+                </p>
+                <button
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="font-mono text-xs uppercase tracking-[0.3em] text-charcoal/60 hover:text-charcoal border-b border-charcoal/30 pb-1"
+                >
+                  ← Back to top
+                </button>
+              </div>
+            )}
           </div>
         </section>
+
+        <footer className="px-6 md:px-12 lg:px-20 pb-16">
+          <div className="mx-auto max-w-screen-xl">
+            <FolioStrip left="END · INSTALLER ISSUE" right="NESS · POWERED BY DIGITAL TRUST" />
+          </div>
+        </footer>
       </div>
     </Layout>
   );
 };
+
+const LetterField = ({
+  n,
+  label,
+  error,
+  children,
+}: {
+  n: string;
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}) => (
+  <div className="grid grid-cols-12 gap-4 items-baseline">
+    <div className="col-span-12 md:col-span-2">
+      <p className="font-display text-3xl font-light text-charcoal/30">{n}</p>
+      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-charcoal/60 mt-1">
+        {label}
+      </p>
+    </div>
+    <div className="col-span-12 md:col-span-10">
+      {children}
+      {error && <p className="mt-2 text-xs text-red-700 font-mono uppercase tracking-wider" role="alert">{error}</p>}
+    </div>
+  </div>
+);
 
 export default ContactInstaller;

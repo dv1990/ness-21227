@@ -1,295 +1,456 @@
 import { useEffect, memo } from "react";
 import Layout from "@/components/Layout";
-import { Button } from "@/components/ui/button";
-import { WebPImage } from "@/components/ui/webp-image";
-import { Check, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
-import { GradientOrbField } from "@/components/ui/gradient-orb";
-import { SmoothFade } from "@/components/ui/smooth-animations";
+import { WebPImage } from "@/components/ui/webp-image";
+import { ArrowRight } from "lucide-react";
 
-// Import images
 import nessPodProduct from "@/assets-webp/ness-pod-product.webp";
+
+// ─── A single contract clause ────────────────────────────────────────────────
+
+const Clause = ({
+  numeral,
+  title,
+  children,
+}: {
+  numeral: string;
+  title: string;
+  children: React.ReactNode;
+}) => (
+  <article className="grid grid-cols-12 gap-4 md:gap-8 border-b border-charcoal/20 py-10 md:py-14">
+    <div className="col-span-12 md:col-span-2">
+      <div className="font-display font-light text-6xl md:text-7xl text-charcoal tabular-nums leading-none">
+        {numeral}
+      </div>
+      <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40 mt-3">
+        Clause {numeral}
+      </div>
+    </div>
+    <div className="col-span-12 md:col-span-3">
+      <h3 className="font-display font-light text-xl md:text-2xl text-charcoal leading-tight tracking-tight">
+        {title}
+      </h3>
+    </div>
+    <div className="col-span-12 md:col-span-7 font-serif text-base md:text-lg text-charcoal/85 leading-[1.75] space-y-4">
+      {children}
+    </div>
+  </article>
+);
 
 const TrueWarranty = () => {
   useEffect(() => {
-    // Set page title
     document.title = "True Warranty | NESS Energy";
-
-    // Smooth scroll
-    document.documentElement.style.scrollBehavior = 'smooth';
+    document.documentElement.style.scrollBehavior = "smooth";
     return () => {
-      document.documentElement.style.scrollBehavior = 'auto';
+      document.documentElement.style.scrollBehavior = "auto";
     };
   }, []);
 
   return (
     <Layout className="-mt-16">
-      {/* 1) Hero - The Warranty. All of It. */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-charcoal">
-        <div className="max-w-5xl mx-auto px-6 md:px-12 relative z-10 py-20 md:py-32">
-          <div className="space-y-16 md:space-y-20 animate-fade-in">
-            {/* The Actual Warranty */}
-            <div className="space-y-8 text-center">
-              <h1 className="font-light text-5xl sm:text-6xl md:text-7xl text-pearl leading-tight tracking-tight">
-                10 Years.<br />
-                Full Replacement.<br />
-                <span className="font-light">No Asterisks.</span>
+      {/* ───── FRONTISPIECE · THE PACT ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 pt-28 md:pt-36 pb-16">
+          <div className="border-t-2 border-charcoal pt-3 flex items-center justify-between font-mono text-[10px] md:text-[11px] uppercase tracking-[0.22em] text-charcoal/70">
+            <span>The Pact</span>
+            <span className="hidden md:inline">A Ten-Year Promise · Bonded</span>
+            <span>NESS · Bangalore</span>
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-24">
+            <div className="col-span-12 md:col-span-9">
+              <div className="font-mono text-[10px] uppercase tracking-[0.3em] text-charcoal/50 mb-6">
+                Issued in plain English · 347 words · No asterisks
+              </div>
+              <h1 className="font-display font-extralight text-[16vw] md:text-[12vw] lg:text-[150px] leading-[0.82] tracking-[-0.04em] text-charcoal">
+                The
+                <br />
+                <em className="italic font-light">pact</em>
+                <span className="text-energy">.</span>
               </h1>
+            </div>
 
-              <p className="text-xl md:text-2xl font-light text-pearl/60 max-w-2xl mx-auto">
-                That's the whole story.
+            {/* The seal */}
+            <aside className="col-span-12 md:col-span-3 md:pt-6 flex md:justify-end">
+              <div className="relative w-40 h-40 md:w-44 md:h-44">
+                <div className="absolute inset-0 rounded-full border-2 border-energy" />
+                <div className="absolute inset-2 rounded-full border border-energy/40 border-dashed" />
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-energy">
+                    Sealed · Stamped
+                  </div>
+                  <div className="font-display font-light text-3xl text-charcoal mt-2 leading-none">
+                    X
+                  </div>
+                  <div className="font-display font-light text-3xl text-charcoal leading-none">
+                    YEARS
+                  </div>
+                  <div className="font-mono text-[9px] uppercase tracking-[0.3em] text-energy mt-2">
+                    NESS · MMXXVI
+                  </div>
+                </div>
+                <svg
+                  className="absolute inset-0 w-full h-full animate-[spin_60s_linear_infinite]"
+                  viewBox="0 0 100 100"
+                  aria-hidden
+                >
+                  <path
+                    id="seal-text"
+                    d="M 50,50 m -42,0 a 42,42 0 1,1 84,0 a 42,42 0 1,1 -84,0"
+                    fill="none"
+                  />
+                  <text className="fill-charcoal/60 font-mono" style={{ fontSize: "5px", letterSpacing: "0.3em", textTransform: "uppercase" }}>
+                    <textPath href="#seal-text">
+                      A ten-year promise · plain english · no fine print ·
+                    </textPath>
+                  </text>
+                </svg>
+              </div>
+            </aside>
+          </div>
+
+          {/* Opening — solemn declaration */}
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-16 md:mt-24">
+            <div className="col-span-12 md:col-span-9 md:col-start-2">
+              <p className="font-serif text-3xl md:text-5xl text-charcoal leading-[1.18] tracking-tight first-letter:font-display first-letter:text-[10rem] md:first-letter:text-[14rem] first-letter:font-light first-letter:float-left first-letter:mr-5 first-letter:mt-3 first-letter:leading-[0.78] first-letter:text-energy">
+                I, NESS, do solemnly promise this: if your battery fails within ten years, we
+                replace it — <em className="font-display font-light not-italic underline decoration-energy decoration-2 underline-offset-[6px]">completely, freely, without ceremony.</em>{" "}
+                That is the whole story.
               </p>
             </div>
+          </div>
 
-            {/* The Warranty Text - Upfront */}
-            <div className="bg-pearl/[0.03] border border-pearl/10 rounded-2xl p-8 md:p-12 text-left space-y-6">
-              <div className="flex items-start gap-4 pb-6 border-b border-pearl/10">
-                <Shield className="w-6 h-6 text-pearl/60 flex-shrink-0 mt-1" />
-                <div>
-                  <h2 className="text-2xl font-normal text-pearl mb-2">Our Warranty Promise</h2>
-                  <p className="text-sm text-pearl/60">347 words. Plain English.</p>
-                </div>
-              </div>
-
-              <div className="space-y-4 text-base md:text-lg text-pearl/80 leading-relaxed">
-                <p className="font-normal text-pearl">
-                  If your NESS battery fails within 10 years, we replace it. Completely. Free.
-                </p>
-
-                <p>
-                  Or, if you prefer, we give you a pro-rata refund based on remaining warranty period. Your choice.
-                </p>
-
-                <p>
-                  We monitor every battery 24/7. If we see a problem developing, we call you before you call us. Most issues are caught before they affect your power.
-                </p>
-
-                <p>
-                  No waiting 5 years for repairs. No lab-condition clauses. No blame-shifting. Your battery works in 45°C Indian summers with real loads, or we replace it.
-                </p>
-
-                <p className="font-normal text-pearl pt-4">
-                  That's it. That's our warranty.
-                </p>
-              </div>
+          {/* Three stat shelves */}
+          <div className="mt-20 md:mt-28 grid grid-cols-12 border-y border-charcoal">
+            <div className="col-span-4 py-6 px-4 border-r border-charcoal/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Replaced, no questions</div>
+              <div className="font-display font-extralight text-5xl md:text-7xl tabular-nums text-charcoal mt-2">02</div>
             </div>
-
-            {/* Proof */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 pt-8">
-              <div className="text-center space-y-2">
-                <div className="text-3xl sm:text-5xl font-light text-pearl">2</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Batteries replaced.<br />No questions asked.</div>
-              </div>
-              <div className="text-center space-y-2">
-                <div className="text-3xl sm:text-5xl font-light text-pearl">48hrs</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Average claim<br />processing time</div>
-              </div>
-              <div className="text-center space-y-2 col-span-2 sm:col-span-1">
-                <div className="text-3xl sm:text-5xl font-light text-pearl">100%</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Valid claims<br />honored</div>
-              </div>
+            <div className="col-span-4 py-6 px-4 border-r border-charcoal/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Avg. claim processing</div>
+              <div className="font-display font-extralight text-5xl md:text-7xl tabular-nums text-charcoal mt-2">48<span className="text-charcoal/40 text-2xl md:text-3xl align-top">h</span></div>
+            </div>
+            <div className="col-span-4 py-6 px-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Valid claims honored</div>
+              <div className="font-display font-extralight text-5xl md:text-7xl tabular-nums text-charcoal mt-2">100<span className="text-charcoal/40 text-2xl md:text-3xl align-top">%</span></div>
             </div>
           </div>
+
+          <div className="mt-12 text-center font-mono text-charcoal/30 tracking-[0.5em]">⁂</div>
         </div>
       </section>
 
-      {/* 2) How We Keep This Promise */}
-      <section className="py-24 md:py-32 bg-graphite">
-        <div className="max-w-5xl mx-auto px-6 md:px-12">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div className="space-y-8 animate-fade-in">
-              <h2 className="text-5xl sm:text-6xl md:text-7xl font-light text-pearl leading-[1.05] tracking-tight">
-                We see problems<br />
-                <span className="font-light">before you do.</span>
+      {/* ───── THE FIVE CLAUSES ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60 flex items-center gap-4 mb-12">
+            <span className="text-charcoal">The Articles</span>
+            <span className="h-px flex-1 bg-charcoal/20" />
+            <span>Five clauses · in plain English</span>
+          </div>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mb-16">
+            <div className="col-span-12 md:col-span-9">
+              <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl text-charcoal leading-[0.9] tracking-[-0.035em]">
+                Our warranty,
+                <br />
+                <em className="font-extralight text-charcoal/40">in five clauses.</em>
               </h2>
-              <p className="text-xl md:text-2xl font-light text-pearl/60 leading-relaxed">
-                Every battery connects to us. If something's wrong at 2 AM, we call you at 9 AM. Before your power goes out.
-              </p>
-              <p className="text-lg text-pearl/60 leading-relaxed">
-                That's not marketing. That's how we keep our warranty costs down and your lights on.
-              </p>
             </div>
-            <div className="animate-fade-in">
-              <WebPImage
-                src={nessPodProduct}
-                alt="NESS Pod Battery"
-                className="w-full"
-                priority={false}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3) What Makes It Different */}
-      <section className="py-32 md:py-48 bg-charcoal">
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
-          {/* Section header */}
-          <div className="text-center mb-24 md:mb-32">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-light text-pearl mb-8 leading-tight tracking-tight">
-              What makes it<br />
-              <span className="font-light">different?</span>
-            </h2>
-            <p className="text-xl md:text-2xl font-light text-pearl/60 max-w-2xl mx-auto">
-              Three things that actually matter.
-            </p>
+            <aside className="col-span-12 md:col-span-3 md:pt-4">
+              <p className="font-serif italic text-charcoal/60 text-sm leading-[1.6]">
+                Three hundred and forty-seven words — printed here in full, so there is nothing
+                hidden in the corner of a page you wouldn't read.
+              </p>
+            </aside>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-
-            {/* Market Card */}
-            <div className="space-y-12 animate-fade-in">
-              <div className="pb-6 border-b border-pearl/10">
-                <h3 className="text-3xl font-light text-pearl/60">Others</h3>
-              </div>
-
-              <div className="space-y-10">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full border-2 border-pearl/40"></div>
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-light text-pearl/70 mb-2">Repair only after 5 years</p>
-                    <p className="text-base text-pearl/60">If it fails, you wait. And hope.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full border-2 border-pearl/40"></div>
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-light text-pearl/70 mb-2">Lab conditions</p>
-                    <p className="text-base text-pearl/60">25°C tests. Not your reality.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <div className="w-8 h-8 rounded-full border-2 border-pearl/40"></div>
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-light text-pearl/70 mb-2">Blame shifting</p>
-                    <p className="text-base text-pearl/60">Pages of exclusions and asterisks.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* NESS Card */}
-            <div className="space-y-12 animate-fade-in">
-              <div className="pb-6 border-b border-pearl/20">
-                <h3 className="text-3xl font-light text-pearl">NESS</h3>
-              </div>
-
-              <div className="space-y-10">
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-8 h-8 text-energy" strokeWidth={2} />
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-normal text-pearl mb-2">Full replacement. All 10 years.</p>
-                    <p className="text-base text-pearl/60">Or pro rata refund. Your choice.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-8 h-8 text-energy" strokeWidth={2} />
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-normal text-pearl mb-2">Real-world tested</p>
-                    <p className="text-base text-pearl/60">45°C Indian summers. Actual loads.</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start gap-6">
-                  <div className="w-16 h-16 rounded-full bg-pearl/10 flex items-center justify-center flex-shrink-0">
-                    <Check className="w-8 h-8 text-energy" strokeWidth={2} />
-                  </div>
-                  <div className="pt-2">
-                    <p className="text-2xl font-normal text-pearl mb-2">We stand with you</p>
-                    <p className="text-base text-pearl/60">Plain language. Zero fine print.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 4) A Principle That Costs Us */}
-      <section className="py-32 md:py-48 bg-graphite">
-        <div className="max-w-4xl mx-auto px-6 md:px-12">
-          <div className="text-center space-y-16 animate-fade-in">
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-light text-pearl leading-tight tracking-tight">
-              Why we can afford<br />
-              <span className="font-light">this warranty.</span>
-            </h2>
-
-            <div className="text-left space-y-8 text-lg md:text-xl text-pearl/80 leading-relaxed max-w-3xl mx-auto">
-              <p className="font-normal text-pearl text-2xl">
-                Other companies spend millions on marketing.
-              </p>
-
+          {/* Clauses */}
+          <div className="border-t-2 border-charcoal">
+            <Clause numeral="I" title="The Replacement">
               <p>
-                We spend it on better batteries. Better testing. Better monitoring.
+                If your NESS battery fails within ten years, we replace it.{" "}
+                <em className="text-charcoal font-display not-italic">Completely. Free.</em>
               </p>
-
               <p>
-                Our warranty costs us money when competitors walk away. But it costs us less than their marketing budgets.
+                Or, if you prefer, we give you a pro-rata refund based on the remaining warranty
+                period. Your choice — never ours.
               </p>
+            </Clause>
 
-              <p className="font-normal text-pearl text-2xl pt-8">
-                And you get a battery that actually works.
+            <Clause numeral="II" title="The Watch">
+              <p>
+                We monitor every battery, every hour, every day. If we see a problem developing,
+                we call you before you call us. Most issues are caught long before they affect
+                your power.
               </p>
-            </div>
+              <p className="font-serif italic text-charcoal/60 text-sm">
+                — That's not marketing. That's how we keep our warranty costs down and your lights on.
+              </p>
+            </Clause>
 
-            {/* Simple Stats */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 pt-12 max-w-3xl mx-auto">
-              <div className="text-center space-y-2 sm:space-y-3">
-                <div className="text-2xl sm:text-4xl font-light text-pearl">4 Years</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Testing before<br />market launch</div>
-              </div>
-              <div className="text-center space-y-2 sm:space-y-3">
-                <div className="text-2xl sm:text-4xl font-light text-pearl">25,000+</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Charge cycles<br />proven</div>
-              </div>
-              <div className="text-center space-y-2 sm:space-y-3 col-span-2 sm:col-span-1">
-                <div className="text-2xl sm:text-4xl font-light text-pearl">45°C</div>
-                <div className="text-xs sm:text-sm text-pearl/60">Real Indian<br />summer testing</div>
-              </div>
-            </div>
+            <Clause numeral="III" title="The Real World">
+              <p>
+                Your battery works in 45°C Indian summers with real loads, or we replace it. No
+                lab-condition clauses. No 25°C fine print. No paragraph that mysteriously
+                excludes the place you live.
+              </p>
+            </Clause>
+
+            <Clause numeral="IV" title="No Blame-Shifting">
+              <p>
+                No waiting five years for repairs while the warranty quietly converts to a
+                pro-rata trickle. No paragraph that says the installer voided it. No paragraph
+                that says the weather voided it.
+              </p>
+              <p>
+                If our battery fails, that is our problem. Not yours.
+              </p>
+            </Clause>
+
+            <Clause numeral="V" title="The Whole Story">
+              <p className="font-display font-light text-charcoal not-italic text-xl md:text-2xl leading-snug">
+                That's it. That's our warranty.
+              </p>
+              <p className="font-serif italic text-charcoal/60">
+                Three hundred and forty-seven words. Plain English. Sealed in this pact and
+                signed beneath.
+              </p>
+            </Clause>
           </div>
         </div>
       </section>
 
-      {/* 5) Closing - The Full Document */}
-      <section id="warranty-terms" className="py-32 md:py-48 bg-charcoal text-pearl relative overflow-hidden">
-        <div className="max-w-4xl mx-auto px-6 md:px-12 text-center relative z-10">
-          <div className="space-y-16 md:space-y-20">
-            <div className="space-y-8 animate-fade-in">
-              <h2 className="text-5xl sm:text-6xl md:text-7xl font-light leading-tight tracking-tight">
-                Download the full warranty.<br />
-                <span className="font-light">All 347 words.</span>
+      {/* ───── HOW WE KEEP THIS PROMISE ───── */}
+      <section className="bg-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="grid grid-cols-12 gap-4 md:gap-8 items-center">
+            <div className="col-span-12 md:col-span-7 space-y-8">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60 flex items-center gap-4">
+                <span className="text-charcoal">An aside ·</span>
+                <span>How the pact is kept</span>
+              </div>
+
+              <h2 className="font-display font-light text-5xl md:text-7xl text-charcoal leading-[0.95] tracking-[-0.03em]">
+                We see problems
+                <br />
+                <em className="font-extralight text-charcoal/40">before you do.</em>
               </h2>
-              <p className="text-xl md:text-2xl font-light opacity-70 max-w-2xl mx-auto">
-                Written in plain English. No legal degree needed.
+
+              <p className="font-serif text-xl md:text-2xl text-charcoal/80 leading-[1.55] first-letter:font-display first-letter:text-7xl first-letter:font-light first-letter:float-left first-letter:mr-3 first-letter:mt-1 first-letter:leading-[0.85] first-letter:text-energy">
+                Every battery talks to us. If something is wrong at 2 AM, we call you at 9 AM —
+                before your power goes out. That is the entire trick. The warranty is the
+                visible part of a discipline that begins long before the truck leaves the
+                factory.
               </p>
+
+              <div className="pt-4 border-t border-charcoal/20 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">
+                Footnote † — see Clause II
+              </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 animate-fade-in">
-              <Button asChild className="bg-pearl text-charcoal hover:bg-pearl/90 px-8 sm:px-12 py-6 text-base rounded-full transition-all duration-300 hover:scale-105 w-full sm:w-auto font-normal shadow-lg min-h-[48px]">
-                <Link to="/downloads">Download Warranty PDF</Link>
-              </Button>
+            <figure className="col-span-12 md:col-span-5">
+              <div className="bg-whisper p-6 md:p-10">
+                <WebPImage src={nessPodProduct} alt="NESS Pod Battery" className="w-full" priority={false} />
+              </div>
+              <figcaption className="mt-3 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60 flex items-baseline gap-3">
+                <span className="text-charcoal">Plate I</span>
+                <span className="h-px w-6 bg-charcoal/30" />
+                <span className="font-serif italic normal-case tracking-normal text-charcoal/70 text-sm">
+                  The unit that bears this promise.
+                </span>
+              </figcaption>
+            </figure>
+          </div>
 
-              <Button
-                asChild
-                variant="outline"
-                className="border border-pearl/40 bg-transparent text-pearl hover:bg-pearl/10 hover:border-pearl/60 px-8 sm:px-12 py-6 text-base rounded-full transition-all duration-300 w-full sm:w-auto font-normal min-h-[48px]"
-              >
-                <Link to="/contact/homeowner">Ask Us Anything</Link>
-              </Button>
+          <div className="mt-20 text-center font-mono text-charcoal/30 tracking-[0.5em]">§ § §</div>
+        </div>
+      </section>
+
+      {/* ───── COMPARISON · TWO COLUMNS ───── */}
+      <section className="bg-whisper">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60 flex items-center gap-4 mb-12">
+            <span className="text-charcoal">A comparison</span>
+            <span className="h-px flex-1 bg-charcoal/20" />
+            <span>Side by side · for the record</span>
+          </div>
+
+          <h2 className="font-display font-light text-5xl md:text-7xl text-charcoal leading-[0.95] tracking-[-0.035em] mb-16">
+            What makes it
+            <br />
+            <em className="font-extralight text-charcoal/40">different?</em>
+          </h2>
+
+          <div className="grid md:grid-cols-2 gap-0 border-y-2 border-charcoal">
+            {/* Others */}
+            <div className="md:border-r border-charcoal/30">
+              <div className="px-2 md:px-8 py-6 border-b border-charcoal/20">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/40">
+                  Column A
+                </div>
+                <h3 className="font-display font-extralight text-3xl md:text-4xl text-charcoal/50 mt-1">
+                  Others
+                </h3>
+              </div>
+              {[
+                { h: "Repair only after 5 years", s: "If it fails, you wait. And hope." },
+                { h: "Lab conditions", s: "25°C tests. Not your reality." },
+                { h: "Blame-shifting", s: "Pages of exclusions and asterisks." },
+              ].map((c, i) => (
+                <div
+                  key={c.h}
+                  className={`px-2 md:px-8 py-8 ${i < 2 ? "border-b border-charcoal/15" : ""}`}
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-display font-light text-3xl text-charcoal/40 tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex-1">
+                      <p className="font-serif text-xl text-charcoal/60">{c.h}</p>
+                      <p className="font-serif italic text-sm text-charcoal/50 mt-1">{c.s}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* NESS */}
+            <div className="border-t md:border-t-0 border-charcoal/30">
+              <div className="px-2 md:px-8 py-6 border-b border-charcoal/20 bg-charcoal/5">
+                <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-energy">
+                  Column B · this pact
+                </div>
+                <h3 className="font-display font-light text-3xl md:text-4xl text-charcoal mt-1">
+                  NESS
+                </h3>
+              </div>
+              {[
+                { h: "Full replacement. All 10 years.", s: "Or pro-rata refund. Your choice." },
+                { h: "Real-world tested", s: "45°C Indian summers. Actual loads." },
+                { h: "We stand with you", s: "Plain language. Zero fine print." },
+              ].map((c, i) => (
+                <div
+                  key={c.h}
+                  className={`px-2 md:px-8 py-8 ${i < 2 ? "border-b border-charcoal/15" : ""}`}
+                >
+                  <div className="flex items-baseline gap-4">
+                    <span className="font-display font-light text-3xl text-energy tabular-nums">
+                      {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <div className="flex-1">
+                      <p className="font-serif text-xl text-charcoal">{c.h}</p>
+                      <p className="font-serif italic text-sm text-charcoal/60 mt-1">{c.s}</p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── A PRINCIPLE THAT COSTS US ───── */}
+      <section className="bg-charcoal text-pearl">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/60 flex items-center gap-4 mb-12">
+            <span className="text-pearl">A confession</span>
+            <span className="h-px flex-1 bg-pearl/20" />
+            <span>Why we can afford this</span>
+          </div>
+
+          <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl leading-[0.9] tracking-[-0.035em]">
+            Why we can afford
+            <br />
+            <em className="font-extralight text-pearl/40">this warranty.</em>
+          </h2>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12 md:mt-16">
+            <div className="col-span-12 md:col-span-8 md:col-start-3 space-y-8">
+              <p className="font-serif text-2xl md:text-3xl text-pearl leading-[1.4] first-letter:font-display first-letter:text-8xl first-letter:font-light first-letter:float-left first-letter:mr-4 first-letter:mt-2 first-letter:leading-[0.78] first-letter:text-energy">
+                Other companies spend millions on marketing. We spend it on better batteries.
+                Better testing. Better monitoring.
+              </p>
+
+              <p className="font-serif text-lg md:text-xl text-pearl/70 leading-[1.7] pl-4 border-l-2 border-energy">
+                Our warranty costs us money when competitors walk away. But it costs us less
+                than their marketing budgets. And you — you get a battery that actually works.
+              </p>
+            </div>
+          </div>
+
+          {/* Three figures */}
+          <div className="mt-20 md:mt-24 grid grid-cols-12 border-y border-pearl/20">
+            <div className="col-span-4 py-8 px-4 border-r border-pearl/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">Pre-launch testing</div>
+              <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl mt-3">04<span className="text-pearl/40 text-lg md:text-xl align-top ml-2">years</span></div>
+            </div>
+            <div className="col-span-4 py-8 px-4 border-r border-pearl/15">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">Charge cycles proven</div>
+              <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl mt-3">25,000<span className="text-energy">+</span></div>
+            </div>
+            <div className="col-span-4 py-8 px-4">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-pearl/40">Indian-summer testing</div>
+              <div className="font-display font-extralight text-4xl md:text-6xl tabular-nums text-pearl mt-3">45<span className="text-pearl/40 text-2xl md:text-3xl align-top">°C</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ───── THE FULL DOCUMENT ───── */}
+      <section id="warranty-terms" className="bg-pearl">
+        <div className="max-w-5xl mx-auto px-6 md:px-12 py-24 md:py-32">
+          <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/60 flex items-center gap-4 mb-12">
+            <span className="text-charcoal">Colophon</span>
+            <span className="h-px flex-1 bg-charcoal/20" />
+            <span>The whole document · signed</span>
+          </div>
+
+          <h2 className="font-display font-light text-5xl md:text-7xl lg:text-8xl text-charcoal leading-[0.9] tracking-[-0.035em]">
+            Download the
+            <br />
+            full warranty.
+            <br />
+            <em className="font-extralight text-energy">All 347 words.</em>
+          </h2>
+
+          <div className="grid grid-cols-12 gap-4 md:gap-6 mt-12">
+            <div className="col-span-12 md:col-span-9">
+              <p className="font-serif text-xl md:text-2xl text-charcoal/80 leading-[1.55]">
+                Written in plain English. No legal degree needed. The document is identical to
+                the clauses printed above — just stamped, sealed, and signed for your records.
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-12 flex flex-col sm:flex-row gap-4">
+            <Link
+              to="/downloads"
+              className="inline-flex items-center gap-3 px-6 py-4 bg-charcoal text-pearl font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-charcoal/90 transition-colors"
+            >
+              Download warranty PDF <ArrowRight className="w-4 h-4" />
+            </Link>
+            <Link
+              to="/contact/homeowner"
+              className="inline-flex items-center gap-3 px-6 py-4 border border-charcoal/40 text-charcoal font-mono text-[11px] uppercase tracking-[0.22em] hover:bg-charcoal hover:text-pearl transition-colors"
+            >
+              Ask us anything
+            </Link>
+          </div>
+
+          {/* Signature block */}
+          <div className="mt-20 md:mt-28 grid grid-cols-12 gap-4 md:gap-8 border-t border-charcoal pt-8">
+            <div className="col-span-12 md:col-span-6">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Signed for the issuer</div>
+              <div className="mt-3 font-display italic font-light text-3xl text-charcoal">NESS, by Nunam</div>
+              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Bangalore · A ten-year promise</div>
+            </div>
+            <div className="col-span-12 md:col-span-6 md:text-right">
+              <div className="font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Filed under</div>
+              <div className="mt-3 font-serif italic text-charcoal/80 text-lg">
+                The Pact · Ten-Year Promise
+              </div>
+              <div className="mt-1 font-mono text-[10px] uppercase tracking-[0.22em] text-charcoal/50">Page 04 / 04</div>
             </div>
           </div>
         </div>
