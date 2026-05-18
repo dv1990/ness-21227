@@ -1,6 +1,32 @@
 import Layout from "@/components/Layout";
+import SEO from "@/components/SEO";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+
+const aboutLocalBusinessLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: "NESS Energy Systems",
+  url: "https://ness.energy",
+  email: "hello@ness.energy",
+  telephone: "+91-80-1234-5678",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "123 Tech Park, Whitefield",
+    addressLocality: "Bangalore",
+    addressRegion: "Karnataka",
+    postalCode: "560066",
+    addressCountry: "IN",
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      opens: "09:00",
+      closes: "18:00",
+    },
+  ],
+};
 import { GradientOrbField } from "@/components/ui/gradient-orb";
 import { SmoothFade } from "@/components/ui/smooth-animations";
 
