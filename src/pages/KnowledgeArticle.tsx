@@ -1897,6 +1897,29 @@ const KnowledgeArticle = () => {
 
   return (
     <Layout>
+      <SEO
+        title={`${article.title} — NESS Knowledge`}
+        description={article.subtitle}
+        path={`/knowledge/${slug}`}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          headline: article.title,
+          description: article.subtitle,
+          datePublished: article.date,
+          author: {
+            "@type": article.byline?.toLowerCase().includes("ness") ? "Organization" : "Person",
+            name: article.byline || "NESS Energy Systems",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "NESS Energy Systems",
+            url: "https://ness.energy",
+          },
+          mainEntityOfPage: `https://ness.energy/knowledge/${slug}`,
+        }}
+      />
       {/* ─── FOLIO STRIP ─────────────────────────────────────────── */}
       <div className="bg-background border-b border-foreground/10 pt-20 sm:pt-24">
         <div className="container mx-auto px-4 sm:px-6">
