@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Layout from "@/components/Layout";
+import SEO from "@/components/SEO";
 import { ArrowLeft, Share2, Bookmark, CheckCircle, XCircle, Zap, Battery, Sun, TrendingUp, Shield, AlertTriangle, Star, ArrowRight, Calculator, Lightbulb, Fan, Wifi, Smartphone, Refrigerator, AirVent, Droplets, Car, Crown, Sparkles, Home, Building2, Gauge, Clock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
